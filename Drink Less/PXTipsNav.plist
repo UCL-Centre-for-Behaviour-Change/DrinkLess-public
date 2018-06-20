@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>Drinking guidelines</string>
+		<key>resource</key>
+		<string>drinking-guidelines</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Harms of drinking</string>
+		<key>resource</key>
+		<string>harms-of-drinking</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Benefits of not drinking</string>
+		<key>resource</key>
+		<string>benefits-of-not-drinking</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Good goal setting</string>
+		<key>resource</key>
+		<string>good-goal-setting</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Setting a plan for action</string>
+		<key>resource</key>
+		<string>action-plans</string>
+	</dict>
+</array>
+</plist>

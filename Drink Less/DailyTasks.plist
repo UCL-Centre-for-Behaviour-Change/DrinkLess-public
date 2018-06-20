@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>approach-avoidance</key>
+	<dict>
+		<key>title</key>
+		<string>Playing the &apos;Yes Please, No Thanks&apos; game</string>
+		<key>random</key>
+		<true/>
+	</dict>
+	<key>identity</key>
+	<dict>
+		<key>title</key>
+		<string>Using the features in Drink + Me</string>
+		<key>group</key>
+		<string>highID</string>
+		<key>random</key>
+		<true/>
+	</dict>
+	<key>normative-misperceptions</key>
+	<dict>
+		<key>title</key>
+		<string>Reviewing how your drinking compares</string>
+		<key>group</key>
+		<string>highNM</string>
+		<key>random</key>
+		<true/>
+	</dict>
+	<key>action-plans</key>
+	<dict>
+		<key>title</key>
+		<string>Reviewing your action plans, or setting some up</string>
+		<key>group</key>
+		<string>highAP</string>
+		<key>random</key>
+		<true/>
+	</dict>
+	<key>alcohol-effects</key>
+	<dict>
+		<key>title</key>
+		<string>Having a look at how heavy drinking affects your mood</string>
+		<key>group</key>
+		<string>highSM</string>
+		<key>random</key>
+		<true/>
+	</dict>
+	<key>record-drinks</key>
+	<dict>
+		<key>title</key>
+		<string>Logging your drinks each day</string>
+		<key>group</key>
+		<string>highSM</string>
+	</dict>
+	<key>follow-up</key>
+	<dict>
+		<key>title</key>
+		<string>See how your drinking has changed?</string>
+	</dict>
+</dict>
+</plist>

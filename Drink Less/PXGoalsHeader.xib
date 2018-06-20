@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PXGoalsHeader">
+            <connections>
+                <outlet property="contentView" destination="37A-zd-hhf" id="1au-MT-FXU"/>
+                <outlet property="placeholderView" destination="bX4-k5-sYj" id="4kB-4t-Zwb"/>
+                <outlet property="textView" destination="Jvi-3o-lzl" id="afn-P9-Xk1"/>
+                <outlet property="textViewHeightConstraint" destination="AmC-lf-yif" id="ojx-gr-iru"/>
+                <outlet property="titleLabel" destination="sqO-Pa-iDe" id="Tzz-Em-ZW0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="bX4-k5-sYj">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3n-0N-CKN">
+                    <rect key="frame" x="15" y="15" width="290" height="87"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I want to drink less because..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwe-SG-6ax">
+                            <rect key="frame" x="0.0" y="66" width="290" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.59999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="241" image="Add-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Bek-H7-RUo">
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="56"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Bek-H7-RUo" secondAttribute="trailing" id="3Hy-l0-1rC"/>
+                        <constraint firstAttribute="bottom" secondItem="wwe-SG-6ax" secondAttribute="bottom" id="7Bm-TR-9cC"/>
+                        <constraint firstItem="wwe-SG-6ax" firstAttribute="leading" secondItem="j3n-0N-CKN" secondAttribute="leading" id="VZl-FC-iPa"/>
+                        <constraint firstItem="wwe-SG-6ax" firstAttribute="top" secondItem="Bek-H7-RUo" secondAttribute="bottom" constant="10" id="efp-Y4-uTj"/>
+                        <constraint firstItem="Bek-H7-RUo" firstAttribute="top" secondItem="j3n-0N-CKN" secondAttribute="top" id="exh-Wf-3YB"/>
+                        <constraint firstAttribute="trailing" secondItem="wwe-SG-6ax" secondAttribute="trailing" id="yey-Tf-2Et"/>
+                        <constraint firstItem="Bek-H7-RUo" firstAttribute="leading" secondItem="j3n-0N-CKN" secondAttribute="leading" id="zBy-Dg-Kpx"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.93999999999999995" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="j3n-0N-CKN" secondAttribute="trailing" constant="15" id="3f3-pP-n0C"/>
+                <constraint firstItem="j3n-0N-CKN" firstAttribute="leading" secondItem="bX4-k5-sYj" secondAttribute="leading" constant="15" id="B9H-T6-iwE"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="j3n-0N-CKN" secondAttribute="bottom" constant="15" id="I9b-vI-WS5"/>
+                <constraint firstItem="j3n-0N-CKN" firstAttribute="top" secondItem="bX4-k5-sYj" secondAttribute="top" constant="15" id="do7-6m-3LK"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="3qt-cB-d2g" appends="YES" id="7I6-Vw-Jk3"/>
+            </connections>
+            <point key="canvasLocation" x="227" y="140"/>
+        </view>
+        <view contentMode="scaleToFill" id="37A-zd-hhf">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o4K-0Q-BfS">
+                    <rect key="frame" x="15" y="15" width="290" height="88.5"/>
+                    <subviews>
+                        <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium." translatesAutoresizingMaskIntoConstraints="NO" id="Jvi-3o-lzl">
+                            <rect key="frame" x="0.0" y="24.5" width="290" height="64"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="64" id="AmC-lf-yif"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="jcF-1r-4Q4"/>
+                            </connections>
+                        </textView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I want to drink less because:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqO-Pa-iDe">
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="0.59999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="sqO-Pa-iDe" secondAttribute="trailing" id="10F-QO-SEI"/>
+                        <constraint firstItem="Jvi-3o-lzl" firstAttribute="leading" secondItem="o4K-0Q-BfS" secondAttribute="leading" id="FlU-l3-Dqe"/>
+                        <constraint firstAttribute="trailing" secondItem="Jvi-3o-lzl" secondAttribute="trailing" id="QP5-Uz-Gs7"/>
+                        <constraint firstItem="Jvi-3o-lzl" firstAttribute="top" secondItem="sqO-Pa-iDe" secondAttribute="bottom" constant="5" id="bPK-aV-k1q"/>
+                        <constraint firstItem="sqO-Pa-iDe" firstAttribute="leading" secondItem="o4K-0Q-BfS" secondAttribute="leading" id="ePC-nB-A8d"/>
+                        <constraint firstItem="sqO-Pa-iDe" firstAttribute="top" secondItem="o4K-0Q-BfS" secondAttribute="top" id="gtl-4A-s4c"/>
+                        <constraint firstAttribute="bottom" secondItem="Jvi-3o-lzl" secondAttribute="bottom" id="oHG-xe-Vp8"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.93999999999999995" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="o4K-0Q-BfS" firstAttribute="leading" secondItem="37A-zd-hhf" secondAttribute="leading" constant="15" id="1gq-lX-YbW"/>
+                <constraint firstItem="o4K-0Q-BfS" firstAttribute="top" secondItem="37A-zd-hhf" secondAttribute="top" constant="15" id="ZkW-2t-tAG"/>
+                <constraint firstAttribute="trailing" secondItem="o4K-0Q-BfS" secondAttribute="trailing" constant="15" id="ZnB-2e-HDb"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="o4K-0Q-BfS" secondAttribute="bottom" constant="15" id="mOh-od-DFY"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="227" y="343"/>
+        </view>
+        <tapGestureRecognizer id="3qt-cB-d2g">
+            <connections>
+                <action selector="tappedPlaceholder:" destination="-1" id="iDa-8n-rTz"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="Add-Placeholder" width="56" height="56"/>
+    </resources>
+</document>

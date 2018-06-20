@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>identifier</key>
+		<string>about</string>
+		<key>text</key>
+		<string>You will see pictures in either landscape (short and wide) or portrait (long and thin). The key thing to remember is that it’s the shape of the box, not the image itself, which matters.
+
+When you see a %@ picture use your finger to pull it towards you (i.e. down). This is like saying “Yes please”. When you see a %@ picture use your finger to push it away from you (i.e. up). This is like saying “No, thanks”.
+
+You will have 60 seconds to see how many pictures you can sort. Quick is good but remember, the quicker you go, the more errors you might make. You get a point for every one you get right but lose two if you get it wrong.</string>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>away</string>
+		<key>text</key>
+		<string>Say “No thanks” to %@ pictures by pushing them away from you.</string>
+		<key>demo</key>
+		<true/>
+		<key>cards</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>alcoholic_00000.jpg</string>
+				<key>positive</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>identifier</key>
+		<string>toward</string>
+		<key>text</key>
+		<string>Say “Yes please” to %@ pictures by pulling them towards you.</string>
+		<key>demo</key>
+		<true/>
+		<key>cards</key>
+		<array>
+			<dict>
+				<key>imageName</key>
+				<string>soft_00000.jpg</string>
+				<key>positive</key>
+				<true/>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>

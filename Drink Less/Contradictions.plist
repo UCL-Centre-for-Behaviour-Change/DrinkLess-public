@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>Honest</string>
+		<key>about</key>
+		<string>Exaggerate stories for ‘comic’ effect but take it too far</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Good friend</string>
+		<key>about</key>
+		<string>End up spoiling my friends’ night as they need to take care of me once I’ve had too much to drink</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Responsible</string>
+		<key>about</key>
+		<string>Spend more money than planned and go over your weekly budget</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Health conscious</string>
+		<key>about</key>
+		<string>After drinking too much I often have an unhealthy snack, like a kebab, on my way home</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Friendly</string>
+		<key>about</key>
+		<string>I can get quite argumentative once I have an excessive amount of alcohol</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Fun</string>
+		<key>about</key>
+		<string>End up half asleep, unable to join in with what’s going on</string>
+	</dict>
+</array>
+</plist>

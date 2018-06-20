@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>drinkID</key>
+		<integer>1</integer>
+		<key>typeID</key>
+		<integer>2</integer>
+		<key>servingID</key>
+		<integer>2</integer>
+		<key>abv</key>
+		<real>4.4</real>
+	</dict>
+	<dict>
+		<key>drinkID</key>
+		<integer>2</integer>
+		<key>servingID</key>
+		<integer>2</integer>
+		<key>abv</key>
+		<real>4.4</real>
+	</dict>
+	<dict>
+		<key>drinkID</key>
+		<integer>3</integer>
+		<key>typeID</key>
+		<integer>2</integer>
+		<key>servingID</key>
+		<integer>2</integer>
+		<key>abv</key>
+		<real>11.5</real>
+	</dict>
+	<dict>
+		<key>drinkID</key>
+		<integer>4</integer>
+		<key>typeID</key>
+		<integer>2</integer>
+		<key>servingID</key>
+		<integer>2</integer>
+		<key>abv</key>
+		<integer>20</integer>
+	</dict>
+	<dict>
+		<key>drinkID</key>
+		<integer>5</integer>
+		<key>typeID</key>
+		<integer>2</integer>
+		<key>servingID</key>
+		<integer>1</integer>
+		<key>abv</key>
+		<integer>40</integer>
+	</dict>
+	<dict>
+		<key>drinkID</key>
+		<integer>6</integer>
+		<key>servingID</key>
+		<integer>2</integer>
+		<key>abv</key>
+		<integer>6</integer>
+	</dict>
+</array>
+</plist>

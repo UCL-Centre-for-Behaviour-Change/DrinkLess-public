@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8md-FF-FrC">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Info View Controller-->
+        <scene sceneID="AiB-Rw-cnZ">
+            <objects>
+                <viewController id="8md-FF-FrC" customClass="PXInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uDi-Gg-oBM"/>
+                        <viewControllerLayoutGuide type="bottom" id="7dP-JM-9xQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VAQ-uu-X49">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wLm-ko-bnL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zfM-DL-pBp">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="Ked-9X-3M3">
+                                        <barButtonItem key="rightBarButtonItem" image="info_close" id="7ZO-9K-xfm">
+                                            <connections>
+                                                <action selector="pressedClose:" destination="8md-FF-FrC" id="7mr-gT-cQf"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <webView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRr-av-UnN">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8md-FF-FrC" id="CnE-HQ-5Qx"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="wLm-ko-bnL" secondAttribute="trailing" id="2s1-vI-V4F"/>
+                            <constraint firstItem="wLm-ko-bnL" firstAttribute="top" secondItem="VAQ-uu-X49" secondAttribute="top" id="4J7-PB-rLn"/>
+                            <constraint firstAttribute="trailing" secondItem="WRr-av-UnN" secondAttribute="trailing" id="AOJ-v9-XTO"/>
+                            <constraint firstItem="WRr-av-UnN" firstAttribute="top" secondItem="zfM-DL-pBp" secondAttribute="bottom" id="KIc-zE-hOG"/>
+                            <constraint firstItem="zfM-DL-pBp" firstAttribute="top" secondItem="uDi-Gg-oBM" secondAttribute="bottom" id="OKr-mL-oOn"/>
+                            <constraint firstItem="wLm-ko-bnL" firstAttribute="leading" secondItem="VAQ-uu-X49" secondAttribute="leading" id="Wxu-Zu-7xe"/>
+                            <constraint firstItem="WRr-av-UnN" firstAttribute="leading" secondItem="VAQ-uu-X49" secondAttribute="leading" id="dHu-A0-AmF"/>
+                            <constraint firstItem="zfM-DL-pBp" firstAttribute="leading" secondItem="VAQ-uu-X49" secondAttribute="leading" id="jKF-Xj-45S"/>
+                            <constraint firstItem="7dP-JM-9xQ" firstAttribute="top" secondItem="WRr-av-UnN" secondAttribute="bottom" id="nnm-Ug-Krr"/>
+                            <constraint firstAttribute="trailing" secondItem="zfM-DL-pBp" secondAttribute="trailing" id="t0E-OE-dXh"/>
+                            <constraint firstAttribute="bottom" secondItem="wLm-ko-bnL" secondAttribute="bottom" id="y7w-Qr-xDX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="wLm-ko-bnL" id="ZSL-jP-lNN"/>
+                        <outlet property="navigationBar" destination="zfM-DL-pBp" id="EuC-7q-zfn"/>
+                        <outlet property="webView" destination="WRr-av-UnN" id="eXa-CF-4ab"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0mz-BL-iOp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="339" y="388"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="info_close" width="22" height="22"/>
+    </resources>
+</document>

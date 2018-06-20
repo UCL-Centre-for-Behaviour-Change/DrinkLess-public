@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>questiontitle</key>
+		<string>Gender</string>
+		<key>questionID</key>
+		<string>question0</string>
+		<key>type</key>
+		<string>option</string>
+		<key>answers</key>
+		<array>
+			<string>Male</string>
+			<string>Female</string>
+		</array>
+	</dict>
+	<dict>
+		<key>questiontitle</key>
+		<string>Year of Birth</string>
+		<key>questionID</key>
+		<string>question1</string>
+		<key>type</key>
+		<string>yearEntry</string>
+		<key>placeholder</key>
+		<string>Age</string>
+	</dict>
+	<dict>
+		<key>questiontitle</key>
+		<string>Country</string>
+		<key>questionID</key>
+		<string>question5</string>
+		<key>type</key>
+		<string>option</string>
+		<key>answers</key>
+		<array>
+			<string>UK</string>
+			<string>Other</string>
+		</array>
+	</dict>
+	<dict>
+		<key>questiontitle</key>
+		<string>What kind of job do you have?</string>
+		<key>questionID</key>
+		<string>question7</string>
+		<key>type</key>
+		<string>option</string>
+		<key>answers</key>
+		<array>
+			<string>Non-Manual</string>
+			<string>Manual</string>
+			<string>Other</string>
+		</array>
+	</dict>
+    <dict>
+        <key>questiontitle</key>
+        <string>Why are you using this app?</string>
+        <key>questionID</key>
+        <string>question9</string>
+        <key>type</key>
+        <string>option</string>
+        <key>answers</key>
+        <array>
+            <string>Interested in drinking less alcohol</string>
+            <string>Just browsing</string>
+        </array>
+    </dict>
+</array>
+</plist>

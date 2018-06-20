@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>positive</key>
+		<string>Feel more confident</string>
+		<key>negative</key>
+		<string>I’m more likely to become argumentative and aggressive, and be involved in a fight</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Drinking helps me forget problems at work or school</string>
+		<key>negative</key>
+		<string>I can become depressed</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Drinking makes socialising easier</string>
+		<key>negative</key>
+		<string>I need my friends to look after me and take me home, spoiling their evening</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Alcoholic drinks taste good</string>
+		<key>negative</key>
+		<string>I can have a whole days’ worth of calories just from drinks and feel too rubbish the following day to go out and exercise</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Drinking makes me feel more romantic</string>
+		<key>negative</key>
+		<string>I might have sex with someone who I wouldn’t want to if sober</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Drinking helps me think better</string>
+		<key>negative</key>
+		<string>My decision making is impaired and I spend far more money than I intended</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Drinking helps calm me down when I’m angry</string>
+		<key>negative</key>
+		<string>Too much means I can become aggressive and argumentative, and get into fights</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Drinking is a nice way to celebrate special occasions</string>
+		<key>negative</key>
+		<string>I might have memory lapses and forget the occasion</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Drinking gives me more confidence in myself</string>
+		<key>negative</key>
+		<string>I say something inappropriate that ends up offending someone</string>
+	</dict>
+	<dict>
+		<key>positive</key>
+		<string>Feel great and have fun</string>
+		<key>negative</key>
+		<string>I feel awful (groggy and tired) the following day</string>
+	</dict>
+</array>
+</plist>

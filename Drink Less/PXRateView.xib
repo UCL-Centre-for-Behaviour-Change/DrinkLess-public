@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PXRateView">
+            <connections>
+                <outlet property="solidButton" destination="s1S-Ru-m9s" id="1i5-gh-c1c"/>
+                <outlet property="titleLabel" destination="zND-FU-q7O" id="Mu0-mG-nN9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view opaque="NO" contentMode="scaleToFill" id="XZV-t6-kc8">
+            <rect key="frame" x="0.0" y="0.0" width="124" height="158"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1S-Ru-m9s" customClass="PXSolidButton">
+                    <rect key="frame" x="0.0" y="0.0" width="124" height="124"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="124" id="Kf7-1o-51L"/>
+                        <constraint firstAttribute="width" secondItem="s1S-Ru-m9s" secondAttribute="height" multiplier="1:1" id="QZg-mI-2K1"/>
+                    </constraints>
+                    <state key="normal" image="thumbs-up-off">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="circular" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="pressedButton:" destination="-1" eventType="touchUpInside" id="j66-N5-k3Z"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zND-FU-q7O">
+                    <rect key="frame" x="0.0" y="134" width="124" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="s1S-Ru-m9s" secondAttribute="trailing" id="2rL-yl-j3N"/>
+                <constraint firstAttribute="bottom" secondItem="zND-FU-q7O" secondAttribute="bottom" id="NdU-JI-GTh"/>
+                <constraint firstItem="s1S-Ru-m9s" firstAttribute="top" secondItem="XZV-t6-kc8" secondAttribute="top" id="P6f-04-X2d"/>
+                <constraint firstItem="zND-FU-q7O" firstAttribute="top" secondItem="s1S-Ru-m9s" secondAttribute="bottom" constant="10" id="bae-Xv-RC8"/>
+                <constraint firstItem="s1S-Ru-m9s" firstAttribute="leading" secondItem="XZV-t6-kc8" secondAttribute="leading" id="d7C-tZ-olE"/>
+                <constraint firstAttribute="trailing" secondItem="zND-FU-q7O" secondAttribute="trailing" id="k4F-rz-zg8"/>
+                <constraint firstItem="zND-FU-q7O" firstAttribute="leading" secondItem="XZV-t6-kc8" secondAttribute="leading" id="np5-dj-N3t"/>
+                <constraint firstItem="s1S-Ru-m9s" firstAttribute="width" secondItem="s1S-Ru-m9s" secondAttribute="height" multiplier="1:1" id="rr1-02-XS9"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="303" y="311"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="thumbs-up-off" width="112" height="112"/>
+    </resources>
+</document>

@@ -1,0 +1,21 @@
+//
+//  PrefixHeader.pch
+//  Drink Less
+//
+//  Created by Chris Pritchard on 09/09/2014.
+//  Copyright (c) 2016 UCL. All rights reserved.
+//  @license See LICENSE.txt
+//
+
+#ifndef Drink_Less_PrefixHeader_pch
+#define Drink_Less_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "NSDate+DrinkLess.h"
+#import "UIColor+DrinkLess.h"
+#import "PXTrackedViewController.h"
+#endif

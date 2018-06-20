@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>Mood</string>
+		<key>html</key>
+		<string>Alcohol affects many people’s mood the day after drinking. Alcohol can make us feel depressed, anxious, irritable, or just not ourselves.&lt;br/&gt;&lt;br/&gt;Of course, lots of other things can make us feel this way. One way to tell how alcohol affects your mood is to notice the way you feel in the morning and log that in your mood diary.</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Productivity</string>
+		<key>html</key>
+		<string>Alcohol can affect our ability to concentrate, think, and perform tasks; not just when we’re drinking, but the morning after too.&lt;br/&gt;&lt;br/&gt;Notice how you feel when you awake and for the first few hours after. Log that, and your drinking, in your diary, and we’ll show how alcohol affects your feelings of productivity</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Clarity</string>
+		<key>html</key>
+		<string>Many people say that alcohol makes their thinking more muddled the next day. Thoughts can be harder to form, ideas don’t come as easily and problems seem harder to solve.&lt;br/&gt;&lt;br/&gt;Keep tabs on how clear headed you feel each morning and log that in your diary. The more you do this, the more accurate these graphs will be.</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Sleep</string>
+		<key>html</key>
+		<string>Whilst alcohol can make you sleep more quickly, it can affect the quality of sleep you get. Many people find that alcohol makes them sleep more lightly, wake more often and get less rest.&lt;br/&gt;&lt;br/&gt;Alcohol isn’t the only thing that affects sleep. Keeping a sleep diary alongside records of your drinking can be a good way to tell how it affects yours.</string>
+	</dict>
+</array>
+</plist>

@@ -1,0 +1,74 @@
+PODS:
+  - Apptimize (2.16.13)
+  - Bolts/Tasks (1.8.4)
+  - CorePlot (2.1)
+  - Crashlytics (3.8.3):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.11)
+  - Google/Analytics (1.0.7):
+    - Google/Core
+    - GoogleAnalytics (~> 3.12)
+  - Google/Core (1.0.7):
+    - GoogleNetworkingUtilities (~> 1.0)
+    - GoogleSymbolUtilities (~> 1.0)
+    - GoogleUtilities (~> 1.0)
+  - GoogleAnalytics (3.17.0)
+  - GoogleNetworkingUtilities (1.2.1):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleSymbolUtilities (1.1.1)
+  - GoogleUtilities (1.3.1):
+    - GoogleSymbolUtilities (~> 1.0)
+  - iRate (1.11.6)
+  - Parse (1.14.2):
+    - Bolts/Tasks (~> 1.8)
+
+DEPENDENCIES:
+  - Apptimize
+  - CorePlot (from `https://github.com/core-plot/core-plot.git`, branch `release-2.2`)
+  - Crashlytics
+  - Fabric
+  - Google/Analytics (~> 1.0.0)
+  - iRate
+  - Parse
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Apptimize
+    - Bolts
+    - Crashlytics
+    - Fabric
+    - Google
+    - GoogleAnalytics
+    - GoogleNetworkingUtilities
+    - GoogleSymbolUtilities
+    - GoogleUtilities
+    - iRate
+    - Parse
+
+EXTERNAL SOURCES:
+  CorePlot:
+    :branch: release-2.2
+    :git: https://github.com/core-plot/core-plot.git
+
+CHECKOUT OPTIONS:
+  CorePlot:
+    :commit: 742eb1bcf731c1943661e9e22a65aae8b1dd1bc1
+    :git: https://github.com/core-plot/core-plot.git
+
+SPEC CHECKSUMS:
+  Apptimize: b18f1b79a82e8bdf7aee938508445cbe32f9005e
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  CorePlot: ab9898c79b94999018e9634ab0aa4c21480c8552
+  Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  Google: 8be107e3b4bbb6889ebf1f64cdd92cb87dc17a62
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
+  GoogleNetworkingUtilities: 3e83269048cfb498dc7ec83ab36813360965c74f
+  GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
+  GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
+  iRate: 61e558919c4a7fde63b3c22ebbd6c114a1eee658
+  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
+
+PODFILE CHECKSUM: ec34cef1f9b4ceab2e52fa637a29a3427748a556
+
+COCOAPODS: 1.5.3

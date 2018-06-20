@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>sectiontitle</key>
+		<string>About alcohol</string>
+		<key>rows</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>Useful information</string>
+				<key>segue</key>
+				<string>showTips</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Can’t stop drinking?</string>
+				<key>resource</key>
+				<string>cant-stop-drinking</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>sectiontitle</key>
+		<string>App settings</string>
+		<key>rows</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>Reminders</string>
+				<key>segue</key>
+				<string>reminders</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Enable Sounds</string>
+				<key>identifier</key>
+				<string>enable-sounds</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>sectiontitle</key>
+		<string>About the app</string>
+		<key>rows</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>Contact</string>
+				<key>resource</key>
+				<string>contact</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Complete survey</string>
+				<key>vc</key>
+				<string>questionnaire</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>The team</string>
+				<key>resource</key>
+				<string>about-us</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>References</string>
+				<key>resource</key>
+				<string>References</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Privacy notice</string>
+				<key>resource</key>
+				<string>privacy-notice</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Terms and conditions</string>
+				<key>resource</key>
+				<string>tos</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Opt out</string>
+				<key>vc</key>
+				<string>opt-out</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Rate this app</string>
+				<key>vc</key>
+				<string>rate</string>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>

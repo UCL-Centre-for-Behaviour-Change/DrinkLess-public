@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A314h" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="PXDrink" representedClassName="PXDrink" syncable="YES">
+        <attribute name="abvMax" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="abvMin" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" attributeType="Integer 16" indexed="YES" syncable="YES"/>
+        <attribute name="index" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="record" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PXDrinkRecord" inverseName="drink" inverseEntity="PXDrinkRecord" syncable="YES"/>
+        <relationship name="servings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PXDrinkServing" inverseName="drink" inverseEntity="PXDrinkServing" syncable="YES"/>
+        <relationship name="types" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PXDrinkType" inverseName="drink" inverseEntity="PXDrinkType" syncable="YES"/>
+    </entity>
+    <entity name="PXDrinkRecord" representedClassName="PXDrinkRecord" syncable="YES">
+        <attribute name="abv" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="favourite" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="parseObjectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parseUpdated" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="price" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantity" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
+        <attribute name="servingID" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="totalCalories" optional="YES" transient="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="totalUnits" optional="YES" transient="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="typeID" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <relationship name="drink" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PXDrink" inverseName="record" inverseEntity="PXDrink" syncable="YES"/>
+        <fetchedProperty name="serving" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="PXDrinkServing" predicateString="drink == $FETCH_SOURCE.drink &amp;&amp; identifier == $FETCH_SOURCE.servingID"/>
+        </fetchedProperty>
+        <fetchedProperty name="type" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="PXDrinkType" predicateString="drink == $FETCH_SOURCE.drink &amp;&amp; identifier == $FETCH_SOURCE.typeID"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="PXDrinkServing" representedClassName="PXDrinkServing" syncable="YES">
+        <attribute name="identifier" attributeType="Integer 16" indexed="YES" syncable="YES"/>
+        <attribute name="millilitres" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="String" elementID="name" syncable="YES"/>
+        <relationship name="drink" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PXDrink" inverseName="servings" inverseEntity="PXDrink" syncable="YES"/>
+    </entity>
+    <entity name="PXDrinkType" representedClassName="PXDrinkType" syncable="YES">
+        <attribute name="identifier" attributeType="Integer 16" indexed="YES" syncable="YES"/>
+        <attribute name="index" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="drink" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PXDrink" inverseName="types" inverseEntity="PXDrink" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="PXDrink" positionX="-596" positionY="-261" width="128" height="178"/>
+        <element name="PXDrinkRecord" positionX="-810" positionY="-277" width="128" height="266"/>
+        <element name="PXDrinkServing" positionX="-362" positionY="-283" width="128" height="118"/>
+        <element name="PXDrinkType" positionX="-362" positionY="-144" width="128" height="103"/>
+    </elements>
+</model>

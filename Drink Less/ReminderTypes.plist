@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PXConsumptionReminderType</key>
+	<dict>
+		<key>KEY_REMINDER_MESSAGE</key>
+		<string>Drinking Diary Reminder</string>
+		<key>KEY_REMINDER_QUESTION</key>
+		<string>Please complete your diary for yesterday</string>
+		<key>KEY_REMINDER_ANSWERS</key>
+		<array>
+			<string>Enter</string>
+			<string>Cancel</string>
+		</array>
+	</dict>
+	<key>PXGoingOutReminderType</key>
+	<dict>
+		<key>KEY_REMINDER_MESSAGE</key>
+		<string>Going Out Reminder</string>
+		<key>KEY_REMINDER_QUESTION</key>
+		<string>How much have you drunk?</string>
+		<key>KEY_REMINDER_ANSWERS</key>
+		<array>
+			<string>Enter</string>
+			<string>Cancel</string>
+		</array>
+	</dict>
+	<key>PXMemoWatchReminderType</key>
+	<dict>
+		<key>KEY_REMINDER_MESSAGE</key>
+		<string>Video Memo Watch Reminder</string>
+		<key>KEY_REMINDER_QUESTION</key>
+		<string>Watch a memo now?</string>
+		<key>KEY_REMINDER_ANSWERS</key>
+		<array>
+			<string>Watch</string>
+			<string>Cancel</string>
+		</array>
+	</dict>
+	<key>PXMemoRecordReminderType</key>
+	<dict>
+		<key>KEY_REMINDER_MESSAGE</key>
+		<string>Video Memo Record Reminder</string>
+		<key>KEY_REMINDER_QUESTION</key>
+		<string>Record a memo now?</string>
+		<key>KEY_REMINDER_ANSWERS</key>
+		<array>
+			<string>Record</string>
+			<string>Cancel</string>
+		</array>
+	</dict>
+</dict>
+</plist>

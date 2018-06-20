@@ -1,0 +1,4 @@
+language: objective-c
+
+script:
+- xcodebuild clean build -scheme 'Drink Less' -destination 'platform=iOS Simulator,name=iPhone 6,OS=8.0'

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<array>
+			<dict>
+				<key>question</key>
+				<string>How helpful did you find Drink Less?</string>
+				<key>answers</key>
+				<array>
+					<string>Not at all helpful</string>
+					<string>Slightly helpful</string>
+					<string>Somewhat helpful</string>
+					<string>Very helpful</string>
+					<string>Extremely helpful</string>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How do you thinking your drinking has changed since using Drink Less?</string>
+				<key>answers</key>
+				<array>
+					<string>Drinking more</string>
+					<string>No change</string>
+					<string>Drinking less</string>
+				</array>
+			</dict>
+		</array>
+		<array>
+			<dict>
+				<key>question</key>
+				<string>How often do you have a drink containing alcohol?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>Never</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Monthly or less</string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>2 to 4 times a month </string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>2 or 3 times a week </string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>4 or more times a week</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How many units of alcohol do you drink on a typical day when you are drinking?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>1-2</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>3-4</string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>5-6</string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>7-9</string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>10+</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How often have you had 6 or more units on a single occasion in the last year?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>Never</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Less than monthly </string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Monthly</string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Weekly</string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Daily or almost daily</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+		</array>
+		<array>
+			<dict>
+				<key>question</key>
+				<string>How easy did you find Drink Less to use? </string>
+				<key>answers</key>
+				<array>
+					<string>Not at all easy to use</string>
+					<string>Slightly easy to use</string>
+					<string>Somewhat easy to use</string>
+					<string>Very easy to use</string>
+					<string>Extremely easy to use</string>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How satisfied are you with Drink Less? </string>
+				<key>answers</key>
+				<array>
+					<string>Not at all satisfied</string>
+					<string>Slightly satisfied</string>
+					<string>Somewhat satisfied</string>
+					<string>Very satisfied</string>
+					<string>Extremely satisfied</string>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How likely are you to recommend Drink Less to a friend? </string>
+				<key>answers</key>
+				<array>
+					<string>Not at all likely</string>
+					<string>Slightly likely</string>
+					<string>Somewhat likely</string>
+					<string>Very likely</string>
+					<string>Extremely likely</string>
+				</array>
+			</dict>
+		</array>
+		<array>
+			<dict>
+				<key>question</key>
+				<string>How often during the last year have you found that you were not able to stop drinking once you had started?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>Never</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Less than monthly </string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Monthly</string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Weekly</string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Daily or almost daily</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How often during the last year have you failed to do what was normally expected from you because of your drinking?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>Never</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Less than monthly </string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Monthly</string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Weekly</string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Daily or almost daily</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How often during the last year have you needed an alcoholic drink in the morning to get yourself going after a heavy drinking session?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>Never</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Less than monthly </string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Monthly</string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Weekly</string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Daily or almost daily</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How often during the last year have you had a feeling of guilt or remorse after drinking?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>Never</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Less than monthly </string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Monthly</string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Weekly</string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Daily or almost daily
+                        </string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>How often during the last year have you been unable to remember what happened the night before because you had been drinking?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>Never</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Less than monthly </string>
+						<key>scorevalue</key>
+						<string>1</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Monthly</string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Weekly</string>
+						<key>scorevalue</key>
+						<string>3</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Daily or almost daily</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>Have you or somebody else been injured as a result of your drinking?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>No</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Yes, but not in the last year </string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Yes, during the last year</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>question</key>
+				<string>Has a relative or friend, doctor or other health worker been concerned about your drinking or suggested that you cut down?</string>
+				<key>answers</key>
+				<array>
+					<dict>
+						<key>answer</key>
+						<string>No</string>
+						<key>scorevalue</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Yes, but not in the last year </string>
+						<key>scorevalue</key>
+						<string>2</string>
+					</dict>
+					<dict>
+						<key>answer</key>
+						<string>Yes, during the last year</string>
+						<key>scorevalue</key>
+						<string>4</string>
+					</dict>
+				</array>
+			</dict>
+		</array>
+	</array>
+</array>
+</plist>

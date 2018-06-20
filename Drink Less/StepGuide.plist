@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>imageName</key>
+		<string>step_goal</string>
+		<key>title</key>
+		<string>Set a goal</string>
+		<key>detail</key>
+		<string>The first step is to set a goal to reduce your drinking. Tap here to begin.</string>
+		<key>identifier</key>
+		<string>goal</string>
+	</dict>
+	<dict>
+		<key>imageName</key>
+		<string>step_drinks</string>
+		<key>title</key>
+		<string>Log some drinks</string>
+		<key>detail</key>
+		<string>Tap here to add your drinks for last week. Use your calendar if you need help remembering.</string>
+		<key>identifier</key>
+		<string>drinks</string>
+	</dict>
+	<dict>
+		<key>imageName</key>
+		<string>step_explore</string>
+		<key>title</key>
+		<string>Explore</string>
+		<key>detail</key>
+		<string>We&apos;ve got lots of resources here. Have a play around, you probably won&apos;t break anything.</string>
+		<key>identifier</key>
+		<string>explore</string>
+	</dict>
+</array>
+</plist>

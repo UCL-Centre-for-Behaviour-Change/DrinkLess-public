@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PXFlipView">
+            <rect key="frame" x="0.0" y="0.0" width="290" height="193"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gvD-a3-dYe">
+                    <rect key="frame" x="0.0" y="0.0" width="290" height="193"/>
+                </imageView>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pe9-sU-nES">
+                    <rect key="frame" x="0.0" y="0.0" width="290" height="193"/>
+                    <subviews>
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIa-li-2Ij">
+                            <rect key="frame" x="21" y="67.5" width="248" height="58.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text goes here to describe the relevance of the image" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mz7-ie-tow">
+                                    <rect key="frame" x="10" y="10" width="228" height="38.5"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-MediumItalic" family="Helvetica Neue" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Mz7-ie-tow" secondAttribute="bottom" constant="10" id="5Pp-JS-sFU"/>
+                                <constraint firstAttribute="trailing" secondItem="Mz7-ie-tow" secondAttribute="trailing" constant="10" id="7Eo-H6-SQQ"/>
+                                <constraint firstItem="Mz7-ie-tow" firstAttribute="leading" secondItem="UIa-li-2Ij" secondAttribute="leading" constant="10" id="tkB-BN-7a4"/>
+                                <constraint firstItem="Mz7-ie-tow" firstAttribute="top" secondItem="UIa-li-2Ij" secondAttribute="top" constant="10" id="vAB-Xm-v2K"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.35000000000000003" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="centerY" secondItem="UIa-li-2Ij" secondAttribute="centerY" id="3gV-tw-RYt"/>
+                        <constraint firstItem="UIa-li-2Ij" firstAttribute="width" relation="lessThanOrEqual" secondItem="Pe9-sU-nES" secondAttribute="width" id="YtF-5x-w0P"/>
+                        <constraint firstAttribute="centerX" secondItem="UIa-li-2Ij" secondAttribute="centerX" id="r85-vF-fqj"/>
+                        <constraint firstItem="UIa-li-2Ij" firstAttribute="height" relation="lessThanOrEqual" secondItem="Pe9-sU-nES" secondAttribute="height" id="wWW-Gk-TKv"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="gvD-a3-dYe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="26D-4G-jy4"/>
+                <constraint firstAttribute="bottom" secondItem="Pe9-sU-nES" secondAttribute="bottom" id="CMN-4e-L2V"/>
+                <constraint firstItem="Pe9-sU-nES" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Cl2-Wz-LZH"/>
+                <constraint firstAttribute="bottom" secondItem="gvD-a3-dYe" secondAttribute="bottom" id="EOe-r2-RYf"/>
+                <constraint firstItem="gvD-a3-dYe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Pil-UU-ikQ"/>
+                <constraint firstItem="Pe9-sU-nES" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Y0S-jz-zkV"/>
+                <constraint firstAttribute="trailing" secondItem="gvD-a3-dYe" secondAttribute="trailing" id="ZLk-82-WpQ"/>
+                <constraint firstAttribute="trailing" secondItem="Pe9-sU-nES" secondAttribute="trailing" id="n80-oW-fWF"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="imageView" destination="gvD-a3-dYe" id="Xwe-3v-RIg"/>
+                <outlet property="overlayView" destination="Pe9-sU-nES" id="NJE-IW-Jhb"/>
+                <outlet property="titleLabel" destination="Mz7-ie-tow" id="5Lf-oK-ep4"/>
+            </connections>
+            <point key="canvasLocation" x="312" y="305.5"/>
+        </view>
+    </objects>
+</document>

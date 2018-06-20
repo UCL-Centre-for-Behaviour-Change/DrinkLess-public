@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Drink Less": {
+      "applicationId": "K8JGPM2Al1QACirf4fvbxHZKVL7iAYx0tI4AB7hJ"
+    },
+    "_default": {
+      "link": "Drink Less"
+    }
+  }
+}
