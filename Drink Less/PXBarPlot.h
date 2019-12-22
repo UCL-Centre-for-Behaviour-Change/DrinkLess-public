@@ -10,6 +10,7 @@
 #import "PXPlot.h"
 
 @class CPTGraphHostingView;
+typedef NS_ENUM(NSInteger, PXConsumptionType);
 
 extern NSString *const PXDateKey;
 extern NSString *const PXSpecialDateKey;
@@ -29,11 +30,19 @@ typedef NS_ENUM(NSInteger, PXAxisTypeX) {
 @property (strong, nonatomic) NSString *xAxisDateFormat;
 @property (strong, nonatomic) NSString *xAxisSpecialDateFormat;
 @property (weak, nonatomic) id <PXBarPlotDelegate> delegate;
-@property (assign, nonatomic) BOOL isGameBarPlot;
+@property (assign, nonatomic) BOOL dontUseNoDrinksIcon; // TODO: Do this better...
 
-- (void)setXTitle:(NSString *)xTitle yTitle:(NSString *)yTitle xKey:(NSObject *)xKey yKey:(NSObject *)yKey minYValue:(CGFloat)minYValue maxYValue:(CGFloat)maxYValue goalValue:(CGFloat)goalValue displayAsPercentage:(BOOL)displayAsPercentage axisTypeX:(PXAxisTypeX)axisTypeX showLegend:(BOOL)showLegend;
+// @deprecated
+//- (void)setXTitle:(NSString *)xTitle yTitle:(NSString *)yTitle xKey:(NSObject *)xKey yKey:(NSObject *)yKey minYValue:(CGFloat)minYValue maxYValue:(CGFloat)maxYValue goalValue:(CGFloat)goalValue displayAsPercentage:(BOOL)displayAsPercentage axisTypeX:(PXAxisTypeX)axisTypeX showLegend:(BOOL)showLegend;
+
+// @deprecated
+- (void)setXTitle:(NSString *)xTitle yTitle:(NSString *)yTitle xKey:(NSObject *)xKey yKey:(NSObject *)yKey minYValue:(CGFloat)minYValue maxYValue:(CGFloat)maxYValue goalValue:(CGFloat)goalValue displayAsPercentage:(BOOL)displayAsPercentage displayAsCurrency:(BOOL)displayAsCurrency axisTypeX:(PXAxisTypeX)axisTypeX showLegend:(BOOL)showLegend;
+
+// The new designated
+- (void)setXTitle:(NSString *)xTitle yTitle:(NSString *)yTitle xKey:(NSObject *)xKey yKey:(NSObject *)yKey minYValue:(CGFloat)minYValue maxYValue:(CGFloat)maxYValue goalValue:(CGFloat)goalValue consumptionType:(PXConsumptionType)consumptionType showLegend:(BOOL)showLegend;
 
 @end
+
 
 @protocol PXBarPlotDelegate <NSObject>
 @optional

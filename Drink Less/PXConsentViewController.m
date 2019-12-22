@@ -9,7 +9,6 @@
 
 #import "PXConsentViewController.h"
 #import "PXIntroManager.h"
-#import <Google/Analytics.h>
 
 @interface PXConsentViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
@@ -134,14 +133,6 @@
     PXIntroManager *introManager = [PXIntroManager sharedManager];
     introManager.stage = PXIntroStageAuditQuestions;
     [introManager save];
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"button_press"     // Event category (required)
-                                                          action:@"continue_on_welcome_screen"  // Event action (required)
-                                                           label:@"continue"          // Event label
-                                                           value:nil] build]];    // Event value
-    
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

@@ -2,19 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>drinking-cues</key>
+	<dict>
+		<key>title</key>
+		<string>Reviewing your drinking cues</string>
+		<key>random</key>
+		<true/>
+	</dict>
+	<key>make-plan</key>
+	<dict>
+		<key>title</key>
+		<string>Make an alternative plan to drinking</string>
+		<key>random</key>
+		<true/>
+	</dict>
+	<key>insights</key>
+	<dict>
+		<key>title</key>
+		<string>Check out insights on your drinking</string>
+		<key>random</key>
+		<true/>
+	</dict>
 	<key>approach-avoidance</key>
 	<dict>
 		<key>title</key>
 		<string>Playing the &apos;Yes Please, No Thanks&apos; game</string>
-		<key>random</key>
-		<true/>
-	</dict>
-	<key>identity</key>
-	<dict>
-		<key>title</key>
-		<string>Using the features in Drink + Me</string>
-		<key>group</key>
-		<string>highID</string>
 		<key>random</key>
 		<true/>
 	</dict>
@@ -48,11 +60,11 @@
 	<key>record-drinks</key>
 	<dict>
 		<key>title</key>
-		<string>Logging your drinks each day</string>
+		<string>Logging your drinks and mood</string>
 		<key>group</key>
 		<string>highSM</string>
 	</dict>
-	<key>follow-up</key>
+	<key>audit-follow-up</key>
 	<dict>
 		<key>title</key>
 		<string>See how your drinking has changed?</string>

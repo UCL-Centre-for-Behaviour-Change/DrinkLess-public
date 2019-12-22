@@ -40,13 +40,14 @@
     __block PXWeekSummary *previousWeekSummary;
     
     _allUnits = 0.0;
+    _allAlcFree = 0.0;
     _allCalories = 0.0;
     _allSpending = 0.0;
     _thisWeekSummary = nil;
     
     [self.class enumerateWeeksFromDate:referenceDate block:^(NSDate *fromDate, NSDate *toDate) {
         
-        // We want to get every record that could possibly fall on the current calendar date range. We'll need to check them with their time zone later. @see README.md
+        // We want to get every record that could possibly fall on the current calendar date range. We'll need to check them with their time zone later. @see README_dev.md
         NSMutableArray *drinkRecords = [PXDrinkRecord fetchDrinkRecordsFromCalendarDate:fromDate toCalendarDate:toDate context:context].mutableCopy;
         NSMutableArray *alcoholFreeRecords = [PXAlcoholFreeRecord fetchFreeRecordsFromCalendarDate:fromDate toCalendarDate:toDate context:context].mutableCopy;
         
@@ -56,14 +57,16 @@
         previousWeekSummary = weekSummary;
         [weeks addObject:weekSummary];
         
-        _allUnits += weekSummary.totalUnits;
-        _allCalories += weekSummary.totalCalories;
-        _allSpending += weekSummary.totalSpending;
+        self->_allUnits += weekSummary.totalUnits;
+        self->_allAlcFree += weekSummary.alcoholFreeDays;
+        self->_allCalories += weekSummary.totalCalories;
+        self->_allSpending += weekSummary.totalSpending;
         
         if ([fromDate isEqualToDate:thisWeek]) {
-            _thisWeekSummary = weekSummary;
+            self->_thisWeekSummary = weekSummary;
         }
     }];
+    _lastWeekSummary = self.thisWeekSummary.previousWeekSummary;
     return weeks;
 }
 
@@ -80,9 +83,25 @@
     
     NSArray *results = [context executeFetchRequest:fetchRequest error:NULL];
     NSDate *date = results.firstObject[@"date"];
+    // Convert it to the current calendar
+    id res = results.firstObject;
     if (!date) {
         date = [NSDate strictDateFromToday];
+    } else if ([res respondsToSelector:@selector(timezone)]) {
+        NSTimeZone *tz;
+        NSString *tzStr = [res timezone];
+        if (tzStr == nil) {
+            tz = NSTimeZone.appDefaultTimeZone;
+        } else {
+            tz = [NSTimeZone timeZoneWithName:tzStr];
+        }
+        if (!tz) {
+            NSLog(@"WARNING: no time zone. shouldnt be!");
+        } else {
+            date = [date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:tz];
+        }
     }
+    
     return date;
 }
 
@@ -106,30 +125,38 @@
 - (NSMutableArray *)calculatePlotData {
     NSMutableArray *plotData = [NSMutableArray array];
     CGFloat maxUnits = 0.0;
+    CGFloat maxAlcFreeDays = 0.0;
     CGFloat maxCalories = 0.0;
     CGFloat maxSpending = 0.0;
     
     NSUInteger plotId = 0;
     for (PXWeekSummary *weekSummary in self.weeklySummaries) {
         CGFloat totalUnits = weekSummary.totalUnits;
+        CGFloat totalAlcFreeDays = weekSummary.alcoholFreeDays;
         CGFloat totalCalories = weekSummary.totalCalories;
         CGFloat totalSpending = weekSummary.totalSpending;
         
         if (totalUnits > maxUnits) maxUnits = totalUnits;
+        if (totalAlcFreeDays > maxAlcFreeDays) maxAlcFreeDays = totalAlcFreeDays;
         if (totalCalories > maxCalories) maxCalories = totalCalories;
         if (totalSpending > maxSpending) maxSpending = totalSpending;
         
         NSDictionary *dictionary = @{PXPlotIdentifier: @(++plotId),
                                      PXDateKey: weekSummary.lastDate,
                                      @(PXConsumptionTypeUnits): @(totalUnits),
+                                     @(PXConsumptionTypeAlcoholFreeDays): @(totalAlcFreeDays),
                                      @(PXConsumptionTypeCalories): @(totalCalories),
                                      @(PXConsumptionTypeSpending): @(totalSpending)};
         [plotData addObject:dictionary];
     }
     _maxValues = @{@(PXConsumptionTypeUnits): @(maxUnits),
+                   @(PXConsumptionTypeAlcoholFreeDays): @(maxAlcFreeDays),
                    @(PXConsumptionTypeCalories): @(maxCalories),
                    @(PXConsumptionTypeSpending): @(maxSpending)};
     return plotData;
 }
+
+//---------------------------------------------------------------------
+
 
 @end

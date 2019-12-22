@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<plist version="1.0">
+        <array>
+                <dict>
+                        <key>all-UK</key>
+                        <real>67.6</real>
+                        <key>16-24:male</key>
+                        <real>73.2</real>
+                        <key>25-34:male</key>
+                        <real>73.8</real>
+                        <key>35-44:male</key>
+                        <integer>64</integer>
+                        <key>45-54:male</key>
+                        <real>55.3</real>
+                        <key>55-64:male</key>
+                        <real>51.8</real>
+                        <key>65+:male</key>
+                        <real>53.3</real>
+                        <key>16-24:female</key>
+                        <real>85.1</real>
+                        <key>25-34:female</key>
+                        <real>83.4</real>
+                        <key>35-44:female</key>
+                        <real>75.8</real>
+                        <key>45-54:female</key>
+                        <real>64.6</real>
+                        <key>55-64:female</key>
+                        <real>63.3</real>
+                        <key>65+:female</key>
+                        <real>72.9</real>
+                </dict>
+        </array>
+</plist>

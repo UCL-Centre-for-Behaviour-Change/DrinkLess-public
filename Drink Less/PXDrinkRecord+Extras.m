@@ -15,14 +15,12 @@
 #import "PXDrinkCalculator.h"
 #import "NSTimeZone+DrinkLess.h"
 #import "NSDateComponents+DrinkLess.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 #import "PXDebug.h"
 
 @implementation PXDrinkRecord (Extras)
 
 + (NSArray *)fetchDrinkRecordsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate context:(NSManagedObjectContext *)context {
-    
-    logd(@"-------------------------");
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"PXDrinkRecord"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"date >= %@ && date < %@", fromDate, toDate];
@@ -35,8 +33,6 @@
 
 + (NSArray *)fetchDrinkRecordsFromCalendarDate:(NSDate *)fromDate toCalendarDate:(NSDate *)toDate context:(NSManagedObjectContext *)context
 {
-    logd(@"-------------------------");
-    
     NSDate *worldFromDate = [fromDate earliestWorldDateWithSameCalendarDateAsThisOne];
     NSDate *worldToDate = [toDate latestWorldDateWithSameCalendarDateAsThisOne];
     
@@ -52,6 +48,7 @@
     NSDateComponents *toDateComps = [calendar components:units fromDate:toDate];
                                        
     for (PXDrinkRecord *record in records) {
+        
         NSDateComponents *recDateComps = [calendar componentsInTimeZone:[NSTimeZone timeZoneForDrinkRecord:record] fromDate:record.date];
         
         // Compare [,)
@@ -128,7 +125,7 @@
 
 + (NSPredicate *)fetchRequestPredicateForCalendarDate:(NSDate *)date context:(NSManagedObjectContext *)context
 {
-    NSDate *datePlus1 = [date dateByAddingTimeInterval:24*3600];
+    NSDate *datePlus1 = [NSDate nextDayFromDate:date];
     return [self fetchRequestPredicateFromCalendarDate:date toCalendarDate:datePlus1 context:context];
 }
 
@@ -155,7 +152,7 @@
 //
 //    return fetchRequest;
     
-    NSDate *datePlus1 = [date dateByAddingTimeInterval:24*3600];
+    NSDate *datePlus1 = [NSDate nextDayFromDate:date];
     return [self fetchRequestFromCalendarDate:date toCalendarDate:datePlus1 context:context];
 }
 
@@ -190,7 +187,8 @@
     NSMutableString *iconName = @"icon".mutableCopy;
     if (self.drink)   [iconName appendFormat:@"_d%@", self.drink.identifier.stringValue];
     if (self.type)    [iconName appendFormat:@"_t%@", self.type.identifier.stringValue];
-    if (self.serving) [iconName appendFormat:@"_s%@", self.serving.identifier.stringValue];
+    NSNumber *sId = self.serving.identifier.integerValue >= kPXDrinkServingCustomIdentifier ? @2 : self.serving.identifier; // The 2 icons are bigger so lets use those
+    if (self.serving) [iconName appendFormat:@"_s%@", sId.stringValue];
     [self didAccessValueForKey:@"iconName"];
     return iconName;
 }
@@ -238,29 +236,28 @@
 
 #pragma mark - Parse
 
-- (void)saveToParse {
+- (void)saveToServer {
     self.parseUpdated = @NO;
     [self.managedObjectContext save:nil];
     
-    PFObject *object = [PFObject objectWithClassName:NSStringFromClass(self.class)];
-    object.objectId = self.parseObjectId;
-    object[@"user"] = [PFUser currentUser];
-    if (self.drink.name)    object[@"drink"]           = self.drink.name;
-    if (self.type.name)     object[@"type"]            = self.type.name;
-    if (self.serving.name)  object[@"serving"]         = self.serving.name;
-    if (self.quantity)      object[@"quantity"]        = self.quantity;
-    if (self.price)         object[@"price_per_drink"] = self.price;
-    if (self.abv)           object[@"abv"]             = self.abv;
-    if (self.totalCalories) object[@"totalCalories"]   = self.totalCalories;
-    if (self.totalUnits)    object[@"totalUnits"]      = self.totalUnits;
-    if (self.totalSpending) object[@"totalSpending"]   = self.totalSpending;
-    if (self.favourite)     object[@"favourite"]       = self.favourite;
-    if (self.date)          object[@"date"]            = self.date;
-    if (self.timezone)      object[@"timezone"]        = self.timezone;
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    if (self.drink.name)    params[@"drink"]           = self.drink.name;
+    if (self.type.name)     params[@"type"]            = self.type.name;
+    if (self.serving.name)  params[@"serving"]         = self.serving.name;
+    if (self.quantity)      params[@"quantity"]        = self.quantity;
+    if (self.price)         params[@"price_per_drink"] = self.price;
+    if (self.abv)           params[@"abv"]             = self.abv;
+    if (self.totalCalories) params[@"totalCalories"]   = self.totalCalories;
+    if (self.totalUnits)    params[@"totalUnits"]      = self.totalUnits;
+    if (self.totalSpending) params[@"totalSpending"]   = self.totalSpending;
+    if (self.favourite)     params[@"favourite"]       = self.favourite;
+    if (self.date)          params[@"date"]            = self.date;
+    if (self.timezone)      params[@"timezone"]        = self.timezone;
     
-    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [DataServer.shared saveDataObjectWithClassName:NSStringFromClass(self.class) objectId:self.parseObjectId isUser:YES params:params ensureSave:NO callback:^(BOOL succeeded, NSString *objectId, NSError *error) {
+        
         if (succeeded) {
-            self.parseObjectId = object.objectId;
+            self.parseObjectId = objectId;
             self.parseUpdated = @YES;
             [self.managedObjectContext save:nil];
         }
@@ -269,9 +266,7 @@
 
 - (void)deleteFromParse {
     if (self.parseObjectId) {
-        PFObject *object = [PFObject objectWithoutDataWithClassName:NSStringFromClass(self.class)
-                                                           objectId:self.parseObjectId];
-        [object deleteEventually];
+        [DataServer.shared deleteDataObject:NSStringFromClass(self.class) objectId:self.parseObjectId];
     }
 }
 

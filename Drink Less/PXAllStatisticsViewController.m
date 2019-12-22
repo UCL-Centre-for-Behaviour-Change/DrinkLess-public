@@ -81,6 +81,7 @@ static NSString *const PXDataTypeKey = @"dataType";
 
 - (void)configureSegmentedControl {
     self.graphOptions = @[@{PXTitleKey: @"Units",    PXDataTypeKey: @(PXConsumptionTypeUnits)},
+                          @{PXTitleKey: @"Alc Free", PXDataTypeKey: @(PXConsumptionTypeAlcoholFreeDays)},
                           @{PXTitleKey: @"Calories", PXDataTypeKey: @(PXConsumptionTypeCalories)},
                           @{PXTitleKey: @"Money",    PXDataTypeKey: @(PXConsumptionTypeSpending)}];
     [self.segmentedControl removeAllSegments];
@@ -106,7 +107,7 @@ static NSString *const PXDataTypeKey = @"dataType";
 - (IBAction)segmentedControlChanged:(id)sender {
     NSDictionary *dictionary = self.graphOptions[self.segmentedControl.selectedSegmentIndex];
     PXConsumptionType consumptionType = [dictionary[PXDataTypeKey] integerValue];
-    BOOL isTypeUnits = consumptionType == PXConsumptionTypeUnits;
+    BOOL isTypeUnits = YES;//(consumptionType == PXConsumptionTypeUnits || consumptionType == PXConsumptionTypeAlcoholFreeDays);
     
     if (isTypeUnits) {
 //        CGFloat markerYValue = 0.0;
@@ -116,7 +117,32 @@ static NSString *const PXDataTypeKey = @"dataType";
 //        }
         NSNumber *yKey = dictionary[PXDataTypeKey];
         
-        CGFloat goal = [self goalLineFromUserSetGoals];
+        NSString *unitsLabel;
+        NSInteger goalType;
+        self.barPlot.dontUseNoDrinksIcon = YES;
+        switch (consumptionType) {
+            default:
+            case PXConsumptionTypeUnits:
+                unitsLabel = @"Units";
+                goalType = 0;
+                self.barPlot.dontUseNoDrinksIcon = NO;
+                break;
+            case PXConsumptionTypeSpending:
+                unitsLabel = @"Amount Spent";
+                goalType = 3;
+                break;
+            case PXConsumptionTypeCalories:
+                unitsLabel = @"Calories Consumed";
+                goalType = 2;
+                break;
+            case PXConsumptionTypeAlcoholFreeDays:
+                unitsLabel = @"Alcohol Free Days";
+                goalType = 1;
+                break;
+            
+        }
+        
+        CGFloat goal = [self goalLineFromUserSetGoals:goalType];
 
         // Make sure max includes goal
         const CGFloat GOAL_PAD = 5;
@@ -127,17 +153,22 @@ static NSString *const PXDataTypeKey = @"dataType";
         }
         if (maxYValue < 16) {
             maxYValue = 16;
+            // has 8 divisions
+        } else {
+            const int DIVISIONS = 9;
+            maxYValue = ceil(maxYValue);
+            maxYValue += DIVISIONS - (float)((int)maxYValue % DIVISIONS);
         }
-                
+        
+        
         [self.barPlot setXTitle:@"Week ending"
-                         yTitle:@"Units"
+                         yTitle:unitsLabel
                            xKey:nil
                            yKey:yKey
                       minYValue:0.0
                       maxYValue:maxYValue
                       goalValue:goal
-            displayAsPercentage:NO
-                      axisTypeX:PXAxisTypeDate
+                consumptionType:consumptionType
                      showLegend:NO];
 
         // Reset bar colouring default for new goalValue passed in
@@ -155,13 +186,13 @@ static NSString *const PXDataTypeKey = @"dataType";
 }
 
 // This is a bit of a quick hack hence why I'm wrapping it. It should really be injected by the parent VC
-- (CGFloat)goalLineFromUserSetGoals {
+- (CGFloat)goalLineFromUserSetGoals:(NSInteger)goalType {
     
     // Loop throgh goal stats for "unit" type(=0) goals and find the lowest value
     CGFloat goal = FLT_MAX;
     NSArray *goalStats = [(PXDashboardViewController *)self.parentViewController activeGoalsStatistics];
     for (PXGoalStatistics *stat in goalStats) {
-        if (stat.goal.goalType.integerValue == 0) {
+        if (stat.goal.goalType.integerValue == goalType) {
             CGFloat value = stat.goal.targetMax.floatValue;
             if (value < goal) goal = value;
         }

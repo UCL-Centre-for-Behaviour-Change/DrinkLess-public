@@ -9,20 +9,22 @@
 
 #import "PXDailyTaskManager.h"
 #import "PXGroupsManager.h"
-#import "PXFollowUpManager.h"
+#import "PXFollowUpSurveyManager.h"
+#import "PXDebug.h"
+#import "drinkless-Swift.h"
 
-static NSString *const PXTaskDateKey = @"taskDate";
+static NSString *const PXLastCheckDateKey = @"taskDate";
 static NSString *const PXAvailableTasksIDsKey = @"availableTasksIDs";
 static NSString *const PXCompletedTasksIDsKey = @"completedTasksIDs";
-static NSString *const PXSeenTasksIDsKey = @"seenTasksIDs";
+static NSString *const PXSeenRandomTasksIDsKey = @"seenTasksIDs";
 static NSString *const PXDayCounterKey = @"dayCounter";
 
 @interface PXDailyTaskManager ()
 
 @property (strong, nonatomic) NSUserDefaults *userDefaults;
 @property (strong, nonatomic) PXGroupsManager *groupsManager;
-@property (strong, nonatomic) NSDate *taskDate;
-@property (strong, nonatomic) NSMutableSet *seenTaskIDs;
+@property (strong, nonatomic) NSDate *lastCheckDate;
+@property (strong, nonatomic) NSMutableSet *seenRandomTasksIDs;
 @property (nonatomic) NSInteger dayCounter;
 
 @end
@@ -53,42 +55,27 @@ static NSString *const PXDayCounterKey = @"dayCounter";
 #pragma mark - Persistence
 
 - (void)load {
-    _taskDate = [self.userDefaults objectForKey:PXTaskDateKey];
+    _lastCheckDate = [self.userDefaults objectForKey:PXLastCheckDateKey];
     _availableTaskIDs = [NSMutableArray arrayWithArray:[self.userDefaults objectForKey:PXAvailableTasksIDsKey]];
     _completedTaskIDs = [NSMutableSet setWithArray:[self.userDefaults objectForKey:PXCompletedTasksIDsKey]];
-    _seenTaskIDs = [NSMutableSet setWithArray:[self.userDefaults objectForKey:PXSeenTasksIDsKey]];
+    _seenRandomTasksIDs = [NSMutableSet setWithArray:[self.userDefaults objectForKey:PXSeenRandomTasksIDsKey]];
     _dayCounter = [self.userDefaults integerForKey:PXDayCounterKey];
-    [self checkAddingFollowUp];
+    // ^^^ Why does that need to be here?
 }
 
 - (void)save {
-    [self.userDefaults setObject:_taskDate forKey:PXTaskDateKey];
+    [self.userDefaults setObject:_lastCheckDate forKey:PXLastCheckDateKey];
     [self.userDefaults setObject:_availableTaskIDs forKey:PXAvailableTasksIDsKey];
     [self.userDefaults setObject:_completedTaskIDs.allObjects forKey:PXCompletedTasksIDsKey];
-    [self.userDefaults setObject:_seenTaskIDs.allObjects forKey:PXSeenTasksIDsKey];
+    [self.userDefaults setObject:_seenRandomTasksIDs.allObjects forKey:PXSeenRandomTasksIDsKey];
     [self.userDefaults setInteger:_dayCounter forKey:PXDayCounterKey];
     [self.userDefaults synchronize];
-}
-
-- (void)checkAddingFollowUp {
-    
-    BOOL showFollowUpSurvey = [[PXFollowUpManager sharedManager] hasDone];
-    if (!showFollowUpSurvey) {
-     
-        if (![self.availableTaskIDs containsObject:@"follow-up"]) {
-            [self.availableTaskIDs addObject:@"follow-up"];
-        }
-    }
-    else {
-        if ([self.availableTaskIDs containsObject:@"follow-up"]) {
-            [self.availableTaskIDs removeObject:@"follow-up"];
-        }
-    }
 }
 
 #pragma mark - Tasks
 
 - (void)completeTaskWithID:(NSString *)identifier {
+    // (why the conditional? or why not check completedTaskIds instead)
     if ([self.availableTaskIDs containsObject:identifier]) {
         [self.completedTaskIDs addObject:identifier];
     }
@@ -96,20 +83,26 @@ static NSString *const PXDayCounterKey = @"dayCounter";
 }
 
 - (void)checkForNewTasks {
-    NSDate *previousDate = self.taskDate;
-    self.taskDate = [NSDate strictDateFromToday];
-    if ([self.taskDate isEqualToDate:previousDate]) return;
+#if DBG_DASHBOARD_TASK_FORCE_RECHECK
+    self.lastCheckDate = nil;
+#endif
+    NSDate *previousCheckDate = self.lastCheckDate;
+    NSDate *today = [NSDate strictDateFromToday];
+    if ([today isEqualToDate:previousCheckDate]) return;
     
-    if (previousDate) {
-        self.dayCounter += [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:previousDate toDate:self.taskDate options:0].day;
+    // Every 3 days show a selection of the "random" tasks (I think! -HK) This seems weird way to track the days lapsed
+    if (previousCheckDate) {
+        self.dayCounter += [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:previousCheckDate toDate:today options:0].day;
         if (labs(self.dayCounter) >= 3) {
             self.dayCounter = 0;
         }
     }
+
     self.completedTaskIDs = [NSMutableSet set];
     self.availableTaskIDs = [NSMutableArray array];
     NSMutableArray *randomIDs = [NSMutableArray array];
-    
+
+    // Add task associated the user's group. Random's we'll add just one from...
     for (NSString *identifier in self.tasks.allKeys) {
         NSDictionary *task = self.tasks[identifier];
         BOOL eligible = [self isEligibleForTaskWithID:identifier];
@@ -121,21 +114,53 @@ static NSString *const PXDayCounterKey = @"dayCounter";
             }
         }
     }
-    if (self.dayCounter == 0) {
+    
+    // RANDOM TASK
+    // Add random task every 3 days
+    BOOL forceRandom = NO;
+#if DBG_DASHBOARD_FORCE_RANDOM
+    forceRandom = YES;
+#endif
+    if (self.dayCounter == 0 || forceRandom) {
+        // Reset to show again after all have been shown
         NSMutableArray *remainingRandomIDs = randomIDs.mutableCopy;
-        [remainingRandomIDs removeObjectsInArray:self.seenTaskIDs.allObjects];
+        [remainingRandomIDs removeObjectsInArray:self.seenRandomTasksIDs.allObjects];
         if (remainingRandomIDs.count == 0) {
             remainingRandomIDs = randomIDs;
-            self.seenTaskIDs = [NSMutableSet set];
+            self.seenRandomTasksIDs = [NSMutableSet set];
         }
+        
+        // Select one at random and add it to the available and seen
         NSUInteger randomIndex = arc4random_uniform((u_int32_t)remainingRandomIDs.count);
         NSString *identifier = remainingRandomIDs[randomIndex];
         [self.availableTaskIDs addObject:identifier];
-        [self.seenTaskIDs addObject:identifier];
+        [self.seenRandomTasksIDs addObject:identifier];
     }
-    [self checkAddingFollowUp];
+    
+    // AUDIT REPORT FOLLOW UP
+    // Queue up if after 28 days
+    AuditData *latestAuditData = AuditData.latest;
+    NSDate *lastDate = [latestAuditData.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:AuditData.latest.timezone];
+    
+    NSInteger daysSinceLastAuditFollowUp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:lastDate toDate:today options:0].day;
+    BOOL forceShowAudit = NO;
+#if DBG_DASHBOARD_TASK_FORCE_SHOW_AUDIT
+    forceShowAudit = YES;
+#endif
+    NSInteger SHOW_AFTER_DAYS = 28;
+#if DBG_DASHBOARD_SHOW_AUDIT_TASK_AFTER_DAYS
+    SHOW_AFTER_DAYS = DBG_DASHBOARD_SHOW_AUDIT_TASK_AFTER_DAYS;
+#endif
+    
+    if (daysSinceLastAuditFollowUp < SHOW_AFTER_DAYS && !forceShowAudit) {
+        [self.availableTaskIDs removeObject:@"audit-follow-up"];
+    }
+    
+    self.lastCheckDate = today;
     [self save];
 }
+
+//---------------------------------------------------------------------
 
 - (BOOL)isEligibleForTaskWithID:(NSString *)identifier {
     NSDictionary *task = self.tasks[identifier];

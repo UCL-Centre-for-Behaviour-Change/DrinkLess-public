@@ -9,9 +9,10 @@
 
 #import "PXTabBarController.h"
 #import "PXTrackerPanelViewController.h"
-#import "PXDrinkingDiaryViewController.h"
+#import "PXDrinkRecordListVC.h"
 #import "PXDailyTaskManager.h"
 #import "PXDashboardViewController.h"
+#import "drinkless-Swift.h"
 
 NSString *const PXShowDrinksPanelNotification = @"showDrinksPanelNotification";
 
@@ -39,10 +40,15 @@ NSString *const PXShowDrinksPanelNotification = @"showDrinksPanelNotification";
     [self.tabBar addSubview:self.button];
     [self.button sizeToFit];
     
-    for (UINavigationController *navigationController in self.viewControllers) {
-        UIViewController *viewController = navigationController.topViewController;
-        viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Help" style:UIBarButtonItemStylePlain target:self action:@selector(pressedHelp:)];
-    }
+    // Needed for later...
+    DashboardExplainer.shared.addDrinkBtn = self.button;
+    DashboardExplainer.shared.calendarBtn = self.tabBar;
+    
+    // This will just be on Activities now
+//    for (UINavigationController *navigationController in self.viewControllers) {
+//        UIViewController *viewController = navigationController.topViewController;
+//        viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Help" style:UIBarButtonItemStylePlain target:self action:@selector(pressedHelp:)];
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,7 +81,15 @@ NSString *const PXShowDrinksPanelNotification = @"showDrinksPanelNotification";
     [self.tabBar bringSubviewToFront:self.button];
 }
 
-#pragma mark - Convenience
+//////////////////////////////////////////////////////////
+// MARK: - Convenience
+//////////////////////////////////////////////////////////
+
+- (void)showCalendarTab {
+    self.selectedIndex = 4;
+}
+
+//---------------------------------------------------------------------
 
 - (void)selectTabAtIndex:(NSInteger)tabIndex storyboardName:(NSString *)storyboardName pushViewControllersWithIdentifiers:(NSArray *)identifiers {
     self.selectedIndex = tabIndex;
@@ -87,12 +101,6 @@ NSString *const PXShowDrinksPanelNotification = @"showDrinksPanelNotification";
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:identifier];
         [navigationController pushViewController:viewController animated:NO];
     }
-}
-
-- (void)pressedHelp:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
-    UIViewController *viewController = [storyboard instantiateInitialViewController];
-    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (id)topViewController {
@@ -112,8 +120,8 @@ NSString *const PXShowDrinksPanelNotification = @"showDrinksPanelNotification";
 }
 
 - (NSDate *)viewingDiaryDate {
-    PXDrinkingDiaryViewController *drinkingDiaryVC = [self topViewControllerOfClass:[PXDrinkingDiaryViewController class]];
-    return drinkingDiaryVC.date;
+    PXDrinkRecordListVC *drinkRecordListVC = [self topViewControllerOfClass:[PXDrinkRecordListVC class]];
+    return drinkRecordListVC.date;
 }
 
 - (void)toggleTrackerPanel {
@@ -197,6 +205,9 @@ NSString *const PXShowDrinksPanelNotification = @"showDrinksPanelNotification";
             tabBarController.selectedViewController = viewController;
         }];
         return NO;
+    }
+    if ([viewController isKindOfClass:UINavigationController.class]) {
+        [((UINavigationController *)viewController) popToRootViewControllerAnimated:NO];
     }
     return YES;
 }

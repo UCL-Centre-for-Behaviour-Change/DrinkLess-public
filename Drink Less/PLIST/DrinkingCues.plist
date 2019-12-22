@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>Alone</string>
+	<string>With family</string>
+	<string>With friends</string>
+	<string>With spouse or partner</string>
+	<string>With work colleagues</string>
+	<string>At home</string>
+	<string>At someone’s house</string>
+	<string>Out for a meal</string>
+	<string>Night out</string>
+	<string>To wind down</string>
+	<string>To have time for myself</string>
+	<string>To reward myself</string>
+	<string>To have a break</string>
+	<string>To recharge or invigorate</string>
+	<string>To spend quality time with someone</string>
+	<string>To bond with others</string>
+	<string>To feel part of a group</string>
+	<string>To have a laugh</string>
+	<string>To let go</string>
+</array>
+</plist>

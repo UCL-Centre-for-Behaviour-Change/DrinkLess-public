@@ -62,7 +62,7 @@ static NSString *const PXRiskGameLogsKey = @"riskGameLogs";
     if ([gameLog isKindOfClass:[PXCardGameLog class]]) {
         PXCardGameLog *cardGameLog = (PXCardGameLog *)gameLog;
         [self.cardGameLogs addObject:cardGameLog];
-        [cardGameLog saveToParse];
+        [cardGameLog saveToServer];
     }
     else if ([gameLog isKindOfClass:[PXRiskGameLog class]]) {
         PXRiskGameLog *riskGameLog = (PXRiskGameLog *)gameLog;

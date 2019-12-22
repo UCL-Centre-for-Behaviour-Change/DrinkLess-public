@@ -22,5 +22,6 @@
 @dynamic overview;
 @dynamic feedbackMessageID;
 @dynamic feedbackRecursion;
+@dynamic timezone;
 
 @end

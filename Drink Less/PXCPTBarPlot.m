@@ -48,7 +48,7 @@
     
     
     // Check the barValue. Use superclass if non zero. Otherwise do the icon
-    if (barValue > 0 || self.isGameBarPlot) {
+    if (barValue > 0 || self.dontUseNoDrinksIcon) {
         [super drawBarInContext:context recordIndex:idx];
     } else {
         

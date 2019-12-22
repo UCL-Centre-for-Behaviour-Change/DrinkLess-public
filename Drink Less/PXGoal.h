@@ -14,6 +14,7 @@
 @interface PXGoal : NSManagedObject
 
 @property (nonatomic, retain) NSDate * endDate;
+@property (nonatomic, retain) NSString *timezone;
 @property (nonatomic, retain) NSNumber * goalType;
 @property (nonatomic, retain) NSString * parseObjectId;
 @property (nonatomic, retain) NSNumber * parseUpdated;

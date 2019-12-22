@@ -19,13 +19,13 @@ extern NSString* const PXGoingOutReminderType;
 extern NSString* const PXConsumptionReminderType;
 extern NSString* const PXMemoWatchReminderType;
 extern NSString* const PXMemoRecordReminderType;
-extern NSString* const PXSurveyReminderType;
+//extern NSString* const PXSurveyReminderType;
 
 @interface PXLocalNotificationsManager : NSObject
 
 @property (nonatomic) BOOL consumptionReminderShowing;
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 - (void)updateConsumptionReminder;
 
@@ -65,10 +65,10 @@ extern NSString* const PXSurveyReminderType;
 /** Does not include the newly added Survey notification which needs to be enabled manually */
 - (void)enableAllNotificationsIfFirstRun;
 
-/** Schedules a one off. To be used on suspend... */
-- (void)scheduleSurveyNotification;
-
-/** Used to show an in-app alert if the user comes back after having ignored the notif */
-- (void)showSurveyPromptAlertViewWithCallback:(void(^)())didAgreeToSurvey;
+///** Schedules a one off. To be used on suspend... */
+//- (void)scheduleSurveyNotification;
+//
+///** Used to show an in-app alert if the user comes back after having ignored the notif */
+//- (void)showSurveyPromptAlertViewWithCallback:(void(^)(void))didAgreeToSurvey;
 
 @end

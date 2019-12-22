@@ -9,8 +9,9 @@
 
 #import "PXCardResultsViewController.h"
 #import "PXBarPlot.h"
-#import <CorePlot-CocoaTouch.h>
+#import "CorePlot-CocoaTouch.h"
 #import "PXUserGameHistory.h"
+#import "PXAllStatistics.h"
 
 @interface PXCardResultsViewController ()
 
@@ -48,7 +49,7 @@
         self.barPlot = [[PXBarPlot alloc] initWithHostingView:hostingView];
         self.barPlot.xAxisDateFormat = @"HH:mm";
         self.barPlot.xAxisSpecialDateFormat = @"d MMM";
-        self.barPlot.isGameBarPlot = YES;
+        self.barPlot.dontUseNoDrinksIcon = YES;
         
         NSString *positivePlot = @"Positive";
         NSString *negativePlot = @"Negative";
@@ -83,7 +84,8 @@
         userMaxScore = [gameHistory valueForKeyPath:[NSString stringWithFormat:@"@max.%@", yKey]];
         CGFloat minYValue = MIN(userMinScore.floatValue, minScore);
         CGFloat maxYValue = MAX(userMaxScore.floatValue, maxScore);
-        [self.barPlot setXTitle:nil yTitle:nil xKey:nil yKey:yKey minYValue:minYValue maxYValue:maxYValue goalValue:0.0 displayAsPercentage:NO axisTypeX:PXAxisTypeDate showLegend:NO];
+//    [self.barPlot setXTitle:nil yTitle:nil xKey:nil yKey:yKey minYValue:minYValue maxYValue:maxYValue goalValue:0.0 displayAsPercentage:NO displayAsCurrency:NO axisTypeX:PXAxisTypeDate showLegend:NO];
+        [self.barPlot setXTitle:nil yTitle:nil xKey:nil yKey:yKey minYValue:minYValue maxYValue:maxYValue goalValue:0.0 consumptionType:PXConsumptionTypeGameResults showLegend:NO];
         
         NSSortDescriptor *sortByScore = [NSSortDescriptor sortDescriptorWithKey:yKey ascending:YES];
         PXCardGameLog *highestScoringLog = [gameHistory sortedArrayUsingDescriptors:@[sortByScore]].lastObject;

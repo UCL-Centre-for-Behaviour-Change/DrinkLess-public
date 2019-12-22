@@ -8,7 +8,6 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
 #import <AVFoundation/AVFoundation.h>
 #import "PXAppearance.h"
 #import "PXIntroNavigationController.h"
@@ -21,12 +20,11 @@
 #import "PXGroupsManager.h"
 #import "PXIntroManager.h"
 #import "PXDebug.h"
-#import <Google/Analytics.h>
 #import "PXDeviceUID.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 #import "NSDate+DrinkLess.h"
-
+#import "NSTimeZone+DrinkLess.h"
+#import "NSDate+DrinkLess.h"
+#import "PXEditGoalViewController.h"
 #import "PXDrinkRecord.h"
 #import "PXDrinkRecord+Extras.h"
 #import "PXAlcoholFreeRecord.h"
@@ -38,6 +36,8 @@
 #import "PXMoodDiary.h"
 #import "DLFloatingDebugVC.h"
 #import "PXDebug.h"
+#import "PXCoreDataManager+Debug.h"
+#import "drinkless-Swift.h"
 
 /////////////////////////////////////////////////////////////////////////
 // MARK: - Types & Consts
@@ -56,13 +56,14 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 @property (strong, nonatomic) PXAwesomeFloatingGroupDebug *awesomeGroupDebugView;
 @property (strong, nonatomic) DLFloatingDebugVC *floatingDebugVC;
 @property (strong, nonatomic) PXIntroManager *introManager;
-
+@property (nonatomic) BOOL didLaunchViaNotification;
+@property (nonatomic) BOOL isLaunching;  // disentangle fresh run from resume
 @end
 
 @implementation AppDelegate {
-    BOOL _didResumeFromQuestionnaireNotification;
-    BOOL _didResumeHavingQuestionnaireElgibility;
-    BOOL _scheduleQuestionnaireAlertOnSuspend;
+//    BOOL _didResumeFromQuestionnaireNotification;
+//    BOOL _didResumeHavingQuestionnaireElgibility;
+//    BOOL _scheduleQuestionnaireAlertOnSuspend;
 }
 
 + (void)initialize {
@@ -70,65 +71,187 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     [iRate sharedInstance].usesUntilPrompt = 11;
 }
 
--(void)connectToNodeChef {
-
-    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        // OPEN SOURCE PARSE SERVER
-        configuration.applicationId = @"6c2b7d8713595aa45e7f5b98251a6f4a";
-        configuration.server = @"https://drinkless-opensource-1394.nodechef.com/parse";
-
-
-    }]];
-}
+//---------------------------------------------------------------------
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"******* APPLICATION: DidFinishLaunchingWithOptions *******");
+    /////////////////////////////////////////
+    // VERISON INFO
+    /////////////////////////////////////////
+    {
+        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+        NSInteger prevRunVersion = [defs integerForKey:@"currentRunVersion"];
+        [defs setInteger:prevRunVersion forKey:@"previousRunVersion"];
+        [defs setInteger:UIApplication.versionInt forKey:@"currentRunVersion"];
+        [defs synchronize];
+        // also see firstRun below
+    }
+    
+    self.isLaunching = YES;
+    
+    
+    /////////////////////////////////////////
+    // DB & PARSE INIT
+    /////////////////////////////////////////
+    
+    NSLog(@"AppConfig: User %@ opted out of data reporting", AppConfig.userHasOptedOut ? @"HAS" : @"HAS NOT");
+    DataServer.shared.isEnabled = !AppConfig.userHasOptedOut;
+    [DataServer.shared connect];
+    
+    // Must come after the above
+    [[PXCoreDataManager sharedManager] loadDatabase];
+    
+    
+    /////////////////////////////////////////
+    // MIGRATION
+    // !! Be sure to run before firstRun flag is set in userdefs or else fresh installs will try to migrate
+    // ...and AFTER coredata has been init'ed...and PARSE
+    /////////////////////////////////////////
+    
+    NSArray<MigrationError *> *errors = [MigrationManager doMigrations]; // ALWAYS calls thiszx
+    BOOL isFirstError = YES;
+    for (MigrationError *e in errors) {
+        if (isFirstError) {
+            [AlertManager.shared showErrorAlert:e.toNSError callback:^(NSInteger idx) {
+                for (MigrationError *e2 in errors) {
+                    if (e2.isFatal) {
+                        [NSException raise:NSGenericException format:@"Fatal migration error. %@", e2.toNSError];
+                        return;
+                    }
+                }
+            }];
+            isFirstError = NO;
+        } else {
+            [AlertManager.shared showErrorAlert:e.toNSError];
+        }
+    }
+    
+    
+    
+    /////////////////////////////////////////
+    // AUDIO
+    /////////////////////////////////////////
+    
     // Allow BG music to continue to play when we make sounds
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:NULL];
 
-    // Configure tracker from GoogleService-Info.plist.
-    NSError *configureError;
-    [[GGLContext sharedInstance] configureWithError:&configureError];
-    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
-
-    // Optional: configure GAI options.
-    GAI *gai = [GAI sharedInstance];
-    gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
- //   gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
+    /////////////////////////////////////////
+    // ANALYTICS
+    /////////////////////////////////////////
+    
+    
+    /////////////////////////////////////////
+    // PUSH/LOCAL NOTIFS
+    /////////////////////////////////////////
 
     [[PXLocalNotificationsManager sharedInstance] enableAllNotificationsIfFirstRun];
+    
+    /////////////////////////////////////////
+    // APPEARANCE
+    /////////////////////////////////////////
+    
+    self.window.tintColor = [UIColor drinkLessGreenColor];
+    [PXAppearance configureAppearance];
+    [self.window makeKeyAndVisible];
 
-    NSLog(@"library:%@", [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject]);
+    [TSMessage addCustomDesignFromFileWithName:@"PXMessageDesign.json"];
 
-    NSLog(@"documents:%@", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
-
-    [self connectToNodeChef];
-
-    [PFUser enableAutomaticUser];
-     [PFUser enableRevocableSessionInBackground];
-
-
+    
+    /////////////////////////////////////////
+    // GLOBALS INIT
+    /////////////////////////////////////////
+    
     PXGroupsManager *groupsManager = [PXGroupsManager sharedManager];
 #if SET_GROUP_ID_ON_LAUNCH
     groupsManager.groupID = @(SET_GROUP_ID_ON_LAUNCH);
 #endif
     NSLog(@"[APP_DELEGATE] GROUP ID: %@", groupsManager.groupID);
-
-    [[PXCoreDataManager sharedManager] loadDatabase];
-
-
-    self.window.tintColor = [UIColor drinkLessGreenColor];
-    [PXAppearance configureAppearance];
-    [self.window makeKeyAndVisible];
-
-
-    [TSMessage addCustomDesignFromFileWithName:@"PXMessageDesign.json"];
-
+    
     self.introManager = [PXIntroManager sharedManager];
-    if (self.introManager.stage != PXIntroStageFinished) {
-        [self showIntroductionFromStage:self.introManager.stage];
-    }
+    VCInjector.shared.demographicData = [[DemographicData alloc] init]; // restores from userdefs
 
+    // Assign default settings
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults registerDefaults:@{@"enable-sounds": @YES,
+                                 @"enable-textured-colours": @YES
+                                 }];
+    
+    BOOL isFirstRun = [defaults objectForKey:@"firstRun"] == nil;
+    AppConfig.isFirstRun = isFirstRun;  //interface to swift
+    
+    //Saving first run date to determine if 30 day questionaire should be displayed
+    if (isFirstRun)
+        [defaults setObject:[NSDate strictDateFromToday] forKey:@"firstRun"];
+#if SET_FIRST_RUN_DATE_TO_DAYS_BEFORE_NOW
+    NSDate *d = [[NSDate date] dateByAddingTimeInterval:-(SET_FIRST_RUN_DATE_TO_DAYS_BEFORE_NOW * 24 * 3600)];
+    [defaults setObject:d forKey:@"firstRun"];
+    
+#endif
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    /////////////////////////////////////////
+    // NOTIFICATIONS
+    /////////////////////////////////////////
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
+    } else {
+        [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
+    }
+    
+    
+    
+    /////////////////////////////////////////
+    // ONBOARDING
+    /////////////////////////////////////////
+    if (self.introManager.stage != PXIntroStageFinished) {
+//        [self showIntroductionFromStage:self.introManager.stage];
+        // Initialise onboarding
+        VCInjector.shared.isOnboarding = YES;
+        // Be sure to get the latest one if we had an onboarding which aborted AFTER the save
+        AuditData *latest = [AuditData latest];
+        VCInjector.shared.workingAuditData = latest ? latest : [[AuditData alloc] init];
+        VCInjector.shared.workingAuditData.date = NSDate.strictDateFromToday;
+        VCInjector.shared.workingAuditData.timezone = [NSTimeZone localTimeZone];
+        [self showIntroductionFromStage:0]; // Force restart if app quits
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedIntro) name:@"PXFinishIntro" object:nil];
+
+    /////////////////////////////////////////
+    // MRT TRIAL
+    /////////////////////////////////////////
+    
+    // Initialise it if this is a first run
+    MRTNotificationsManager *mrtMan = MRTNotificationsManager.shared;
+    [mrtMan launchWithIsFirstRun:isFirstRun];
+    UILocalNotification *launchNotif = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    if (launchNotif) {
+        if (![mrtMan handleMRTNotificationWithNotification:launchNotif]) {
+            [[PXLocalNotificationsManager sharedInstance] showNotification:launchNotif]; // this was entirely missing before, meaning the alert would only be shown when the app was suspended in the bg, not killed altogether
+        }
+    }
+    
+    /////////////////////////////////////////
+    // DEBUGGING
+    /////////////////////////////////////////
+    
 #if DEBUG
+
+    
+#if DBG_FAKE_DEMOGRAPHIC_DATA
+    DemographicData *d = VCInjector.shared.demographicData;
+    
+    [d setAnswerWithQuestionId:@"question0" answerValue:@(1)];
+    [d setAnswerWithQuestionId:@"question1" answerValue:@(1981)];
+    [d setAnswerWithQuestionId:@"question5" answerValue:@(0)];
+    [d setAnswerWithQuestionId:@"question7" answerValue:@(1)];
+    [d setAnswerWithQuestionId:@"question9" answerValue:@(0)];
+    
+    [d saveWithLocalOnly:NO];
+
+#endif
+        
+    
     // HK: This is kinda obsolete now as all the high-low stuff has been removed I think
     UISwipeGestureRecognizer* swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showGroupsPicker)];
     [swipeGesture setNumberOfTouchesRequired:2];
@@ -139,7 +262,7 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 #if ENABLE_TIME_DEBUG_PANEL
 
     self.floatingDebugVC = [[DLFloatingDebugVC alloc] init];
-    [self.window addSubview:self.floatingDebugVC.view];
+    [self.window.rootViewController.view addSubview:self.floatingDebugVC.view];
 
 //    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFloatingDebug)];
 //    tapGR.numberOfTapsRequired = 2;
@@ -147,34 +270,28 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 //    [self.window addGestureRecognizer:tapGR];
 #endif
 
-#endif
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedIntro) name:@"PXFinishIntro" object:nil];
+    ////////////////////////////////////////
+    // MARK: TEMP STARTUP
+    ////////////////////////////////////////
+    //[PXCoreDataManager.sharedManager dbg_deleteCustomDrinkServings];
 
-    // Assign default settings
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults registerDefaults:@{@"enable-sounds": @YES}];
+    if (Debug.ENABLED) {
+        [self _popuplateWithData];
+    }
+    //[self _cleanupDuplicateAlcoholFreeDays];
 
-    //Saving first run date to determine if 30 day questionaiire should be displayed
-    if (![defaults objectForKey:@"firstRun"])
-        [defaults setObject:[NSDate date] forKey:@"firstRun"];
-#if SET_FIRST_RUN_DATE_TO_DAYS_BEFORE_NOW
-    NSDate *d = [[NSDate date] dateByAddingTimeInterval:-(SET_FIRST_RUN_DATE_TO_DAYS_BEFORE_NOW * 24 * 3600)];
-    [defaults setObject:d forKey:@"firstRun"];
+// New Swift port
+    [Debug doHook:@"AppLaunch" arg1:nil];
 
-#endif
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-    [Fabric with:@[[Crashlytics class]]];
-
-#if POPULATE_WITH_DATA
-    //[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(_popuplateWithData) userInfo:nil repeats:NO];
-    [self _popuplateWithData];
-#endif
-
+    
+#endif //DEBUG
+    
+    
     return YES;
 }
 
+/**  HKS NOTE! We only call this with 0 now. Onboarding is no longer pick up where you left off. It would need some rethinking if we reimplement this as we have more screens now and have abandoned the VC id naming scheme used below */
 - (void)showIntroductionFromStage:(PXIntroStage)introStage {
     // TEMP
 #ifdef FORCE_INTRO_STAGE
@@ -204,24 +321,23 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PXUpdateProgressBar" object:@(introStage)];
 }
 
+//---------------------------------------------------------------------
+
 - (void)finishedIntro {
-    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
-    } else {
-        [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
-    }
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 
-    // SURVEY
-    // For new users only, determine whether they qualify for the survey and schedule it to show in background
-    if (self.introManager.qualifiesForQuestionnaire) {
-        NSLog(@"******* QUESTIONNAIRE: User eligible, will schedule on suspend *******");
-        _scheduleQuestionnaireAlertOnSuspend = YES;
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:PXUserEligibleForQuestionnaireKey];  // set a flag so we can do an alert if they come back later having ignored the localnotif
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    } else {
-        NSLog(@"******* QUESTIONNAIRE: User not eligible *******");
-    }
+    VCInjector.shared.isOnboarding = NO;
+    
+//    // SURVEY
+//    // For new users only, determine whether they qualify for the survey and schedule it to show in background
+//    if (self.introManager.qualifiesForQuestionnaire) {
+//        NSLog(@"******* QUESTIONNAIRE: User eligible, will schedule on suspend *******");
+//        _scheduleQuestionnaireAlertOnSuspend = YES;
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:PXUserEligibleForQuestionnaireKey];  // set a flag so we can do an alert if they come back later having ignored the localnotif
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    } else {
+//        NSLog(@"******* QUESTIONNAIRE: User not eligible *******");
+//    }
 }
 
 //- (void)saveDeviceId {
@@ -274,26 +390,33 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     NSLog(@"******* APPLICATION: didReceiveLocalNotification  *******");
 
-    if ([notification.userInfo[KEY_LOCALNOTIFICATION_TYPE] isEqualToString:PXSurveyReminderType]) {
-        _didResumeFromQuestionnaireNotification = YES;
-    } else {
-        [[PXLocalNotificationsManager sharedInstance] showNotification:notification];
+//    if ([notification.userInfo[KEY_LOCALNOTIFICATION_TYPE] isEqualToString:PXSurveyReminderType]) {
+//        _didResumeFromQuestionnaireNotification = YES;
+//    } else {
+    
+    
+    if ([MRTNotificationsManager.shared handleMRTNotificationWithNotification:notification]) {
+        return;
     }
+    [[PXLocalNotificationsManager sharedInstance] showNotification:notification];
+//    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    NSLog(@"******* APPLICATION: WillResignActive  *******");
 }
 
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     NSLog(@"******* APPLICATION: DidEnterBackground  *******");
+    MRTNotificationsManager.shared.appIsInForeground = NO;
 
-    if (_scheduleQuestionnaireAlertOnSuspend) {
-        NSLog(@"******* SURVEY: Scheduling survey notification *******");
-        [[PXLocalNotificationsManager sharedInstance] scheduleSurveyNotification];
-        _scheduleQuestionnaireAlertOnSuspend = NO;
-    }
+//    if (_scheduleQuestionnaireAlertOnSuspend) {
+//        NSLog(@"******* SURVEY: Scheduling survey notification *******");
+//        [[PXLocalNotificationsManager sharedInstance] scheduleSurveyNotification];
+//        _scheduleQuestionnaireAlertOnSuspend = NO;
+//    }
 
     if (!self.introManager.isParseUpdated) {
         [self.introManager save];
@@ -304,36 +427,45 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 
     NSLog(@"******* APPLICATION: WillEnterForeground  *******");
 
-    // QUESTIONAIRRE SURVEY
-    if ([NSUserDefaults.standardUserDefaults boolForKey:PXUserEligibleForQuestionnaireKey]) {
-        NSLog(@"******* SURVEY: App resumed with survey eligibility flag set (might be from a notif too). *******");
-        _didResumeHavingQuestionnaireElgibility = YES;
-        [NSUserDefaults.standardUserDefaults setBool:NO forKey:PXUserEligibleForQuestionnaireKey];
-        [NSUserDefaults.standardUserDefaults synchronize];
-    }
+//    // QUESTIONAIRRE SURVEY
+//    if ([NSUserDefaults.standardUserDefaults boolForKey:PXUserEligibleForQuestionnaireKey]) {
+//        NSLog(@"******* SURVEY: App resumed with survey eligibility flag set (might be from a notif too). *******");
+//        _didResumeHavingQuestionnaireElgibility = YES;
+//        [NSUserDefaults.standardUserDefaults setBool:NO forKey:PXUserEligibleForQuestionnaireKey];
+//        [NSUserDefaults.standardUserDefaults synchronize];
+//    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"******* APPLICATION: DidBecomeActive  *******");
 
     application.applicationIconBadgeNumber = 0;
 
+    // ideally this would be in didEnterForegroud but such method existeth not!. Active/inactive is triggered by message centre overlay too so we wont user the *Inactive hooks to set it to NO
+    MRTNotificationsManager.shared.appIsInForeground = YES;
+    
+    if (!self.isLaunching) {
+    // Update the schedule. If they are an active DL user the app may never be killed and restarted for the AppDidFinishLAunching hook to run
+        [MRTNotificationsManager.shared launchWithIsFirstRun:NO];
+    }
     // Careful here as this is triggered after a uialertview closes
-    if (_didResumeFromQuestionnaireNotification) {
-        NSLog(@"******* SURVEY: Opening survey URL *******");
-        [self _openSurveyURL];
-        _scheduleQuestionnaireAlertOnSuspend = NO;
-        _didResumeHavingQuestionnaireElgibility = NO;
-        _didResumeFromQuestionnaireNotification = NO;
-    } else if (_didResumeHavingQuestionnaireElgibility) {
-//        NSLog(@"******* SURVEY: Showing survey alert prompt *******");
-//        // Show in-app alert as they've ignored the localnotif
-//        [PXLocalNotificationsManager.sharedInstance showSurveyPromptAlertViewWithCallback:^{
-//            [self _openSurveyURL];
-//        }];
+//    if (_didResumeFromQuestionnaireNotification) {
+//        NSLog(@"******* SURVEY: Opening survey URL *******");
+//        [self _openSurveyURL];
 //        _scheduleQuestionnaireAlertOnSuspend = NO;
 //        _didResumeHavingQuestionnaireElgibility = NO;
 //        _didResumeFromQuestionnaireNotification = NO;
-    }
+//    } else if (_didResumeHavingQuestionnaireElgibility) {
+////        NSLog(@"******* SURVEY: Showing survey alert prompt *******");
+////        // Show in-app alert as they've ignored the localnotif
+////        [PXLocalNotificationsManager.sharedInstance showSurveyPromptAlertViewWithCallback:^{
+////            [self _openSurveyURL];
+////        }];
+////        _scheduleQuestionnaireAlertOnSuspend = NO;
+////        _didResumeHavingQuestionnaireElgibility = NO;
+////        _didResumeFromQuestionnaireNotification = NO;
+//    }
+    self.isLaunching = NO;  // clear flag for disentangling fresh run / resume
 }
 
 
@@ -395,6 +527,99 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     [UIApplication.sharedApplication openURL:[NSURL URLWithString:urlStr]];
 }
 
+//---------------------------------------------------------------------
+
+/** Added Nov'18. */
+- (void)_cleanupDuplicateAlcoholFreeDays
+{
+    // Lets do it as a one-off for now
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+    BOOL done = [defs boolForKey:@"AlcoholFreeDuplicatesCleaned"];
+    if (done) {
+        logd(@"Alc Free duplicate checks done already. Skipping.");
+        return;
+    }
+    [defs setBool:YES forKey:@"AlcoholFreeDuplicatesCleaned"];
+    [defs synchronize];
+    
+    // Fetch all the Alc Free records...
+    NSManagedObjectContext *context = PXCoreDataManager.sharedManager.managedObjectContext;
+    NSFetchRequest *req = [PXAlcoholFreeRecord alcoholFreeRecordFetchRequest];
+    req.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    NSError *error;
+    NSArray <PXAlcoholFreeRecord *> *records = [context executeFetchRequest:req error:&error];
+    if (error) {
+        [[[UIAlertView alloc] initWithTitle:@"Error. Please contact support." message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        return;
+    }
+    
+    logd(@"Checking for duplicate Alcohol Free days in %lu records...", records.count);
+    
+    
+    // Loop through and check adjacent records for ones with same calendar date
+    const int EXTEND = 20;  // amount to keep checking beyond when different cal date is found
+    NSMutableSet <PXAlcoholFreeRecord *> *recsToDelete = NSMutableSet.set;
+    NSMutableDictionary <NSDate *, NSNumber *> *datesDupsCount = NSMutableDictionary.dictionary;
+    
+    for (int i=0; i<=(int)records.count - 2; i++) {
+
+        PXAlcoholFreeRecord *rec = records[i];
+        NSTimeZone *recTZ = [NSTimeZone timeZoneForAlcoholFreeRecord:rec];
+        NSDate *normedDate = [rec.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:recTZ];
+
+        int compareUpperBounds = MIN(i+1 + EXTEND, (int)records.count-1);
+
+        logd(@"Checking Alc Free Record idx=%i date=%@ tz=%@ (normed: %@) UB=%i", i, rec.date, recTZ, [NSDateFormatter localizedStringFromDate:normedDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle], compareUpperBounds);
+        
+        for (int j=i+1; j<=compareUpperBounds; j++) {
+            PXAlcoholFreeRecord *compareRec = records[j];
+            NSTimeZone *compareRecTZ = [NSTimeZone timeZoneForAlcoholFreeRecord:compareRec];
+            NSDate *normedCompareDate = [compareRec.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:compareRecTZ];
+            
+            BOOL isSameCalendarDate = [normedDate isSameCalendarDateAs:normedCompareDate];
+            if (isSameCalendarDate) {
+                int cnt = [datesDupsCount[normedDate] intValue];
+                datesDupsCount[normedDate] = @(cnt+1);
+                [recsToDelete addObject:compareRec];
+                
+                // Extend the search
+                compareUpperBounds = MIN(j + EXTEND, (int)records.count-1);
+                
+                logd(@"Duplicate found! idx=%i date=%@ tz=%@ (normed: %@). UB extended to %i", i, compareRec.date, compareRecTZ, [NSDateFormatter localizedStringFromDate:normedCompareDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle], compareUpperBounds);
+            }
+        }
+        
+        // While we're at it, look for a drink record with the same calendar date and erase this entry if so.
+        NSFetchRequest *req2 = [PXDrinkRecord fetchRequestForCalendarDate:normedDate context:context];
+        BOOL drinksOnDate = [context executeFetchRequest:req2 error:nil].count > 0;
+        if (drinksOnDate) {
+            int cnt = [datesDupsCount[normedDate] intValue];
+            datesDupsCount[normedDate] = @(cnt+1);
+            [recsToDelete addObject:rec];
+        }
+    }
+        
+    // temp
+//    NSMutableString *msg = @"Duplicates:".mutableCopy;
+//    [datesDupsCount enumerateKeysAndObjectsUsingBlock:^(NSDate * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+//        [msg appendFormat:@"\n%@: %i", [NSDateFormatter localizedStringFromDate:key dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle], obj.intValue];
+//    }];
+//    [[[UIAlertView alloc] initWithTitle:@"" message:msg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    
+    // Now do the deletions
+    for (PXAlcoholFreeRecord *rec in recsToDelete) {
+        [context deleteObject:rec];
+    }
+    [context save:&error];
+    if (error) {
+        [[[UIAlertView alloc] initWithTitle:@"Error. Please contact support." message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        return;
+    } else {
+        logd(@"Deleted %li Alcohol Free Records", recsToDelete.count);
+    }
+}
+
+
 
 /////////////////////////////////////////////////////////////////////////
 #pragma mark - DEBUG
@@ -402,10 +627,18 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 
 - (void)_popuplateWithData
 {//return;
-    NSLog(@"DEBUG: ******* POPULATING WITH TEST DATA *******");
-    static const NSUInteger DAYS_BACK = 90;  // 3 months/12 weeks
-    static const NSUInteger QUANTITY_MAX = 3; // 0-3 per day
-    static const BOOL ERASE = NO;
+    if (!Debug.ENABLED) {
+        return;
+    }
+    
+    
+    BOOL DO_RANDOM_ADDER = Debug.DATA_POPULATION.DO_DRINKS_RANDOM;
+    BOOL DO_MOOD_DIARY = Debug.DATA_POPULATION.DO_MOOD_DIARY;
+    NSUInteger QUANTITY_MAX = Debug.DATA_POPULATION.MAX_DRINK_QUANTITY;
+    BOOL ERASE = Debug.DATA_POPULATION.DO_ERASE;
+    NSUInteger DAYS_BACK = Debug.DATA_POPULATION.DAYS_BACK;
+    
+    
     NSManagedObjectContext *context = [PXCoreDataManager sharedManager].managedObjectContext;
 
     if (ERASE) {
@@ -461,196 +694,207 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     /////////////////////////////////////////
     // SPECIFIC ADDER
     /////////////////////////////////////////
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-    PXDrinkRecord *referenceRecord = [fetchedResultsController objectAtIndexPath:indexPath];
-
-    NSTimeZone *caliTZ = [NSTimeZone timeZoneWithName:@"America/Los_Angeles"];
-    NSTimeZone *japanTZ = [NSTimeZone timeZoneWithName:@"Japan"];
-    NSCalendar *caliCal = NSCalendar.currentCalendar.copy;
-    NSCalendar *japanCal = NSCalendar.currentCalendar.copy;
-    caliCal.timeZone = caliTZ;
-    japanCal.timeZone = japanTZ;
-
-    {
-        NSDateComponents *dateComps = [NSDateComponents new];
-        PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
-        newRecord.abv = @3;  // taken from defaults
-
-        dateComps.year = 2018; dateComps.month = 4; dateComps.day = 9;
-        dateComps.hour = 0; dateComps.minute = 1;
-        dateComps.timeZone = caliTZ;
-        NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
-        logd(@"Logging DRINK at %@", recDate);
-        newRecord.date = recDate;
-        newRecord.timezone = dateComps.timeZone.name;
-        newRecord.price = @1;
-        newRecord.quantity = @1;
-        newRecord.servingID = @2; // id of plist entry
-
-        [context refreshObject:newRecord mergeChanges:YES];
-        [context save:nil];
+    if (Debug.DATA_POPULATION.DO_DRINKS_SPECIFIC) {
+        
+        NSLog(@"DEBUG: ******* POPULATING WITH SPECIFIC DRINK DATA *******");
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+        PXDrinkRecord *referenceRecord = [fetchedResultsController objectAtIndexPath:indexPath];
+        
+        NSTimeZone *caliTZ = [NSTimeZone timeZoneWithName:@"America/Los_Angeles"];
+        NSTimeZone *japanTZ = [NSTimeZone timeZoneWithName:@"Japan"];
+        NSCalendar *caliCal = NSCalendar.currentCalendar.copy;
+        NSCalendar *japanCal = NSCalendar.currentCalendar.copy;
+        caliCal.timeZone = caliTZ;
+        japanCal.timeZone = japanTZ;
+        
+        {
+            NSDateComponents *dateComps = [NSDateComponents new];
+            PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
+            newRecord.abv = @3;  // taken from defaults
+            
+            dateComps.year = 2018; dateComps.month = 4; dateComps.day = 9;
+            dateComps.hour = 0; dateComps.minute = 1;
+            dateComps.timeZone = caliTZ;
+            NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
+            logd(@"Logging DRINK at %@", recDate);
+            newRecord.date = recDate;
+            newRecord.timezone = dateComps.timeZone.name;
+            newRecord.price = @1;
+            newRecord.quantity = @1;
+            newRecord.servingID = @2; // id of plist entry
+            
+            [context refreshObject:newRecord mergeChanges:YES];
+            [context save:nil];
+        }
+        {
+            NSDateComponents *dateComps = [NSDateComponents new];
+            PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
+            newRecord.abv = @3;  // taken from defaults
+            
+            dateComps.year = 2018; dateComps.month = 4; dateComps.day = 10;
+            dateComps.hour = 0; dateComps.minute = 1;
+            dateComps.timeZone = japanTZ;
+            NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
+            logd(@"Logging DRINK at %@", recDate);
+            newRecord.date = recDate;
+            newRecord.timezone = dateComps.timeZone.name;
+            newRecord.price = @2;
+            newRecord.quantity = @2;
+            newRecord.servingID = @2; // id of plist entry
+            
+            [context refreshObject:newRecord mergeChanges:YES];
+            [context save:nil];
+        }
+        {
+            NSDateComponents *dateComps = [NSDateComponents new];
+            PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
+            newRecord.abv = @3;  // taken from defaults
+            
+            dateComps.year = 2018; dateComps.month = 4; dateComps.day = 11;
+            dateComps.hour = 23; dateComps.minute = 50;
+            dateComps.timeZone = caliTZ;
+            NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
+            logd(@"Logging DRINK at %@", recDate);
+            newRecord.date = recDate;
+            newRecord.timezone = dateComps.timeZone.name;
+            newRecord.price = @3;
+            newRecord.quantity = @3;
+            newRecord.servingID = @2; // id of plist entry
+            
+            [context refreshObject:newRecord mergeChanges:YES];
+            [context save:nil];
+        }
+        {
+            NSDateComponents *dateComps = [NSDateComponents new];
+            PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
+            newRecord.abv = @3;  // taken from defaults
+            
+            dateComps.year = 2018; dateComps.month = 4; dateComps.day = 12;
+            dateComps.hour = 23; dateComps.minute = 50;
+            dateComps.timeZone = japanTZ;
+            NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
+            logd(@"Logging DRINK at %@", recDate);
+            newRecord.date = recDate;
+            newRecord.timezone = dateComps.timeZone.name;
+            newRecord.price = @4;
+            newRecord.quantity = @4;
+            newRecord.servingID = @2; // id of plist entry
+            
+            [context refreshObject:newRecord mergeChanges:YES];
+            [context save:nil];
+        }
+        
+        {
+            NSDateComponents *dateComps = [NSDateComponents new];
+            dateComps.year = 2018; dateComps.month = 4; dateComps.day = 13;
+            dateComps.hour = 00; dateComps.minute = 50;
+            NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
+            logd(@"Logging FREE at %@", recDate);
+            [PXAlcoholFreeRecord setFreeDay:YES date:recDate context:context];
+        }
+        {
+            NSDateComponents *dateComps = [NSDateComponents new];
+            dateComps.year = 2018; dateComps.month = 4; dateComps.day = 14;
+            dateComps.hour = 23; dateComps.minute = 50;
+            NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
+            logd(@"Logging FREE at %@", recDate);
+            [PXAlcoholFreeRecord setFreeDay:YES date:recDate context:context];
+        }
     }
-    {
-        NSDateComponents *dateComps = [NSDateComponents new];
-        PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
-        newRecord.abv = @3;  // taken from defaults
 
-        dateComps.year = 2018; dateComps.month = 4; dateComps.day = 10;
-        dateComps.hour = 0; dateComps.minute = 1;
-        dateComps.timeZone = japanTZ;
-        NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
-        logd(@"Logging DRINK at %@", recDate);
-        newRecord.date = recDate;
-        newRecord.timezone = dateComps.timeZone.name;
-        newRecord.price = @2;
-        newRecord.quantity = @2;
-        newRecord.servingID = @2; // id of plist entry
-
-        [context refreshObject:newRecord mergeChanges:YES];
-        [context save:nil];
-    }
-    {
-        NSDateComponents *dateComps = [NSDateComponents new];
-        PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
-        newRecord.abv = @3;  // taken from defaults
-
-        dateComps.year = 2018; dateComps.month = 4; dateComps.day = 11;
-        dateComps.hour = 23; dateComps.minute = 50;
-        dateComps.timeZone = caliTZ;
-        NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
-        logd(@"Logging DRINK at %@", recDate);
-        newRecord.date = recDate;
-        newRecord.timezone = dateComps.timeZone.name;
-        newRecord.price = @3;
-        newRecord.quantity = @3;
-        newRecord.servingID = @2; // id of plist entry
-
-        [context refreshObject:newRecord mergeChanges:YES];
-        [context save:nil];
-    }
-    {
-        NSDateComponents *dateComps = [NSDateComponents new];
-        PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
-        newRecord.abv = @3;  // taken from defaults
-
-        dateComps.year = 2018; dateComps.month = 4; dateComps.day = 12;
-        dateComps.hour = 23; dateComps.minute = 50;
-        dateComps.timeZone = japanTZ;
-        NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
-        logd(@"Logging DRINK at %@", recDate);
-        newRecord.date = recDate;
-        newRecord.timezone = dateComps.timeZone.name;
-        newRecord.price = @4;
-        newRecord.quantity = @4;
-        newRecord.servingID = @2; // id of plist entry
-
-        [context refreshObject:newRecord mergeChanges:YES];
-        [context save:nil];
-    }
-
-    {
-        NSDateComponents *dateComps = [NSDateComponents new];
-        dateComps.year = 2018; dateComps.month = 4; dateComps.day = 13;
-        dateComps.hour = 00; dateComps.minute = 50;
-        NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
-        logd(@"Logging FREE at %@", recDate);
-        [PXAlcoholFreeRecord setFreeDay:YES date:recDate context:context];
-    }
-    {
-        NSDateComponents *dateComps = [NSDateComponents new];
-        dateComps.year = 2018; dateComps.month = 4; dateComps.day = 14;
-        dateComps.hour = 23; dateComps.minute = 50;
-        NSDate *recDate = [NSCalendar.currentCalendar dateFromComponents:dateComps];
-        logd(@"Logging FREE at %@", recDate);
-        [PXAlcoholFreeRecord setFreeDay:YES date:recDate context:context];
-    }
-
-//    NSDate *d = [[NSDate date] dateByAddingTimeInterval:-3600.0*24.0*(NSTimeInterval)i];
-
+    
     /////////////////////////////////////////
     // RANDOM ADDER
     /////////////////////////////////////////
-
-    // Add one per day
-    for (NSUInteger i=0; i<DAYS_BACK; i++) {
-        // Just beer for now
-        int quantity = round(arc4random() % (QUANTITY_MAX+1));
-        NSDate *d = [[NSDate date] dateByAddingTimeInterval:-3600.0*24.0*(NSTimeInterval)i];
-        if (quantity == 0) {
-            [PXAlcoholFreeRecord setFreeDay:YES date:d context:context];
-            continue;
-        };
-
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
-        PXDrinkRecord *referenceRecord = [fetchedResultsController objectAtIndexPath:indexPath];
-        PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
-
-        newRecord.date = d;
-        newRecord.abv = @5.5;  // taken from defaults
-        newRecord.price = @5.57;
-        newRecord.quantity = @(quantity);
-        newRecord.servingID = @2; // id of plist entry
-        [context refreshObject:newRecord mergeChanges:YES];
-        [context save:nil];
-        NSLog(@"DEBUG: ******* Added drink record %i of %i. Quantity=%i, Date=%@  *******", (int)(i+1), (int)DAYS_BACK, (int)newRecord.quantity.integerValue, newRecord.date);
-
+    
+    if (DO_RANDOM_ADDER) {
+        NSLog(@"DEBUG: ******* POPULATING WITH RANDOM DRINK DATA *******");
+        
+        // Add one per day
+        for (NSUInteger i=0; i<DAYS_BACK; i++) {
+            // Just beer for now
+            int quantity = round(arc4random() % (QUANTITY_MAX+1));
+            NSDate *d = [[NSDate date] dateByAddingTimeInterval:-3600.0*24.0*(NSTimeInterval)i];
+            if (quantity == 0) {
+                [PXAlcoholFreeRecord setFreeDay:YES date:d context:context];
+                continue;
+            };
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+            PXDrinkRecord *referenceRecord = [fetchedResultsController objectAtIndexPath:indexPath];
+            PXDrinkRecord *newRecord = [referenceRecord copyDrinkRecordIntoContext:context];
+            
+            newRecord.date = d;
+            newRecord.abv = @5.5;  // taken from defaults
+            newRecord.price = @5.57;
+            newRecord.quantity = @(quantity);
+            newRecord.servingID = @2; // id of plist entry
+            [context refreshObject:newRecord mergeChanges:YES];
+            [context save:nil];
+            NSLog(@"DEBUG: ******* Added drink record %i of %i. Quantity=%i, Date=%@  *******", (int)(i+1), (int)DAYS_BACK, (int)newRecord.quantity.integerValue, newRecord.date);
+            
+        }
     }
-
+    
     /////////////////////////////////////////
     // GOALS
     /////////////////////////////////////////
 
-    // Create a few goals at the beginning of that time period
-    for (NSNumber *typeNum in @[@(PXGoalTypeUnits), @(PXGoalTypeFreeDays), @(PXGoalTypeCalories), @(PXGoalTypeSpending)]) {
-
-        PXGoal *goal = (PXGoal *)[PXGoal createInContext:context];
-        goal.goalType = typeNum;
-
-        int weeksBack = round(arc4random() % (3+1) + 2);
-        NSDate *d = [[NSDate date] dateByAddingTimeInterval:-24.0*3600.0*(NSTimeInterval)weeksBack];
-        goal.startDate = [d startOfWeek];
-        goal.recurring = @YES; // ?
-
-        // GOAL VALUES:
-        // Choose the target based on the type. These are weekly values
-        switch (typeNum.integerValue) {
-            case PXGoalTypeUnits: goal.targetMax = @23; break;
-            case PXGoalTypeFreeDays: goal.targetMax = @3; break;
-            case PXGoalTypeCalories: goal.targetMax = @2100; break;
-            default:
-            case PXGoalTypeSpending: goal.targetMax = @40;  break;
+    if (Debug.DATA_POPULATION.DO_GOALS) {
+        // Create a few goals at the beginning of that time period
+        for (NSNumber *typeNum in @[@(PXGoalTypeUnits), @(PXGoalTypeFreeDays), @(PXGoalTypeCalories), @(PXGoalTypeSpending)]) {
+            
+            PXGoal *goal = (PXGoal *)[PXGoal createInContext:context];
+            goal.goalType = typeNum;
+            
+            int weeksBack = round(arc4random() % (3+1) + 2);
+            NSDate *d = [[NSDate date] dateByAddingTimeInterval:-24.0*3600.0*(NSTimeInterval)weeksBack];
+            goal.startDate = [d startOfWeek];
+            goal.recurring = @YES; // ?
+            
+            // GOAL VALUES:
+            // Choose the target based on the type. These are weekly values
+            switch (typeNum.integerValue) {
+                case PXGoalTypeUnits: goal.targetMax = @23; break;
+                case PXGoalTypeFreeDays: goal.targetMax = @3; break;
+                case PXGoalTypeCalories: goal.targetMax = @2100; break;
+                default:
+                case PXGoalTypeSpending: goal.targetMax = @40;  break;
+            }
+            [context save:nil];
+            NSLog(@"DEBUG: ******* Goal saved: %@ *******", goal);
         }
-        [context save:nil];
-        NSLog(@"DEBUG: ******* Goal saved: %@ *******", goal);
     }
-
 
     /////////////////////////////////////////
     // MOOD DIARY DATA
     /////////////////////////////////////////
 
-    // Delete existing...
-    NSLog(@"DEBUG: ******* ERASING EXISTING MOOD DATA *******");
-    [PXUserMoodDiaries deleteAllData];
-
-    // One per day going back
-    // See PXMoodDiaryViewController
-    PXUserMoodDiaries *userMoodDiaries = [PXUserMoodDiaries loadMoodDiaries];
-    for (NSUInteger i=1; i<=DAYS_BACK; i++) { // skip today so we can still prog enter it
-        NSDate *d = [[NSDate date] dateByAddingTimeInterval:-3600.0*24.0*(NSTimeInterval)i];
-        PXMoodDiary *entry = [[PXMoodDiary alloc] init];
-        entry.date = d;
-        entry.happiness = @(arc4random() % 11);
-        entry.productivity = @(arc4random() % 11);
-        entry.sleep = @(arc4random() % 11);
-        entry.clearHeaded = @(arc4random() % 11);
-        entry.reason = @"A good reason";
-        entry.comment = @"A good comment";
-        entry.goalAchieved = (BOOL)(arc4random()%2);
-        // goal reflections??
-        [userMoodDiaries.moodDiaries addObject:entry];
-        NSLog(@"******* SAVED MOOD: %@ *******", entry);
-        [userMoodDiaries save];
+    if (DO_MOOD_DIARY) {
+        // Delete existing...
+        NSLog(@"DEBUG: ******* POPULATING MOOD DIARY DATA *******");
+        [PXUserMoodDiaries deleteAllData];
+        
+        // One per day going back
+        // See PXMoodDiaryViewController
+        PXUserMoodDiaries *userMoodDiaries = [PXUserMoodDiaries loadMoodDiaries];
+        for (NSUInteger i=1; i<=DAYS_BACK; i++) { // skip today so we can still prog enter it
+            NSDate *d = [[NSDate date] dateByAddingTimeInterval:-3600.0*24.0*(NSTimeInterval)i];
+            PXMoodDiary *entry = [[PXMoodDiary alloc] init];
+            entry.date = d;
+            entry.happiness = @(arc4random() % 11);
+            entry.productivity = @(arc4random() % 11);
+            entry.sleep = @(arc4random() % 11);
+            entry.clearHeaded = @(arc4random() % 11);
+            entry.reason = @"A good reason";
+            entry.comment = @"A good comment";
+            entry.goalAchieved = (BOOL)(arc4random()%2);
+            // goal reflections??
+            [userMoodDiaries.moodDiaries addObject:entry];
+            NSLog(@"******* SAVED MOOD: %@ *******", entry);
+            [userMoodDiaries save];
+        }
     }
 }
 

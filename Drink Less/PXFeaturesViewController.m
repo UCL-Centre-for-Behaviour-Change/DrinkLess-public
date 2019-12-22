@@ -8,6 +8,7 @@
 //
 
 #import "PXFeaturesViewController.h"
+#import "drinkless-Swift.h"
 
 @implementation PXFeaturesViewController
 
@@ -29,7 +30,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Features"];
+    [DataServer.shared trackScreenView:@"Features"];
 }
 
 @end

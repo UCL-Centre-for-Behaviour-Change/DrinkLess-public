@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *caloriesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *abvLabel;
 @property (weak, nonatomic) IBOutlet UIView *unitsBadgeView;
 @property (weak, nonatomic) IBOutlet UILabel *unitsValueLabel;

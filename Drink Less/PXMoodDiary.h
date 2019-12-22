@@ -13,9 +13,11 @@
 
 @interface PXMoodDiary : NSObject <NSCoding>
 
-+ (instancetype)moodDiaryWithDate:(NSDate *)date;
+// Obsolete?
+//+ (instancetype)moodDiaryWithDate:(NSDate *)date;
 
 @property (strong, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSString *timezone;
 @property (strong, nonatomic) NSNumber *happiness;
 @property (strong, nonatomic) NSNumber *productivity;
 @property (strong, nonatomic) NSNumber *clearHeaded;
@@ -26,7 +28,7 @@
 @property (strong, nonatomic) NSString *parseObjectId;
 @property (nonatomic, getter = isParseUpdated) BOOL parseUpdated;
 
-- (void)saveAndLogToParse:(PXUserMoodDiaries *)userMoodDiaries;
+- (void)saveAndLogToServer:(PXUserMoodDiaries *)userMoodDiaries;
 - (void)deleteFromParse;
 
 @end

@@ -10,6 +10,18 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+//////////////////////////////////////////////////////////
+// MARK: - Types & Consts
+//////////////////////////////////////////////////////////
+
+extern const NSInteger kPXDrinkServingCustomIdentifier;
+
+
+//////////////////////////////////////////////////////////
+// MARK: -
+//////////////////////////////////////////////////////////
+
+
 @class PXDrink;
 
 @interface PXDrinkServing : NSManagedObject
@@ -19,5 +31,9 @@
 @property (nonatomic, retain) NSString * size;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) PXDrink *drink;
+
+@property (nonatomic, readonly) BOOL isCustom;
+
++ (instancetype)drinkServingForCustomVolume:(NSNumber *)volume forDrink:(PXDrink *)drink context:(NSManagedObjectContext *)context;
 
 @end

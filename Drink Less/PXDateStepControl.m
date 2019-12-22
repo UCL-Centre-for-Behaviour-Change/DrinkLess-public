@@ -32,6 +32,9 @@
         NSDictionary *views = NSDictionaryOfVariableBindings(view);
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:views]];
+        
+        self.allowsPastDates = YES;
+        self.allowsFutureDates = YES;
     }
     return self;
 }
@@ -70,6 +73,7 @@
     
     BOOL isToday = [NSDate isDate:date sameDayAsDate:[NSDate date]];
     self.rightButton.enabled = self.allowsFutureDates ? YES : !isToday;
+    self.leftButton.enabled = self.allowsPastDates ? YES : !isToday;
     if (isToday) {
         self.dateLabel.text = @"Today";
     } else {

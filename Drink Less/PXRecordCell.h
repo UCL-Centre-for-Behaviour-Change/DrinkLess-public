@@ -14,7 +14,8 @@
 typedef NS_ENUM(NSInteger, PXFormatType) {
     PXFormatTypePercentage,
     PXFormatTypeCurrency,
-    PXFormatTypeInteger
+    PXFormatTypeInteger,
+    PXFormatTypeVolume
 };
 
 @interface PXRecordCell : UITableViewCell

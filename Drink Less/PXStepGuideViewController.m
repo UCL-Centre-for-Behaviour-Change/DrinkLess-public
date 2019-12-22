@@ -115,7 +115,7 @@
     PXTabBarController *tabBarController = (PXTabBarController *)self.tabBarController;
     
     if ([identifier isEqualToString:@"goal"]) {
-        [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
+        [tabBarController selectTabAtIndex:1 storyboardName:@"Activities" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
     }
     else if ([identifier isEqualToString:@"drinks"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:PXShowDrinksPanelNotification object:nil];

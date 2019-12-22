@@ -11,12 +11,16 @@
 #import "PXGroupsManager.h"
 #import "PXIntroManager.h"
 #import "PXInfoViewController.h"
-#import <Google/Analytics.h>
+#import "PXDailyTaskManager.h"
+#import "PXEditGoalViewController.h"
+#import "drinkless-Swift.h"
+
 
 @interface PXAuditFeedbackViewController ()
 
 @property (nonatomic, weak) IBOutlet UIView *highGroupView;
 @property (nonatomic, weak) IBOutlet UIView *lowGroupView;
+@property (nonatomic) BOOL isOnboarding;
 
 @end
 
@@ -29,7 +33,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.isOnboarding = VCInjector.shared.isOnboarding;
+
     self.buttonContainerHidden = self.isButtonContainerHidden;
 
     self.navigationItem.hidesBackButton = YES;
@@ -45,10 +51,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    BOOL isHigh = [PXGroupsManager sharedManager].highNM.boolValue;
+    BOOL isHigh = YES; //[PXGroupsManager sharedManager].highNM.boolValue;
     self.title = isHigh ? @"How your drinking compares" : @"Alcohol advice";
     // Add help for high only
-    if (isHigh) {
+    if (true) {
         UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeInfoDark];
         [infoBtn addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:infoBtn];
@@ -59,6 +65,18 @@
     self.lowGroupView.hidden = isHigh;
 }
 
+//---------------------------------------------------------------------
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (Debug.ENABLED && Debug.ONBOARDING_STEP_THROUGH_TO != nil && ![Debug.ONBOARDING_STEP_THROUGH_TO isEqualToString:@"feedback"]) {
+        [self tappedContinue:nil];
+    }
+}
+
+//---------------------------------------------------------------------
 
 #pragma mark - Properties
 
@@ -77,18 +95,27 @@
 #pragma mark - Actions
 
 - (IBAction)tappedContinue:(id)sender {
-    PXIntroManager *introManager = [PXIntroManager sharedManager];
-    introManager.stage = PXIntroStageThinkDrinkQuestion;
-    [introManager save];
+    if (self.isOnboarding) {
+        PXIntroManager *introManager = [PXIntroManager sharedManager];
+        introManager.stage = PXIntroStageThinkDrinkQuestion;
+        [introManager save];
+    }
     
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"button_press"     // Event category (required)
-                                                          action:@"tapped_continue_on_audit_compare_results"  // Event action (required)
-                                                           label:@"next"          // Event label
-                                                           value:nil] build]];    // Event value
-    
-    [self performSegueWithIdentifier:@"PXShowThinkDrinkQuestion" sender:nil];
+   // Different pathways if onboarding versus a follow up
+    if (self.isOnboarding) {
+        [self performSegueWithIdentifier:@"PXIntroHelpfulVC" sender:nil];
+    } else {
+        
+        [[PXDailyTaskManager sharedManager] completeTaskWithID:@"audit-follow-up"];
+        
+        // Insert the AuditHistory overview vc onto the nav stack and then we'll pop back to that animated...
+        AuditHistoryOverviewVC *auditHistoryVC = [AuditHistoryOverviewVC instantiateFromStoryboard];
+        UINavigationController *navVC = self.navigationController;
+        NSMutableArray<UIViewController *> *vcStack = navVC.viewControllers.mutableCopy;
+        [vcStack insertObject:auditHistoryVC atIndex:1];
+        navVC.viewControllers = [NSArray arrayWithArray:vcStack];
+        [navVC popToViewController:auditHistoryVC animated:YES];
+    }
 }
 
 - (void)showInfo {

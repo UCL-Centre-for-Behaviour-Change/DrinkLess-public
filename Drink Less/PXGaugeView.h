@@ -19,6 +19,10 @@
 @property (nonatomic, getter = isEditing) BOOL editing;
 @property (nonatomic, weak) id <PXGaugeViewDelegate> delegate;
 
+/** Used in gauge on AuditHistoryVC for the previous assesment */
+@property (nonatomic) BOOL secondaryPercentileEnabled;
+@property (nonatomic) float secondaryPercentile;
+
 + (CGFloat)heightForWidth:(CGFloat)width;
 
 @end

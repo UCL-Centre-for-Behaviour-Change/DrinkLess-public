@@ -158,7 +158,7 @@
         self.bottomLayoutConstraint.constant = -self.panelView.frame.size.height;
     }
     
-    void (^updateBlock)() = ^{
+    void (^updateBlock)(void) = ^{
         [self.panelView setNeedsLayout];
         [self.panelView layoutIfNeeded];
         self.backgroundImageView.alpha = open;

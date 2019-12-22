@@ -7,8 +7,10 @@
 //  @license See LICENSE.txt
 //
 
+#import "drinkless-Swift.h"
 #import "ReviewAuditTableViewController.h"
 #import "PXIntroManager.h"
+
 
 static NSString *const PXGenderKey = @"gender";
 static NSString *const PXTitleKey = @"questiontitle";
@@ -19,54 +21,55 @@ static NSString *const PXAnswersKey = @"answers";
 @interface ReviewAuditTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *questionsAndAnswers;
-@property (strong, nonatomic) PXIntroManager *introManager;
+@property (nonatomic, strong) AuditData *auditData;
 
 @end
 
 @implementation ReviewAuditTableViewController
 
 + (instancetype)reviewAuditViewController {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Progress" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
     return [storyboard instantiateViewControllerWithIdentifier:@"reviewAuditVC"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Audit review";
-    
-    self.introManager = [PXIntroManager sharedManager];
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"AuditQuestions" ofType:@"plist"];
-    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
-    
-    NSArray *questionIDs = [self.introManager.auditAnswers.allKeys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj1 compare:obj2 options:NSNumericSearch];
-    }];
-    
-    NSNumber *genderIndex = self.introManager.auditAnswers[PXGenderKey];
-    NSString *gender = plist[PXGenderKey][PXAnswersKey][genderIndex.unsignedIntegerValue][PXAnswerKey];
-    
-    self.questionsAndAnswers = [NSMutableArray arrayWithCapacity:questionIDs.count];
-    for (NSString *questionID in questionIDs) {
-        NSDictionary *information = plist[questionID];
-        NSInteger answerIndex = [self.introManager.auditAnswers[questionID] integerValue];
-        NSString *answer = information[PXAnswersKey][answerIndex][PXAnswerKey];
-        NSString *question = information[PXTitleKey];
-        if (!question) {
-            NSString *genderKey = [NSString stringWithFormat:@"%@-%@", PXTitleKey, gender.lowercaseString];
-            question = information[genderKey];
-        }
-        NSDictionary *dictionary = @{PXQuestionKey: question,
-                                     PXAnswerKey: answer};
-        [self.questionsAndAnswers addObject:dictionary];
-    }
+//    self.navigationItem.title = @"Audit review";
+//
+//    self.auditData = AuditData.latestRecorded()
+//
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"AuditQuestions" ofType:@"plist"];
+//    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
+//
+//    NSArray *questionIDs = [plist.allKeys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        return [obj1 compare:obj2 options:NSNumericSearch];
+//    }];
+//
+//    NSNumber *genderIndex = self.introManager.auditAnswers[PXGenderKey];
+//    NSString *gender = plist[PXGenderKey][PXAnswersKey][genderIndex.unsignedIntegerValue][PXAnswerKey];
+//
+//    self.questionsAndAnswers = [NSMutableArray arrayWithCapacity:questionIDs.count];
+//    for (NSString *questionID in questionIDs) {
+//        NSDictionary *information = plist[questionID];
+//        NSInteger answerIndex = [self.introManager.auditAnswers[questionID] integerValue];
+//        NSString *answer = information[PXAnswersKey][answerIndex][PXAnswerKey];
+//        NSString *question = information[PXTitleKey];
+//        if (!question) {
+//            NSString *genderKey = [NSString stringWithFormat:@"%@-%@", PXTitleKey, gender.lowercaseString];
+//            question = information[genderKey];
+//        }
+//        NSDictionary *dictionary = @{PXQuestionKey: question,
+//                                     PXAnswerKey: answer};
+//        [self.questionsAndAnswers addObject:dictionary];
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
     
-    [PXTrackedViewController trackScreenName:@"Review audit"];
+    [DataServer.shared trackScreenView:@"Review audit"];
 }
 
 #pragma mark - Table view data source

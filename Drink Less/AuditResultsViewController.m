@@ -9,9 +9,9 @@
 
 #import "AuditResultsViewController.h"
 #import "PXIntroManager.h"
-#import <Google/Analytics.h>
+#import "drinkless-Swift.h"
 
-static NSString *const PXScoreKey = @"score";
+static NSString *const PXAuditScoreKey = @"score";
 static NSString *const PXBoundaryKey = @"boundary";
 static NSString *const PXColorKey = @"color";
 static NSString *const PXIndicationKey = @"indication";
@@ -28,6 +28,8 @@ static NSString *const PXNoteKey = @"note";
 @property (strong, nonatomic, readonly) NSArray *allInformation;
 @property (strong, nonatomic) PXIntroManager *introManager;
 @property (nonatomic, getter = hasAnimatedOnce) BOOL animatedOnce;
+@property (nonatomic) BOOL isOnboarding;
+@property (nonatomic, strong) AuditData *auditData;
 
 @end
 
@@ -41,6 +43,10 @@ static NSString *const PXNoteKey = @"note";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.auditData = VCInjector.shared.workingAuditData;
+    self.isOnboarding = VCInjector.shared.isOnboarding;
+    self.introManager = [PXIntroManager sharedManager];
+
     self.originalButtonContainerHeight = self.buttonContainerConstraint.constant;
     self.buttonContainerHidden = self.isButtonContainerHidden;
     
@@ -49,30 +55,30 @@ static NSString *const PXNoteKey = @"note";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PXHideProgressToolbar" object:nil userInfo:nil];
     
     [self loadInformation];
-    self.introManager = [PXIntroManager sharedManager];
     
-    NSNumber *auditScore = self.introManager.auditScore;
-    NSDictionary *information = [self informationForAuditScore:auditScore.integerValue];
+    NSInteger auditScore = self.auditData.isFollowUp ? self.auditData.auditCScore : self.auditData.auditScore;
+    NSParameterAssert(auditScore >= 0);
+    NSDictionary *information = [self informationForAuditScore:auditScore];
     UIColor *color = information[PXColorKey];
     
     self.indicationLabel.text = information[PXIndicationKey];
     self.indicationLabel.textColor = color;
     
     NSMutableString *body = [NSMutableString string];
+    [body appendFormat:@"Your score was %li which lies in the range of %@ for this risk zone.", auditScore, information[PXBoundaryKey]];
     NSString *note = information[PXNoteKey];
     if (note) {
-        [body appendFormat:@"%@.\n\n", note];
+        [body appendFormat:@" %@", note];
     }
-    [body appendFormat:@"Your score was %@ which lies in the range of %@ for this risk zone.", auditScore.stringValue, information[PXBoundaryKey]];
     [body appendString:@"\n\nThis score tells you about your drinking in the past. We’ll ask you the same questions again in a month so you can see what has changed."];
-    
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:body];
-    if (auditScore) {
-        NSRange scoreRange = [body rangeOfString:auditScore.stringValue];
+    
+//    if (auditScore) {
+        NSRange scoreRange = [body rangeOfString:@(auditScore).stringValue];
         NSDictionary *highlightedAttributes = @{NSForegroundColorAttributeName: color};
         [attributedText addAttributes:highlightedAttributes range:scoreRange];
         self.bodyLabel.attributedText = attributedText;
-    }
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,13 +90,15 @@ static NSString *const PXNoteKey = @"note";
         self.bodyLabel.alpha = 0.0;
     }
     
-    id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Audit results"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if (Debug.ENABLED && Debug.ONBOARDING_STEP_THROUGH_TO != nil && ![Debug.ONBOARDING_STEP_THROUGH_TO isEqualToString:@"audit-results"]) {
+        [self tappedContinue:nil];
+    }
+    
     
     if (!self.hasAnimatedOnce) {
         self.animatedOnce = YES;
@@ -139,7 +147,7 @@ static NSString *const PXNoteKey = @"note";
 - (NSDictionary *)informationForAuditScore:(NSInteger)auditScore {
     NSDictionary *information = nil;
     for (NSDictionary *dictionary in self.allInformation) {
-        NSInteger score = [dictionary[PXScoreKey] integerValue];
+        NSInteger score = [dictionary[PXAuditScoreKey] integerValue];
         if (auditScore >= score) {
             information = dictionary;
         } else {
@@ -150,26 +158,32 @@ static NSString *const PXNoteKey = @"note";
 }
 
 - (void)loadInformation {
-    _allInformation = @[@{PXScoreKey: @0,
+    _allInformation = @[@{PXAuditScoreKey: @0,
                           PXBoundaryKey: @"0-7",
                           PXColorKey: [UIColor gaugeGreenColor],
-                          PXIndicationKey: @"you’re not at risk of physical and/or psychological alcohol-related harm."},
+                          PXIndicationKey: @"Your results indicate you’re at low risk of alcohol-related harm provided you’re also drinking 14 units or less a week.",
+                          PXNoteKey: @"You are in the lowest of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."
+                          },
                         
-                        @{PXScoreKey: @8,
+                        @{PXAuditScoreKey: @8,
                           PXBoundaryKey: @"8-15",
                           PXColorKey: [UIColor gaugeDarkYellowColor],
-                          PXIndicationKey: @"you’re putting yourself at increasing risk of physical and/or psychological alcohol-related harm."},
+                          PXIndicationKey: @"Your results indicate you’re at increasing risk of alcohol-related harm.",
+                          PXNoteKey: @"You are in the second of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."
+                          },
                         
-                        @{PXScoreKey: @16,
+                        @{PXAuditScoreKey: @16,
                           PXBoundaryKey: @"16-19",
                           PXColorKey: [UIColor gaugeOrangeColor],
-                          PXIndicationKey: @"you’re likely to be experiencing physical and/or psychological alcohol-related harm."},
+                          PXIndicationKey: @"Your results indicate you’re at higher risk of alcohol-related harm.",
+                          PXNoteKey: @"You are in the second highest of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."
+                          },
                         
-                        @{PXScoreKey: @20,
+                        @{PXAuditScoreKey: @20,
                           PXBoundaryKey: @"20-40",
                           PXColorKey: [UIColor gaugeRedColor],
-                          PXIndicationKey: @"the possibility of alcohol dependence.",
-                          PXNoteKey: @"You are welcome to continue to use this app though we strongly advise you to contact your GP for further support."}];
+                          PXIndicationKey: @"Your results indicate the possibility of alcohol dependence. You are welcome to continue to use this app though we strongly advise you to contact your GP for further support.",
+                          PXNoteKey: @" You are in the highest of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."}];
 }
 
 #pragma mark - Properties
@@ -185,15 +199,10 @@ static NSString *const PXNoteKey = @"note";
 #pragma mark - Actions
 
 - (IBAction)tappedContinue:(id)sender {
+    NSAssert(self.isOnboarding, @"Should only be shown on onboarding!");
+    
     self.introManager.stage = PXIntroStageAboutYou;
     [self.introManager save];
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"button_press"     // Event category (required)
-                                                          action:@"continue_on_audit_results"  // Event action (required)
-                                                           label:@"continue"          // Event label
-                                                           value:nil] build]];    // Event value
     [self performSegueWithIdentifier:@"PXShowAboutYou" sender:nil];
 }
 

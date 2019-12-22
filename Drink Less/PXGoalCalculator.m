@@ -12,6 +12,8 @@
 #import "PXCoreDataManager.h"
 #import "PXDrinkRecord+Extras.h"
 #import "PXFormatter.h"
+#import "NSTimeZone+DrinkLess.h"
+#import "PXDebug.h"
 
 CGFloat const PXExceededPercent = 120.0;
 CGFloat const PXMissedPercent = 85.0;
@@ -26,12 +28,14 @@ NSString *const PXToDateKey = @"toDate";
 
 @implementation PXGoalCalculator
 
+/** From what I can see this calculates the active weeks of the current goal (for gathering its stats probably). If it's not recurring then it only gets 1 week. Otherwise it keeps getting 1 week date beginning/ends added until the toDate is after NOW */
 + (NSArray *)dateRangesForGoal:(PXGoal *)goal {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.weekOfYear = 1;
     
-    NSDate *fromDate = goal.startDate;
-    NSMutableArray *dates = [NSMutableArray array];
+    NSTimeZone *goalTZ = [NSTimeZone timeZoneForGoal:goal];
+    NSDate *fromDate = [goal.startDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:goalTZ]; // Work from this calendar/timezone
+	    NSMutableArray *dates = [NSMutableArray array];
     
     BOOL stop = NO;
     while (!stop) {
@@ -53,18 +57,25 @@ NSString *const PXToDateKey = @"toDate";
     CGFloat score = 0.0;
     
     if (goal.goalType.integerValue == PXGoalTypeFreeDays) {
-        NSInteger totalDays = [NSDate daysBetweenDate:fromDate andDate:toDate];
+        // ~~Convert from/to to current calendar equivalents to ensure day calcs are correct~~
+        // No need because this already happens in PXGoalCalculator::dateRangesForGoal which is always what supplies this method. (Search project for "dataWithGoal"). So we were converting twice :/
+        NSTimeZone *tz = [NSTimeZone timeZoneForGoal:goal];
+        NSDate *fromDateInCurrCal = fromDate; //[fromDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:tz];
+        NSDate *toDateInCurrCal = toDate; //[toDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:tz];
+        
+        NSInteger totalDays = [NSDate daysBetweenDate:fromDateInCurrCal andDate:toDateInCurrCal];
         NSInteger maxAlcoholDays = totalDays - goal.targetMax.floatValue;
         NSUInteger daysDrinking = [PXDrinkRecord fetchCountOfDrinkingDaysFromCalendarDate:fromDate toCalendarDate:toDate context:context];
         score = (daysDrinking == 0) ? PXExceededScore : (CGFloat)maxAlcoholDays / (CGFloat)daysDrinking;
         NSInteger elapsedDays;
         if (toDate.timeIntervalSinceNow > 0.0) {
-            elapsedDays = [NSDate daysBetweenDate:fromDate andDate:[NSDate strictDateFromToday]];
+            elapsedDays = [NSDate daysBetweenDate:fromDateInCurrCal andDate:[NSDate strictDateFromToday]];
         } else {
             elapsedDays = totalDays;
         }
-        quantity = elapsedDays - daysDrinking;
-        NSLog(@"[DEBUG] GOAL(0): date: %@ - %@ (elapsed=%li) max=%li drank=%li score=%.2f quantity=%.2f", fromDate, toDate, elapsedDays, maxAlcoholDays, daysDrinking, score, quantity);
+        quantity = (float)elapsedDays - (float)daysDrinking;
+        logd(@"GOAL(0): date: %@ - %@ (elapsed=%li) max=%li drank=%li score=%.2f quantity=%.2f", fromDate, toDate, elapsedDays, maxAlcoholDays, daysDrinking, score, quantity);
+        
     }
     else {
         NSArray *drinkRecords = [PXDrinkRecord fetchDrinkRecordsFromCalendarDate:fromDate toCalendarDate:toDate context:context];
@@ -130,9 +141,17 @@ NSString *const PXToDateKey = @"toDate";
         case PXGoalStatusHit:
             return [UIColor drinkLessGreenColor];
         case PXGoalStatusNear:
-            return [UIColor barOrange];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enable-textured-colours"]) {
+                return [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern-orange"]];// [UIColor barOrange];
+            } else {
+                return [UIColor barOrange];
+            }
         case PXGoalStatusMissed:
-            return [UIColor goalRedColor];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enable-textured-colours"]) {
+                return [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern-red"]];//[UIColor goalRedColor];
+            } else {
+                return [UIColor goalRedColor];
+            }
         default:
             return nil;
     }

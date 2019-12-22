@@ -15,6 +15,7 @@
 #import "PXGroupsManager.h"
 #import "PXTabBarController.h"
 #import "UIViewController+RecordMemo.h"
+#import "drinkless-Swift.h"
 
 #define kRepeatInterval NSDayCalendarUnit
 
@@ -31,7 +32,8 @@ NSString* const PXGoingOutReminderType = @"PXGoingOutReminderType";
 NSString* const PXConsumptionReminderType = @"PXConsumptionReminderType";
 NSString* const PXMemoWatchReminderType = @"PXMemoWatchReminderType";
 NSString* const PXMemoRecordReminderType = @"PXMemoRecordReminderType";
-NSString* const PXSurveyReminderType = @"PXSurveyReminderType";
+NSString* const PXMyPlanReminderType = @"PXMyPlanReminderType";
+//NSString* const PXSurveyReminderType = @"PXSurveyReminderType";
 
 NSString* const PXConsumptionReminderShowing = @"PXConsumptionReminderShowing";
 
@@ -45,6 +47,7 @@ NSString* const PXConsumptionReminderShowing = @"PXConsumptionReminderShowing";
 @property (nonatomic, strong) UIAlertView *memoAlert;
 @property (nonatomic, strong) UIAlertView *memoRecordAlert;
 @property (nonatomic, strong) UIAlertView *surveyAlert;
+@property (nonatomic, strong) UIAlertView *planAlert;
 
 @end
 
@@ -101,39 +104,39 @@ static NSString* KEY_NOTIFICATIONUSERINFO_NOTIFICATION_ID = @"KEY_NOTIFICATIONUS
 
 //---------------------------------------------------------------------
 
-- (void)scheduleSurveyNotification
-{
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
-    localNotification.alertBody = PXSurveyNotifMessage;
-    //Alert title is available from iOS 8.2
-//    if ([localNotification respondsToSelector:@selector(alertTitle)]) {
-//        localNotification.alertTitle = PXSurveyNotifTitle;
-//    }
-    //localNotification.applicationIconBadgeNumber = 1;
-    localNotification.soundName = @"attention.caf";
-    //localNotification.applicationIconBadgeNumber = 1;
-    localNotification.userInfo = @{KEY_LOCALNOTIFICATION_ID : @"survey", KEY_LOCALNOTIFICATION_TYPE: PXSurveyReminderType};
-    localNotification.repeatInterval = 0;
-    
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    //[PXLocalNotificationsManager performSelector:@selector(logScheduledNotifications) withObject:nil afterDelay:0];
-}
-
-//---------------------------------------------------------------------
-
-- (void)showSurveyPromptAlertViewWithCallback:(void (^)())didAgreeToSurvey
-{
-    self.surveyAlert =  [[UIAlertView alloc] init];
-    self.surveyAlert.title = PXSurveyNotifMessage;
-    //self.surveyAlert.message = PXSurveyNotifBody;
-    self.surveyAlert.delegate = self;
-    [self.surveyAlert addButtonWithTitle:@"Yes"];
-    [self.surveyAlert addButtonWithTitle:@"No thanks"];
-    [self.surveyAlert show];
-    
-    _surveyAlertCallback = didAgreeToSurvey;
-}
+//- (void)scheduleSurveyNotification
+//{
+//    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+//    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+//    localNotification.alertBody = PXSurveyNotifMessage;
+//    //Alert title is available from iOS 8.2
+////    if ([localNotification respondsToSelector:@selector(alertTitle)]) {
+////        localNotification.alertTitle = PXSurveyNotifTitle;
+////    }
+//    //localNotification.applicationIconBadgeNumber = 1;
+//    localNotification.soundName = @"attention.caf";
+//    //localNotification.applicationIconBadgeNumber = 1;
+//    localNotification.userInfo = @{KEY_LOCALNOTIFICATION_ID : @"survey", KEY_LOCALNOTIFICATION_TYPE: PXSurveyReminderType};
+//    localNotification.repeatInterval = 0;
+//
+//    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+//    //[PXLocalNotificationsManager performSelector:@selector(logScheduledNotifications) withObject:nil afterDelay:0];
+//}
+//
+////---------------------------------------------------------------------
+//
+//- (void)showSurveyPromptAlertViewWithCallback:(void (^)(void))didAgreeToSurvey
+//{
+//    self.surveyAlert =  [[UIAlertView alloc] init];
+//    self.surveyAlert.title = PXSurveyNotifMessage;
+//    //self.surveyAlert.message = PXSurveyNotifBody;
+//    self.surveyAlert.delegate = self;
+//    [self.surveyAlert addButtonWithTitle:@"Yes"];
+//    [self.surveyAlert addButtonWithTitle:@"No thanks"];
+//    [self.surveyAlert show];
+//
+//    _surveyAlertCallback = didAgreeToSurvey;
+//}
 
 //---------------------------------------------------------------------
 
@@ -161,14 +164,17 @@ static NSString* KEY_NOTIFICATIONUSERINFO_NOTIFICATION_ID = @"KEY_NOTIFICATIONUS
 }
 
 - (void)updateConsumptionReminder {
+    NSLog(@"Updating notification for Reminder. Removing existing notif.");
     [self removeLocalNotificationWithType:PXConsumptionReminderType ID:@"0"];
     if ([[self.userDefaults objectForKey:PXConsumptionReminderType] boolValue] == YES) {
         if ([self.userDefaults objectForKey:KEY_USERDEFAULTS_REMINDERS_CONSUMPTION_TIME]) {
             NSDate *givenDate = [self.userDefaults objectForKey:KEY_USERDEFAULTS_REMINDERS_CONSUMPTION_TIME];
             NSDate *firstFireDate = [givenDate nextOccurrenceOfTimeInDate];
 
+            NSLog(@"Re-scheduling daily Reminder notif to begin at %@", firstFireDate);
+                  
             [self addLocalNotificationForDate:firstFireDate
-                                      message:@"Please complete your diary"
+                                      message:@"Please complete your mood and drinks diary"
                                          type:PXConsumptionReminderType
                                            ID:@"0"
                                        repeat:NSCalendarUnitDay];
@@ -221,6 +227,14 @@ static NSString* KEY_NOTIFICATIONUSERINFO_NOTIFICATION_ID = @"KEY_NOTIFICATIONUS
             [self.memoAlert addButtonWithTitle:answer];
         }];
         [self.memoAlert show];
+    } else if ([notification.userInfo[KEY_LOCALNOTIFICATION_TYPE] isEqualToString:PXMyPlanReminderType]) {
+        
+        self.planAlert =  [[UIAlertView alloc] init];
+        self.planAlert.title = notification.alertTitle;
+        self.planAlert.message = notification.alertBody;
+        self.planAlert.delegate = self;
+        [self.planAlert addButtonWithTitle:@"Ok"];
+        [self.planAlert show];
     }
 }
 
@@ -229,10 +243,10 @@ static NSString* KEY_NOTIFICATIONUSERINFO_NOTIFICATION_ID = @"KEY_NOTIFICATIONUS
 
 //---------------------------------------------------------------------
 
-- (BOOL)notificationIsSurveyType:(UILocalNotification *)notification
-{
-    return [notification.userInfo[KEY_LOCALNOTIFICATION_TYPE] isEqualToString:PXSurveyReminderType];
-}
+//- (BOOL)notificationIsSurveyType:(UILocalNotification *)notification
+//{
+//    return [notification.userInfo[KEY_LOCALNOTIFICATION_TYPE] isEqualToString:PXSurveyReminderType];
+//}
 
 //---------------------------------------------------------------------
 
@@ -281,6 +295,8 @@ static NSString* KEY_NOTIFICATIONUSERINFO_NOTIFICATION_ID = @"KEY_NOTIFICATIONUS
                 break;
         }
         _surveyAlertCallback = nil;
+    } else if (alertView == self.planAlert) {
+        
     }
 }
 
@@ -288,7 +304,7 @@ static NSString* KEY_NOTIFICATIONUSERINFO_NOTIFICATION_ID = @"KEY_NOTIFICATIONUS
 
 - (void)presentMoodDiaryIfNotCurrentlyShowing {
     UIViewController *presentingVC = [((AppDelegate *)[UIApplication sharedApplication].delegate) topMostViewController];
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Progress" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
     UINavigationController *navigationController = [storyBoard instantiateViewControllerWithIdentifier:@"PXMoodDiaryNC"];
     
     if (![presentingVC isKindOfClass:[navigationController class]]) {
@@ -347,7 +363,7 @@ static NSString* KEY_NOTIFICATIONUSERINFO_NOTIFICATION_ID = @"KEY_NOTIFICATIONUS
     if ([localNotification respondsToSelector:@selector(alertTitle)]) {
          localNotification.alertTitle = @"Reminder";
     }
-    localNotification.soundName = @"attention.caf";
+    localNotification.soundName = @"attention.caf";  // ?HKS: change to UILocalNotificationDefaultSoundName?
     localNotification.applicationIconBadgeNumber = 1;
     localNotification.userInfo = @{KEY_LOCALNOTIFICATION_ID : ID, KEY_LOCALNOTIFICATION_TYPE: type};
     localNotification.repeatInterval =repeatInterval;

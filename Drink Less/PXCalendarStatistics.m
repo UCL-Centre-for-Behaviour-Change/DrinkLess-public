@@ -15,6 +15,7 @@
 #import "NSDate+DrinkLess.h"
 #import "NSTimeZone+DrinkLess.h"
 #import "PXDebug.h"
+#import "PXDrink.h"
 
 @interface PXCalendarStatistics ()
 
@@ -27,11 +28,14 @@
 + (instancetype)calculateFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     NSManagedObjectContext *context = [PXCoreDataManager sharedManager].managedObjectContext;
     NSMutableDictionary *calendarDaysStatuses = [NSMutableDictionary dictionary];
-    BOOL isFemale = [PXIntroManager sharedManager].gender.boolValue;
-    CGFloat unitsLimit = isFemale ? 6 : 6;
+//    BOOL isFemale = [PXIntroManager sharedManager].gender.boolValue;
+    CGFloat unitsLimit = 6;//isFemale ? 6 : 6;
     NSMutableDictionary *datesTally = NSMutableDictionary.dictionary;
     
     NSArray *drinkRecords = [PXDrinkRecord fetchDrinkRecordsFromCalendarDate:fromDate toCalendarDate:toDate context:context];
+    
+    logd(@"Calendar Range=%@...%@", [NSDateFormatter localizedStringFromDate:fromDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle], [NSDateFormatter localizedStringFromDate:toDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
+    
     [drinkRecords enumerateObjectsUsingBlock:^(PXDrinkRecord *drinkRecord, NSUInteger idx, BOOL *stop) {
         
         // Get the "calendar date" for the drink record wrt to it's timezone (@see README.md)
@@ -39,9 +43,7 @@
         NSTimeZone *recTimezone = [NSTimeZone timeZoneForDrinkRecord:drinkRecord];
         NSDate *dateInCurrentCalendar = [drinkRecord.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:recTimezone];
         
-//        logd(@"Record: Date=%@, TZ=%.2f, Calendar Range=%@...%@", [NSDateFormatter localizedStringFromDate:drinkRecord.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle],
-//             (CGFloat)recTimezone.secondsFromGMT/3600.0, [NSDateFormatter localizedStringFromDate:fromDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle], [NSDateFormatter localizedStringFromDate:toDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle]);
-//        
+//        logd(@"Drink Record: Date=%@, TZ=%.2f, Drink=%@", [NSDateFormatter localizedStringFromDate:drinkRecord.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle], (CGFloat)recTimezone.secondsFromGMT/3600.0, drinkRecord.drink.name);
         
         // Get previous values for that date
         CGFloat totalUnits = 0;
@@ -81,6 +83,10 @@
         NSDate *dateInCurrentCalendar = [record.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:recTimezone];
         
         calendarDaysStatuses[dateInCurrentCalendar] = @(PXDayStatusAlcoholFree);
+        
+        
+//        logd(@"AlcFree Record: Date=%@, TZ=%.2f", [NSDateFormatter localizedStringFromDate:record.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle], (CGFloat)recTimezone.secondsFromGMT/3600.0);
+        
     }
     
     PXCalendarStatistics *calendarStatistics = [[self alloc] init];

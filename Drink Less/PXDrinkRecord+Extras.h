@@ -9,7 +9,7 @@
 
 #import "PXDrinkRecord.h"
 
-@class PXDrinkServing, PXDrinkType, PXDrinkAddition, PFObject;
+@class PXDrinkServing, PXDrinkType, PXDrinkAddition;
 
 @interface PXDrinkRecord (Extras)
 
@@ -35,7 +35,7 @@
 @property (nonatomic, retain, readonly) PXDrinkType * type;
 
 - (PXDrinkRecord *)copyDrinkRecordIntoContext:(NSManagedObjectContext *)context;
-- (void)saveToParse;
+- (void)saveToServer;
 - (void)deleteFromParse;
 
 @end

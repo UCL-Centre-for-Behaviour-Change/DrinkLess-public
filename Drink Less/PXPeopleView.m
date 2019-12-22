@@ -8,6 +8,8 @@
 //
 
 #import "PXPeopleView.h"
+#import "drinkless-Swift.h"
+#import "PXAuditFeedbackHelper.h"
 
 static NSString *const PXSolidView = @"solidView";
 static NSString *const PXGradientView = @"gradientView";
@@ -97,7 +99,7 @@ static NSUInteger const PXNumberOfPeople = 20;
     }
 }
 
-- (void)setGenderType:(PXGenderType)genderType {
+- (void)setGenderType:(GenderType)genderType {
     for (NSUInteger row = 0; row < self.rowViews.count; row++) {
         NSDictionary *rowViews = self.rowViews[row];
         UIView *solidViews = rowViews[PXSolidView];
@@ -109,7 +111,7 @@ static NSUInteger const PXNumberOfPeople = 20;
             BOOL oddColumn = column % 2;
             
             NSString *imageName;
-            if (genderType == PXGenderTypeNone) {
+            if (genderType == GenderTypeNone) {
                 // Mix male and female with alternating rows and columns
                 if (oddRow) {
                     imageName = oddColumn ? @"person-female" : @"person-male";
@@ -117,9 +119,9 @@ static NSUInteger const PXNumberOfPeople = 20;
                     imageName = oddColumn ? @"person-male" : @"person-female";
                 }
             } else {
-                if (genderType == PXGenderTypeMale) {
+                if (genderType == GenderTypeMale) {
                     imageName = @"person-male";
-                } else if (genderType == PXGenderTypeFemale) {
+                } else if (genderType == GenderTypeFemale) {
                     imageName = @"person-female";
                 }
             }

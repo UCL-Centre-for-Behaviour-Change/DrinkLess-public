@@ -3,7 +3,7 @@
 //  drinkless
 //
 //  Created by Hari Karam Singh on 30/08/2017.
-//  Copyright © 2017 Greg Plumbly. All rights reserved.
+//  Copyright © 2017 UCL. All rights reserved.
 //
 
 #import "DLFloatingDebugVC.h"
@@ -30,7 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
     UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handlePanGR:)];
     [self.view addGestureRecognizer:panGR];
     
@@ -107,12 +106,15 @@
 
 - (void)_updateLabels
 {
-#if ENABLE_TIME_DEBUG_PANEL
-
     _timeZoneLbl.text = [NSCalendar autoupdatingCurrentCalendar].timeZone.name;
     
-    _datetimeLbl.text = [NSString stringWithFormat:@"%li (%@)", DLDebugger.sharedInstance.timeHoursShift, [NSDate date]];
-#endif
+    NSDate *today = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEEE MMMM d, YYYY"];
+    NSString *dateString = [dateFormat stringFromDate:today];
+    
+    
+    _datetimeLbl.text = [NSString stringWithFormat:@"%li (%@)", DLDebugger.sharedInstance.timeHoursShift, dateString];
 }
 
 

@@ -8,6 +8,7 @@
 //
 
 #import "PXPiePlot.h"
+#import "PXGoalCalculator.h"
 
 NSString *const PXValueKey = @"value";
 
@@ -115,8 +116,9 @@ NSString *const PXValueKey = @"value";
 #pragma mark - CPTPieChartDataSource
 
 - (CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)idx {
+    UIColor *color;
     NSDictionary *dictionary = self.plotData[idx];
-    UIColor *color = dictionary[PXColorKey];
+    color = dictionary[PXColorKey];
     return [CPTFill fillWithColor:[CPTColor colorWithCGColor:color.CGColor]];
 }
 

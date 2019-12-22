@@ -13,6 +13,8 @@ extern NSString *const PXShowDrinksPanelNotification;
 
 @interface PXTabBarController : UITabBarController
 
+- (void)showCalendarTab;
+
 - (void)selectTabAtIndex:(NSInteger)tabIndex storyboardName:(NSString *)storyboardName pushViewControllersWithIdentifiers:(NSArray *)identifiers;
 
 @end

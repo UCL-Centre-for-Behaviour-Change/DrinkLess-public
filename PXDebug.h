@@ -23,19 +23,21 @@
 
 #define RESET_SCREENS_VIEWED_COUNT_FOR_TIP   0
 
-// Set to 1 to have data population done on lauch. Drinks & goals. See AppD
-// Only way to erase at the moment is delete the app
-#define POPULATE_WITH_DATA  0
+#define DBG_FAKE_DEMOGRAPHIC_DATA 0
 
-// Force the link for the follow up survey
-#define FORCE_SURVEY        0
+// DASHBOARD TASKS (should rename TASK)
+#define DBG_DASHBOARD_TASK_FORCE_RECHECK  0
+#define DBG_DASHBOARD_FORCE_RANDOM        0   // Force showing of a "random" task
+#define DBG_DASHBOARD_TASK_FORCE_SHOW_AUDIT      0   // Force audit follow up
+#define DBG_DASHBOARD_SHOW_AUDIT_TASK_AFTER_DAYS 0  // set to 0 to default to system 28
+
 
 // Comment out to disable
 //#define FORCE_INTRO_STAGE PXIntroStageAuditResults
 
 
 // Disabling also disables the timedate & timezone swizzle
-#define ENABLE_TIME_DEBUG_PANEL     0
+#define ENABLE_TIME_DEBUG_PANEL     0   // See Debug.swift too!
 
 
 #define logd(msg, ...) NSLog(@"[%s] DEBUG: " msg, __PRETTY_FUNCTION__, ##__VA_ARGS__)

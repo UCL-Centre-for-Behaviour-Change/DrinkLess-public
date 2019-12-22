@@ -86,13 +86,7 @@ static NSString *const PXGoalCellIdentifier = @"goalCell";
 #pragma mark - Calculate
 
 - (void)reloadData {
-    NSManagedObjectModel *model = self.context.persistentStoreCoordinator.managedObjectModel;
-    NSDictionary *variables = @{@"EMPTY": [NSNull null], @"TODAY": [NSDate strictDateFromToday]};
-    NSString *template = self.isShowingActiveGoals ? @"activeGoals" : @"previousGoals";
-    NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:template substitutionVariables:variables];
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:NO]];
-    self.goals = [self.context executeFetchRequest:fetchRequest error:nil].mutableCopy;
-    
+    self.goals = self.isShowingActiveGoals ? [PXGoal activeGoalsWithContext:self.context] : [PXGoal previousGoalsWithContext:self.context];
     self.goalsStatistics = [NSMutableArray arrayWithCapacity:self.goals.count];
     for (PXGoal *goal in self.goals) {
         PXGoalStatistics *goalStatistics = [[PXGoalStatistics alloc] initWithGoal:goal region:PXStatisticRegionLastCompleted];
@@ -124,14 +118,14 @@ static NSString *const PXGoalCellIdentifier = @"goalCell";
     if ([segue.identifier isEqualToString:@"editGoal"]) {
         PXEditGoalViewController *editGoalVC = segue.destinationViewController;
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
-        editGoalVC.refenceGoal = self.goals[indexPath.row];
+        editGoalVC.referenceGoal = self.goals[indexPath.row];
     }
 }
 
 - (IBAction)unwindToYourGoals:(UIStoryboardSegue *)segue {
     if ([segue.identifier isEqualToString:@"save"]) {
         PXEditGoalViewController *editGoalVC = segue.sourceViewController;
-        if (!editGoalVC.refenceGoal) {
+        if (!editGoalVC.referenceGoal) {
             [TSMessage showNotificationInViewController:self
                                                   title:@"Well done on setting a new goal"
                                                subtitle:nil
@@ -186,8 +180,7 @@ static NSString *const PXGoalCellIdentifier = @"goalCell";
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (self.isShowingActiveGoals) {
-        BOOL isHigh = [PXGroupsManager sharedManager].highSM.boolValue;
-        return [NSString stringWithFormat:@"Good goals are specific and a little challenging. Not too challenging though, because often the hardest thing about making a change is sticking with it. So it's important to keep your goals realistic. You can alter them at any time if you find they're too difficult or too easy%@.", isHigh ? @" and we'll give you feedback about your rates of goal success to help you set goals you can keep hitting" : @""];
+        return [NSString stringWithFormat:@"Good goals are specific and a little challenging – but remember it’s important to keep your goals realistic. You can alter them at any time if you find they’re too difficult or too easy. Plus we’ll give you feedback about how you’re getting on."];
     }
     return nil;
 }
@@ -205,14 +198,7 @@ static NSString *const PXGoalCellIdentifier = @"goalCell";
     
 
     if (self.isShowingActiveGoals) {
-        BOOL isHigh = [PXGroupsManager sharedManager].highSM.boolValue;
-        
-        if (isHigh) {
-        headerLabel.text = @"Good goals are specific and a little challenging. Not too challenging though, because often the hardest thing about making a change is sticking with it. So it's important to keep your goals realistic. You can alter them at any time if you find they're too difficult or too easy and we'll give you feedback about your rates of goal success to help you set goals you can keep hitting.";
-        } else {
-        headerLabel.text = @"Good goals are specific and a little challenging. Not too challenging though, because often the hardest thing about making a change is sticking with it. So it's important to keep your goals realistic. You can alter them at any time if you find they're too difficult or too easy.";
-        
-        }
+        headerLabel.text = @"Good goals are specific and a little challenging – but remember it’s important to keep your goals realistic. You can alter them at any time if you find they’re too difficult or too easy. Plus we’ll give you feedback about how you’re getting on.";
     }
     
     headerLabel.numberOfLines = 0 ;
@@ -235,10 +221,10 @@ static NSString *const PXGoalCellIdentifier = @"goalCell";
         PXGoal *goal = self.goals[indexPath.row];
         if (self.isShowingActiveGoals) {
             goal.endDate = [NSDate strictDateFromToday];
-            [goal saveToParse];
+            [goal saveToServer];
         } else {
             [self.context deleteObject:goal];
-            [goal deleteFromParse];
+            [goal deleteFromServer];
         }
         [self.context save:nil];
         
@@ -266,7 +252,7 @@ static NSString *const PXGoalCellIdentifier = @"goalCell";
                     goal.endDate = goal.calculatedEndDate;
                 }
                 [weakSelf.context save:nil];
-                [goal saveToParse];
+                [goal saveToServer];
                 
                 [weakSelf.goals removeObjectAtIndex:indexPath.row];
                 [weakSelf.goalsStatistics removeObjectAtIndex:indexPath.row];

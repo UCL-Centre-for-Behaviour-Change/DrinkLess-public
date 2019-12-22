@@ -20,7 +20,7 @@
     NSUInteger flags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:flags fromDate:date];
     NSString *stringDate = [NSString stringWithFormat:@"%ld/%ld/%ld", (long)components.day, (long)components.month, (long)components.year];
-    
+    // why not NSCalendar::dateFromComponents?
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
     formatter.dateFormat = @"dd/MM/yyyy";
     return [formatter dateFromString:stringDate];
@@ -83,6 +83,8 @@
     return difference.day;
 }
 
+
+
 + (NSDate *)dateFromComponentDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.day = day;
@@ -144,6 +146,14 @@
     
     return newDate;
 }
+
+- (NSDate *)dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezoneIncludingTime:(NSTimeZone *)thisDatesTimezone
+{
+    NSDateComponents *dateComps = [NSCalendar.currentCalendar componentsInTimeZone:thisDatesTimezone fromDate:self];
+    dateComps.calendar = NSCalendar.currentCalendar;
+    return dateComps.date;
+}
+
 
 //---------------------------------------------------------------------
 
@@ -212,7 +222,11 @@
 {
     return [NSDateFormatter localizedStringFromDate:self dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
 }
-
-
+#if DEBUG
+- (NSTimeInterval)timeIntervalSinceNow
+{
+    return [self timeIntervalSinceDate:NSDate.date];
+}
+#endif
 
 @end

@@ -97,7 +97,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         PXActionPlan *actionPlan = self.userActionPlans.actionPlans[indexPath.row];
-        [actionPlan deleteFromParse];
+        [actionPlan deleteFromServer];
         [self.userActionPlans.actionPlans removeObjectAtIndex:indexPath.row];
         [self.userActionPlans save];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
@@ -167,7 +167,7 @@
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     PXActionPlan *actionPlan = editActionPlanViewController.actionPlan;
     [self.userActionPlans.actionPlans replaceObjectAtIndex:indexPath.row withObject:actionPlan];
-    [actionPlan saveAndLogToParse:self.userActionPlans];
+    [actionPlan saveAndLogToServer:self.userActionPlans];
     [self.navigationController popViewControllerAnimated:YES];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }

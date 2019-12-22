@@ -21,6 +21,9 @@
 #import "PXMoodDiaryHeader.h"
 #import "PXInfoViewController.h"
 #import "UIViewController+PXHelpers.h"
+#import "NSDate+DrinkLess.h"
+#import "PXDrinkRecord+Extras.h"
+#import "drinkless-Swift.h"
 
 static CGFloat const PXSpacingHeight = 12.0;
 static NSUInteger const PXDrankYesterdaySection = 2;
@@ -36,7 +39,7 @@ static NSUInteger const PXReasonSection = 4;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UITextView *reasonTextView;
 
-@property (strong, nonatomic) NSDate *latestDrinkRecordDate;
+@property (strong, nonatomic) NSDate *latestDrinkRecordDateInCurrentCalendar;
 @property (strong, nonatomic) PXMoodDiary *moodDiaryEntry;
 @property (strong, nonatomic) PXUserMoodDiaries *userMoodDiaries;
 @property (strong, nonatomic) NSNumber *drankYesterday;
@@ -86,7 +89,7 @@ static NSUInteger const PXReasonSection = 4;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Mood diary"];
+    [DataServer.shared trackScreenView:@"Mood diary"];
     
     [self checkAndShowTipIfNeeded];
 }
@@ -95,24 +98,50 @@ static NSUInteger const PXReasonSection = 4;
     return [self.hiddenSections containsObject:@(section)];
 }
 
-- (NSDate *)latestDrinkRecordDate {
-    if (!_latestDrinkRecordDate) {
-        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"PXDrinkRecord"];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"date < %@", [NSDate strictDateFromToday]];
-        fetchRequest.resultType = NSDictionaryResultType;
-        NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:@"date"];
-        NSExpression *maxExpression = [NSExpression expressionForFunction:@"max:" arguments:@[keyPathExpression]];
-        NSExpressionDescription *expressionDescription = [[NSExpressionDescription alloc] init];
-        expressionDescription.name = @"date";
-        expressionDescription.expression = maxExpression;
-        expressionDescription.expressionResultType = NSDateAttributeType;
-        fetchRequest.propertiesToFetch = @[expressionDescription];
+- (NSDate *)latestDrinkRecordDateInCurrentCalendar {
+    if (!_latestDrinkRecordDateInCurrentCalendar) {
+//        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"PXDrinkRecord"];
+//        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"date < %@", [NSDate strictDateFromToday]];
+//        fetchRequest.resultType = NSDictionaryResultType;
+//        NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:@"date"];
+//        NSExpression *maxExpression = [NSExpression expressionForFunction:@"max:" arguments:@[keyPathExpression]];
+//        NSExpressionDescription *expressionDescription = [[NSExpressionDescription alloc] init];
+//        expressionDescription.name = @"date";
+//        expressionDescription.expression = maxExpression;
+//        expressionDescription.expressionResultType = NSDateAttributeType;
+//        fetchRequest.propertiesToFetch = @[expressionDescription];
+//
+//        NSManagedObjectContext *context = [PXCoreDataManager sharedManager].managedObjectContext;
+//        NSArray *results = [context executeFetchRequest:fetchRequest error:NULL];
+//        _latestDrinkRecordDate = results.firstObject[@"date"];
         
+        // Fetch all possible contenders...
+        NSDate *today = [NSDate strictDateFromToday];
+        NSDate *latestDate = [today latestWorldDateWithSameCalendarDateAsThisOne];
         NSManagedObjectContext *context = [PXCoreDataManager sharedManager].managedObjectContext;
-        NSArray *results = [context executeFetchRequest:fetchRequest error:NULL];
-        _latestDrinkRecordDate = results.firstObject[@"date"];
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"PXDrinkRecord"];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"date < %@", latestDate];
+        NSArray <PXDrinkRecord *> *drinkRecords = [context executeFetchRequest:fetchRequest error:NULL];
+        // Now filter for the ones who's calendar date is before today (not sure why this doesnt include today. I'm just copying the above -HKS) and find the latest
+        NSDate *latestDrinkRecDateInCurrCal;
+        for (PXDrinkRecord *rec in drinkRecords) {
+            NSTimeZone *tz = [NSTimeZone timeZoneForDrinkRecord:rec];
+            NSDate *recDateInCurrCal = [rec.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:tz];
+            if ([recDateInCurrCal compare:today] != NSOrderedAscending) {
+                continue;
+            }
+            if (latestDrinkRecDateInCurrCal == nil) {
+                latestDrinkRecDateInCurrCal = recDateInCurrCal;
+                continue;
+            }
+            
+            if ([recDateInCurrCal compare:latestDrinkRecDateInCurrCal] == NSOrderedDescending) {
+                latestDrinkRecDateInCurrCal = recDateInCurrCal;
+            }
+        }
+        _latestDrinkRecordDateInCurrentCalendar = latestDrinkRecDateInCurrCal;
     }
-    return _latestDrinkRecordDate;
+    return _latestDrinkRecordDateInCurrentCalendar;
 }
 
 #pragma mark - UITableViewDataSource
@@ -122,14 +151,11 @@ static NSUInteger const PXReasonSection = 4;
         return nil;
     }
     if (section == PXDrankYesterdaySection) {
-        if (self.latestDrinkRecordDate) {
-            static NSDateFormatter *dateFormatter = nil;
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                dateFormatter = [[NSDateFormatter alloc] init];
-                dateFormatter.dateFormat = @"EEE, MMM dd yyyy";
-            });
-            NSString *stringFromDate = [dateFormatter stringFromDate:self.latestDrinkRecordDate];
+        if (self.latestDrinkRecordDateInCurrentCalendar) {
+            NSDateFormatter *dateFormatter = nil;
+            dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"EEE, MMM dd yyyy";
+            NSString *stringFromDate = [dateFormatter stringFromDate:self.latestDrinkRecordDateInCurrentCalendar];
             return [NSString stringWithFormat:@"Any more drinks since the last one recorded on %@?", stringFromDate];
         } else {
             return @"Any more drinks to record for yesterday?";
@@ -137,9 +163,9 @@ static NSUInteger const PXReasonSection = 4;
     }
     if (section == PXReasonSection) {
         if (self.goalAchieved.boolValue) {
-            return @"What helped you achieve your goal?";
+            return @"What helped? You can see this under “What has and hasn’t worked”";
         } else {
-            return @"What got in the way?";
+            return @"What got in the way? You can see this under “What has and hasn’t worked”.";
         }
     }
     return [super tableView:tableView titleForHeaderInSection:section];
@@ -236,6 +262,7 @@ static NSUInteger const PXReasonSection = 4;
     
     if (self.moodDiaryEntry) {
         self.moodDiaryEntry.date = [NSDate strictDateFromToday];
+        self.moodDiaryEntry.timezone = NSCalendar.currentCalendar.timeZone.name;
         self.moodDiaryEntry.happiness = @(self.happySlider.value);
         self.moodDiaryEntry.productivity = @(self.productiveSlider.value);
         self.moodDiaryEntry.sleep = @(self.sleepSlider.value);
@@ -244,7 +271,7 @@ static NSUInteger const PXReasonSection = 4;
         self.moodDiaryEntry.comment = self.commentTextView.text;
         self.moodDiaryEntry.goalAchieved = self.goalAchieved.boolValue;
         [self.userMoodDiaries.moodDiaries addObject:self.moodDiaryEntry];
-        [self.moodDiaryEntry saveAndLogToParse:self.userMoodDiaries];
+        [self.moodDiaryEntry saveAndLogToServer:self.userMoodDiaries];
         
         // Add to goal reasons
         NSString *reason = self.moodDiaryEntry.reason;
@@ -267,8 +294,8 @@ static NSUInteger const PXReasonSection = 4;
         };
     } else {
         NSDate *fromDate;
-        if (self.latestDrinkRecordDate) {
-            fromDate = [NSDate nextDayFromDate:self.latestDrinkRecordDate];
+        if (self.latestDrinkRecordDateInCurrentCalendar) {
+            fromDate = [NSDate nextDayFromDate:self.latestDrinkRecordDateInCurrentCalendar];
         } else {
             fromDate = [NSDate yesterday];
         }

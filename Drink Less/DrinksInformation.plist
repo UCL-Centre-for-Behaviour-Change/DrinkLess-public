@@ -38,6 +38,14 @@
 		<array>
 			<dict>
 				<key>identifier</key>
+				<integer>10000</integer>
+				<key>size</key>
+				<string>Custom</string>
+				<key>millilitres</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>identifier</key>
 				<integer>1</integer>
 				<key>size</key>
 				<string>1/2 Pint</string>
@@ -105,6 +113,14 @@
 		<string>Cider</string>
 		<key>servings</key>
 		<array>
+      <dict>
+        <key>identifier</key>
+        <integer>10000</integer>
+        <key>size</key>
+        <string>Custom</string>
+        <key>millilitres</key>
+        <integer>0</integer>
+      </dict>
 			<dict>
 				<key>identifier</key>
 				<integer>1</integer>
@@ -207,6 +223,14 @@
 		</array>
 		<key>servings</key>
 		<array>
+      <dict>
+        <key>identifier</key>
+        <integer>10000</integer>
+        <key>size</key>
+        <string>Custom</string>
+        <key>millilitres</key>
+        <integer>0</integer>
+      </dict>
 			<dict>
 				<key>identifier</key>
 				<integer>1</integer>
@@ -301,6 +325,14 @@
 		</array>
 		<key>servings</key>
 		<array>
+      <dict>
+        <key>identifier</key>
+        <integer>10000</integer>
+        <key>size</key>
+        <string>Custom</string>
+        <key>millilitres</key>
+        <integer>0</integer>
+      </dict>
 			<dict>
 				<key>identifier</key>
 				<integer>1</integer>
@@ -444,6 +476,14 @@
 		</array>
 		<key>servings</key>
 		<array>
+      <dict>
+        <key>identifier</key>
+        <integer>10000</integer>
+        <key>size</key>
+        <string>Custom</string>
+        <key>millilitres</key>
+        <integer>0</integer>
+      </dict>
 			<dict>
 				<key>identifier</key>
 				<integer>1</integer>
@@ -481,6 +521,14 @@
 		<string>Alcopops</string>
 		<key>servings</key>
 		<array>
+      <dict>
+        <key>identifier</key>
+        <integer>10000</integer>
+        <key>size</key>
+        <string>Custom</string>
+        <key>millilitres</key>
+        <integer>0</integer>
+      </dict>
 			<dict>
 				<key>identifier</key>
 				<integer>1</integer>

@@ -11,6 +11,8 @@
 
 @interface PXAlcoholFreeRecord (Extras)
 
++ (NSFetchRequest *)alcoholFreeRecordFetchRequest;
+
 /**
  USE WITH CAUTION. Default to using the CalendarDate method below. Queries for the raw date range as stored in the records' date property */
 //+ (NSArray *)fetchFreeRecordsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate context:(NSManagedObjectContext *)context;
@@ -26,7 +28,7 @@
 /** Also stores the timezone of the current calendar */
 + (void)setFreeDay:(BOOL)freeDay fromDate:(NSDate *)fromDate toDate:(NSDate *)toDate context:(NSManagedObjectContext *)context;
 
-- (void)saveToParse;
-- (void)deleteFromParse;
+- (void)saveToServer;
+- (void)deleteFromServer;
 
 @end

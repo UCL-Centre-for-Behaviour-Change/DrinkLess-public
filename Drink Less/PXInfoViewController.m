@@ -7,10 +7,13 @@
 //  @license See LICENSE.txt
 //
 
+#import "drinkless-Swift.h"
 #import "PXInfoViewController.h"
 #import "PXBlurAnimationController.h"
 #import "PXIntroManager.h"
 #import "PXGroupsManager.h"
+
+
 
 @interface PXInfoViewController () <UIViewControllerTransitioningDelegate, PXBlurAnimationControllerDelegate, UIWebViewDelegate>
 
@@ -19,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) NSURL *baseURL;
 @property (copy, nonatomic) NSString *html;
+@property (nonatomic, strong) DemographicData *demographicData;
 
 @end
 
@@ -26,7 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.demographicData = VCInjector.shared.demographicData;
+
     self.navigationBar.shadowImage = [UIImage imageNamed:@"info_shadow"];
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationBar.tintColor = [UIColor whiteColor];
@@ -62,11 +68,11 @@
     NSString *html = [NSMutableString stringWithContentsOfURL:url usedEncoding:nil error:nil];
     html = [html stringByReplacingOccurrencesOfString:@"<html>" withString:@"<html><style>body {background-color: transparent !important};</style>"];
     
-    BOOL isFemale = [PXIntroManager sharedManager].gender.boolValue;
+    BOOL isFemale = self.demographicData.gender == GenderTypeFemale;
     
     if ([resource isEqualToString:@"dashboard"]) {
         BOOL isHigh = [PXGroupsManager sharedManager].highSM.boolValue;
-        NSString *replacement = !isHigh ? @"" : @" Tap the words Calories or Money to  see how many calories you've consumed in alcohol and how much you've spent on  it.</p>\n<p>Your Achievements lists how many times in a row you've kept  your diary. You don't have to record drinks to increase your streak, recording  alcohol-free days counts too. This also lists your success against your goals  for the week just gone. Tap any for more detail.";
+        NSString *replacement = !isHigh ? @"" : @" Tap the words Calories or Money to  see how many calories you've consumed in alcohol and how much you've spent on  it.</p>\n<p>'Your Achievements' lists your success against your goals for the week just gone. Tap any for more detail.";
         html = [NSString stringWithFormat:html, replacement];
     }
     else if ([resource isEqualToString:@"action-plans"]) {

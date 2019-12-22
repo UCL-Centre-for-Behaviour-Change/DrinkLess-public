@@ -8,7 +8,7 @@
 //
 
 #import "PXGoalsHeader.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 
 static NSString *const PXGoalReasonKey = @"goalReason";
 
@@ -135,10 +135,7 @@ static NSString *const PXGoalReasonKey = @"goalReason";
     [self.userDefaults setObject:goalReason forKey:PXGoalReasonKey];
     [self.userDefaults synchronize];
     
-    PFObject *object = [PFObject objectWithClassName:@"PXGoalReason"];
-    object[@"user"] = [PFUser currentUser];
-    object[@"reason"] = goalReason;
-    [object saveEventually];
+    [DataServer.shared saveDataObjectWithClassName:@"PXGoalReason" objectId:nil isUser:YES params:@{@"reason": goalReason} ensureSave:YES callback:nil];
 }
 
 @end

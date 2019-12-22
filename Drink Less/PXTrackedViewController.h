@@ -11,8 +11,6 @@
 
 @interface PXTrackedViewController : UIViewController
 
-+ (void)trackScreenName:(NSString *)screenName;
-
 @property (nonatomic, copy) NSString *screenName;
 
 @end

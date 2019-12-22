@@ -101,8 +101,8 @@ static NSString *const PXGroupIDKey = @"groupID";
                     for (NSInteger SM = 0; SM < 2; SM++) {
                         NSDictionary *dictionary = @{@"highAP": @(AP), @"highID": @(ID), @"highAAT": @(AAT), @"highNM": @(NM), @"highSM": @(SM)};
                         _groups[@(groupID)] = dictionary;
-                        NSLog(@"Dictionary %@", dictionary) ;
-                        NSLog(@"groupID: %ld", (long)groupID) ;
+//                        NSLog(@"Dictionary %@", dictionary) ;
+//                        NSLog(@"groupID: %ld", (long)groupID) ;
                         groupID++;
                     }
                 }

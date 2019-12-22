@@ -13,10 +13,9 @@
 
 #pragma mark - Parse
 
+
+/** @obsolete */
 - (void)saveToParse {
-//    PFObject *object = [PFObject objectWithClassName:NSStringFromClass(self.class)];
-//    object[@"user"] = [PFUser currentUser];
-//    [object saveEventually];
 }
 
 @end

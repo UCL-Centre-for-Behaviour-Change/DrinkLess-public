@@ -8,8 +8,7 @@
 //
 
 #import "PXTrackedViewController.h"
-#import <Google/Analytics.h>
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 #import "UIViewController+PXHelpers.h"
 
 @interface PXTrackedViewController()
@@ -19,30 +18,12 @@
 
 @implementation PXTrackedViewController
 
-+ (void)trackScreenName:(NSString *)screenName {
-    if (screenName) {
-        [self googleLogScreenName:screenName];
-        [self parseLogScreenName:screenName];
-    }
-}
-
-+ (void)googleLogScreenName:(NSString *)screenName {
-    id tracker = [GAI sharedInstance].defaultTracker;
-    [tracker set:kGAIScreenName value:screenName];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-}
-
-+ (void)parseLogScreenName:(NSString *)screenName {
-    PFObject *object = [PFObject objectWithClassName:@"PXScreenView"];
-    object[@"user"] = [PFUser currentUser];
-    object[@"name"] = screenName;
-    [object saveEventually];
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.class trackScreenName:self.screenName];
-    
+    if (self.screenName) {
+        [DataServer.shared trackScreenView:self.screenName];
+    }
     [self checkAndShowTipIfNeeded];
 }
 

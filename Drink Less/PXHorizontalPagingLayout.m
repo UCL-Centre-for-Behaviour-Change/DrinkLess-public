@@ -46,6 +46,11 @@ static CGFloat const PXDefaultItemSpacing = 10.0;
     self.itemSpacing = PXDefaultItemSpacing;
 }
 
+- (void)setNumberOfRows:(NSInteger)numberOfRows
+{
+    _numberOfRows = numberOfRows;
+}
+
 - (void)prepareLayout {
     [super prepareLayout];
     

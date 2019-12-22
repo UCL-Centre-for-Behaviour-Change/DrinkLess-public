@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>systemTemplates</key>
+	<array>
+		<dict>
+			<key>identifier</key>
+			<integer>1</integer>
+			<key>label</key>
+			<string>Cook a meal</string>
+			<key>icon</key>
+			<string>plan-food</string>
+		</dict>
+		<dict>
+			<key>identifier</key>
+			<integer>2</integer>
+			<key>label</key>
+			<string>Go to the gym</string>
+			<key>icon</key>
+			<string>plan-gym</string>
+		</dict>
+		<dict>
+			<key>identifier</key>
+			<integer>3</integer>
+			<key>label</key>
+			<string>Watch a film</string>
+			<key>icon</key>
+			<string>plan-movie</string>
+		</dict>
+		<dict>
+			<key>identifier</key>
+			<integer>4</integer>
+			<key>label</key>
+			<string>Go to a museum</string>
+			<key>icon</key>
+			<string>plan-museum</string>
+		</dict>
+		<dict>
+			<key>identifier</key>
+			<integer>5</integer>
+			<key>label</key>
+			<string>Have a soft drink</string>
+			<key>icon</key>
+			<string>plan-softdrink</string>
+		</dict>
+		<dict>
+			<key>identifier</key>
+			<integer>6</integer>
+			<key>label</key>
+			<string>Go for a walk</string>
+			<key>icon</key>
+			<string>plan-walk</string>
+		</dict>
+		<dict>
+			<key>identifier</key>
+			<integer>7</integer>
+			<key>label</key>
+			<string>Read a book</string>
+			<key>icon</key>
+			<string>plan-read</string>
+		</dict>
+		<dict>
+			<key>identifier</key>
+			<integer>8</integer>
+			<key>label</key>
+			<string>Go to an event</string>
+			<key>icon</key>
+			<string>plan-event</string>
+		</dict>
+	</array>
+</dict>
+</plist>

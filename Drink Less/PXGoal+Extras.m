@@ -9,8 +9,9 @@
 
 #import "PXGoal+Extras.h"
 #import "NSManagedObject+PXFindByID.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 #import "PXFormatter.h"
+
 
 @implementation PXGoal (Extras)
 
@@ -48,10 +49,13 @@
 
 - (NSString *)overview {
     [self willAccessValueForKey:@"overview"];
+    NSTimeZone *goalTZ = [NSTimeZone timeZoneForGoal:self];
+    NSDate *startDateInCurrCal = [self.startDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:goalTZ];
+    NSDate *endDateInCurrCal = [self.endDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:goalTZ];
     
-    BOOL hasStarted = (self.startDate.timeIntervalSinceNow <= 0.0);
-    BOOL hasEnded = (self.endDate && self.endDate.timeIntervalSinceNow < 0.0);
-    NSDate *date = hasEnded ? self.endDate : self.startDate;
+    BOOL hasStarted = (startDateInCurrCal.timeIntervalSinceNow <= 0.0);
+    BOOL hasEnded = (self.endDate && endDateInCurrCal.timeIntervalSinceNow < 0.0);
+    NSDate *date = hasEnded ? endDateInCurrCal : startDateInCurrCal;
     
     NSString *prefix = nil;
     if (!hasStarted) {
@@ -76,51 +80,50 @@
     goal.targetMax = self.targetMax;
     goal.parseObjectId = self.parseObjectId;
     goal.parseUpdated = self.parseUpdated;
+    goal.timezone = self.timezone;
     return goal;
 }
 
 #pragma mark - Parse
 
-- (void)saveToParse {
+- (void)saveToServer {
     self.parseUpdated = @NO;
     [self.managedObjectContext save:nil];
     
-    PFObject *object = [PFObject objectWithClassName:NSStringFromClass(self.class)];
-    object.objectId = self.parseObjectId;
-    object[@"user"] = [PFUser currentUser];
-    if (self.goalTypeTitle)   object[@"goalType"]   = self.goalTypeTitle;
-    if (self.startDate)       object[@"startDate"]  = self.startDate;
-    if (self.endDate)         object[@"endDate"]    = self.endDate;
-    if (self.recurring)       object[@"recurring"]  = self.recurring;
-    if (self.targetMax)       object[@"targetMax"]  = self.targetMax;
-    
-    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    if (self.goalTypeTitle)   params[@"goalType"]   = self.goalTypeTitle;
+    if (self.startDate)       params[@"startDate"]  = self.startDate;
+    if (self.endDate)         params[@"endDate"]    = self.endDate;
+    if (self.recurring)       params[@"recurring"]  = self.recurring;
+    if (self.targetMax)       params[@"targetMax"]  = self.targetMax;
+    if (self.timezone)        params[@"timezone"]   = self.timezone;
+
+    [DataServer.shared saveDataObjectWithClassName:NSStringFromClass(self.class) objectId:self.parseObjectId isUser:YES params:params ensureSave:NO callback:^(BOOL succeeded, NSString *objectId, NSError *error) {
+        
         if (succeeded) {
-            self.parseObjectId = object.objectId;
+            self.parseObjectId = objectId;
             self.parseUpdated = @YES;
             [self.managedObjectContext save:nil];
         }
     }];
 }
 
-- (void)deleteFromParse {
+- (void)deleteFromServer {
     if (self.parseObjectId) {
-        PFObject *object = [PFObject objectWithoutDataWithClassName:NSStringFromClass(self.class)
-                                                           objectId:self.parseObjectId];
-        [object deleteEventually];
+        [DataServer.shared deleteDataObject:NSStringFromClass(self.class) objectId:self.parseObjectId];
     }
 }
 
 #pragma mark - Extras
 
 + (NSDateFormatter *)dateFormatter {
-    static NSDateFormatter *dateFormatter = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    NSDateFormatter *dateFormatter = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
         dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
         dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    });
+//    });
     return dateFormatter;
 }
 
@@ -175,4 +178,111 @@
     return nil;
 }
 
++ (NSArray<PXGoal *> *)allGoalsWithContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"PXGoal"];
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:NO]];
+    
+    NSArray<PXGoal *> *goals = [context executeFetchRequest:fetchRequest error:nil];
+    
+    return goals;
+}
+
+//---------------------------------------------------------------------
+
++ (NSArray<PXGoal *> *)lastWeekGoalsWithContext:(NSManagedObjectContext *)context {
+    NSArray<PXGoal *> *goals = [self allGoalsWithContext:context];
+    // @TODO: For efficioency we could grab just the possibly goals using the earliest/latest possible world date's for the endDate comparison. But I think goal numbers are very low and this wont be an overtaxing op
+    
+    NSDate *thisWeek = [NSDate startOfThisWeek];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.weekOfYear = -1;
+    NSDate *lastWeek = [calendar dateByAddingComponents:dateComponents toDate:thisWeek options:0];
+    
+    NSMutableArray<PXGoal *> *lastWeekGoals = NSMutableArray.array;
+    for (PXGoal *goal in goals) {
+        NSTimeZone *goalTZ = [NSTimeZone timeZoneForGoal:goal]; // handles failsafe
+        NSDate *startDateInCurrCal = [goal.startDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:goalTZ];
+        NSDate *endDateInCurrCal = [goal.endDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:goalTZ];
+        
+        // Last Week (from former template in coredata) :=
+        // enddate == empty && startDate < lastWeek
+        // OR
+        // endate > LastWeek && endDate <= thisWeek
+        
+        NSComparisonResult startDateLastWeekComparison = [calendar compareDate:startDateInCurrCal toDate:lastWeek toUnitGranularity:NSCalendarUnitDay];
+        
+        if (goal.endDate == nil) {
+            if (startDateLastWeekComparison == NSOrderedAscending) {
+                [lastWeekGoals addObject:goal];
+            }
+            continue;
+        }
+        
+        NSComparisonResult endDateLastWeekComparison = [calendar compareDate:endDateInCurrCal toDate:lastWeek toUnitGranularity:NSCalendarUnitDay];
+        NSComparisonResult endDateThisWeekComparison = [calendar compareDate:endDateInCurrCal toDate:thisWeek toUnitGranularity:NSCalendarUnitDay];
+        
+        if (endDateLastWeekComparison == NSOrderedDescending && (endDateThisWeekComparison == NSOrderedAscending || endDateThisWeekComparison == NSOrderedSame)) {
+            [lastWeekGoals addObject:goal];
+        }
+    }
+            
+    return lastWeekGoals;
+}
+
+//---------------------------------------------------------------------
+
++ (NSArray<PXGoal *> *)activeGoalsWithContext:(NSManagedObjectContext *)context {
+    
+    NSArray<PXGoal *> *goals = [self allGoalsWithContext:context];
+    NSDate *today = [NSDate strictDateFromToday];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+
+    NSMutableArray<PXGoal *> *activeGoals = NSMutableArray.array;
+    for (PXGoal *goal in goals) {
+        NSTimeZone *goalTZ = [NSTimeZone timeZoneForGoal:goal]; // handles failsafe
+        NSDate *endDateInCurrCal = [goal.endDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:goalTZ];
+        
+        // Last Week (from former template in coredata) :=
+        // enddate == empty && startDate < lastWeek
+        // OR
+        // endate > LastWeek && endDate <= thisWeek
+        
+        NSComparisonResult endDateTodayComparison = [calendar compareDate:endDateInCurrCal toDate:today toUnitGranularity:NSCalendarUnitDay];
+        
+        if (goal.endDate == nil || endDateTodayComparison == NSOrderedDescending) {
+            [activeGoals addObject:goal];
+        }
+    }
+    
+    return activeGoals;
+}
+
+//---------------------------------------------------------------------
+
++ (NSArray<PXGoal *> *)previousGoalsWithContext:(NSManagedObjectContext *)context {
+    
+    NSArray<PXGoal *> *goals = [self allGoalsWithContext:context];
+    NSDate *today = [NSDate strictDateFromToday];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+
+    NSMutableArray<PXGoal *> *inactiveGoals = NSMutableArray.array;
+    for (PXGoal *goal in goals) {
+        NSTimeZone *goalTZ = [NSTimeZone timeZoneForGoal:goal]; // handles failsafe
+        NSDate *endDateInCurrCal = [goal.endDate dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:goalTZ];
+        
+        // Last Week (from former template in coredata) :=
+        // enddate == empty && startDate < lastWeek
+        // OR
+        // endate > LastWeek && endDate <= thisWeek
+        
+        NSComparisonResult endDateTodayComparison = [calendar compareDate:endDateInCurrCal toDate:today toUnitGranularity:NSCalendarUnitDay];
+        
+        if (goal.endDate != nil && (endDateTodayComparison == NSOrderedAscending || endDateTodayComparison == NSOrderedSame)) {
+            [inactiveGoals addObject:goal];
+        }
+    }
+    
+    return inactiveGoals;
+}
 @end

@@ -21,10 +21,13 @@
 #import "PXUnitsGuideViewController.h"
 #import "PXDrinkCalculator.h"
 #import "PXInfoViewController.h"
+#import "PXDebug.h"
+#import "PXSolidButton.h"
+#import "drinkless-Swift.h"
 
 static CGFloat PXSpacingHeight = 12.0;
 
-@interface PXDrinkRecordViewController () <PXItemListVCDelegate, PXNumberFieldChangeDelegate>
+@interface PXDrinkRecordViewController () <PXItemListVCDelegate, PXNumberFieldChangeDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet PXDateStepControl *dateStepControl;
 @property (weak, nonatomic) IBOutlet PXRecordCell *typeCell;
@@ -34,6 +37,7 @@ static CGFloat PXSpacingHeight = 12.0;
 @property (weak, nonatomic) IBOutlet PXRecordCell *priceCell;
 @property (weak, nonatomic) IBOutlet PXRecordCell *quantityCell;
 @property (weak, nonatomic) IBOutlet PXRecordCell *favouriteCell;
+@property (weak, nonatomic) IBOutlet PXSolidButton *deleteBtn;
 @property (strong, nonatomic) FPPopoverController *popoverVC;
 @property (strong, nonatomic) UITableViewHeaderFooterView *unitsFooterView;
 @property (strong, nonatomic) NSArray *servings;
@@ -43,6 +47,7 @@ static CGFloat PXSpacingHeight = 12.0;
 @property (strong, nonatomic) NSNumber *defaultPrice;
 @property (strong, nonatomic) NSMutableSet *hiddenCells;
 @property (nonatomic) CGFloat keyboardHeight;
+@property (nonatomic) BOOL isEdit;
 
 @end
 
@@ -54,17 +59,49 @@ static CGFloat PXSpacingHeight = 12.0;
     return recordViewController;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.isEdit = [self.parentViewController isMemberOfClass:[TabBarCalendarNavVC class]];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Drink record"];
+    [DataServer.shared trackScreenView:@"Drink record"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.servings = [self.drinkRecord.drink.servings sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"millilitres" ascending:YES]]];
+    // Save button uses default window tint. Also hide if this is not an edit
+    self.deleteBtn.tintColor = [UIColor drinkLessRedColor];
+    self.deleteBtn.hidden = self.drinkRecord.hasChanges;  // An edit shouldnt have changes yet
     
+    
+    
+//    self.servings = [self.drinkRecord.drink.servings sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"millilitres" ascending:YES]]];
+//
+    // For servings include only the last 3 custom including the one selected if any
+    NSMutableArray <PXDrinkServing *> *showServings = [self.drinkRecord.drink.servings sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:NO]]].mutableCopy;
+    // three total
+    NSInteger customsRemaining = self.drinkRecord.serving.isCustom ? 2 : 3;
+    for (PXDrinkServing *serving in showServings.copy) {
+        // Remove from the list if it's not the selected or we've run out
+        if (serving.isCustom) {
+            if ([serving.identifier isEqualToNumber:self.drinkRecord.serving.identifier]) {
+                continue;
+            }
+            if (customsRemaining-- > 0) {
+                continue;
+            }
+            // Remove it
+            [showServings removeObject:serving];
+        }
+    }
+    self.servings = [showServings sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES]]];
+
     self.types = [self.drinkRecord.drink.types sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
     
     self.additions = [self.drinkRecord.drink.additions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
@@ -72,16 +109,42 @@ static CGFloat PXSpacingHeight = 12.0;
     self.tableView.rowHeight = 44.0; // Required on iOS 8
     self.title = self.drinkRecord.drink.name;
     
+    // Accessory images
+    UIImage *dropdownIcon = [UIImage imageNamed:@"icon-dropdown"];
+    UIImage *editableIcon = [UIImage imageNamed:@"icon-edit"];
+    UIColor *editableColor = [UIColor drinkLessGreenColor];
+    
     self.abvCell.numberFieldDelegate.delegate = self;
     self.abvCell.formatType = PXFormatTypePercentage;
     self.abvCell.textField.text = [self.abvCell.numberFieldDelegate.numberFormatter stringFromNumber:self.drinkRecord.abv];
+    self.abvCell.accessoryView = [[UIImageView alloc] initWithImage:editableIcon];
+    self.abvCell.valueLabel.textColor = editableColor;
+    self.abvCell.textField.textColor = editableColor;
+    
+    self.sizeCell.numberFieldDelegate.delegate = self;
+    self.sizeCell.formatType = PXFormatTypeVolume;
+    self.sizeCell.valueLabel.hidden = self.drinkRecord.serving.isCustom;
+    self.sizeCell.textField.hidden = !self.drinkRecord.serving.isCustom;
+    self.sizeCell.valueLabel.text = self.drinkRecord.serving.name;
+    self.sizeCell.textField.text = [self.sizeCell.numberFieldDelegate.numberFormatter stringFromNumber:self.drinkRecord.serving.millilitres];
+    self.sizeCell.valueLabel.text = self.drinkRecord.serving.name;
+//    self.sizeCell.textField.enabled = NO;
+    self.sizeCell.textField.userInteractionEnabled = NO;
+    self.sizeCell.accessoryView = [[UIImageView alloc] initWithImage:dropdownIcon];
+//    self.sizeCell.valueLabel.textColor = editableColor;
     
     self.priceCell.formatType = PXFormatTypeCurrency;
+    self.priceCell.accessoryView = [[UIImageView alloc] initWithImage:editableIcon];
+    self.priceCell.textField.textColor = editableColor;
+    
     self.dateStepControl.date = self.drinkRecord.date;
-    self.sizeCell.valueLabel.text = self.drinkRecord.serving.name;
+    
     self.quantityCell.quantityControl.value = self.drinkRecord.quantity.integerValue;
     
     self.priceCell.textField.text = [self.priceCell.numberFieldDelegate.numberFormatter stringFromNumber:self.drinkRecord.price];
+    
+    self.additionCell.accessoryView = [[UIImageView alloc] initWithImage:dropdownIcon];
+//    self.additionCell.valueLabel.textColor = editableColor;
     
     if (self.isFavouritesHidden) {
         [self hideCell:self.favouriteCell];
@@ -91,8 +154,11 @@ static CGFloat PXSpacingHeight = 12.0;
     if (!self.drinkRecord.type) {
         [self hideCell:self.typeCell];
     } else {
+        self.typeCell.accessoryView = [[UIImageView alloc] initWithImage:dropdownIcon];
         self.typeCell.titleLabel.text = self.drinkRecord.drink.name;
         self.typeCell.valueLabel.text = self.drinkRecord.type.name;
+//        self.typeCell.valueLabel.textColor = editableColor;
+
     }
     
     if (!self.drinkRecord.addition) {
@@ -239,6 +305,10 @@ static CGFloat PXSpacingHeight = 12.0;
         [self showList:self.servings
                 object:self.drinkRecord.serving
          fromIndexPath:indexPath];
+    } else if (cell == self.abvCell) {
+        [self.abvCell.textField becomeFirstResponder];
+    } else if (cell == self.priceCell) {
+        [self.priceCell.textField becomeFirstResponder];
     } else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -303,8 +373,39 @@ static CGFloat PXSpacingHeight = 12.0;
     [self updateAlcoholUnits];
 }
 
-- (IBAction)pressedSave:(id)sender {
-    [self performSegueWithIdentifier:@"save" sender:nil];
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    [self.view endEditing:YES];
+    
+    if ([identifier isEqualToString:@"save"] || [identifier isEqualToString:@"saveTopBar"]) {
+        [self _doSave];
+    }
+    if (self.isEdit) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return NO;
+    }
+    return YES;
+}
+- (IBAction)savePressedTopBar:(id)sender {
+}
+
+
+//- (IBAction)unwindToTabBarCalendarNavVC:(UIStoryboardSegue *)unwindSegue {
+//    UIViewController *sourceViewController = unwindSegue.sourceViewController;
+//    // Use data from the view controller which initiated the unwind segue
+//}
+
+//-(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+//    NSLog(@"******* sds *******");
+//}
+
+- (IBAction)pressedSave {
+//    if (self.isEdit) {
+//        [self _doSave];
+//        // Unwind the segue
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    [self performSegueWithIdentifier:@"save" sender:nil];
 }
 
 #pragma mark - PXItemListVCDelegate
@@ -328,11 +429,25 @@ static CGFloat PXSpacingHeight = 12.0;
         [self updateDefaultPrice];
     }
     else if (cell == self.sizeCell) {
-        self.drinkRecord.servingID = [object valueForKey:@"identifier"];
-        [self.context refreshObject:self.drinkRecord mergeChanges:YES];
-        self.sizeCell.valueLabel.text = self.drinkRecord.serving.name;
-        [self updateAlcoholUnits];
-        [self updateDefaultPrice];
+        
+        NSNumber *identifier = [object valueForKey:@"identifier"];
+        
+        // If custom placeholder id, then defer until they enter in a value
+        if (identifier.integerValue != kPXDrinkServingCustomIdentifier) {
+            self.drinkRecord.servingID = [object valueForKey:@"identifier"];
+            [self.context refreshObject:self.drinkRecord mergeChanges:YES];
+            self.sizeCell.valueLabel.text = self.drinkRecord.serving.name;
+            self.sizeCell.textField.hidden = YES;
+            self.sizeCell.valueLabel.hidden = NO;
+            [self updateAlcoholUnits];
+            [self updateDefaultPrice];
+        } else {
+            // Make the cell editable
+            self.sizeCell.textField.hidden = NO;
+            self.sizeCell.valueLabel.hidden = YES;
+            self.sizeCell.textField.userInteractionEnabled = YES;
+            [self.sizeCell.textField becomeFirstResponder];
+        }
     }
     [self.popoverVC dismissPopoverAnimated:YES];
 }
@@ -345,6 +460,19 @@ static CGFloat PXSpacingHeight = 12.0;
         [self updateAlcoholUnits];
         [self updateDefaultPrice];
     }
+    else if (textField == self.sizeCell.textField) {
+        textField.userInteractionEnabled = NO;
+        
+        // assign fetched/new custom serving for the specified size
+        // @TODO: NEXT
+        NSNumber *volume = [self.sizeCell.numberFieldDelegate.numberFormatter numberFromString:self.sizeCell.textField.text];
+        PXDrinkServing *serving = [PXDrinkServing drinkServingForCustomVolume:volume forDrink:self.drinkRecord.drink context:self.context];
+        self.drinkRecord.servingID = serving.identifier;
+        //[self.context save:nil];
+        [self.context refreshObject:self.drinkRecord mergeChanges:YES];
+        [self updateAlcoholUnits];
+        [self updateDefaultPrice];
+    }
 }
 
 #pragma mark - Navigation
@@ -352,16 +480,52 @@ static CGFloat PXSpacingHeight = 12.0;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self.view endEditing:YES];
     
-    if ([segue.identifier isEqualToString:@"save"]) {
-        self.drinkRecord.price = [self.priceCell.numberFieldDelegate.numberFormatter numberFromString:self.priceCell.textField.text];
-        self.drinkRecord.favourite = @(self.favouriteCell.toggleSwitch.isOn);
-        self.drinkRecord.date = self.dateStepControl.date;
-        self.drinkRecord.timezone = NSTimeZone.localTimeZone.name;
-        [self.context save:nil];
-        [self.drinkRecord saveToParse];
-        
-        [PXAlcoholFreeRecord setFreeDay:NO date:self.drinkRecord.date context:self.context];
+//    if ([segue.identifier isEqualToString:@"save"] || [segue.identifier isEqualToString:@"saveTopBar"]) {
+//        [self _doSave];
+//    }
+}
+
+//////////////////////////////////////////////////////////
+// MARK: - Actions
+//////////////////////////////////////////////////////////
+
+- (IBAction)deletePressed:(id)sender {
+    NSParameterAssert(self.isEdit);
+    NSString *title = @"Delete this drink entry?";
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != 1) return;
+    
+    // Delete the drink record
+    logd(@"Deleting Drink Record...");
+    [self.context deleteObject:self.drinkRecord];
+    NSError *err;
+    [self.context save:&err];
+    if (err) {
+        [AlertManager.shared showErrorAlert:err];
     }
+    
+    // Unwind the segue
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+
+- (void)_doSave {
+    self.drinkRecord.price = [self.priceCell.numberFieldDelegate.numberFormatter numberFromString:self.priceCell.textField.text];
+    self.drinkRecord.favourite = @(self.favouriteCell.toggleSwitch.isOn);
+    self.drinkRecord.date = self.dateStepControl.date;
+    self.drinkRecord.timezone = NSCalendar.currentCalendar.timeZone.name; // important to use this to grab our swizzle
+    [self.context save:nil];
+    [self.context refreshObject:self.drinkRecord mergeChanges:NO];
+    [self.drinkRecord saveToServer];
+    
+    [PXAlcoholFreeRecord setFreeDay:NO date:self.drinkRecord.date context:self.context];
 }
 
 @end
+

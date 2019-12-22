@@ -10,7 +10,7 @@
 
 #import "PXCalendarViewController.h"
 #import "PXCalendarView.h"
-#import "PXDrinkingDiaryViewController.h"
+#import "PXDrinkRecordListVC.h"
 #import "PXGoalCalculator.h"
 #import "PXCoreDataManager.h"
 #import "PXAlcoholFreeRecord+Extras.h"
@@ -29,6 +29,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalFreeDaysLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *freeDaysHeightContraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyHeightContraint;
+
+
+
+
 @property (strong, nonatomic) PXCalendarStatistics *calendarStatistics;
 @property (strong, nonatomic) NSDate *selectedDate;
 @property (strong, nonatomic) NSManagedObjectContext *context;
@@ -104,9 +108,17 @@
                 case PXDayStatusAlcoholFree:
                     return [UIColor drinkLessGreenColor];
                 case PXDayStatusDrank:
-                    return [UIColor barOrange];
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enable-textured-colours"]) {
+                        return [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern-orange"]];// [UIColor barOrange];
+                    } else {
+                        return [UIColor barOrange];
+                    }
                 case PXDayStatusHeavyDrinking:
-                    return [UIColor goalRedColor];
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enable-textured-colours"]) {
+                        return [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern-red"]];//[UIColor goalRedColor];
+                    } else {
+                        return [UIColor goalRedColor];
+                    }
                 default:
                     break;
             }
@@ -116,19 +128,21 @@
 }
 
 - (void)calendarDidSelectDate:(NSDate *)date {
-    if (date.timeIntervalSinceNow <= 0.0) {
+    // @HKS: Is this ok wrt the time zone???
+    
+    //if (date.timeIntervalSinceNow <= 0.0) {
         self.selectedDate = date;
         [self performSegueWithIdentifier:@"showRecords" sender:nil];
-    }
+    //}
 }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showRecords"]) {
-        PXDrinkingDiaryViewController *drinkingDiaryVC = (PXDrinkingDiaryViewController *)segue.destinationViewController;
-        drinkingDiaryVC.context = self.context;
-        drinkingDiaryVC.date = self.selectedDate;
+        PXDrinkRecordListVC *drinkRecordListVC = (PXDrinkRecordListVC *)segue.destinationViewController;
+        drinkRecordListVC.context = self.context;
+        drinkRecordListVC.date = self.selectedDate;
     }
 }
 

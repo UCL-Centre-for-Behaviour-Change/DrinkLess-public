@@ -288,7 +288,7 @@ static NSInteger const PXRecentPageLimit = 10;
         PXDrinkRecord *drinkRecord = [self.fetchedResultsController objectAtIndexPath:indexPath];
         drinkRecord.favourite = @NO;
         [self.context save:nil];
-        [drinkRecord saveToParse];
+        [drinkRecord saveToServer];
     }
 }
 

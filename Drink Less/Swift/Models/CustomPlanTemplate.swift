@@ -1,0 +1,42 @@
+//
+//  CustomPlanTemplate+CoreDataClass.swift
+//  
+//
+//  Created by Hari Karam Singh on 28/02/2019.
+//
+//
+
+import Foundation
+import CoreData
+
+@objc(CustomPlanTemplate)
+public class CustomPlanTemplate: NSManagedObject, PlanTemplate {
+    
+    //////////////////////////////////////////////////////////
+    // MARK: - Class Methods
+    //////////////////////////////////////////////////////////
+
+    class func loadAll(context:NSManagedObjectContext) throws -> [CustomPlanTemplate] {
+        let fr:NSFetchRequest<CustomPlanTemplate> = self.fetchRequest()
+        fr.sortDescriptors = [NSSortDescriptor(key: "lastUsed", ascending: false), NSSortDescriptor(key: "label", ascending: true)]
+        return try context.fetch(fr)
+    }
+    
+    //////////////////////////////////////////////////////////
+    // MARK: - Life Cycle
+    //////////////////////////////////////////////////////////
+
+    
+    
+    //////////////////////////////////////////////////////////
+    // MARK: - Public Methods
+    //////////////////////////////////////////////////////////
+
+
+    
+    //////////////////////////////////////////////////////////
+    // MARK: -
+    //////////////////////////////////////////////////////////
+
+    
+}

@@ -11,12 +11,12 @@
 #import "NSManagedObject+PXFindByID.h"
 #import "PXDrinkRecord.h"
 #import "PXDrinkRecord+Extras.h"
-#import <Parse/Parse.h>
 #import "PXStepGuide.h"
 #import "NSTimeZone+DrinkLess.h"
 #import "PXDebug.h"
 #import "NSDateComponents+DrinkLess.h"
 #import "NSDate+DrinkLess.h"
+#import "drinkless-Swift.h"
 
 @implementation PXAlcoholFreeRecord (Extras)
 
@@ -38,7 +38,7 @@
 //    NSFetchRequest *fetchRequest = [self alcoholFreeRecordFetchRequest];
 //    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
 //    return [context executeFetchRequest:fetchRequest error:nil];
-    NSDate *datePlus1 = [date dateByAddingTimeInterval:24*3600];
+    NSDate *datePlus1 = [NSDate nextDayFromDate:date];
     return [self fetchFreeRecordsFromCalendarDate:date toCalendarDate:datePlus1 context:context];
 }
 
@@ -110,12 +110,12 @@
     for (NSDate *date in availableDates) {
         PXAlcoholFreeRecord *alcoholFreeRecord = (PXAlcoholFreeRecord *)[PXAlcoholFreeRecord createInContext:context];
         alcoholFreeRecord.date = date;
-        alcoholFreeRecord.timezone = NSTimeZone.localTimeZone.name;
-        [alcoholFreeRecord saveToParse];
+        alcoholFreeRecord.timezone = NSCalendar.currentCalendar.timeZone.name; // important to use this to grab our swizzle
+        [alcoholFreeRecord saveToServer];
     }
     if (context.hasChanges) [context save:nil];
     
-    // why does this method not erase drinking records like the other one below??
+    // why does this method not erase drinking records like the other one below?? Ans: I think b/c it's only used when there is knowledge that the range is empty. Not so good really. See PXMoodDiaryVC ~L307
 }
 
 //---------------------------------------------------------------------
@@ -124,7 +124,7 @@
     logd(@"--------- SetFreeDay: %@, date=%@ ----------", freeDay?@"YES":@"NO", date);
     
     // Looking for any on this Calendar Date (@see README.md)
-    NSDate *datePlus1Day = [date dateByAddingTimeInterval:24*3600];
+    NSDate *datePlus1Day = [NSDate nextDayFromDate:date];
     NSMutableArray *alcoholFreeRecords = [self fetchFreeRecordsFromCalendarDate:date toCalendarDate:datePlus1Day context:context].mutableCopy;
     
     logd(@"Found %i AlcoholFree records on that date", (int)alcoholFreeRecords.count);
@@ -141,13 +141,13 @@
         if (alcoholFreeRecords.count == 0) {
             PXAlcoholFreeRecord *alcoholFreeRecord = (PXAlcoholFreeRecord *)[PXAlcoholFreeRecord createInContext:context];
             alcoholFreeRecord.date = date;
-            alcoholFreeRecord.timezone = NSTimeZone.localTimeZone.name;
-            [alcoholFreeRecord saveToParse];
+            alcoholFreeRecord.timezone = NSCalendar.currentCalendar.timeZone.name; // important to use this to grab our swizzle
+            [alcoholFreeRecord saveToServer];
         }
     } else {
         logd(@"Erasing AlcoholFree records on that date");
         for (PXAlcoholFreeRecord *alcoholFreeRecord in alcoholFreeRecords) {
-            [alcoholFreeRecord deleteFromParse];
+            [alcoholFreeRecord deleteFromServer];
             [context deleteObject:alcoholFreeRecord];
         }
     }
@@ -158,30 +158,28 @@
 
 #pragma mark - Parse
 
-- (void)saveToParse {
+- (void)saveToServer {
     self.parseUpdated = @NO;
     [self.managedObjectContext save:nil];
     
-    PFObject *object = [PFObject objectWithClassName:NSStringFromClass(self.class)];
-    object.objectId = self.parseObjectId;
-    object[@"user"] = [PFUser currentUser];
-    if (self.date) object[@"date"] = self.date;
-    if (self.timezone) object[@"timezone"] = self.timezone;
     
-    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    if (self.date) params[@"date"] = self.date;
+    if (self.timezone) params[@"timezone"] = self.timezone;
+    
+    // Fail if no network as we need the object ID for later deletions (PXCoreDataManager has some cleanup for failed server saves)
+    [DataServer.shared saveDataObjectWithClassName:NSStringFromClass(self.class) objectId:self.parseObjectId isUser:YES params:params ensureSave:NO callback:^(BOOL succeeded, NSString *objectId, NSError *error) {
         if (succeeded) {
-            self.parseObjectId = object.objectId;
+            self.parseObjectId = objectId;
             self.parseUpdated = @YES;
             [self.managedObjectContext save:nil];
         }
     }];
 }
 
-- (void)deleteFromParse {
+- (void)deleteFromServer {
     if (self.parseObjectId) {
-        PFObject *object = [PFObject objectWithoutDataWithClassName:NSStringFromClass(self.class)
-                                                           objectId:self.parseObjectId];
-        [object deleteEventually];
+        [DataServer.shared deleteDataObject:NSStringFromClass(self.class) objectId:self.parseObjectId];
     }
 }
 

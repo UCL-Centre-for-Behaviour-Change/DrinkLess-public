@@ -9,6 +9,7 @@
 
 #import "PXUserMoodDiaries.h"
 #import "PXMoodDiary.h"
+#import "NSTimeZone+DrinkLess.h"
 
 static NSString *const PXMoodDiariesKey = @"moodDiaries";
 
@@ -65,9 +66,19 @@ static NSString *const PXMoodDiariesKey = @"moodDiaries";
 #pragma mark - Properties
 
 - (PXMoodDiary *)fetchTodaysMoodDiary {
-    NSDate *date = [NSDate strictDateFromToday];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
-    return [self.moodDiaries filteredArrayUsingPredicate:predicate].firstObject;
+    NSDate *today = [NSDate strictDateFromToday];
+    PXMoodDiary *todaysMoodDiary;
+    for (PXMoodDiary *moodDiary in self.moodDiaries.reverseObjectEnumerator) { // reversed search for efficiency
+        NSTimeZone *tz = [NSTimeZone timeZoneForMoodDiary:moodDiary];
+        NSDate *moodDiaryDateInCurrCal = [moodDiary.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:tz];
+        if ([NSCalendar.currentCalendar compareDate:moodDiaryDateInCurrCal toDate:today toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame) {
+            todaysMoodDiary = moodDiary;
+            break;
+        }
+    }
+    return todaysMoodDiary;
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", today];
+//    return [self.moodDiaries filteredArrayUsingPredicate:predicate].firstObject;
 }
 
 #pragma mark - Convenience
@@ -78,18 +89,21 @@ static NSString *const PXMoodDiariesKey = @"moodDiaries";
     NSDate *previousDate;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date <= %@", [NSDate date]];
-    NSArray *pastMoodDiaries = [self.moodDiaries filteredArrayUsingPredicate:predicate];
-    
-    for (PXMoodDiary *moodDiary in pastMoodDiaries) {
-        NSDate *date = moodDiary.date;
+    // HKS: Why? How can you even have future ones (unless debugging with time panel)?
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date <= %@", [NSDate date]];
+//    NSArray *pastMoodDiaries = [self.moodDiaries filteredArrayUsingPredicate:predicate];
+//
+//    for (PXMoodDiary *moodDiary in pastMoodDiaries) {
+    for (PXMoodDiary *moodDiary in self.moodDiaries) {
+        NSTimeZone *tz = [NSTimeZone timeZoneForMoodDiary:moodDiary];
+        NSDate *dateInCurrCall = [moodDiary.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:tz];
         if (previousDate) {
-            NSInteger days = [calendar components:NSCalendarUnitDay fromDate:previousDate toDate:date options:0].day;
+            NSInteger days = [calendar components:NSCalendarUnitDay fromDate:previousDate toDate:dateInCurrCall options:0].day;
             if (days > 1) _currentStreak = 0;
         }
         _currentStreak++;
         if (self.currentStreak > self.highestStreak) _highestStreak = self.currentStreak;
-        previousDate = date;
+        previousDate = dateInCurrCall;
     }
 }
 

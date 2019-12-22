@@ -84,14 +84,14 @@ static NSString *const PXTitleKey = @"title";
         NSString *subtitle;
         if (self.goal.startDate.timeIntervalSinceNow > 0.0) {
             NSString *time = [self.timeCalculator timeBetweenNowAndDate:self.goal.startDate];
-            subtitle = [NSString stringWithFormat:@"We need more data before we can show you these graphs.\n\nPlease enter records of your drinking when the goal starts in %@.", time];
+            subtitle = [NSString stringWithFormat:@"We need more data before we can show you these graphs.\n\nPlease keep filling in your drinking calendar for another %@.", time];
         }
         else {
             if (self.goal.endDate && [self.goal.endDate timeIntervalSinceDate:self.goalStatistics.completionDate] < 0) {
                 subtitle = @"This goal was ended before enough data could be collected to show you these graphs.";
             } else {
                 NSString *time = [self.timeCalculator timeBetweenNowAndDate:self.goalStatistics.completionDate];
-                subtitle = [NSString stringWithFormat:@"We need more data before we can show you these graphs.\n\nPlease keep entering records of your drinking for another %@.", time];
+                subtitle = [NSString stringWithFormat:@"We need more data before we can show you these graphs.\n\nPlease keep filling in your drinking calendar for another %@.", time];
             }
         }
         [self.placeholderView setImage:[UIImage imageNamed:@"no_graph"]

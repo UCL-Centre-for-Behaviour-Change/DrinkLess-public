@@ -29,7 +29,8 @@
 #import "PXInfoViewController.h"
 #import "PXTipView.h"
 #import "PXUnitsGuideViewController.h"
-#import <Parse/Parse.h>
+#import "UIViewController+PXHelpers.h"
+#import "drinkless-Swift.h"
 
 static NSString *const PXTaskCellIdentifier = @"taskCell";
 static NSString *const PXDiaryStreakCellIdentifier = @"diaryStreakCell";
@@ -47,6 +48,8 @@ typedef NS_ENUM(NSInteger, PXSection) {
 };
 
 @interface PXDashboardViewController ()
+
+@property (weak, nonatomic) IBOutlet UIView *allStatisticsVCCont;
 
 @property (strong, nonatomic) PXUserMoodDiaries *userMoodDiaries;
 @property (strong, nonatomic) PXDailyTaskManager *dailyTaskManager;
@@ -77,7 +80,18 @@ typedef NS_ENUM(NSInteger, PXSection) {
     if (![PXGroupsManager sharedManager].highSM.boolValue) {
         self.tableView.tableHeaderView = nil;
     }
-
+    
+    // Set the explainer to show after onboarding has ended
+    // Just do this one time
+    [NSNotificationCenter.defaultCenter addObserverForName:@"PXFinishIntro" object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        // Wait for the dismiss animation (hack-ish I know...)
+        [NSTimer scheduledTimerWithTimeInterval:0.75 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            [AppConfig oneOffEventWithIdentifier:@"DashboardExplainer" exec:^{
+                [DashboardExplainer.shared show];
+            }];
+        }];
+    }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,13 +108,17 @@ typedef NS_ENUM(NSInteger, PXSection) {
 
     [self.tableView reloadData];
 
-    [self _checkAndShowPrivacyPolicyIfNeedsAcknowledgement];
+    DashboardExplainer.shared.moodLinkCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:PXSectionTask]];
+    DashboardExplainer.shared.graphView = self.allStatisticsVCCont;
+    
+
+    //[self checkAndShowPrivacyPolicyIfNeedsAcknowledgement];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    [PXTrackedViewController trackScreenName:@"Dashboard"];
+    [DataServer.shared trackScreenView:@"Dashboard"];
 
     NSMutableOrderedSet *taskIDsToRemove = [NSMutableOrderedSet orderedSetWithArray:self.dailyTaskManager.availableTaskIDs];
     [taskIDsToRemove intersectSet:self.dailyTaskManager.completedTaskIDs];
@@ -113,6 +131,15 @@ typedef NS_ENUM(NSInteger, PXSection) {
         [sharedApplication endIgnoringInteractionEvents];
         [self.dailyTaskManager save];
     }];
+    
+    [Debug doHook:@"DashboardDidAppear" arg1:self];
+    
+    // DEBUG: Force Dash Explainer
+    if (Debug.ENABLED && [Debug.FORCE_ONEOFF_EVENTS containsObject:@"DashboardExplainer"]) {
+        [AppConfig oneOffEventWithIdentifier:@"DashboardExplainer" exec:^{
+            [DashboardExplainer.shared show];
+        }];
+    }
 }
 
 #pragma mark - Calculations
@@ -121,34 +148,21 @@ typedef NS_ENUM(NSInteger, PXSection) {
     NSDate *thisWeek = [NSDate startOfThisWeek];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-
-    dateComponents.weekOfYear = -1;
-    NSDate *lastWeek = [calendar dateByAddingComponents:dateComponents toDate:thisWeek options:0];
-
     dateComponents.weekOfYear = 1;
     NSDate *nextWeek = [calendar dateByAddingComponents:dateComponents toDate:thisWeek options:0];
-
     _daysUntilNextWeek = [calendar components:NSCalendarUnitDay fromDate:[NSDate strictDateFromToday] toDate:nextWeek options:0].day;
 
     NSManagedObjectContext *context = [PXCoreDataManager sharedManager].managedObjectContext;
-    NSDictionary *variables = @{@"EMPTY": [NSNull null], @"TODAY": [NSDate strictDateFromToday], @"LASTWEEK": lastWeek, @"THISWEEK": thisWeek};
-
-    self.lastWeekGoalsStatistics = [self statisticsWithContext:context template:@"lastWeekGoals" variables:variables region:PXStatisticRegionLastCompleted];
-
-    self.activeGoalsStatistics = [self statisticsWithContext:context template:@"activeGoals" variables:variables region:PXStatisticRegionCurrentIncomplete];
-
+    self.lastWeekGoalsStatistics = [self statisticsWithGoals:[PXGoal lastWeekGoalsWithContext:context] region:PXStatisticRegionLastCompleted];
+    self.activeGoalsStatistics = [self statisticsWithGoals:[PXGoal activeGoalsWithContext:context] region:PXStatisticRegionCurrentIncomplete];
 
  //   PXGoalStatistics *gs = [self.activeGoalsStatistics objectAtIndex:0];
   //  NSLog(@"goal stats: %@", gs.goal.targetMax);
 
 }
 
-- (NSMutableArray *)statisticsWithContext:(NSManagedObjectContext *)context template:(NSString *)template variables:(NSDictionary *)variables region:(PXStatisticRegion)region {
-    NSManagedObjectModel *model = context.persistentStoreCoordinator.managedObjectModel;
-    NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:template substitutionVariables:variables];
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:NO]];
-    NSArray *goals = [context executeFetchRequest:fetchRequest error:nil];
-
+- (NSMutableArray *)statisticsWithGoals:(NSArray <PXGoal *> *)goals region:(PXStatisticRegion)region {
+    
     NSMutableArray *statistics = [NSMutableArray arrayWithCapacity:goals.count];
     for (PXGoal *goal in goals) {
         PXGoalStatistics *goalStatistics = [[PXGoalStatistics alloc] initWithGoal:goal region:region];
@@ -178,7 +192,8 @@ typedef NS_ENUM(NSInteger, PXSection) {
 }
 
 - (BOOL)hasDiaryStreak {
-    return self.userMoodDiaries.currentStreak > 1 || self.userMoodDiaries.highestStreak > 1;
+    return NO; // disable streaks
+//    return self.userMoodDiaries.currentStreak > 1 || self.userMoodDiaries.highestStreak > 1;
 }
 
 - (BOOL)hasLastWeekGoals {
@@ -249,7 +264,7 @@ typedef NS_ENUM(NSInteger, PXSection) {
         case PXSectionGoal:
             return @"Your active goals";
         case PXSectionLink:
-            return @"Quick links";
+            return @"Useful links";
         default:
             return nil;
     }
@@ -518,21 +533,21 @@ typedef NS_ENUM(NSInteger, PXSection) {
                     tabBarController.selectedIndex = 4;
                 }
                 else if ([identifier isEqualToString:@"normative-misperceptions"]) {
-                    [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXReviewAuditVC"]];
+                    [tabBarController selectTabAtIndex:1 storyboardName:@"Activities" pushViewControllersWithIdentifiers:@[@"AuditHistoryOverviewVC"]];
                 }
                 else if ([identifier isEqualToString:@"action-plans"]) {
-                    [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXActionPlansViewController"]];
+                    [tabBarController selectTabAtIndex:1 storyboardName:@"Activities" pushViewControllersWithIdentifiers:@[@"PXActionPlansViewController"]];
                 }
                 else if ([identifier isEqualToString:@"alcohol-effects"]) {
-                    [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXHowAlcoholEffectsVC"]];
+                    [tabBarController selectTabAtIndex:1 storyboardName:@"Activities" pushViewControllersWithIdentifiers:@[@"PXHowAlcoholEffectsVC"]];
                 }
-                else if ([identifier isEqualToString:@"questionnaire"]) {
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FollowUp" bundle:nil];
-                    OneMonthFollowUpTableViewController *followUpVC = [storyboard instantiateInitialViewController];
-                    [self.navigationController pushViewController:followUpVC animated:YES];
-                }
+//                else if ([identifier isEqualToString:@"questionnaire"]) {
+//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FollowUp" bundle:nil];
+//                    OneMonthFollowUpTableViewController *followUpVC = [storyboard instantiateInitialViewController];
+//                    [self.navigationController pushViewController:followUpVC animated:YES];
+//                }
                 else if ([identifier isEqualToString:@"record-drinks"]) {
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Progress" bundle:nil];
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
                     PXMoodDiaryViewController *moodDiaryVC = [storyboard instantiateViewControllerWithIdentifier:@"PXMoodDiaryVC"];
                     [self.navigationController pushViewController:moodDiaryVC animated:YES];
                 }
@@ -542,6 +557,38 @@ typedef NS_ENUM(NSInteger, PXSection) {
                     UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FollowUpID"];
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
+                else if ([identifier isEqualToString:@"drinking-cues"]) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
+                    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"YourDrinkingCuesIntroVC"];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                else if ([identifier isEqualToString:@"make-plan"]) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
+                    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"MakePlanIntroVC"];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                else if ([identifier isEqualToString:@"insights"]) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
+                    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"InsightsVC"];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                }
+                else if ([identifier isEqualToString:@"audit-follow-up"]) {
+                    // Initialise new Audit data
+                    // @TODO: Get all this audit and demo data stuff into a delegate or something
+                    AuditData *latestAudit = AuditData.latest;
+                    AuditData *newAudit = [[AuditData alloc] init];
+                    newAudit.countryEstimate = latestAudit.countryEstimate;
+                    newAudit.demographicEstimate = latestAudit.demographicEstimate;
+                    newAudit.date = [NSDate strictDateFromToday];
+                    newAudit.timezone = NSCalendar.currentCalendar.timeZone; // important to use this to grab our swizzle
+                    newAudit.demographicKey = VCInjector.shared.demographicData.demographicKey;
+                    VCInjector.shared.workingAuditData = newAudit;
+                    VCInjector.shared.isOnboarding = NO;
+                    
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AuditQuestions"];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                } 
             }
             break;
         case PXSectionAchievement: {
@@ -566,7 +613,7 @@ typedef NS_ENUM(NSInteger, PXSection) {
                 [self.navigationController pushViewController:goalProgressVC animated:YES];
             }
             else {
-                [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
+                [tabBarController selectTabAtIndex:1 storyboardName:@"Activities" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
             }
             break;
         }
@@ -591,18 +638,17 @@ typedef NS_ENUM(NSInteger, PXSection) {
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             if ([cell.reuseIdentifier isEqualToString:PXBasicCellIdentifier]) {
 
-                [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
+                [tabBarController selectTabAtIndex:1 storyboardName:@"Activities" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
             }
             break;
         }
         case PXSectionLink: {
             NSString *identifier = self.quickLinks.links[indexPath.row][@"identifier"];
 
-            if ([identifier isEqualToString:@"alcohol-effects"]) {
-                [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXHowAlcoholEffectsVC"]];
-            }
-            else if ([identifier isEqualToString:@"calendar"]) {
-                [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXCalendarVC"]];
+            if ([identifier isEqualToString:@"help"]) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
+                UIViewController *viewController = [storyboard instantiateInitialViewController];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else if ([identifier isEqualToString:@"units"]) {
                 [self presentViewController:[PXUnitsGuideViewController navigationController] animated:YES completion:nil];
@@ -621,15 +667,5 @@ typedef NS_ENUM(NSInteger, PXSection) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)_checkAndShowPrivacyPolicyIfNeedsAcknowledgement {
-    PFUser *currentUser = [PFUser currentUser];
-    if ([currentUser[@"acknowledgedPrivacyPolicy"] isEqual: @YES]) {
-        PXWebViewController *vc = [[PXWebViewController alloc] initWithResource:@"privacy-changed"];
-        [vc setOpenedOutsideOnboarding:YES];
-        [vc.view setBackgroundColor:[UIColor whiteColor]];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-        [self presentViewController:nav animated:YES completion:nil];
-    }
-}
 
 @end

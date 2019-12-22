@@ -34,7 +34,9 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
 @property (nonatomic) CGFloat minYValue;
 @property (nonatomic) CGFloat maxYValue;
 @property (nonatomic) CGFloat goalValue;
-@property (nonatomic) BOOL displayAsPercentage;
+@property (nonatomic) BOOL displayAsPercentage; // @deprecated
+@property (nonatomic) BOOL displayAsCurrency; // @deprecated
+@property (nonatomic) PXConsumptionType consumptionType;
 @property (nonatomic) PXAxisTypeX axisTypeX;
 
 @end
@@ -128,7 +130,7 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
     barPlot.lineStyle         = noLineStyle;
     barPlot.dataSource        = self;
     barPlot.delegate          = self;
-    barPlot.isGameBarPlot     = self.isGameBarPlot;
+    barPlot.dontUseNoDrinksIcon     = self.dontUseNoDrinksIcon;
     return barPlot;
 }
 
@@ -143,6 +145,19 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
         PXCPTBarPlot *barPlot = [self createBarPlot];
         barPlot.identifier = dictionary[PXPlotIdentifier];
         UIColor *color = dictionary[PXColorKey];
+        
+        NSString *patternImgName;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"enable-textured-colours"]) {
+            if ([color isEqual:UIColor.goalRedColor]) {
+                patternImgName = @"pattern-red";
+            } else if ([color isEqual:UIColor.barOrange]) {
+                patternImgName = @"pattern-orange";
+            }
+        }
+        
+        if (patternImgName) {
+            color = [UIColor colorWithPatternImage:[UIImage imageNamed:patternImgName]];
+        }
         barPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:color.CGColor]];
         [self.graph addPlot:barPlot];
     }
@@ -166,20 +181,63 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
     
     // NOTE: This is a default color scheme hack. It really should be down differently but the code of such an entangled mess of non-DRY-ness that this is the best we get for now...  Note, goal graphs have a different colour scheme to the others hence the if statement
     if (!self.plots) {
-        UIColor *safeColor = [UIColor drinkLessOrangeColor];//drinkLessGreenColor];
+        UIColor *safeColor = [UIColor drinkLessGreenColor];
         UIColor *failColor = [UIColor goalRedColor];
-
+        UIColor *nearFailColor = [UIColor drinkLessOrangeColor];
+        UIColor *neutralColor = [UIColor drinkLessOrangeColor];
+        
         NSMutableArray *plotDicts = NSMutableArray.new;
         for (NSDictionary *dataDict in self.plotData) {
-            CGFloat units = [dataDict[@(PXConsumptionTypeUnits)] floatValue];
-            // Color red if a goal is set and its been exceeded
+            // @MARK Bar graph colours...
+//            CGFloat units = [dataDict[@(PXConsumptionTypeUnits)] floatValue];
+            CGFloat units = [dataDict[@(self.consumptionType)] floatValue];
             UIColor *barColor;
-            CGFloat goal = _goalValue ?: PXSuggestedWeeklyUnits;
-            if (units > goal) {
-                barColor = failColor;
+//            CGFloat goal = _goalValue ?: PXSuggestedWeeklyUnits;
+
+            // Goal colour rules
+            if (_goalValue > 0) {
+                if (_consumptionType == PXConsumptionTypeAlcoholFreeDays) {
+                    if (units >= _goalValue) {
+                        barColor = safeColor;
+                    } else {
+                        barColor = failColor;
+                    }
+                } else {
+                    if (units > _goalValue) {
+                        barColor = failColor;
+                    } else {
+                        barColor = neutralColor;
+                    }
+                }
             } else {
-                barColor = safeColor;
+                switch (self.consumptionType) {
+                    case PXConsumptionTypeUnits:
+                        if (units > PXSuggestedWeeklyUnits) {
+                            barColor = failColor;
+                        } else {
+                            barColor = neutralColor;
+                        }
+                        break;
+                    case PXConsumptionTypeAlcoholFreeDays:
+                        if (units == 0) {
+                            barColor = failColor;
+                        } else if (units <= 2) {
+                            barColor = nearFailColor;
+                        } else {
+                            barColor = safeColor;
+                        }
+                        break;
+                    case PXConsumptionTypeGameResults:
+                        barColor = neutralColor;
+                    default:
+                    case PXConsumptionTypeSpending:
+                    case PXConsumptionTypeCalories:
+                        barColor = neutralColor;
+                        break;
+                }
             }
+            
+            // Color red if a goal is set and its been  exceeded
             if (dataDict[PXPlotIdentifier]) {
                 [plotDicts addObject:@{PXPlotIdentifier:dataDict[PXPlotIdentifier], PXColorKey:barColor}];
             }
@@ -234,7 +292,7 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
 
 
 #pragma mark - Plot Space Delegate Methods
-
+// Prevent scrolling. (Is this the only way, really??)
 - (CPTPlotRange *)plotSpace:(CPTXYPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate {
     CPTPlotRange *maxRange = self.maxCoordinateRanges[@(coordinate)];
     CPTMutablePlotRange *changedRange = newRange.mutableCopy;
@@ -245,8 +303,7 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
 }
 
 #pragma mark - Actions
-
-- (void)setXTitle:(NSString *)xTitle yTitle:(NSString *)yTitle xKey:(NSObject *)xKey yKey:(NSObject *)yKey minYValue:(CGFloat)minYValue maxYValue:(CGFloat)maxYValue goalValue:(CGFloat)goalValue displayAsPercentage:(BOOL)displayAsPercentage axisTypeX:(PXAxisTypeX)axisTypeX showLegend:(BOOL)showLegend {
+- (void)setXTitle:(NSString *)xTitle yTitle:(NSString *)yTitle c:(NSObject *)xKey yKey:(NSObject *)yKey minYValue:(CGFloat)minYValue maxYValue:(CGFloat)maxYValue goalValue:(CGFloat)goalValue displayAsPercentage:(BOOL)displayAsPercentage displayAsCurrency:(BOOL)displayAsCurrency adjustYAxisToEnsureEvenIncrement:(BOOL)adjustYAxis axisTypeX:(PXAxisTypeX)axisTypeX showLegend:(BOOL)showLegend {
     _xTitle = xTitle;
     _yTitle = yTitle;
     _xKey = xKey;
@@ -255,17 +312,47 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
     _maxYValue = maxYValue;
     _goalValue = goalValue;
     _displayAsPercentage = displayAsPercentage;
+    _displayAsCurrency = displayAsCurrency;
     _axisTypeX = axisTypeX;
     self.legendHidden = !showLegend;
+
+    CPTPlot *markerLinePlot = [self.graph plotWithIdentifier:PXMarkerIdentifier];
+    markerLinePlot.hidden = (_goalValue == 0.0);
+
+    self.plotData = self.plotData; // quick hack to redo bar colours when goal is set
+    [self reloadData];
+}
+
+- (void)setXTitle:(NSString *)xTitle yTitle:(NSString *)yTitle xKey:(NSObject *)xKey yKey:(NSObject *)yKey minYValue:(CGFloat)minYValue maxYValue:(CGFloat)maxYValue goalValue:(CGFloat)goalValue consumptionType:(PXConsumptionType)consumptionType showLegend:(BOOL)showLegend {
     
+    _xTitle = xTitle;
+    _yTitle = yTitle;
+    _xKey = xKey;
+    _yKey = yKey;
+    _minYValue = minYValue;
+    _maxYValue = maxYValue;
+    _goalValue = goalValue;
+    _displayAsPercentage = NO;  // @deprecated
+    _displayAsCurrency = (consumptionType == PXConsumptionTypeSpending); // @deprecated
+    switch (consumptionType) {
+        case PXConsumptionTypeGoals:
+            _axisTypeX = PXAxisTypeNumber;
+            break;
+        case PXConsumptionTypeMoodScore:
+            _axisTypeX = PXAxisTypeTitle;
+            break;
+        default:
+            _axisTypeX = PXAxisTypeDate;
+    }
+    self.legendHidden = !showLegend;
+    self.consumptionType = consumptionType;
     CPTPlot *markerLinePlot = [self.graph plotWithIdentifier:PXMarkerIdentifier];
     markerLinePlot.hidden = (_goalValue == 0.0);
     
     self.plotData = self.plotData; // quick hack to redo bar colours when goal is set
     [self reloadData];
+    
 }
-
-
 
 - (void)configureXAxis {
     self.paddingBottomOffset = self.xTitle ? 55.0 : 30.0;
@@ -357,7 +444,27 @@ static NSUInteger const PXSuggestedWeeklyUnits = 14;
         numberFormatter.numberStyle = NSNumberFormatterPercentStyle;
         numberFormatter.multiplier = @1.0;
     } else {
-        NSUInteger ticksY = MIN(ceilf(length), PXVisibleTicksY - 1);
+        if (self.displayAsCurrency) {
+            numberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+            numberFormatter.maximumFractionDigits = 0;
+        }
+        if (length > 500) {
+            numberFormatter.roundingIncrement = @100;
+        } else if (length > 200) {
+            numberFormatter.roundingIncrement = @50;
+        } else if (length > 100) {
+            numberFormatter.roundingIncrement = @10;
+        }
+        
+        // Ensure even divisions on bar graph
+        NSUInteger ticksY = length;
+        if (self.consumptionType != PXConsumptionTypeMoodScore) {
+            ticksY = MIN(ceilf(length), PXVisibleTicksY - 1);
+            int mod = (int)length % ticksY;
+            if (mod > 0) {
+                length += ticksY - (float)(mod);
+            }
+        }
         yMajorLength = length / ticksY;
     }
     y.labelFormatter = numberFormatter;

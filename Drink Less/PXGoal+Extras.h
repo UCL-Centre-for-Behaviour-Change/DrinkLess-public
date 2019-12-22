@@ -19,13 +19,23 @@ typedef NS_ENUM(NSInteger, PXGoalType) {
 @interface PXGoal (Extras)
 
 - (PXGoal *)copyGoalIntoContext:(NSManagedObjectContext *)context;
-- (void)saveToParse;
-- (void)deleteFromParse;
+- (void)saveToServer;
+- (void)deleteFromServer;
 + (NSDictionary *)allGoalTypeTitles;
 
 @property (nonatomic, readonly) NSString *drinkRecordValueKey;
 @property (nonatomic, readonly) NSString *goalTypeTitle;
 @property (nonatomic, readonly) BOOL isRestorable;
 @property (nonatomic, readonly) NSDate *calculatedEndDate;
+
+/** Sorted by start date descending */
++ (NSArray<PXGoal *> *)allGoalsWithContext:(NSManagedObjectContext *)context;
+
+
++ (NSArray<PXGoal *> *)lastWeekGoalsWithContext:(NSManagedObjectContext *)context;
++ (NSArray<PXGoal *> *)activeGoalsWithContext:(NSManagedObjectContext *)context;
++ (NSArray<PXGoal *> *)previousGoalsWithContext:(NSManagedObjectContext *)context;
+
+
 
 @end

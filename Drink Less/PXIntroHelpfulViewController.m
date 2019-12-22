@@ -10,7 +10,7 @@
 #import "PXIntroHelpfulViewController.h"
 #import "PXIntroManager.h"
 #import "PXRateView.h"
-#import <Google/Analytics.h>
+#import "drinkless-Swift.h"
 
 @interface PXIntroHelpfulViewController () <PXRateViewDelegate>
 
@@ -37,6 +37,14 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // remove children
+    [self.navigationController setViewControllers:@[self] animated:NO];
+}
+
 #pragma mark - Actions
 
 - (IBAction)pressedFinish:(id)sender {
@@ -45,16 +53,14 @@
         [alert show];
         return;
     }
-    self.introManager.stage = PXIntroStageFinished;
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"button_press"     // Event category (required)
-                                                          action:@"tapped_finish_at_end_of_audit"  // Event action (required)
-                                                           label:@"Finish"          // Event label
-                                                           value:nil] build]];    // Event value
-    
+    self.introManager.stage = PXIntroStageCreateGoal;
     [self.introManager save];
+    
+    // Load the goal setting
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
+    PXEditGoalViewController *vc = [sb instantiateViewControllerWithIdentifier:@"PXEditGoalVC"];
+    vc.isOnboarding = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - PXRateViewDelegate

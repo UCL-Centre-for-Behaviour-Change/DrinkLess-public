@@ -8,6 +8,7 @@
 //
 
 #import "PXIdentityMemoReminderVC.h"
+#import "drinkless-Swift.h"
 
 @interface PXIdentityMemoReminderVC ()
 
@@ -39,7 +40,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Record memo"];
+    [DataServer.shared trackScreenView:@"Record memo"];
 }
 
 - (IBAction)toggleChanged:(id)sender {

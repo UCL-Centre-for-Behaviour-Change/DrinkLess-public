@@ -13,6 +13,8 @@
 #import "PXDrinkRecord+Extras.h"
 #import "PXIntroManager.h"
 #import "PXCoreDataManager.h"
+#import "NSTimeZone+DrinkLess.h"
+#import "NSDate+DrinkLess.h"
 
 @implementation PXAlcoholEffects
 
@@ -43,10 +45,15 @@
         NSInteger notDrinkingDays = 0;
         
         for (PXMoodDiary *diary in moodDiaries) {
+            // Convert date to current cal TX
+            NSTimeZone *tz = [NSTimeZone timeZoneForMoodDiary:diary];
+            NSDate *dateInCurrCal = [diary.date dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:tz];
             NSCalendar *calendar = [NSCalendar currentCalendar];
-            NSCalendarUnit noTimeComponents = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-            NSDateComponents *dateComponents = [calendar components:noTimeComponents fromDate:diary.date];
-            NSDate *toDate = [calendar dateFromComponents:dateComponents];
+            NSDate *toDate = [NSDate strictDateFromDate:dateInCurrCal];
+            
+//            NSCalendarUnit noTimeComponents = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+//            NSDateComponents *dateComponents = [calendar components:noTimeComponents fromDate:diary.date];
+//            NSDate *toDate = [calendar dateFromComponents:dateComponents];
             
             NSDateComponents *previousDayComponents = [[NSDateComponents alloc] init];
             previousDayComponents.day = -1;
@@ -57,8 +64,8 @@
             for (PXDrinkRecord *record in drinkRecords) {
                 units += record.totalUnits.floatValue;
             }
-            BOOL isFemale = [PXIntroManager sharedManager].gender.boolValue;
-            CGFloat unitsLimit = isFemale ? 6 : 6;  //governemnt guidelines changed so same for m/f
+//            BOOL isFemale = [PXIntroManager sharedManager].gender.boolValue;
+            CGFloat unitsLimit = 6;//isFemale ? 6 : 6;  //governemnt guidelines changed so same for m/f
             
             if (units > unitsLimit) {
                 moodAfterDrinking += diary.happiness.floatValue;
@@ -77,15 +84,18 @@
         }
         
         // Calculate average
-        moodAfterDrinking            /= drinkingDays;
-        productivityAfterDrinking    /= drinkingDays;
-        clarityAfterDrinking         /= drinkingDays;
-        sleepAfterDrinking           /= drinkingDays;
-        moodAfterNotDrinking         /= notDrinkingDays;
-        productivityAfterNotDrinking /= notDrinkingDays;
-        clarityAfterNotDrinking      /= notDrinkingDays;
-        sleepAfterNotDrinking        /= notDrinkingDays;
-        
+        if (drinkingDays > 0) {
+            moodAfterDrinking            /= drinkingDays;
+            productivityAfterDrinking    /= drinkingDays;
+            clarityAfterDrinking         /= drinkingDays;
+            sleepAfterDrinking           /= drinkingDays;
+        }
+        if (notDrinkingDays > 0) {
+            moodAfterNotDrinking         /= notDrinkingDays;
+            productivityAfterNotDrinking /= notDrinkingDays;
+            clarityAfterNotDrinking      /= notDrinkingDays;
+            sleepAfterNotDrinking        /= notDrinkingDays;
+        }
         _afterDrinking = @{@(PXAlcoholEffectTypeMood):         @(moodAfterDrinking),
                            @(PXAlcoholEffectTypeProductivity): @(productivityAfterDrinking),
                            @(PXAlcoholEffectTypeClarity):      @(clarityAfterDrinking),

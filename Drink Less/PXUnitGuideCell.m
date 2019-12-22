@@ -9,6 +9,7 @@
 
 #import "PXUnitGuideCell.h"
 #import "PXDashedBackgroundView.h"
+#import "UIColor+DrinkLess.h"
 
 @implementation PXUnitGuideCell
 
@@ -30,6 +31,7 @@
 - (void)didMoveToWindow {
     [super didMoveToWindow];
     
+    self.caloriesLabel.textColor = self.tintColor;
     self.abvLabel.textColor = self.tintColor;
 }
 

@@ -13,6 +13,7 @@
 #import "PXGroupsManager.h"
 #import "PXInfoViewController.h"
 #import "UIViewController+PXHelpers.h"
+#import "drinkless-Swift.h"
 
 static NSString *const PXAchievedKey = @"achieved";
 static NSString *const PXTitleKey = @"title";
@@ -50,7 +51,7 @@ static NSString *const PXBulletCellIdentifier = @"bulletCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Goal reflections"];
+    [DataServer.shared trackScreenView:@"Goal reflections"];
     
     [self checkAndShowTipIfNeeded];
 }

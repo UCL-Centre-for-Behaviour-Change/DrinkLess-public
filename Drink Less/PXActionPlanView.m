@@ -89,7 +89,7 @@
             self.thenHeightConstraint = nil;
         }
     }
-    void (^updateBlock)() = ^{
+    void (^updateBlock)(void) = ^{
         [self setNeedsLayout];
         [self layoutIfNeeded];
         [self updateArrowView];

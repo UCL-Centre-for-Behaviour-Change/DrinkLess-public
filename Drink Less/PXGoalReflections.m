@@ -8,7 +8,7 @@
 //
 
 #import "PXGoalReflections.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 
 static NSString *const PXWhatHasWorkedKey = @"whatHasWorked";
 static NSString *const PXWhatHasNotWorkedKey = @"whatHasNotWorked";
@@ -59,11 +59,10 @@ static NSString *const PXWhatHasNotWorkedKey = @"whatHasNotWorked";
     [self.userDefaults setObject:self.whatHasNotWorked forKey:PXWhatHasNotWorkedKey];
     [self.userDefaults synchronize];
     
-    PFObject *object = [PFObject objectWithClassName:NSStringFromClass(self.class)];
-    object[@"user"] = [PFUser currentUser];
-    object[@"whatHasWorked"] = self.whatHasWorked;
-    object[@"whatHasNotWorked"] = self.whatHasNotWorked;
-    [object saveEventually];
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    params[@"whatHasWorked"] = self.whatHasWorked;
+    params[@"whatHasNotWorked"] = self.whatHasNotWorked;
+    [DataServer.shared saveDataObjectWithClassName:NSStringFromClass(self.class) objectId:nil isUser:YES params:params ensureSave:YES callback:nil];
 }
 
 @end

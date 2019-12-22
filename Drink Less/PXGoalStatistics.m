@@ -8,6 +8,7 @@
 //
 
 #import "PXGoalStatistics.h"
+#import "PXFormatter.h"
 
 @interface PXGoalStatistics ()
 
@@ -93,6 +94,33 @@
             }
         }
         _successPercentage = ((_exceedCount + _hitCount) / (float)_allData.count) * 100;
+    }
+}
+
+//---------------------------------------------------------------------
+
+- (UIImage *)icon {
+    PXGoalStatus status = [self.data[PXStatusKey] integerValue];
+    UIImage *icon = [PXGoalCalculator imageForGoalStatus:status thumbnail:YES];
+    return icon;
+}
+
+//---------------------------------------------------------------------
+
+- (NSString *)shortTitle {
+    NSNumber *quantity = self.goal.targetMax;
+    BOOL singular = quantity.integerValue == 1.0f;
+    switch (self.goal.goalType.integerValue) {
+        case PXGoalTypeUnits:
+            return [NSString stringWithFormat:@"Drink less than %.f %@", quantity.floatValue, singular ? @"unit" : @"units"];
+        case PXGoalTypeCalories:
+            return [NSString stringWithFormat:@"Consume less than %.f %@", quantity.floatValue, singular ? @"calorie" : @"calories"];
+        case PXGoalTypeSpending:
+            return [NSString stringWithFormat:@"Spend less than %@", [PXFormatter currencyFromNumber:quantity]];
+        case PXGoalTypeFreeDays:
+            return [NSString stringWithFormat:@"%.f or more alcohol %@", quantity.floatValue, singular ? @"free days" : @"free days"];
+        default:
+            return nil;
     }
 }
 

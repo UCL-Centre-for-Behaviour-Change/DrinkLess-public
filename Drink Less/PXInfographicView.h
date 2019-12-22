@@ -8,7 +8,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PXAuditCalculator.h"
 
 static CGFloat const PXWidth = 320.0;
 

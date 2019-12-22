@@ -1,0 +1,6 @@
+framework module AttributedTextView {
+  umbrella header "AttributedTextView-umbrella.h"
+
+  export *
+  module * { export * }
+}

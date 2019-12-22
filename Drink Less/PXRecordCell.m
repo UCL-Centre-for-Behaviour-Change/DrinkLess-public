@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (strong, nonatomic) UILabel *percentageLabel;
+@property (strong, nonatomic) UILabel *volumeLabel;
 @property (strong, nonatomic) UILabel *currencyLabel;
 
 @end
@@ -33,6 +34,16 @@
     }
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    if (self.accessoryView != nil) {
+        CGRect frame = self.accessoryView.frame;
+        frame.origin.x += 5;
+        self.accessoryView.frame = frame;
+    }
+}
+
 - (void)setIconImage:(UIImage *)iconImage {
     _iconImage = iconImage;
     self.iconImageView.image = [iconImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -43,10 +54,21 @@
         _percentageLabel = [[UILabel alloc] init];
         _percentageLabel.text = self.numberFieldDelegate.numberFormatter.percentSymbol;
         _percentageLabel.font = self.textField.font;
-        _percentageLabel.textColor = self.textField.textColor;
+        _percentageLabel.textColor = UIColor.drinkLessGreenColor;//self.textField.textColor;
         [_percentageLabel sizeToFit];
     }
     return _percentageLabel;
+}
+
+- (UILabel *)volumeLabel {
+    if (!_volumeLabel) {
+        _volumeLabel = [[UILabel alloc] init];
+        _volumeLabel.text = @"ml";
+        _volumeLabel.font = self.textField.font;
+        _volumeLabel.textColor = self.textField.textColor;
+        [_volumeLabel sizeToFit];
+    }
+    return _volumeLabel;
 }
 
 - (UILabel *)currencyLabel {
@@ -54,7 +76,7 @@
         _currencyLabel = [[UILabel alloc] init];
         _currencyLabel.text = self.numberFieldDelegate.numberFormatter.currencySymbol;
         _currencyLabel.font = self.textField.font;
-        _currencyLabel.textColor = self.textField.textColor;
+        _currencyLabel.textColor = UIColor.drinkLessGreenColor;//self.textField.textColor;
         [_currencyLabel sizeToFit];
     }
     return _currencyLabel;
@@ -86,6 +108,14 @@
             self.textField.rightViewMode = UITextFieldViewModeNever;
             self.textField.leftView = nil;
             self.textField.rightView = nil;
+            break;
+        }
+        case PXFormatTypeVolume: {
+            self.numberFieldDelegate.decimalPlaces = 0;
+            self.textField.leftViewMode = UITextFieldViewModeNever;
+            self.textField.leftView = nil;
+            self.textField.rightViewMode = UITextFieldViewModeAlways;
+            self.textField.rightView = self.volumeLabel;
             break;
         }
         default:

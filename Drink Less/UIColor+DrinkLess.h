@@ -16,6 +16,7 @@
 + (UIColor *)drinkLessGreenColor;
 + (UIColor *)drinkLessLightGreenColor;
 + (UIColor *)drinkLessOrangeColor;
++ (UIColor *)drinkLessRedColor;
 
 + (UIColor *)gaugeGreenColor;
 + (UIColor *)gaugeYellowColor;
@@ -31,5 +32,9 @@
 
 + (UIColor *)barOrange;
 + (UIColor *)barLightGreen;
+
+- (UIColor *)colorWithBrightnessAdjustedBy:(CGFloat)deltaB;
+- (UIColor *)colorFadedTowardColor:(UIColor *)fadeColor amount:(CGFloat)amount;
+
 
 @end

@@ -9,6 +9,7 @@
 
 #import "PXIdentityMemoRemindersVC.h"
 #import "PXIdentityMemoReminderVC.h"
+#import "drinkless-Swift.h"
 
 @interface PXIdentityMemoRemindersVC ()
 
@@ -35,7 +36,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Memos menu"];
+    [DataServer.shared trackScreenView:@"Memos menu"];
 }
 
 - (PXMemoReminderType)memoReminderTypeForSection:(NSInteger)section {

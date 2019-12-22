@@ -11,6 +11,7 @@
 #import "PXPlaceholderTextViewRenamed.h"
 #import "PXActionPlan.h"
 #import "PXInfoViewController.h"
+#import "drinkless-Swift.h"
 
 @interface PXEditActionPlanViewController ()
 
@@ -75,7 +76,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Edit action plans"];
+    [DataServer.shared trackScreenView:@"Edit action plans"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

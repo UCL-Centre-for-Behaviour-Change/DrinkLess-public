@@ -10,7 +10,7 @@
 #import "PXWebViewController.h"
 #import "PXGroupsManager.h"
 #import "PXIntroManager.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 
 @interface PXWebViewController () <UIWebViewDelegate>
 
@@ -53,25 +53,23 @@
             html = [NSString stringWithFormat:html, injection];
         }
         [self.webView loadHTMLString:html baseURL:[NSBundle mainBundle].bundleURL];
-
+        
         if ([self.resource isEqualToString:@"privacy-policy"]) {
             self.view.tag = 440; // don't show tooltip
-            PFUser *currentUser = [PFUser currentUser];
-            if (![currentUser[@"acknowledgedPrivacyPolicy"] isEqual: @YES]) {
-                UIBarButtonItem *noButton = [[UIBarButtonItem alloc]
-                                             initWithTitle:@"No, I disagree"
-                                             style:UIBarButtonItemStylePlain
-                                             target:self
-                                             action:@selector(noTapped:)];
-                self.navigationItem.leftBarButtonItem = noButton;
-
-                UIBarButtonItem *yesButton = [[UIBarButtonItem alloc]
-                                              initWithTitle:@"Yes, I agree"
-                                              style:UIBarButtonItemStylePlain
-                                              target:self
-                                              action:@selector(yesTapped:)];
-                self.navigationItem.rightBarButtonItem = yesButton;
-            }
+            NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+            UIBarButtonItem *noButton = [[UIBarButtonItem alloc]
+                                         initWithTitle:@"No, I disagree"
+                                         style:UIBarButtonItemStylePlain
+                                         target:self
+                                         action:@selector(noTapped:)];
+            self.navigationItem.leftBarButtonItem = noButton;
+            
+            UIBarButtonItem *yesButton = [[UIBarButtonItem alloc]
+                                          initWithTitle:@"Yes, I agree"
+                                          style:UIBarButtonItemStylePlain
+                                          target:self
+                                          action:@selector(yesTapped:)];
+            self.navigationItem.rightBarButtonItem = yesButton;
         }
     }
     
@@ -98,6 +96,12 @@
             [vc.view setBackgroundColor:[UIColor whiteColor]];
             [self.navigationController pushViewController:vc animated:YES];
             return NO;
+//        } else if ([url.absoluteString isEqualToString:@"app://faqs"]) {
+//            PXWebViewController *vc = [[PXWebViewController alloc] initWithResource:@"faqs"];
+//            [vc setOpenedOutsideOnboarding:YES];
+//            [vc.view setBackgroundColor:[UIColor whiteColor]];
+//            [self.navigationController pushViewController:vc animated:YES];
+//            return NO;
         } else {
             [[UIApplication sharedApplication] openURL:url];
             return NO;
@@ -116,25 +120,38 @@
         PXIntroManager *introManager = [PXIntroManager sharedManager];
         introManager.stage = PXIntroStageAuditQuestions;
         [introManager save];
-        [self performSegueWithIdentifier:@"PXShowAuditQuestions" sender:self];
+        if (MRTNotificationsManager.shared.isWithinTrialRegistrationDates && !AppConfig.userHasOptedOut) {
+            [self performSegueWithIdentifier:@"PrivacyPolicyAcknowledgedSegueMRTVersion" sender:self];
+        } else {
+            [self performSegueWithIdentifier:@"PrivacyPolicyAcknowledgedSegue" sender:self];
+        }
     }
 }
 
 - (void)noTapped:(id)sender {
-    PFUser *currentUser = [PFUser currentUser];
-    currentUser[@"acknowledgedPrivacyPolicy"] = @YES;
-    currentUser[@"hasOptedOut"] = @YES;
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+    [defs setBool:YES forKey:@"acknowledgedPrivacyPolicy"];
+    [defs synchronize];
 
+    // Don't save the user if they opt our straight away
+    if (![VCInjector.shared isOnboarding]) {
+        [DataServer.shared setUserOptOut:YES callback:nil];
+    }
+    AppConfig.userHasOptedOut = YES;
+    DataServer.shared.isEnabled = NO;
+    
     [self closeVC];
 }
 
 - (void)yesTapped:(id)sender {
-    PFUser *currentUser = [PFUser currentUser];
-    currentUser[@"acknowledgedPrivacyPolicy"] = @YES;
-    currentUser[@"hasOptedOut"] = @NO;
-
-    [currentUser saveEventually];
-
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+    [defs setBool:YES forKey:@"acknowledgedPrivacyPolicy"];
+    [defs synchronize];
+    
+    [DataServer.shared setUserOptOut:NO callback:nil];
+    AppConfig.userHasOptedOut = NO;
+    DataServer.shared.isEnabled = YES;
+    
     [self closeVC];
 }
 

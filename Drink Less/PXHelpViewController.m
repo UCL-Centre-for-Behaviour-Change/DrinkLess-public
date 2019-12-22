@@ -11,7 +11,7 @@
 #import "PXGroupsManager.h"
 #import "PXWebViewController.h"
 #import "iRate.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 #import "OneMonthFollowUpTableViewController.h"
 
 static NSInteger const PXOptOutTag = 100;
@@ -26,11 +26,27 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
 
 @implementation PXHelpViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"PXHelpNav" ofType:@"plist"];
     self.navItemsArray = [NSMutableArray arrayWithContentsOfFile:filepath];
+    
+    /////////////////////////////////////////
+    // MRT TRIAL
+    /////////////////////////////////////////
+    // For the duration of the trial remove the reminders section
+    if (MRTNotificationsManager.shared.trialIsActivelyRunning) {
+        NSLog(@"MRT -- Removing 'Reminders' section whilst trial is on");
+        NSMutableArray *entry = [(NSArray *)self.navItemsArray[1][@"rows"] mutableCopy];
+        [entry removeObjectAtIndex:0];
+        self.navItemsArray[1][@"rows"] = entry;
+    }
+    
     [self removeSurveyIfNeeded];
     [self.tableView reloadData];
 }
@@ -52,7 +68,7 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Help menu"];
+    [DataServer.shared trackScreenView:@"Help menu"];
 }
 
 #pragma mark - UITableViewDataSource
@@ -73,9 +89,13 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     NSDictionary *dictionary = self.navItemsArray[indexPath.section][@"rows"][indexPath.row];
     
-    // Intercept the boolean setting for sound. Btw, I HATE "nav by configuration"!
+    // Intercept the boolean setting for sound.
     if ([dictionary[@"identifier"] isEqualToString:@"enable-sounds"]) {
         BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable-sounds"];
+        cell.textLabel.text = dictionary[@"title"];
+        cell.accessoryType = enabled ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    } else if ([dictionary[@"identifier"] isEqualToString:@"enable-textured-colours"]) {
+        BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable-textured-colours"];
         cell.textLabel.text = dictionary[@"title"];
         cell.accessoryType = enabled ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     } else {
@@ -124,7 +144,8 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
             actionSheet.tag = PXOptOutTag;
             [actionSheet showInView:tableView];
         }
-        else if ([identifier isEqualToString:@"enable-sounds"]) {
+        else if ([identifier isEqualToString:@"enable-sounds"] ||
+                 [identifier isEqualToString:@"enable-textured-colours"]) {
             // Toggle the userdef and update the table cell
             NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
             BOOL enabled = [defs boolForKey:identifier];
@@ -197,9 +218,7 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
 }
 
 - (void)optOutUpdateParse {
-    PFUser *currentUser = [PFUser currentUser];
-    currentUser[@"hasOptedOut"] = @YES;
-    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [DataServer.shared setUserOptOut:YES callback:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"user opted out");
             [[[UIAlertView alloc] initWithTitle:@"Opt-out successful"
@@ -208,13 +227,16 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
                               cancelButtonTitle:@"Ok"
                               otherButtonTitles:nil] show];
         } else {
-            [[[UIAlertView alloc] initWithTitle:@"Opt-out failed"
-                                        message:@"We could not opt you out at this point, please try again later"
+            [[[UIAlertView alloc] initWithTitle:@"An error has occurred."
+                                        message:@"Could not contact the server but your preference has been saved on your device. Would you mind letting support know?"
                                        delegate:nil
                               cancelButtonTitle:@"Ok"
                               otherButtonTitles:nil] show];
         }
     }];
+    
+    AppConfig.userHasOptedOut = YES;
+    DataServer.shared.isEnabled = NO;
 }
 
 @end

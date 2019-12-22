@@ -9,6 +9,7 @@
 
 #import "PXActionPlan.h"
 #import "PXUserActionPlans.h"
+#import "drinkless-Swift.h"
 
 static NSString *const PXIfTextKey = @"ifText";
 static NSString *const PXThenTextKey = @"thenText";
@@ -45,30 +46,26 @@ static NSString *const PXParseUpdatedKey = @"parseUpdated";
 
 #pragma mark - Parse
 
-- (void)saveAndLogToParse:(PXUserActionPlans *)userActionPlans {
+- (void)saveAndLogToServer:(PXUserActionPlans *)userActionPlans {
     self.parseUpdated = NO;
     [userActionPlans save];
     
-    PFObject *object = [PFObject objectWithClassName:NSStringFromClass(self.class)];
-    object.objectId = self.parseObjectId;
-    object[@"user"] = [PFUser currentUser];
-    if (self.ifText)   object[@"if"]   = self.ifText;
-    if (self.thenText) object[@"then"] = self.thenText;
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    if (self.ifText)   params[@"if"]   = self.ifText;
+    if (self.thenText) params[@"then"] = self.thenText;
     
-    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [DataServer.shared saveDataObjectWithClassName:NSStringFromClass(self.class) objectId:self.parseObjectId isUser:YES params:params ensureSave:NO callback:^(BOOL succeeded, NSString *objectId, NSError *error) { 
         if (succeeded) {
-            self.parseObjectId = object.objectId;
-            self.parseUpdated = YES;
+            self.parseObjectId = objectId;
+            self.parseUpdated = @YES;
             [userActionPlans save];
         }
     }];
 }
 
-- (void)deleteFromParse {
+- (void)deleteFromServer {
     if (self.parseObjectId) {
-        PFObject *object = [PFObject objectWithoutDataWithClassName:NSStringFromClass(self.class)
-                                                           objectId:self.parseObjectId];
-        [object deleteEventually];
+        [DataServer.shared deleteDataObject:NSStringFromClass(self.class) objectId:self.parseObjectId];
     }
 }
 

@@ -18,8 +18,10 @@
 #import "PXIntroManager.h"
 #import "PXInfoViewController.h"
 #import "PXUnitsGuideViewController.h"
+#import "drinkless-Swift.h"
 
 static CGFloat const PXSpacingHeight = 12.0;
+static NSInteger const PXDetailsSection = 0;
 static NSInteger const PXToggleSection = 1;
 
 @interface PXEditGoalViewController () <PXItemListVCDelegate>
@@ -34,6 +36,8 @@ static NSInteger const PXToggleSection = 1;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) PXGoal *goal;
 @property (strong, nonatomic) NSNumber *defaultTarget;
+@property (weak, nonatomic) IBOutlet UILabel *introductionLbl;
+@property (weak, nonatomic) IBOutlet UIView *introductionView;
 
 @end
 
@@ -43,7 +47,7 @@ static NSInteger const PXToggleSection = 1;
     [super viewDidLoad];
     
     self.context = [PXCoreDataManager temporaryContext];
-    self.newGoal = (self.refenceGoal == nil);
+    self.newGoal = (self.referenceGoal == nil);
     
     self.title = self.isNewGoal ? @"Set goal" : @"Change goal";
     self.tableView.rowHeight = 44.0; // Required on iOS 8
@@ -52,12 +56,14 @@ static NSInteger const PXToggleSection = 1;
         self.goal = (PXGoal *)[PXGoal createInContext:self.context];
         self.goal.goalType = @(PXGoalTypeUnits);
         self.goal.startDate = [NSDate startOfThisWeek];
+        self.goal.timezone = NSCalendar.currentCalendar.timeZone.name; // important to use this to grab our swizzle
     } else {
-        self.refenceGoal = (PXGoal *)[self.context objectWithID:self.refenceGoal.objectID];
-        self.goal = [self.refenceGoal copyGoalIntoContext:self.context];
+        self.referenceGoal = (PXGoal *)[self.context objectWithID:self.referenceGoal.objectID];
+        self.goal = [self.referenceGoal copyGoalIntoContext:self.context];
     }
     
     self.typeCell.valueLabel.text = self.goal.goalTypeTitle;
+    self.typeCell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-dropdown"]];
     
     NSString *toggleTitle = self.isNewGoal ? @"Recurring" : @"Start as new goal";
     self.toggleCell.titleLabel.text = toggleTitle;
@@ -79,24 +85,58 @@ static NSInteger const PXToggleSection = 1;
     [self showUnitGiude];
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.isOnboarding) {
+        // Clear out the previous VCs
+        [self.navigationController setViewControllers:@[self]];
+        
+        self.introductionLbl.text = @"Creating a goal to work towards will help you drink less. Tap the (i) button above for more information.";
+        [self.introductionLbl sizeToFit];
+
+        // Redo the nav bar for onboarding
+        UIBarButtonItem *infoBBI = self.navigationItem.rightBarButtonItems[0];
+        UIBarButtonItem *skipBBI = [[UIBarButtonItem alloc] initWithTitle:@"Skip" style:UIBarButtonItemStylePlain target:self action:@selector(skipPressed)];
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = @[infoBBI, skipBBI];
+        self.navigationItem.title = @"Create a Goal";
+        //self.navigationItem.rightBarButtonItems
+        
+    } else {
+        self.introductionView.hidden = YES;
+        CGRect f = self.introductionView.frame;
+        f.size.height = 0;
+        self.introductionView.frame = f;
+    }
+}
+
+
+//---------------------------------------------------------------------
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Edit goals"];
+    [DataServer.shared trackScreenView:@"Edit goals"];
 }
 
 #pragma mark - Defaults
 
 - (NSNumber *)calculateDefaultTarget {
-    BOOL isFemale = [PXIntroManager sharedManager].gender.boolValue;
+//    BOOL isFemale = [PXIntroManager sharedManager].gender.boolValue;
+    // if this gets restored then pass it in. don't call a bloody singleton this low down
     
     switch (self.goal.goalType.integerValue) {
         case PXGoalTypeUnits:
-            return isFemale ? @14 : @14;
+//            return isFemale ? @14 : @14;
+            return @14;
         case PXGoalTypeFreeDays:
             return @3;
         case PXGoalTypeCalories:
-            return isFemale ? @1100 : @1100;
+//            return isFemale ? @1100 : @1100;
+            return @1100;
     }
     return @0;
 }
@@ -118,7 +158,7 @@ static NSInteger const PXToggleSection = 1;
 - (void)setStartAsNewGoal:(BOOL)startAsNewGoal {
     _startAsNewGoal = startAsNewGoal;
     
-    self.goal.startDate = startAsNewGoal ? [NSDate startOfThisWeek] : self.refenceGoal.startDate;
+    self.goal.startDate = startAsNewGoal ? [NSDate startOfThisWeek] : self.referenceGoal.startDate;
     [self.tableView reloadData];
 }
 
@@ -128,14 +168,29 @@ static NSInteger const PXToggleSection = 1;
     if (section == PXToggleSection && self.shouldStartAsNewGoal) {
         return @"Editing ends this goal and starts a new one. The graphs that show your progress wouldn't work otherwise";
     }
+    
+    if (section == PXDetailsSection) {
+        if ([self.typeCell.valueLabel.text isEqualToString:@"Units"]) {
+            return @"We’ve suggested 14 units which is the recommended weekly limit. Read the drinking guidelines in full here.\n";
+        } else if ([self.typeCell.valueLabel.text isEqualToString:@"Calories"]) {
+            return @"We’ve suggested 1,100 calories which is the approximate equivalent of 14 units of beer or wine.\n";
+        } else if ([self.typeCell.valueLabel.text isEqualToString:@"Alcohol free days"]) {
+            return @"We’ve suggested 3 alcohol free days as the drinking guidelines recommend 2 to 4. Read the drinking guidelines in full here.\n";
+        } else if ([self.typeCell.valueLabel.text isEqualToString:@"Spending"]) {
+            return @"You can choose to add the price when recording your drinks.\n\n";
+        } else {
+            return @"";
+        }
+    }
+    
     return [super tableView:tableView titleForFooterInSection:section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     switch (section) {
-        case 0:
+        case PXDetailsSection:
             return 40.0;
-        case 1:
+        case PXToggleSection:
             return 48.0 - PXSpacingHeight;
         case 2:
             return PXSpacingHeight;
@@ -144,9 +199,84 @@ static NSInteger const PXToggleSection = 1;
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
+    
+    // Clear out any GR's in case cells are reused somehow (shouldnt be for this table but jic)
+    for (UIGestureRecognizer *gestureRecognizer in view.gestureRecognizers) {
+        [view removeGestureRecognizer:gestureRecognizer];
+    }
+    
+    if (section != PXDetailsSection) {
+        return;
+    }
+    
+    // Convert to attributed text. Make it a little bigger methinks...
+    NSMutableAttributedString *attribText = [[NSMutableAttributedString alloc] initWithString:view.textLabel.text];
+    CGFloat fontSize = view.textLabel.font.pointSize + 1;
+    NSRange fullRange = NSMakeRange(0, attribText.length);
+    NSDictionary *attribs = @{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]};
+    [attribText addAttributes:attribs range:fullRange];
+    
+    // Make the "here" look like a link
+    NSDictionary *linkAttributes = @{NSForegroundColorAttributeName: [UIColor drinkLessGreenColor],
+                                     NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                                     NSFontAttributeName: [UIFont boldSystemFontOfSize:fontSize]
+                                     };
+    NSRange range = [view.textLabel.text rangeOfString:@"here" options:NSCaseInsensitiveSearch];
+    
+    
+    // Not all of them will have the same text
+    if (range.location != NSNotFound) {
+        [attribText addAttributes:linkAttributes range:range];
+        
+        // Link it up....
+        if (view.gestureRecognizers.count == 0) {
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedGuidelinesLink)];
+            [view addGestureRecognizer:tapGesture];
+        }
+    }
+    view.textLabel.attributedText = attribText;
+}
+
+- (void)pressedGuidelinesLink {
+    PXWebViewController *webViewController = [[PXWebViewController alloc] initWithResource:@"drinking-guidelines"];
+    webViewController.view.backgroundColor = [UIColor whiteColor];
+    webViewController.title = @"Drinking guidelines";
+//    [self.navigationController presentViewController:webViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:webViewController animated:YES];
+}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//    if (section != PXDetailsSection) {
+//        return [super tableView:tableView viewForFooterInSection:section];
+//    }
+//
+//    // Make the footer linkable
+//    NSString *text = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+//    NSRange range = [text rangeOfString:@"units" options:NSCaseInsensitiveSearch];
+//    if (range.location != NSNotFound) {
+//        CGFloat fontSize = view.textLabel.font.pointSize;
+//        NSDictionary *linkAttributes = @{NSForegroundColorAttributeName: [UIColor drinkLessGreenColor],
+//                                         NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+//                                         NSFontAttributeName: [UIFont boldSystemFontOfSize:fontSize]
+//                                         };
+//        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:view.textLabel.text];
+//        [attributedText addAttributes:linkAttributes range:range];
+//
+//        view.textLabel.attributedText = attributedText;
+//
+//        if (view.gestureRecognizers.count == 0) {
+//            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedInfoButton:)];
+//            [view addGestureRecognizer:tapGesture];
+//        }
+//}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
     if (section == PXToggleSection && self.shouldStartAsNewGoal) {
         return [super tableView:tableView heightForFooterInSection:section];
+    } else if (section == PXDetailsSection) {
+        return 90;
     }
     return PXSpacingHeight;
 }
@@ -159,12 +289,33 @@ static NSInteger const PXToggleSection = 1;
         [self showList:[PXGoal allGoalTypeTitles].allValues
                 object:self.goal.goalTypeTitle
          fromIndexPath:indexPath];
+    } else if (cell == self.targetMaxCell) {
+        PXGoalType goalType = self.goal.goalType.integerValue;
+        BOOL hasTextField = (goalType == PXGoalTypeCalories ||
+                             goalType == PXGoalTypeSpending);
+        if (hasTextField) {
+            [self.targetMaxCell.textField becomeFirstResponder];
+        }
     } else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 
 #pragma mark - Actions
+
+- (void)skipPressed {
+    NSParameterAssert(self.isOnboarding);
+    [self _onboardingFinishedSetGoal];
+}
+
+// Segue to the final screen
+- (void)_onboardingFinishedSetGoal {
+    NSParameterAssert(self.isOnboarding);
+    
+    // This triggers the end and the dismissal of the onboarding moal
+    PXIntroManager.sharedManager.stage = PXIntroStageFinished;
+    [PXIntroManager.sharedManager save];
+}
 
 - (IBAction)showInfo:(id)sender {
     [PXInfoViewController showResource:@"goal-edit" fromViewController:self];
@@ -176,8 +327,17 @@ static NSInteger const PXToggleSection = 1;
     }
 }
 
+// refers to the top right button only.
 - (IBAction)pressedSave:(id)sender {
-    [self performSegueWithIdentifier:@"save" sender:nil];
+    [self _saveGoalData];
+    
+    if (self.isOnboarding) {
+        [self _onboardingFinishedSetGoal];
+    } else if (self.navigationController.childViewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (IBAction)pressedUnitsButton:(id)sender {
@@ -195,8 +355,11 @@ static NSInteger const PXToggleSection = 1;
     if (hasTextField) {
         self.targetMaxCell.formatType = (goalType == PXGoalTypeSpending) ? PXFormatTypeCurrency : PXFormatTypeInteger;
         self.targetMaxCell.textField.text = [self.targetMaxCell.numberFieldDelegate.numberFormatter stringFromNumber:self.goal.targetMax];
+        self.targetMaxCell.textField.textColor = UIColor.drinkLessGreenColor;
+        self.targetMaxCell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon-edit"]];
     } else {
         self.targetMaxCell.quantityControl.value = self.goal.targetMax.integerValue;
+        self.targetMaxCell.accessoryView = nil;
     }
 }
 
@@ -227,13 +390,14 @@ static NSInteger const PXToggleSection = 1;
 
 - (void)showUnitGiude {
     
-    if (self.goal.goalType.integerValue != PXGoalTypeUnits) {
+    if (self.goal.goalType.integerValue != PXGoalTypeUnits &&
+        self.goal.goalType.integerValue != PXGoalTypeCalories) {
         
         self.guideLabl.text = @"";
         return;
     }
     
-    self.guideLabl.text = [NSMutableString stringWithFormat:@"Click here for a guide to the number of units in common drinks."];
+    self.guideLabl.text = [NSMutableString stringWithFormat:@"Click here for a guide to the number of units and calories in common drinks."];
     
     NSRange range = [self.guideLabl.text rangeOfString:@"Click here" options:NSCaseInsensitiveSearch];
     if (range.location != NSNotFound) {
@@ -245,7 +409,9 @@ static NSInteger const PXToggleSection = 1;
     }
 }
 
-#pragma mark - PXItemListVCDelegate
+//////////////////////////////////////////////////////////
+// MARK: - PXItemListVCDelegate
+//////////////////////////////////////////////////////////
 
 - (void)itemListVC:(PXItemListVC *)itemListVC chosenIndex:(NSInteger)chosenIndex {
     NSString *object = itemListVC.itemsArray[chosenIndex];
@@ -257,6 +423,7 @@ static NSInteger const PXToggleSection = 1;
         self.typeCell.valueLabel.text = object;
         [self reloadMaxTarget];
         [self updateDefaults];
+        [self.tableView reloadData];
     }
     [self.popoverVC dismissPopoverAnimated:YES];
     
@@ -282,28 +449,26 @@ static NSInteger const PXToggleSection = 1;
     }
 }
 
-#pragma mark - Navigation
+//---------------------------------------------------------------------
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self.view endEditing:YES];
+- (void)_saveGoalData {
+    [self updateGoal];
     
-    if ([segue.identifier isEqualToString:@"save"]) {
-        [self updateGoal];
+    if (self.shouldStartAsNewGoal) {
+        // Ending reference goal and making new copy a different record on parse
+        self.referenceGoal.endDate = self.goal.startDate;
         
-        if (self.shouldStartAsNewGoal) {
-            // Ending reference goal and making new copy a different record on parse
-            self.refenceGoal.endDate = self.goal.startDate;
-            [self.refenceGoal saveToParse];
-            self.goal.parseObjectId = nil;
-            self.goal.parseUpdated = @NO;
-        }
-        else if (!self.isNewGoal) {
-            // Replacing reference goal with an updated copy
-            [self.context deleteObject:self.refenceGoal];
-        }
-        [self.context save:nil];
-        [self.goal saveToParse];
+        [self.referenceGoal saveToServer];
+        self.goal.parseObjectId = nil;
+        self.goal.parseUpdated = @NO;
     }
+    else if (!self.isNewGoal) {
+        // Replacing reference goal with an updated copy
+        [self.context deleteObject:self.referenceGoal];
+    }
+    [self.context save:nil];
+    [self.goal saveToServer];
 }
+
 
 @end

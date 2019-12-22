@@ -18,6 +18,6 @@
 @property (strong, nonatomic, readonly) NSNumber *errors;
 @property (strong, nonatomic, readonly) NSNumber *score;
 
-- (void)saveToParse;
+- (void)saveToServer;
 
 @end

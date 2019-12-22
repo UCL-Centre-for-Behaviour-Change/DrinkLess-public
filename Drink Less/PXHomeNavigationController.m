@@ -9,6 +9,7 @@
 
 #import "PXHomeNavigationController.h"
 #import "PXStepGuide.h"
+#import "UIViewController+PXHelpers.h"
 
 @implementation PXHomeNavigationController
 
@@ -22,6 +23,12 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stepGuideDone) name:PXStepGuideDoneNotification object:nil];
     }
     [self showStepGuide:showStepGuide];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self checkAndShowPrivacyPolicyIfNeedsAcknowledgement];
 }
 
 - (void)stepGuideDone {

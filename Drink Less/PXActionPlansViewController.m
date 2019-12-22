@@ -18,6 +18,7 @@
 #import "TSMessageView.h"
 #import "PXInfoViewController.h"
 #import "UIViewController+PXHelpers.h"
+#import "drinkless-Swift.h"
 
 @interface PXActionPlansViewController () <PXEditActionPlanViewControllerDelegate>
 
@@ -40,7 +41,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Action plans"];
+    [DataServer.shared trackScreenView:@"Action plans"];
     
     [self checkAndShowTipIfNeeded];
 }
@@ -91,7 +92,7 @@
 - (void)didFinishEditing:(PXEditActionPlanViewController *)editActionPlanViewController {
     PXActionPlan *actionPlan = editActionPlanViewController.actionPlan;
     [self.userActionPlans.actionPlans addObject:actionPlan];
-    [actionPlan saveAndLogToParse:self.userActionPlans];
+    [actionPlan saveAndLogToServer:self.userActionPlans];
     [self.navigationController popViewControllerAnimated:YES];
     
     [TSMessage showNotificationInViewController:self

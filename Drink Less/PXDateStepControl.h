@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) NSDate *date;
 @property (nonatomic) BOOL allowsFutureDates;
+@property (nonatomic) BOOL allowsPastDates;
 
 - (void)decrease;
 - (void)increase;

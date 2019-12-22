@@ -18,7 +18,9 @@ typedef NS_ENUM(NSInteger, PXIntroStage) {
     PXIntroStageSlider,
     PXIntroStageSliderResults,
     PXIntroStageThinkDrinkQuestion,
-    PXIntroStageFinished
+    PXIntroStageFinished,
+    PXIntroStageCreateGoal  // added later MUSTN'T move the Finished enum as its int value is stored in NSUserDefs
+
 };
 
 @interface PXIntroManager : NSObject
@@ -26,19 +28,13 @@ typedef NS_ENUM(NSInteger, PXIntroStage) {
 + (instancetype)sharedManager;
 
 @property (nonatomic) PXIntroStage stage;
-@property (strong, nonatomic) NSMutableDictionary *auditAnswers;
-@property (strong, nonatomic) NSMutableDictionary *demographicsAnswers;
-@property (strong, nonatomic) NSMutableDictionary *estimateAnswers;
-@property (strong, nonatomic) NSMutableDictionary *actualAnswers;
-@property (strong, nonatomic) NSNumber *auditScore;
+//@property (strong, nonatomic) NSMutableDictionary *demographicsAnswers; // @deprecated
 @property (strong, nonatomic) NSNumber *wasHelpful;
-@property (nonatomic, readonly) NSNumber *gender;
-@property (nonatomic, readonly) NSNumber *birthYear;
-@property (nonatomic, readonly) NSNumber *age;
 @property (nonatomic, getter = isParseUpdated) BOOL parseUpdated;
 
+
 // Checks requirments to show the survery on suspend
-@property (nonatomic, readonly) BOOL qualifiesForQuestionnaire;
+//@property (nonatomic, readonly) BOOL qualifiesForQuestionnaire;
 
 - (void)save;
 

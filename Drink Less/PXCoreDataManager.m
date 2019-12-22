@@ -16,6 +16,7 @@
 #import "PXDrinkRecord+Extras.h"
 #import "PXAlcoholFreeRecord+Extras.h"
 #import "PXDrinkCalculator.h"
+#import "drinkless-Swift.h"
 
 @interface PXCoreDataManager ()
 
@@ -134,6 +135,7 @@
 }
 
 - (void)loadDrinksInformation {
+    // Updates the coredata DBs with the bundled plists. Not entirely sure why they are in the database, unless there was a thought theyd have custom user values too (which they might already)
     NSString *path = [[NSBundle mainBundle] pathForResource:@"DrinksInformation" ofType:@"plist"];
     NSArray *plist = [NSArray arrayWithContentsOfFile:path];
     [plist enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger idx, BOOL *stop) {
@@ -203,23 +205,29 @@
     }
 }
 
+// @TODO: Is this unnecessary if we use Parse saveEventually?
 - (void)saveDrinkRecordUpdatesToParse {
+    if (AppConfig.userHasOptedOut) return;
+    
     // Save drink record changes to parse which haven't been updated
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"PXDrinkRecord"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"date != nil && parseUpdated == NO"];
     NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:NULL];
     for (PXDrinkRecord *drinkRecord in results) {
-        [drinkRecord saveToParse];
+        [drinkRecord saveToServer];
     }
 }
 
+// @TODO: Is this unnecessary if we use Parse saveEventually?
 - (void)saveAlcoholFreeRecordUpdatesToParse {
+    if (AppConfig.userHasOptedOut) return;
+    
     // Save alcohol free record changes to parse which haven't been updated
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"PXAlcoholFreeRecord"];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"parseUpdated == NO"];
     NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:NULL];
     for (PXAlcoholFreeRecord *alcoholFreeRecord in results) {
-        [alcoholFreeRecord saveToParse];
+        [alcoholFreeRecord saveToServer];
     }
 }
 

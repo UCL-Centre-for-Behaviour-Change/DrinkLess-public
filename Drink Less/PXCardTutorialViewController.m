@@ -61,6 +61,9 @@
         BOOL isPushTall = [PXGamePreferences isPushTall];
         NSString *pushOrientation = [PXGamePreferences pushOrientation];
         NSString *pullOrientation = [PXGamePreferences pullOrientation];
+        NSString *pushParenthetical = [PXGamePreferences pushParenthetical];
+        NSString *pullParenthetical = [PXGamePreferences pullParenthetical];
+        
         
         for (NSDictionary *dictionary in self.tutorialPages) {
             NSString *text = dictionary[@"text"];
@@ -68,9 +71,9 @@
             if ([identifier isEqualToString:@"about"]) {
                 text = [NSString stringWithFormat:text, pullOrientation, pushOrientation];
             } else if ([identifier isEqualToString:@"away"]) {
-                text = [NSString stringWithFormat:text, pushOrientation];
+                text = [NSString stringWithFormat:text, pushOrientation, pushParenthetical];
             } else if ([identifier isEqualToString:@"toward"]) {
-                text = [NSString stringWithFormat:text, pullOrientation];
+                text = [NSString stringWithFormat:text, pullOrientation, pullParenthetical];
             }
             BOOL demo = [dictionary[@"demo"] boolValue];
             PXInstructionViewController *viewController = [PXInstructionViewController instructionWithDemo:demo];

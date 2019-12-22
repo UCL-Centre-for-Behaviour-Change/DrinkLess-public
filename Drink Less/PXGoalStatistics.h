@@ -33,4 +33,7 @@ typedef NS_ENUM(NSInteger, PXStatisticRegion) {
 @property (nonatomic, readonly) NSInteger successStreak;
 @property (nonatomic, readonly) CGFloat successPercentage;
 
+@property (nonatomic, readonly) UIImage *icon;
+@property (nonatomic, readonly) NSString *shortTitle;
+
 @end

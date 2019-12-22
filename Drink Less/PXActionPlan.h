@@ -19,7 +19,7 @@
 @property (nonatomic, getter = isParseUpdated) BOOL parseUpdated;
 @property (nonatomic, readonly) NSString *errorMessage;
 
-- (void)saveAndLogToParse:(PXUserActionPlans *)userActionPlans;
-- (void)deleteFromParse;
+- (void)saveAndLogToServer:(PXUserActionPlans *)userActionPlans;
+- (void)deleteFromServer;
 
 @end

@@ -9,6 +9,7 @@
 
 #import "PXTipsViewController.h"
 #import "PXWebViewController.h"
+#import "drinkless-Swift.h"
 
 @interface PXTipsViewController ()
 
@@ -28,7 +29,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Useful information menu"];
+    [DataServer.shared trackScreenView:@"Useful information menu"];
 }
 
 #pragma mark - Table view data source

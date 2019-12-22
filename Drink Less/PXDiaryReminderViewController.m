@@ -9,6 +9,7 @@
 
 #import "PXDiaryReminderViewController.h"
 #import "PXLocalNotificationsManager.h"
+#import "drinkless-Swift.h"
 
 @interface PXDiaryReminderViewController ()
 
@@ -43,21 +44,27 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Reminder"];
+    [DataServer.shared trackScreenView:@"Reminder"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    BOOL isReminderOn = self.toggleSwitch.on;
-    NSDate *newReminderDate = self.datePicker.date;
-    BOOL hasChanged = isReminderOn != self.wasReminderOn || ![newReminderDate isEqualToDate:self.oldReminderDate];
-    
-    if (hasChanged) {
-        [self.userDefaults setValue:@(isReminderOn) forKey:PXConsumptionReminderType];
-        [self.userDefaults setValue:newReminderDate forKey:KEY_USERDEFAULTS_REMINDERS_CONSUMPTION_TIME];
-        [self.userDefaults synchronize];
-        [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
+    if (MRTNotificationsManager.shared.trialIsActivelyRunning) {
+        self.toggleSwitch.enabled = NO;
+//        self.toggleSwitch.hidden = true;
+    } else {
+        self.toggleSwitch.enabled = YES;
+        BOOL isReminderOn = self.toggleSwitch.on;
+        NSDate *newReminderDate = self.datePicker.date;
+        BOOL hasChanged = isReminderOn != self.wasReminderOn || ![newReminderDate isEqualToDate:self.oldReminderDate];
+        
+        if (hasChanged) {
+            [self.userDefaults setValue:@(isReminderOn) forKey:PXConsumptionReminderType];
+            [self.userDefaults setValue:newReminderDate forKey:KEY_USERDEFAULTS_REMINDERS_CONSUMPTION_TIME];
+            [self.userDefaults synchronize];
+            [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
+        }
     }
 }
 

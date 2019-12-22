@@ -1,19 +1,20 @@
-# Uncomment this line to define a global platform for your project
-platform :ios, '7.0'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
 
 target 'drinkless' do
 
-pod 'Google/Analytics', '~> 1.0.0'
+#pod 'Google/Analytics', '~> 1.0.0'
 pod 'CorePlot', git: 'https://github.com/core-plot/core-plot.git', branch: 'release-2.2'
 pod 'iRate'
 pod 'Apptimize'
 pod 'Parse'
-pod 'Fabric'
-pod 'Crashlytics'
+pod 'AttributedTextView', '~> 1.4.1'
+#pod 'SnapKit', '~> 5.0.0'
+
+#pod 'Fabric'
+#pod 'Crashlytics'
 
 
 end
 
-target 'drinklessTests' do
-
-end

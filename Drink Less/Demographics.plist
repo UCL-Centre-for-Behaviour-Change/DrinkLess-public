@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>questiontitle</key>
-		<string>Gender</string>
+		<string>Sex</string>
 		<key>questionID</key>
 		<string>question0</string>
 		<key>type</key>
@@ -27,7 +27,7 @@
 	</dict>
 	<dict>
 		<key>questiontitle</key>
-		<string>Country</string>
+		<string>Where do you live?</string>
 		<key>questionID</key>
 		<string>question5</string>
 		<key>type</key>
@@ -52,18 +52,18 @@
 			<string>Other</string>
 		</array>
 	</dict>
-    <dict>
-        <key>questiontitle</key>
-        <string>Why are you using this app?</string>
-        <key>questionID</key>
-        <string>question9</string>
-        <key>type</key>
-        <string>option</string>
-        <key>answers</key>
-        <array>
-            <string>Interested in drinking less alcohol</string>
-            <string>Just browsing</string>
-        </array>
-    </dict>
+	<dict>
+		<key>questiontitle</key>
+		<string>Why are you using this app?</string>
+		<key>questionID</key>
+		<string>question9</string>
+		<key>type</key>
+		<string>option</string>
+		<key>answers</key>
+		<array>
+			<string>Interested in drinking less alcohol</string>
+			<string>Just browsing</string>
+		</array>
+	</dict>
 </array>
 </plist>

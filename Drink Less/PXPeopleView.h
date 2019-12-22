@@ -9,9 +9,10 @@
 
 #import <UIKit/UIKit.h>
 #import "PXInfographicView.h"
+#import "drinkless-Swift.h"
 
 @interface PXPeopleView : PXInfographicView
 
-@property (nonatomic) PXGenderType genderType;
+@property (nonatomic) GenderType genderType;
 
 @end

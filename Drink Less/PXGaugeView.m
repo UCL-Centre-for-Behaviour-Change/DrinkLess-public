@@ -9,6 +9,7 @@
 
 #import "PXGaugeView.h"
 #import "AngleGradientLayer.h"
+#import "PXAuditFeedbackHelper.h"
 
 static CGFloat const PXHeight = 210.0;
 static CGFloat const PXRadius = PXWidth * 0.5;
@@ -30,6 +31,7 @@ static CGFloat const PXFullRotationDuration = 2.5;
 
 @property (strong, nonatomic) CALayer *markerLayer;
 @property (strong, nonatomic) CALayer *needleLayer;
+@property (strong, nonatomic) CALayer *secondaryNeedleLayer;
 @property (strong, nonatomic) AngleGradientLayer *gradientLayer;
 @property (strong, nonatomic) UIView *percentileContainerView;
 @property (strong, nonatomic) UIView *titlesContainerView;
@@ -85,6 +87,35 @@ static CGFloat const PXFullRotationDuration = 2.5;
     
     // Update interface for editing state
     self.editing = self.editing;
+}
+
+
+- (void)setSecondaryPercentileEnabled:(BOOL)secondaryPercentileEnabled {
+    if (!self.secondaryNeedleLayer && secondaryPercentileEnabled) {
+        UIImageView *secNeedleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"gauge-needle-secondary"]];
+        [self setupNeedleApperance:secNeedleImageView.layer];
+        [self.contentView addSubview:secNeedleImageView];
+        [self.contentView.layer insertSublayer:secNeedleImageView.layer below:self.needleLayer];
+        self.secondaryNeedleLayer = secNeedleImageView.layer;
+    }
+}
+
+- (void)setSecondaryPercentile:(float)percentile {
+    BOOL hasChanged = (percentile != _secondaryPercentile);
+    _secondaryPercentile = percentile;
+    if (hasChanged) {
+        // @see -updatedPercentile
+        CGFloat decimal = self.secondaryPercentile / 100.0;
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        animation.fillMode = kCAFillModeForwards;
+        animation.removedOnCompletion = NO;
+        animation.toValue = @(PXStartAngle + (PXRadians * decimal));
+        animation.duration = PXFullRotationDuration * decimal;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+        animation.beginTime = CACurrentMediaTime() + 0.3;
+        [self.secondaryNeedleLayer addAnimation:animation forKey:@"transform"];
+        //[self.delegate gaugeValueChanged:self];
+    }
 }
 
 - (void)updateGradient {
@@ -158,7 +189,6 @@ static CGFloat const PXFullRotationDuration = 2.5;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     animation.beginTime = CACurrentMediaTime() + 0.3;
     [self.needleLayer addAnimation:animation forKey:@"transform"];
-    
     [self.delegate gaugeValueChanged:self];
 }
 

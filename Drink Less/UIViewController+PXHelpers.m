@@ -12,12 +12,14 @@
 #import "PXConsentViewController.h"
 #import "PXWebViewController.h"
 #import "AboutYouTableViewController.h"
+#import <Parse/Parse.h>
+
 
 @implementation UIViewController (PXHelpers)
 
 - (void)checkAndShowTipIfNeeded {
     
-//    espesical case:
+//    Special cases:
 //    https://github.com/PortablePixels/DrinkLess/issues/143
     if ([self isKindOfClass:[AboutYouTableViewController class]] ||
         [self isKindOfClass:[PXConsentViewController class]] ||
@@ -29,5 +31,17 @@
     [self.view addSubview:tipView];
     [tipView showTipToConstant:43];
 }
+
+- (void)checkAndShowPrivacyPolicyIfNeedsAcknowledgement {
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];    
+    if ([defs boolForKey:@"acknowledgedPrivacyPolicy"] != YES) {
+        PXWebViewController *vc = [[PXWebViewController alloc] initWithResource:@"privacy-changed"];
+        [vc setOpenedOutsideOnboarding:YES];
+        [vc.view setBackgroundColor:[UIColor whiteColor]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
 
 @end

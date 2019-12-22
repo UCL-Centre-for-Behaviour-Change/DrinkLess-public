@@ -8,19 +8,27 @@
 //
 
 #import "PXIntroManager.h"
+#import "PXIntroManager_Legacy.h"
 #import "PXDeviceUID.h"
 #import "PXGroupsManager.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 
 
 static NSString *const PXStageKey = @"stage";
+static NSString *const PXWasHelpful = @"wasHelpful";
+static NSString *const PXParseUpdatedKey = @"parseUpdated";
+
+// Legacy
 static NSString *const PXAuditAnswersKey = @"auditAnswers";
 static NSString *const PXDemographicsAnswers = @"demographicsAnswers";
 static NSString *const PXEstimateAnswers = @"estimateAnswers";
 static NSString *const PXActualAnswers = @"actualAnswers";
 static NSString *const PXAuditScore = @"auditScore";
-static NSString *const PXWasHelpful = @"wasHelpful";
-static NSString *const PXParseUpdatedKey = @"parseUpdated";
+
+
+//////////////////////////////////////////////////////////
+// MARK: -
+//////////////////////////////////////////////////////////
 
 @implementation PXIntroManager
 
@@ -40,11 +48,14 @@ static NSString *const PXParseUpdatedKey = @"parseUpdated";
     self = [super init];
     if (self) {
         _stage = PXIntroStagePrivacyPolicy;//PXIntroStageAuditQuestions;//PXIntroStageConsent;
+//        _demographicsAnswers = [NSMutableDictionary dictionary];
+        _parseUpdated = NO;
+        
+        // Legacy
         _auditAnswers = [NSMutableDictionary dictionary];
         _demographicsAnswers = [NSMutableDictionary dictionary];
         _estimateAnswers = [NSMutableDictionary dictionary];
         _actualAnswers = [NSMutableDictionary dictionary];
-        _parseUpdated = NO;
     }
     return self;
 }
@@ -60,26 +71,31 @@ static NSString *const PXParseUpdatedKey = @"parseUpdated";
     self = [super init];
     if (self) {
         _stage = [aDecoder decodeIntegerForKey:PXStageKey];
+        _wasHelpful = [aDecoder decodeObjectForKey:PXWasHelpful];
+        _parseUpdated = [aDecoder decodeBoolForKey:PXParseUpdatedKey];
+       
+        // Legacy
         _auditAnswers = [aDecoder decodeObjectForKey:PXAuditAnswersKey];
         _demographicsAnswers = [aDecoder decodeObjectForKey:PXDemographicsAnswers];
         _estimateAnswers = [aDecoder decodeObjectForKey:PXEstimateAnswers];
         _actualAnswers = [aDecoder decodeObjectForKey:PXActualAnswers];
         _auditScore = [aDecoder decodeObjectForKey:PXAuditScore];
-        _wasHelpful = [aDecoder decodeObjectForKey:PXWasHelpful];
-        _parseUpdated = [aDecoder decodeBoolForKey:PXParseUpdatedKey];
+       
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeInteger:self.stage forKey:PXStageKey];
+    [aCoder encodeObject:self.wasHelpful forKey:PXWasHelpful];
+    [aCoder encodeBool:self.isParseUpdated forKey:PXParseUpdatedKey];
+    
+    // Legacy
     [aCoder encodeObject:self.auditAnswers forKey:PXAuditAnswersKey];
     [aCoder encodeObject:self.demographicsAnswers forKey:PXDemographicsAnswers];
     [aCoder encodeObject:self.estimateAnswers forKey:PXEstimateAnswers];
     [aCoder encodeObject:self.actualAnswers forKey:PXActualAnswers];
     [aCoder encodeObject:self.auditScore forKey:PXAuditScore];
-    [aCoder encodeObject:self.wasHelpful forKey:PXWasHelpful];
-    [aCoder encodeBool:self.isParseUpdated forKey:PXParseUpdatedKey];
 }
 
 - (void)archive {
@@ -90,25 +106,24 @@ static NSString *const PXParseUpdatedKey = @"parseUpdated";
     self.parseUpdated = NO;
     [self archive];
 
-    PFUser *currentUser = [PFUser currentUser];
-    currentUser[PXStageKey] = @(self.stage);
-    currentUser[PXAuditAnswersKey] = self.auditAnswers;
-    currentUser[PXDemographicsAnswers] = self.demographicsAnswers;
-    currentUser[PXEstimateAnswers] = self.estimateAnswers;
-    currentUser[PXActualAnswers] = self.actualAnswers;
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    params[PXStageKey] = @(self.stage);
+    
+//    currentUser[PXDemographicsAnswers] = self.demographicsAnswers;
     NSString *pListPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:pListPath];
     NSString *appVersion = [dictionary valueForKey:@"CFBundleShortVersionString"];
-    currentUser[@"appVerson"] = appVersion;
-    if (self.auditScore) currentUser[PXAuditScore] = self.auditScore;
-    if (self.wasHelpful) currentUser[PXWasHelpful] = self.wasHelpful;
+    params[@"appVerson"] = appVersion;
+    if (self.wasHelpful) params[PXWasHelpful] = self.wasHelpful;
 
     // Assign groupID and UUID
-    [currentUser setObject:[PXDeviceUID uid] forKey:@"DeviceId"];
-    currentUser[@"groupID"] = [[PXGroupsManager sharedManager] groupID];
+    params[@"DeviceId"] = [PXDeviceUID uid];
+    params[@"groupID"] = [[PXGroupsManager sharedManager] groupID];
 
-    NSLog(@"[PARSE]: Saving Demographic info to user: %@", currentUser);
-    [currentUser saveEventually:^(BOOL succeeded, NSError *error) {
+    NSLog(@"[PARSE]: Saving Demographic info to user: %@", params);
+    
+    // @TODO: Uses saveEventually (as it did originally) which might need some re-consideration
+    [DataServer.shared saveUserParameters:params callback:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"[PARSE]: Success saving Demographic info");
             self.parseUpdated = YES;
@@ -130,35 +145,27 @@ static NSString *const PXParseUpdatedKey = @"parseUpdated";
     }
 }
 
-#pragma mark - Read only convenience
 
-- (NSNumber *)gender {
-    return self.demographicsAnswers[@"question0"];
-    //return self.auditAnswers[@"gender"];
-}
+//- (BOOL)qualifiesForQuestionnaire
+//{
+//    NSInteger auditScore = self.auditScore.integerValue;
+//    NSDate *now = [NSDate date];
+//    NSInteger currentYear = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:now];
+//    NSInteger age = currentYear - [self.demographicsAnswers[@"question1"] integerValue];
+//    BOOL isUK = [self.demographicsAnswers[@"question5"] isEqual:@0];
+//    BOOL isSerious = [self.demographicsAnswers[@"question9"] isEqual:@0];
+//
+//    return (auditScore >= 8 &&
+//            age >= 19 &&
+//            isUK &&
+//            isSerious);
+//}
 
-- (NSNumber *)birthYear {
-    return self.demographicsAnswers[@"question1"];
-}
+//////////////////////////////////////////////////////////
+// MARK: - Legacy
+//////////////////////////////////////////////////////////
 
-- (NSNumber *)age {
-    NSInteger currentYear = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:[NSDate date]].year;
-    return @(currentYear - self.birthYear.integerValue);
-}
 
-- (BOOL)qualifiesForQuestionnaire
-{
-    NSInteger auditScore = self.auditScore.integerValue;
-    NSDate *now = [NSDate date];
-    NSInteger currentYear = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:now];
-    NSInteger age = currentYear - [self.demographicsAnswers[@"question1"] integerValue];
-    BOOL isUK = [self.demographicsAnswers[@"question5"] isEqual:@0];
-    BOOL isSerious = [self.demographicsAnswers[@"question9"] isEqual:@0];
 
-    return (auditScore >= 8 &&
-            age >= 19 &&
-            isUK &&
-            isSerious);
-}
 
 @end

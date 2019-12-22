@@ -8,14 +8,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PXAuditCalculator.h"
+#import "PXAuditFeedbackHelper.h"
+#import "drinkless-Swift.h"
 
 @interface PXInfographicViewController : PXTrackedViewController  
 
 + (instancetype)infographicWithType:(PXGraphicType)type;
 
-@property (strong, nonatomic) PXAuditCalculator *auditCalculator;
+@property (strong, nonatomic) PXAuditFeedbackHelper *helper;
 @property (nonatomic, readonly) PXGraphicType graphicType;
-@property (nonatomic) PXPopulationType populationType;
+@property (nonatomic) PopulationType populationType;
 
 @end

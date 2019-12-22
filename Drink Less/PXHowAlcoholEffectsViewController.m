@@ -33,7 +33,7 @@
     
     [self.placeholderView setImage:[UIImage imageNamed:@"no_graph"]
                              title:@"No Mood Diaries"
-                          subtitle:@"You have not recorded any mood diaries."
+                          subtitle:@"You have not recorded any mood diaries.\n\nTo record a mood diary, go to the Dashboard and tap on “Logging your drinks and mood” under 'We suggest'."
                             footer:nil];
     
     self.screenName = @"How alcohol effects";

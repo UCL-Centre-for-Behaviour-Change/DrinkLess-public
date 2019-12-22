@@ -29,6 +29,7 @@
 
 /** Convert to the NSDate in the current calendar such that it will have matching date components to this one */
 - (NSDate *)dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezone:(NSTimeZone *)thisDatesTimezone;
+- (NSDate *)dateInCurrentCalendarsTimezoneMatchingComponentsToThisOneInTimezoneIncludingTime:(NSTimeZone *)thisDatesTimezone;
 
 /** Assumes from/to Date are hh:mm = 00:00. fromDate bounary is inclusive, toDate exclusive */
 - (BOOL)dateWithTimeZone:(NSTimeZone *)thisDatesTimeZone fallsWithinCurrentCalendarDateRangeFrom:(NSDate *)fromDate to:(NSDate *)toDate;
@@ -43,5 +44,12 @@
 
 // Debug method
 - (NSString *)calendarDateStr;
+
+#if DEBUG
+/// Override to allow for our debugging hack
+- (NSTimeInterval)timeIntervalSinceNow;
+#endif
+
+
 
 @end

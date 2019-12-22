@@ -12,6 +12,6 @@
 /** PXBarPlot is a bit confusing of a name as it has nothign to do with CPTBarPlot. This however is an extension for adding the custom icon when the value is 0  */
 @interface PXCPTBarPlot : CPTBarPlot
 
-@property (assign, nonatomic) BOOL isGameBarPlot;
+@property (assign, nonatomic) BOOL dontUseNoDrinksIcon;  // TODO: Do this better. Probably need different icons
 
 @end

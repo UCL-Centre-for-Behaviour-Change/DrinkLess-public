@@ -83,6 +83,9 @@ static NSString *const PXStepGuideLastCompletedStepsKey = @"stepGuideLastComplet
 #pragma mark - Class methods
 
 + (BOOL)hasDone {
+    // HKS: Disables Startup step guide as per https://github.com/UCL-Centre-for-Behaviour-Change/DrinkLess/issues/23
+    return YES;
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL hasDone = [[NSUserDefaults standardUserDefaults] boolForKey:PXStepGuideDoneKey];
     if (!hasDone) {

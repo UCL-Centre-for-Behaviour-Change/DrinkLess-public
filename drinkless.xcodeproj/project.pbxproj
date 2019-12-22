@@ -10,6 +10,72 @@
 		0963F53F20CEC8FB0058878D /* tos.html in Resources */ = {isa = PBXBuildFile; fileRef = 0963F53E20CEC8FA0058878D /* tos.html */; };
 		0963F54120CF95180058878D /* privacy-changed.html in Resources */ = {isa = PBXBuildFile; fileRef = 0963F54020CF95180058878D /* privacy-changed.html */; };
 		0998EDF720D3C16700A085F6 /* privacy-notice.html in Resources */ = {isa = PBXBuildFile; fileRef = 0998EDF620D3C16600A085F6 /* privacy-notice.html */; };
+		0E04CDB921665EC7006F15D6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04CDB821665EC7006F15D6 /* Config.swift */; };
+		0E058D2F2270ACB4000D03E3 /* Migration_9500.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E058D2E2270ACB4000D03E3 /* Migration_9500.swift */; };
+		0E127770216F605E00373754 /* AuditHistoryViewAuditAnswersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E12776F216F605E00373754 /* AuditHistoryViewAuditAnswersVC.swift */; };
+		0E127771216F6AAF00373754 /* ReviewAuditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F397771A828DFA00D9C91F /* ReviewAuditTableViewController.m */; };
+		0E16D319239AA06A0051E2B6 /* WebVCBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E16D318239AA06A0051E2B6 /* WebVCBase.swift */; };
+		0E16D31B239AADCA0051E2B6 /* MRTTermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E16D31A239AADCA0051E2B6 /* MRTTermsVC.swift */; };
+		0E16D31D239AB7570051E2B6 /* mrt-terms.html in Resources */ = {isa = PBXBuildFile; fileRef = 0E16D31C239AAED30051E2B6 /* mrt-terms.html */; };
+		0E19F3ED2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E19F3EC2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m */; };
+		0E214458234DF9EC00913820 /* InsightsLastWeekSectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E214457234DF9EC00913820 /* InsightsLastWeekSectionVC.swift */; };
+		0E21445A234E015B00913820 /* DrinkStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E214459234E015B00913820 /* DrinkStatistics.swift */; };
+		0E21445C234E15A900913820 /* InsightsSectionVCBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E21445B234E15A900913820 /* InsightsSectionVCBase.swift */; };
+		0E2DD98D21625F1B00DDFA74 /* AuditDataMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DD98C21625F1B00DDFA74 /* AuditDataMO.swift */; };
+		0E33367621C12DFB0071D35E /* AuditQuestionsFollowUp.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E33367521C12DFB0071D35E /* AuditQuestionsFollowUp.plist */; };
+		0E3C6F1D2228273000E88896 /* CoreDataExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C6F1C2228273000E88896 /* CoreDataExt.swift */; };
+		0E3D07182320096300F4A0D2 /* mrt-data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E3D07172320096300F4A0D2 /* mrt-data.plist */; };
+		0E3D071A23210AC600F4A0D2 /* MRTNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D071923210AC600F4A0D2 /* MRTNotificationsManager.swift */; };
+		0E3FA28A2259300400A9D291 /* DateTimeProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3FA2892259300400A9D291 /* DateTimeProviders.swift */; };
+		0E54B3172162832E0082BD34 /* DemographicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E54B3162162832E0082BD34 /* DemographicData.swift */; };
+		0E54B31B216289890082BD34 /* UsesGroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E54B31A216289890082BD34 /* UsesGroupData.swift */; };
+		0E54B31D21628C850082BD34 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E54B31C21628C850082BD34 /* GroupData.swift */; };
+		0E59D9E3233BBAA0001F4F01 /* ExplainerOverlayBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E59D9E2233BBAA0001F4F01 /* ExplainerOverlayBase.swift */; };
+		0E59D9E5233BBC6F001F4F01 /* DashboardExplainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E59D9E4233BBC6F001F4F01 /* DashboardExplainer.swift */; };
+		0E5D6C762174A5F40005E45B /* Migration_9400.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5D6C752174A5F40005E45B /* Migration_9400.swift */; };
+		0E5D6C782174A6A10005E45B /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5D6C772174A6A10005E45B /* Migrations.swift */; };
+		0E5D6C7A2174AE670005E45B /* FoundationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5D6C792174AE670005E45B /* FoundationExt.swift */; };
+		0E5D6C7C2174AEA70005E45B /* UIKitExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5D6C7B2174AEA70005E45B /* UIKitExt.swift */; };
+		0E61FF6E2227FC330000F3C8 /* TabBarCalendarNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF6D2227FC330000F3C8 /* TabBarCalendarNavVC.swift */; };
+		0E61FF70222802710000F3C8 /* MakePlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF6F222802710000F3C8 /* MakePlanVC.swift */; };
+		0E61FF72222810750000F3C8 /* MakePlanData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E61FF71222810750000F3C8 /* MakePlanData.plist */; };
+		0E61FF79222811580000F3C8 /* CustomPlanTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF75222811580000F3C8 /* CustomPlanTemplate.swift */; };
+		0E61FF7E22281C1B0000F3C8 /* PlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF7D22281C1B0000F3C8 /* PlanCell.swift */; };
+		0E649887223433EB009B733F /* YourDrinkingCuesIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E649886223433EB009B733F /* YourDrinkingCuesIntroVC.swift */; };
+		0E64988922343414009B733F /* YourDrinkingCuesEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64988822343414009B733F /* YourDrinkingCuesEditVC.swift */; };
+		0E6644C82226D75E00118283 /* CalendarDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF585BD2226B29500C7426D /* CalendarDate.swift */; };
+		0E6713EF23841BBF00DDE32C /* InsightsLifetimeSectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6713EE23841BBF00DDE32C /* InsightsLifetimeSectionVC.swift */; };
+		0E6BE5F3216E00BF006217E4 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6BE5F2216E00BF006217E4 /* Debug.swift */; };
+		0E6BE5F5216E04C9006217E4 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6BE5F4216E04C9006217E4 /* Log.swift */; };
+		0E6FFB23215D193F00A2B6A3 /* VCInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FFB22215D193F00A2B6A3 /* VCInjector.swift */; };
+		0E7159A32367057A004A5C35 /* InsightsAverageWeekSectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7159A22367057A004A5C35 /* InsightsAverageWeekSectionVC.swift */; };
+		0E71E90822282EE300D2D953 /* CustomPlanTemplate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E71E90722282EE300D2D953 /* CustomPlanTemplate+CoreDataProperties.swift */; };
+		0E771EB4223685B900FEC5DF /* DrinkingCues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E771EB3223685B900FEC5DF /* DrinkingCues.plist */; };
+		0E771EB6223688CE00FEC5DF /* DrinkingCues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E771EB5223688CE00FEC5DF /* DrinkingCues.swift */; };
+		0E7CB6C92226EF4200AB8811 /* MyPlanRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7CB6C82226EF4200AB8811 /* MyPlanRecord+CoreDataProperties.swift */; };
+		0E7CB6CB2226EF5000AB8811 /* MyPlanRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7CB6CA2226EF5000AB8811 /* MyPlanRecord.swift */; };
+		0E7CE4DA222D469E00AEB65E /* SystemPlanTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7CE4D9222D469E00AEB65E /* SystemPlanTemplate.swift */; };
+		0E7CE4DE222E850F00AEB65E /* PlanTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7CE4DD222E850F00AEB65E /* PlanTemplate.swift */; };
+		0E849C6C216B60E6009235D9 /* AuditHistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E849C6B216B60E6009235D9 /* AuditHistoryTableView.swift */; };
+		0E849C6F216B8307009235D9 /* UsesTimeZonedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E849C6E216B8307009235D9 /* UsesTimeZonedDate.swift */; };
+		0E895E1621A6A61D003F0794 /* README_dev.md in Resources */ = {isa = PBXBuildFile; fileRef = 0E895E1521A6A61D003F0794 /* README_dev.md */; };
+		0E895E1921A6B4FE003F0794 /* AuditGroupAll_sept18.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E895E1721A6B4FE003F0794 /* AuditGroupAll_sept18.plist */; };
+		0E895E1A21A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E895E1821A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist */; };
+		0E96FBD323A8E2D300A6294F /* InsightsGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E96FBD223A8E2D300A6294F /* InsightsGraphHostingView.swift */; };
+		0E9A76A0231E7D33004D0585 /* ActivitiesMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 770751F21C11C457005954B9 /* ActivitiesMenu.plist */; };
+		0E9D8F0F2327AD720094BBC2 /* UserNotificationsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D8F0E2327AD720094BBC2 /* UserNotificationsExt.swift */; };
+		0E9F9927216653490084BDED /* AuditHistoryOverviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9F9926216653490084BDED /* AuditHistoryOverviewVC.swift */; };
+		0EA40B20215A95C8002B64FA /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA40B1F215A95C8002B64FA /* AlertManager.swift */; };
+		0EB26F9722329C4A00BAD9AF /* NotificationsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB26F9622329C4A00BAD9AF /* NotificationsDelegate.swift */; };
+		0EC15C4E21A4406E00E0DB82 /* DataServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC15C4D21A4406E00E0DB82 /* DataServer.swift */; };
+		0ED4870221C1712E003A8AB8 /* audit-feedback-followup-info.html in Resources */ = {isa = PBXBuildFile; fileRef = 0ED4870121C1712E003A8AB8 /* audit-feedback-followup-info.html */; };
+		0EDB7C232368C650007308BE /* InsightsAverageWeekGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB7C222368C650007308BE /* InsightsAverageWeekGraphView.m */; };
+		0EDD3BD1215CE06C00464F00 /* AuditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD3BD0215CE06C00464F00 /* AuditData.swift */; };
+		0EE93E49234612C200975C87 /* InsightsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE93E48234612C200975C87 /* InsightsVC.swift */; };
+		0EE93E4B234618C800975C87 /* InsightsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE93E4A234618C800975C87 /* InsightsSectionView.swift */; };
+		0EF585B42226A1E400C7426D /* TimeZonedModelAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF585B32226A1E400C7426D /* TimeZonedModelAbstract.swift */; };
+		0EF86491233CF1220095EC57 /* Explainers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF86490233CF1220095EC57 /* Explainers.storyboard */; };
+		0EF8CA552226EC2500687007 /* DrinkLess.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7704E9EC1A1137C900052D89 /* DrinkLess.xcdatamodeld */; };
 		2AC0C32F19E7F18200960F96 /* References.html in Resources */ = {isa = PBXBuildFile; fileRef = 2AC0C32E19E7F18200960F96 /* References.html */; };
 		2AFCF01619D5CCE200439CCB /* PXLocalNotificationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFCF01519D5CCE200439CCB /* PXLocalNotificationsManager.m */; };
 		2AFCF01819D5CD9F00439CCB /* ReminderTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AFCF01719D5CD9F00439CCB /* ReminderTypes.plist */; };
@@ -28,11 +94,7 @@
 		373CF12619B0B68000825F60 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 373CF12519B0B68000825F60 /* AppDelegate.m */; };
 		373CF12F19B0B68000825F60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 373CF12D19B0B68000825F60 /* Main.storyboard */; };
 		373CF13119B0B68000825F60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 373CF13019B0B68000825F60 /* Images.xcassets */; };
-		373CF13D19B0B68000825F60 /* Drink_LessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 373CF13C19B0B68000825F60 /* Drink_LessTests.m */; };
-		374D61DD1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 374D61DC1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist */; };
-		374D61DE1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 374D61DC1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist */; };
-		37806BDC19C717E500D84E4B /* Progress.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37806BDB19C717E500D84E4B /* Progress.storyboard */; };
-		378FB9CE1B3D38F200C55DE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 378FB9CD1B3D38F200C55DE8 /* GoogleService-Info.plist */; };
+		37806BDC19C717E500D84E4B /* Activities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37806BDB19C717E500D84E4B /* Activities.storyboard */; };
 		3795B2A01A0A43BA0083B99A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3795B29F1A0A43BA0083B99A /* MessageUI.framework */; };
 		3796C53F19B0DDCB0026D038 /* AuditResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3796C53E19B0DDCB0026D038 /* AuditResultsViewController.m */; };
 		3796C54319B0E3170026D038 /* AboutYouTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3796C54219B0E3170026D038 /* AboutYouTableViewController.m */; };
@@ -49,34 +111,24 @@
 		37A14F4D19B0B93600EA9F1E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A14F4C19B0B93600EA9F1E /* Security.framework */; };
 		37A14F5119B0B94700EA9F1E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A14F5019B0B94700EA9F1E /* SystemConfiguration.framework */; };
 		37A14F6319B0D5B500EA9F1E /* AuditQuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A14F6219B0D5B500EA9F1E /* AuditQuestionsTableViewController.m */; };
-		37A761F81A96442C00099ECF /* PXSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A761F71A96442C00099ECF /* PXSliderCell.m */; };
-		37A77D0A1A8A425E00AA373D /* OneMonthFollowUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A77D091A8A425E00AA373D /* OneMonthFollowUpTableViewController.m */; };
 		37AF8BD719E0A074009D7230 /* PXHelpNav.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37AF8BD619E0A074009D7230 /* PXHelpNav.plist */; };
 		37C8C8991C64C2420024652E /* yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C8C8981C64C2420024652E /* yes.png */; };
-		37CABEF91A80F70A007DCE2A /* FollowUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37CABEF81A80F70A007DCE2A /* FollowUp.storyboard */; };
 		37CABF081A810A83007DCE2A /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CABF071A810A83007DCE2A /* FXForms.m */; };
 		37DED4C21A7D3BDB006378E7 /* PXHowAlcoholEffectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DED4C11A7D3BDB006378E7 /* PXHowAlcoholEffectsViewController.m */; };
 		37ECEF3E19B47C63006046F3 /* AuditQuestions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37ECEF3D19B47C63006046F3 /* AuditQuestions.plist */; };
-		37F397781A828DFA00D9C91F /* ReviewAuditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F397771A828DFA00D9C91F /* ReviewAuditTableViewController.m */; };
-		4D9DF5D9B0A79568E2355495 /* libPods-drinklessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE7AE615483C9A10184E8D0F /* libPods-drinklessTests.a */; };
+		4BE6AA83475AC298B88B00EF /* Pods_drinkless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7686ADD076DFD3FC627CEB91 /* Pods_drinkless.framework */; };
 		4F17CBE11CBFB4C70022C2D3 /* PXDeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F17CBE01CBFB4C70022C2D3 /* PXDeviceUID.m */; };
 		4F17CBE41CBFE62B0022C2D3 /* UIViewController+PXHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F17CBE31CBFE62B0022C2D3 /* UIViewController+PXHelpers.m */; };
-		4F41C7091CBB8F0500BC27F8 /* FollowUpQuestions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F41C7081CBB8F0500BC27F8 /* FollowUpQuestions.plist */; };
-		4F41C70C1CBB9EA100BC27F8 /* FollowUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F41C70B1CBB9EA100BC27F8 /* FollowUpTableViewController.m */; };
-		4F41C70F1CBBD04300BC27F8 /* PXFollowUpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F41C70E1CBBD04300BC27F8 /* PXFollowUpManager.m */; };
 		4F8754F61CB29C0100FD37B3 /* PXTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8754F51CB29C0100FD37B3 /* PXTipView.xib */; };
 		4F8754FC1CB29DA300FD37B3 /* PXTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754FB1CB29DA300FD37B3 /* PXTipView.m */; };
 		4FCD696B1CB2BA68001E7390 /* PXCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD696A1CB2BA68001E7390 /* PXCustomView.m */; };
-		5FB9A16284B5F8E0054A8703 /* libPods-drinkless.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8163E8B35768C1D700AC69D /* libPods-drinkless.a */; };
 		7704E9E41A111C5E00052D89 /* PXOutlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704E9E31A111C5E00052D89 /* PXOutlineButton.m */; };
-		7704E9EE1A1137C900052D89 /* DrinkLess.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7704E9EC1A1137C900052D89 /* DrinkLess.xcdatamodeld */; };
 		7704EA171A1196CD00052D89 /* NSManagedObject+PXFindByID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EA161A1196CD00052D89 /* NSManagedObject+PXFindByID.m */; };
 		7704EA1A1A119A3500052D89 /* PXDrinkType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EA0D1A11944F00052D89 /* PXDrinkType.m */; };
-		7704EA5C1A12551A00052D89 /* PXDrinkingDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EA5B1A12551A00052D89 /* PXDrinkingDiaryViewController.m */; };
+		7704EA5C1A12551A00052D89 /* PXDrinkRecordListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7704EA5B1A12551A00052D89 /* PXDrinkRecordListVC.m */; };
 		7705D3801AE9113A000A4366 /* action-plans-low.html in Resources */ = {isa = PBXBuildFile; fileRef = 7705D37F1AE9113A000A4366 /* action-plans-low.html */; };
-		770751ED1C11A8D3005954B9 /* PXProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770751EC1C11A8D3005954B9 /* PXProgressViewController.m */; };
-		770751F11C11C2BD005954B9 /* PXProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 770751F01C11C2BD005954B9 /* PXProgressCell.m */; };
-		770751F31C11C457005954B9 /* ProgressMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 770751F21C11C457005954B9 /* ProgressMenu.plist */; };
+		770751ED1C11A8D3005954B9 /* PXActivitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770751EC1C11A8D3005954B9 /* PXActivitiesViewController.m */; };
+		770751F11C11C2BD005954B9 /* PXActivitiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 770751F01C11C2BD005954B9 /* PXActivitiesCell.m */; };
 		77076AB41A0A430F007F616F /* PXTrackerPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77076AB31A0A430F007F616F /* PXTrackerPanelViewController.m */; };
 		77076ABE1A0A4404007F616F /* DrinksTracker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77076ABD1A0A4404007F616F /* DrinksTracker.storyboard */; };
 		77076AC41A0A543B007F616F /* PXSeparatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77076AC31A0A543B007F616F /* PXSeparatorView.m */; };
@@ -165,7 +217,7 @@
 		777D2C031A275DB10070E45D /* FPPopoverKeyboardResponsiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777D2C021A275DB10070E45D /* FPPopoverKeyboardResponsiveController.m */; };
 		777D2C101A28888D0070E45D /* PXDrinkRecord+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 777D2C0F1A28888D0070E45D /* PXDrinkRecord+Extras.m */; };
 		777F426B1AA47B550060C04A /* PXContradictionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777F426A1AA47B550060C04A /* PXContradictionCell.xib */; };
-		777F42701AA499130060C04A /* PXReviewAuditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F426F1AA499130060C04A /* PXReviewAuditViewController.m */; };
+		777F42701AA499130060C04A /* PXAuditHistoryViewAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F426F1AA499130060C04A /* PXAuditHistoryViewAuditVC.m */; };
 		777F572F1AFB75B7003A7003 /* UINavigationController+Completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F572E1AFB75B7003A7003 /* UINavigationController+Completion.m */; };
 		777F57351AFCDE9B003A7003 /* UIViewController+RecordMemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F57341AFCDE9B003A7003 /* UIViewController+RecordMemo.m */; };
 		777F57391AFD0768003A7003 /* PXImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F57381AFD0768003A7003 /* PXImageStore.m */; };
@@ -223,9 +275,7 @@
 		77CCFA611C199C610049062D /* PXWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CCFA601C199C610049062D /* PXWebViewController.m */; };
 		77CCFA631C19A17E0049062D /* audit-feedback-intro.html in Resources */ = {isa = PBXBuildFile; fileRef = 77CCFA621C19A17E0049062D /* audit-feedback-intro.html */; };
 		77CCFA651C19A3260049062D /* audit-feedback-outro.html in Resources */ = {isa = PBXBuildFile; fileRef = 77CCFA641C19A3260049062D /* audit-feedback-outro.html */; };
-		77CCFA681C19D20B0049062D /* AuditGroupAll.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CCFA661C19D20B0049062D /* AuditGroupAll.plist */; };
-		77CCFA691C19D20B0049062D /* AuditGroupDrinkers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77CCFA671C19D20B0049062D /* AuditGroupDrinkers.plist */; };
-		77CCFA6C1C19E98F0049062D /* PXAuditCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CCFA6B1C19E98F0049062D /* PXAuditCalculator.m */; };
+		77CCFA6C1C19E98F0049062D /* PXAuditFeedbackHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CCFA6B1C19E98F0049062D /* PXAuditFeedbackHelper.m */; };
 		77CCFA6F1C19EA850049062D /* PXAuditFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CCFA6E1C19EA850049062D /* PXAuditFeedback.m */; };
 		77CE66BD1A418CC300059ACC /* PXActionPlanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE66BC1A418CC300059ACC /* PXActionPlanCell.m */; };
 		77CE66C81A422B1300059ACC /* PXArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE66C71A422B1300059ACC /* PXArrowView.m */; };
@@ -407,16 +457,6 @@
 		A6F054C82084AB7100C5D8A8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A6F054C72084AB7100C5D8A8 /* README.md */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		373CF13719B0B68000825F60 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 373CF11519B0B68000825F60 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 373CF11C19B0B68000825F60;
-			remoteInfo = "Drink Less";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		2ABF428B19E5474E0062DCC8 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -434,6 +474,88 @@
 		0963F53E20CEC8FA0058878D /* tos.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tos.html; sourceTree = "<group>"; };
 		0963F54020CF95180058878D /* privacy-changed.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "privacy-changed.html"; sourceTree = "<group>"; };
 		0998EDF620D3C16600A085F6 /* privacy-notice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "privacy-notice.html"; sourceTree = "<group>"; };
+		0E04CDB821665EC7006F15D6 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		0E058D2E2270ACB4000D03E3 /* Migration_9500.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration_9500.swift; sourceTree = "<group>"; };
+		0E12776F216F605E00373754 /* AuditHistoryViewAuditAnswersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHistoryViewAuditAnswersVC.swift; sourceTree = "<group>"; };
+		0E16D318239AA06A0051E2B6 /* WebVCBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVCBase.swift; sourceTree = "<group>"; };
+		0E16D31A239AADCA0051E2B6 /* MRTTermsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRTTermsVC.swift; sourceTree = "<group>"; };
+		0E16D31C239AAED30051E2B6 /* mrt-terms.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "mrt-terms.html"; sourceTree = "<group>"; };
+		0E19F3EB2158F05A00A5C3A6 /* PXCoreDataManager+Debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PXCoreDataManager+Debug.h"; sourceTree = "<group>"; };
+		0E19F3EC2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PXCoreDataManager+Debug.m"; sourceTree = "<group>"; };
+		0E1F408721BFD37200358E2A /* DrinkLess 14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 14.xcdatamodel"; sourceTree = "<group>"; };
+		0E214457234DF9EC00913820 /* InsightsLastWeekSectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsLastWeekSectionVC.swift; sourceTree = "<group>"; };
+		0E214459234E015B00913820 /* DrinkStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkStatistics.swift; sourceTree = "<group>"; };
+		0E21445B234E15A900913820 /* InsightsSectionVCBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSectionVCBase.swift; sourceTree = "<group>"; };
+		0E2DD98C21625F1B00DDFA74 /* AuditDataMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDataMO.swift; sourceTree = "<group>"; };
+		0E33367321C1299F0071D35E /* DrinkLess 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 15.xcdatamodel"; sourceTree = "<group>"; };
+		0E33367521C12DFB0071D35E /* AuditQuestionsFollowUp.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditQuestionsFollowUp.plist; sourceTree = "<group>"; };
+		0E3C6F1C2228273000E88896 /* CoreDataExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExt.swift; sourceTree = "<group>"; };
+		0E3D07172320096300F4A0D2 /* mrt-data.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mrt-data.plist"; sourceTree = "<group>"; };
+		0E3D071923210AC600F4A0D2 /* MRTNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRTNotificationsManager.swift; sourceTree = "<group>"; };
+		0E3FA2892259300400A9D291 /* DateTimeProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeProviders.swift; sourceTree = "<group>"; };
+		0E54B3162162832E0082BD34 /* DemographicData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemographicData.swift; sourceTree = "<group>"; };
+		0E54B31A216289890082BD34 /* UsesGroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsesGroupData.swift; sourceTree = "<group>"; };
+		0E54B31C21628C850082BD34 /* GroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupData.swift; sourceTree = "<group>"; };
+		0E59D9E2233BBAA0001F4F01 /* ExplainerOverlayBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainerOverlayBase.swift; sourceTree = "<group>"; };
+		0E59D9E4233BBC6F001F4F01 /* DashboardExplainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardExplainer.swift; sourceTree = "<group>"; };
+		0E5D6C752174A5F40005E45B /* Migration_9400.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration_9400.swift; sourceTree = "<group>"; };
+		0E5D6C772174A6A10005E45B /* Migrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
+		0E5D6C792174AE670005E45B /* FoundationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FoundationExt.swift; path = "Drink Less/Swift/FoundationExt.swift"; sourceTree = SOURCE_ROOT; };
+		0E5D6C7B2174AEA70005E45B /* UIKitExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExt.swift; sourceTree = "<group>"; };
+		0E61FF6D2227FC330000F3C8 /* TabBarCalendarNavVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCalendarNavVC.swift; sourceTree = "<group>"; };
+		0E61FF6F222802710000F3C8 /* MakePlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePlanVC.swift; sourceTree = "<group>"; };
+		0E61FF71222810750000F3C8 /* MakePlanData.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MakePlanData.plist; sourceTree = "<group>"; };
+		0E61FF75222811580000F3C8 /* CustomPlanTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPlanTemplate.swift; path = "/Users/HKS/Code/Freelance/DrinkLess-iOS/Drink Less/Swift/Models/CustomPlanTemplate.swift"; sourceTree = "<absolute>"; };
+		0E61FF7D22281C1B0000F3C8 /* PlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCell.swift; sourceTree = "<group>"; };
+		0E649886223433EB009B733F /* YourDrinkingCuesIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourDrinkingCuesIntroVC.swift; sourceTree = "<group>"; };
+		0E64988822343414009B733F /* YourDrinkingCuesEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourDrinkingCuesEditVC.swift; sourceTree = "<group>"; };
+		0E6713EE23841BBF00DDE32C /* InsightsLifetimeSectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsLifetimeSectionVC.swift; sourceTree = "<group>"; };
+		0E6BE5F2216E00BF006217E4 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		0E6BE5F4216E04C9006217E4 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		0E6BE5F6216E0623006217E4 /* Swift.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Swift.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0E6FFB22215D193F00A2B6A3 /* VCInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCInjector.swift; sourceTree = "<group>"; };
+		0E7159A22367057A004A5C35 /* InsightsAverageWeekSectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsAverageWeekSectionVC.swift; sourceTree = "<group>"; };
+		0E71E90722282EE300D2D953 /* CustomPlanTemplate+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomPlanTemplate+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0E771EB3223685B900FEC5DF /* DrinkingCues.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DrinkingCues.plist; sourceTree = "<group>"; };
+		0E771EB5223688CE00FEC5DF /* DrinkingCues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkingCues.swift; sourceTree = "<group>"; };
+		0E7CB6C82226EF4200AB8811 /* MyPlanRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MyPlanRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0E7CB6CA2226EF5000AB8811 /* MyPlanRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPlanRecord.swift; sourceTree = "<group>"; };
+		0E7CE4D9222D469E00AEB65E /* SystemPlanTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPlanTemplate.swift; sourceTree = "<group>"; };
+		0E7CE4DD222E850F00AEB65E /* PlanTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTemplate.swift; sourceTree = "<group>"; };
+		0E849C6B216B60E6009235D9 /* AuditHistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHistoryTableView.swift; sourceTree = "<group>"; };
+		0E849C6E216B8307009235D9 /* UsesTimeZonedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsesTimeZonedDate.swift; sourceTree = "<group>"; };
+		0E895E1521A6A61D003F0794 /* README_dev.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README_dev.md; sourceTree = "<group>"; };
+		0E895E1721A6B4FE003F0794 /* AuditGroupAll_sept18.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupAll_sept18.plist; sourceTree = "<group>"; };
+		0E895E1821A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupDrinkers_sept18.plist; sourceTree = "<group>"; };
+		0E895E1D21A6B732003F0794 /* OneMonthFollowUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneMonthFollowUpTableViewController.h; sourceTree = "<group>"; };
+		0E895E1E21A6B732003F0794 /* PXFollowUpSurveyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXFollowUpSurveyManager.m; sourceTree = "<group>"; };
+		0E895E1F21A6B732003F0794 /* FollowUpSurveyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowUpSurveyTableViewController.h; sourceTree = "<group>"; };
+		0E895E2021A6B732003F0794 /* FollowUpQuestions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FollowUpQuestions.plist; sourceTree = "<group>"; };
+		0E895E2121A6B732003F0794 /* OneMonthFollowUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneMonthFollowUpTableViewController.m; sourceTree = "<group>"; };
+		0E895E2221A6B732003F0794 /* OneMonthFollowUpQuestions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OneMonthFollowUpQuestions.plist; sourceTree = "<group>"; };
+		0E895E2321A6B732003F0794 /* FollowUpSurveyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowUpSurveyTableViewController.m; sourceTree = "<group>"; };
+		0E895E2421A6B732003F0794 /* PXFollowUpSurveyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXFollowUpSurveyManager.h; sourceTree = "<group>"; };
+		0E895E2521A6B732003F0794 /* FollowUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FollowUp.storyboard; sourceTree = "<group>"; };
+		0E96FBD223A8E2D300A6294F /* InsightsGraphHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsGraphHostingView.swift; sourceTree = "<group>"; };
+		0E9D8F0E2327AD720094BBC2 /* UserNotificationsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationsExt.swift; sourceTree = "<group>"; };
+		0E9F9926216653490084BDED /* AuditHistoryOverviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHistoryOverviewVC.swift; sourceTree = "<group>"; };
+		0EA40B16215A9560002B64FA /* drinkless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "drinkless-Bridging-Header.h"; sourceTree = "<group>"; };
+		0EA40B1F215A95C8002B64FA /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		0EA63B5D239EEE420065D733 /* MRTValidations.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MRTValidations.playground; sourceTree = "<group>"; };
+		0EB26F9622329C4A00BAD9AF /* NotificationsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsDelegate.swift; sourceTree = "<group>"; };
+		0EC15C4D21A4406E00E0DB82 /* DataServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServer.swift; sourceTree = "<group>"; };
+		0ED4870121C1712E003A8AB8 /* audit-feedback-followup-info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "audit-feedback-followup-info.html"; sourceTree = "<group>"; };
+		0EDB7C212368C650007308BE /* InsightsAverageWeekGraphView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = InsightsAverageWeekGraphView.h; path = Insights/InsightsAverageWeekGraphView.h; sourceTree = "<group>"; };
+		0EDB7C222368C650007308BE /* InsightsAverageWeekGraphView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = InsightsAverageWeekGraphView.m; path = Insights/InsightsAverageWeekGraphView.m; sourceTree = "<group>"; };
+		0EDD3BD0215CE06C00464F00 /* AuditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditData.swift; sourceTree = "<group>"; };
+		0EDD3BD2215CF91000464F00 /* DrinkLess 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 13.xcdatamodel"; sourceTree = "<group>"; };
+		0EDEBC6B222599C50063CCB4 /* DrinkLess 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 16.xcdatamodel"; sourceTree = "<group>"; };
+		0EE1D4372174D8060021A952 /* PXIntroManager_Legacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXIntroManager_Legacy.h; sourceTree = "<group>"; };
+		0EE93E48234612C200975C87 /* InsightsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsVC.swift; sourceTree = "<group>"; };
+		0EE93E4A234618C800975C87 /* InsightsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSectionView.swift; sourceTree = "<group>"; };
+		0EF585B32226A1E400C7426D /* TimeZonedModelAbstract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZonedModelAbstract.swift; sourceTree = "<group>"; };
+		0EF585BD2226B29500C7426D /* CalendarDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDate.swift; sourceTree = "<group>"; };
+		0EF86490233CF1220095EC57 /* Explainers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Explainers.storyboard; sourceTree = "<group>"; };
 		2ABF427919E5474E0062DCC8 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		2AC0C32E19E7F18200960F96 /* References.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = References.html; sourceTree = "<group>"; };
 		2AFCF01419D5CCE200439CCB /* PXLocalNotificationsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXLocalNotificationsManager.h; sourceTree = "<group>"; };
@@ -459,12 +581,7 @@
 		373CF12519B0B68000825F60 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		373CF12E19B0B68000825F60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		373CF13019B0B68000825F60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		373CF13619B0B68000825F60 /* drinklessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drinklessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		373CF13B19B0B68000825F60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		373CF13C19B0B68000825F60 /* Drink_LessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Drink_LessTests.m; sourceTree = "<group>"; };
-		374D61DC1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OneMonthFollowUpQuestions.plist; sourceTree = "<group>"; };
-		37806BDB19C717E500D84E4B /* Progress.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Progress.storyboard; sourceTree = "<group>"; };
-		378FB9CD1B3D38F200C55DE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		37806BDB19C717E500D84E4B /* Activities.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activities.storyboard; sourceTree = "<group>"; };
 		3795B29F1A0A43BA0083B99A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3796C53D19B0DDCB0026D038 /* AuditResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuditResultsViewController.h; sourceTree = "<group>"; };
 		3796C53E19B0DDCB0026D038 /* AuditResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuditResultsViewController.m; sourceTree = "<group>"; };
@@ -487,13 +604,8 @@
 		37A14F5019B0B94700EA9F1E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		37A14F6119B0D5B500EA9F1E /* AuditQuestionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuditQuestionsTableViewController.h; sourceTree = "<group>"; };
 		37A14F6219B0D5B500EA9F1E /* AuditQuestionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuditQuestionsTableViewController.m; sourceTree = "<group>"; };
-		37A761F61A96442C00099ECF /* PXSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSliderCell.h; sourceTree = "<group>"; };
-		37A761F71A96442C00099ECF /* PXSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSliderCell.m; sourceTree = "<group>"; };
-		37A77D081A8A425E00AA373D /* OneMonthFollowUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneMonthFollowUpTableViewController.h; sourceTree = "<group>"; };
-		37A77D091A8A425E00AA373D /* OneMonthFollowUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneMonthFollowUpTableViewController.m; sourceTree = "<group>"; };
 		37AF8BD619E0A074009D7230 /* PXHelpNav.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PXHelpNav.plist; sourceTree = "<group>"; };
 		37C8C8981C64C2420024652E /* yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yes.png; sourceTree = "<group>"; };
-		37CABEF81A80F70A007DCE2A /* FollowUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FollowUp.storyboard; sourceTree = "<group>"; };
 		37CABF061A810A83007DCE2A /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
 		37CABF071A810A83007DCE2A /* FXForms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXForms.m; sourceTree = "<group>"; };
 		37DED4C01A7D3BDB006378E7 /* PXHowAlcoholEffectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXHowAlcoholEffectsViewController.h; sourceTree = "<group>"; };
@@ -501,16 +613,10 @@
 		37ECEF3D19B47C63006046F3 /* AuditQuestions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditQuestions.plist; sourceTree = "<group>"; };
 		37F397761A828DFA00D9C91F /* ReviewAuditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewAuditTableViewController.h; sourceTree = "<group>"; };
 		37F397771A828DFA00D9C91F /* ReviewAuditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewAuditTableViewController.m; sourceTree = "<group>"; };
-		397BF017A0D80D57EF934206 /* Pods-drinklessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drinklessTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-drinklessTests/Pods-drinklessTests.release.xcconfig"; sourceTree = "<group>"; };
 		4F17CBDF1CBFB4C70022C2D3 /* PXDeviceUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDeviceUID.h; sourceTree = "<group>"; };
 		4F17CBE01CBFB4C70022C2D3 /* PXDeviceUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDeviceUID.m; sourceTree = "<group>"; };
 		4F17CBE21CBFE62B0022C2D3 /* UIViewController+PXHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PXHelpers.h"; sourceTree = "<group>"; };
 		4F17CBE31CBFE62B0022C2D3 /* UIViewController+PXHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PXHelpers.m"; sourceTree = "<group>"; };
-		4F41C7081CBB8F0500BC27F8 /* FollowUpQuestions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FollowUpQuestions.plist; sourceTree = "<group>"; };
-		4F41C70A1CBB9EA100BC27F8 /* FollowUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowUpTableViewController.h; sourceTree = "<group>"; };
-		4F41C70B1CBB9EA100BC27F8 /* FollowUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowUpTableViewController.m; sourceTree = "<group>"; };
-		4F41C70D1CBBD04300BC27F8 /* PXFollowUpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXFollowUpManager.h; sourceTree = "<group>"; };
-		4F41C70E1CBBD04300BC27F8 /* PXFollowUpManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXFollowUpManager.m; sourceTree = "<group>"; };
 		4F8754F51CB29C0100FD37B3 /* PXTipView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PXTipView.xib; sourceTree = "<group>"; };
 		4F8754FA1CB29DA300FD37B3 /* PXTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTipView.h; sourceTree = "<group>"; };
 		4F8754FB1CB29DA300FD37B3 /* PXTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTipView.m; sourceTree = "<group>"; };
@@ -518,6 +624,7 @@
 		4FCD696A1CB2BA68001E7390 /* PXCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXCustomView.m; sourceTree = "<group>"; };
 		58182875D904D46DD23B5889 /* Pods-drinkless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drinkless.release.xcconfig"; path = "Pods/Target Support Files/Pods-drinkless/Pods-drinkless.release.xcconfig"; sourceTree = "<group>"; };
 		75AAAD52DCF13F61CABD7CF0 /* Pods-drinkless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drinkless.debug.xcconfig"; path = "Pods/Target Support Files/Pods-drinkless/Pods-drinkless.debug.xcconfig"; sourceTree = "<group>"; };
+		7686ADD076DFD3FC627CEB91 /* Pods_drinkless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_drinkless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7704E9E21A111C5E00052D89 /* PXOutlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXOutlineButton.h; sourceTree = "<group>"; };
 		7704E9E31A111C5E00052D89 /* PXOutlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXOutlineButton.m; sourceTree = "<group>"; };
 		7704E9ED1A1137C900052D89 /* DrinkLess.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DrinkLess.xcdatamodel; sourceTree = "<group>"; };
@@ -525,14 +632,14 @@
 		7704EA0D1A11944F00052D89 /* PXDrinkType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PXDrinkType.m; sourceTree = "<group>"; };
 		7704EA151A1196CD00052D89 /* NSManagedObject+PXFindByID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+PXFindByID.h"; sourceTree = "<group>"; };
 		7704EA161A1196CD00052D89 /* NSManagedObject+PXFindByID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+PXFindByID.m"; sourceTree = "<group>"; };
-		7704EA5A1A12551A00052D89 /* PXDrinkingDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDrinkingDiaryViewController.h; sourceTree = "<group>"; };
-		7704EA5B1A12551A00052D89 /* PXDrinkingDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDrinkingDiaryViewController.m; sourceTree = "<group>"; };
+		7704EA5A1A12551A00052D89 /* PXDrinkRecordListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDrinkRecordListVC.h; sourceTree = "<group>"; };
+		7704EA5B1A12551A00052D89 /* PXDrinkRecordListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDrinkRecordListVC.m; sourceTree = "<group>"; };
 		7705D37F1AE9113A000A4366 /* action-plans-low.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "action-plans-low.html"; sourceTree = "<group>"; };
-		770751EB1C11A8D3005954B9 /* PXProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXProgressViewController.h; sourceTree = "<group>"; };
-		770751EC1C11A8D3005954B9 /* PXProgressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXProgressViewController.m; sourceTree = "<group>"; };
-		770751EF1C11C2BD005954B9 /* PXProgressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXProgressCell.h; sourceTree = "<group>"; };
-		770751F01C11C2BD005954B9 /* PXProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXProgressCell.m; sourceTree = "<group>"; };
-		770751F21C11C457005954B9 /* ProgressMenu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProgressMenu.plist; sourceTree = "<group>"; };
+		770751EB1C11A8D3005954B9 /* PXActivitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXActivitiesViewController.h; sourceTree = "<group>"; };
+		770751EC1C11A8D3005954B9 /* PXActivitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXActivitiesViewController.m; sourceTree = "<group>"; };
+		770751EF1C11C2BD005954B9 /* PXActivitiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXActivitiesCell.h; sourceTree = "<group>"; };
+		770751F01C11C2BD005954B9 /* PXActivitiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXActivitiesCell.m; sourceTree = "<group>"; };
+		770751F21C11C457005954B9 /* ActivitiesMenu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ActivitiesMenu.plist; sourceTree = "<group>"; };
 		77076AB21A0A430F007F616F /* PXTrackerPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTrackerPanelViewController.h; sourceTree = "<group>"; };
 		77076AB31A0A430F007F616F /* PXTrackerPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTrackerPanelViewController.m; sourceTree = "<group>"; };
 		77076ABD1A0A4404007F616F /* DrinksTracker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DrinksTracker.storyboard; sourceTree = "<group>"; };
@@ -692,8 +799,8 @@
 		777D2C0E1A28888D0070E45D /* PXDrinkRecord+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXDrinkRecord+Extras.h"; sourceTree = "<group>"; };
 		777D2C0F1A28888D0070E45D /* PXDrinkRecord+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXDrinkRecord+Extras.m"; sourceTree = "<group>"; };
 		777F426A1AA47B550060C04A /* PXContradictionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PXContradictionCell.xib; sourceTree = "<group>"; };
-		777F426E1AA499130060C04A /* PXReviewAuditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXReviewAuditViewController.h; sourceTree = "<group>"; };
-		777F426F1AA499130060C04A /* PXReviewAuditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXReviewAuditViewController.m; sourceTree = "<group>"; };
+		777F426E1AA499130060C04A /* PXAuditHistoryViewAuditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAuditHistoryViewAuditVC.h; sourceTree = "<group>"; };
+		777F426F1AA499130060C04A /* PXAuditHistoryViewAuditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAuditHistoryViewAuditVC.m; sourceTree = "<group>"; };
 		777F572D1AFB75B7003A7003 /* UINavigationController+Completion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Completion.h"; sourceTree = "<group>"; };
 		777F572E1AFB75B7003A7003 /* UINavigationController+Completion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Completion.m"; sourceTree = "<group>"; };
 		777F57331AFCDE9B003A7003 /* UIViewController+RecordMemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RecordMemo.h"; sourceTree = "<group>"; };
@@ -801,10 +908,10 @@
 		77CCFA601C199C610049062D /* PXWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXWebViewController.m; sourceTree = "<group>"; };
 		77CCFA621C19A17E0049062D /* audit-feedback-intro.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "audit-feedback-intro.html"; sourceTree = "<group>"; };
 		77CCFA641C19A3260049062D /* audit-feedback-outro.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "audit-feedback-outro.html"; sourceTree = "<group>"; };
-		77CCFA661C19D20B0049062D /* AuditGroupAll.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupAll.plist; sourceTree = "<group>"; };
-		77CCFA671C19D20B0049062D /* AuditGroupDrinkers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupDrinkers.plist; sourceTree = "<group>"; };
-		77CCFA6A1C19E98F0049062D /* PXAuditCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAuditCalculator.h; sourceTree = "<group>"; };
-		77CCFA6B1C19E98F0049062D /* PXAuditCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAuditCalculator.m; sourceTree = "<group>"; };
+		77CCFA661C19D20B0049062D /* _old.AuditGroupAll.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = _old.AuditGroupAll.plist; sourceTree = "<group>"; };
+		77CCFA671C19D20B0049062D /* _old.AuditGroupDrinkers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = _old.AuditGroupDrinkers.plist; sourceTree = "<group>"; };
+		77CCFA6A1C19E98F0049062D /* PXAuditFeedbackHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAuditFeedbackHelper.h; sourceTree = "<group>"; };
+		77CCFA6B1C19E98F0049062D /* PXAuditFeedbackHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAuditFeedbackHelper.m; sourceTree = "<group>"; };
 		77CCFA6D1C19EA850049062D /* PXAuditFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAuditFeedback.h; sourceTree = "<group>"; };
 		77CCFA6E1C19EA850049062D /* PXAuditFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAuditFeedback.m; sourceTree = "<group>"; };
 		77CE66BB1A418CC300059ACC /* PXActionPlanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXActionPlanCell.h; sourceTree = "<group>"; };
@@ -1078,8 +1185,6 @@
 		A6B33B571EA62922007B81BE /* drinkless.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = drinkless.entitlements; sourceTree = "<group>"; };
 		A6DCD5391DE2F80600E2004D /* terms-conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "terms-conditions.html"; sourceTree = "<group>"; };
 		A6F054C72084AB7100C5D8A8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		A8163E8B35768C1D700AC69D /* libPods-drinkless.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-drinkless.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0CDB71130F78E7CF5EF9ABD /* Pods-drinklessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drinklessTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-drinklessTests/Pods-drinklessTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DE7AE615483C9A10184E8D0F /* libPods-drinklessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-drinklessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1107,21 +1212,215 @@
 				37A14F4519B0B91B00EA9F1E /* CoreGraphics.framework in Frameworks */,
 				37A14F4319B0B91300EA9F1E /* CFNetwork.framework in Frameworks */,
 				37A14F4119B0B90D00EA9F1E /* AudioToolbox.framework in Frameworks */,
-				5FB9A16284B5F8E0054A8703 /* libPods-drinkless.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		373CF13319B0B68000825F60 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D9DF5D9B0A79568E2355495 /* libPods-drinklessTests.a in Frameworks */,
+				4BE6AA83475AC298B88B00EF /* Pods_drinkless.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E33367421C12D9B0071D35E /* PLIST */ = {
+			isa = PBXGroup;
+			children = (
+				37ECEF3D19B47C63006046F3 /* AuditQuestions.plist */,
+				0E33367521C12DFB0071D35E /* AuditQuestionsFollowUp.plist */,
+				77CCFA661C19D20B0049062D /* _old.AuditGroupAll.plist */,
+				77CCFA671C19D20B0049062D /* _old.AuditGroupDrinkers.plist */,
+				0E895E1721A6B4FE003F0794 /* AuditGroupAll_sept18.plist */,
+				0E895E1821A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist */,
+				77230F3719DC0305003E4DFA /* LowAvFeedback.plist */,
+				0E61FF71222810750000F3C8 /* MakePlanData.plist */,
+				0E771EB3223685B900FEC5DF /* DrinkingCues.plist */,
+			);
+			path = PLIST;
+			sourceTree = "<group>";
+		};
+		0E3D07162320093600F4A0D2 /* MRT Trial */ = {
+			isa = PBXGroup;
+			children = (
+				0EA63B5D239EEE420065D733 /* MRTValidations.playground */,
+				0E3D07172320096300F4A0D2 /* mrt-data.plist */,
+				0E3D071923210AC600F4A0D2 /* MRTNotificationsManager.swift */,
+			);
+			path = "MRT Trial";
+			sourceTree = "<group>";
+		};
+		0E54B3192162895F0082BD34 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0EF585B32226A1E400C7426D /* TimeZonedModelAbstract.swift */,
+				0E54B31A216289890082BD34 /* UsesGroupData.swift */,
+				0E7CE4DD222E850F00AEB65E /* PlanTemplate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		0E5D6C742174A2030005E45B /* Migrations */ = {
+			isa = PBXGroup;
+			children = (
+				0E5D6C772174A6A10005E45B /* Migrations.swift */,
+				0E5D6C752174A5F40005E45B /* Migration_9400.swift */,
+				0E058D2E2270ACB4000D03E3 /* Migration_9500.swift */,
+			);
+			path = Migrations;
+			sourceTree = "<group>";
+		};
+		0E61FF7C2228119F0000F3C8 /* CoreData Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				0E71E90722282EE300D2D953 /* CustomPlanTemplate+CoreDataProperties.swift */,
+				0E2DD98C21625F1B00DDFA74 /* AuditDataMO.swift */,
+				0E7CB6C82226EF4200AB8811 /* MyPlanRecord+CoreDataProperties.swift */,
+			);
+			path = "CoreData Definitions";
+			sourceTree = "<group>";
+		};
+		0E849C6A216B60C3009235D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0E849C6B216B60E6009235D9 /* AuditHistoryTableView.swift */,
+				0E61FF7D22281C1B0000F3C8 /* PlanCell.swift */,
+				0EE93E4A234618C800975C87 /* InsightsSectionView.swift */,
+				0E96FBD223A8E2D300A6294F /* InsightsGraphHostingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0E895E1B21A6B732003F0794 /* Obsolete */ = {
+			isa = PBXGroup;
+			children = (
+				0E895E1C21A6B732003F0794 /* FollowUp */,
+			);
+			path = Obsolete;
+			sourceTree = "<group>";
+		};
+		0E895E1C21A6B732003F0794 /* FollowUp */ = {
+			isa = PBXGroup;
+			children = (
+				0E895E1D21A6B732003F0794 /* OneMonthFollowUpTableViewController.h */,
+				0E895E1E21A6B732003F0794 /* PXFollowUpSurveyManager.m */,
+				0E895E1F21A6B732003F0794 /* FollowUpSurveyTableViewController.h */,
+				0E895E2021A6B732003F0794 /* FollowUpQuestions.plist */,
+				0E895E2121A6B732003F0794 /* OneMonthFollowUpTableViewController.m */,
+				0E895E2221A6B732003F0794 /* OneMonthFollowUpQuestions.plist */,
+				0E895E2321A6B732003F0794 /* FollowUpSurveyTableViewController.m */,
+				0E895E2421A6B732003F0794 /* PXFollowUpSurveyManager.h */,
+				0E895E2521A6B732003F0794 /* FollowUp.storyboard */,
+			);
+			path = FollowUp;
+			sourceTree = "<group>";
+		};
+		0EA40B1D215A95C8002B64FA /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				0EF8648F233CF1100095EC57 /* Assets */,
+				0E3D07162320093600F4A0D2 /* MRT Trial */,
+				0E6BE5F6216E0623006217E4 /* Swift.playground */,
+				0E04CDB821665EC7006F15D6 /* Config.swift */,
+				0E6BE5F2216E00BF006217E4 /* Debug.swift */,
+				0E6BE5F4216E04C9006217E4 /* Log.swift */,
+				0E6FFB22215D193F00A2B6A3 /* VCInjector.swift */,
+				0EA40B1F215A95C8002B64FA /* AlertManager.swift */,
+				0EC15C4D21A4406E00E0DB82 /* DataServer.swift */,
+				0EB26F9622329C4A00BAD9AF /* NotificationsDelegate.swift */,
+				0E5D6C742174A2030005E45B /* Migrations */,
+				0ED70BB7215BB4D900A8A022 /* VCs */,
+				0E849C6A216B60C3009235D9 /* Views */,
+				0ED70BB4215B8B1900A8A022 /* Models */,
+				0EA40B1E215A95C8002B64FA /* Lib */,
+				0EAC7F062333C915000A3D83 /* Vendor */,
+				0E59D9E2233BBAA0001F4F01 /* ExplainerOverlayBase.swift */,
+				0E59D9E4233BBC6F001F4F01 /* DashboardExplainer.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		0EA40B1E215A95C8002B64FA /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				0E3FA2892259300400A9D291 /* DateTimeProviders.swift */,
+				0EF585BD2226B29500C7426D /* CalendarDate.swift */,
+				0E849C6E216B8307009235D9 /* UsesTimeZonedDate.swift */,
+				0E5D6C792174AE670005E45B /* FoundationExt.swift */,
+				0E3C6F1C2228273000E88896 /* CoreDataExt.swift */,
+				0E5D6C7B2174AEA70005E45B /* UIKitExt.swift */,
+				0E9D8F0E2327AD720094BBC2 /* UserNotificationsExt.swift */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		0EAC7F062333C915000A3D83 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		0ED4870021C170E7003A8AB8 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				0E16D31C239AAED30051E2B6 /* mrt-terms.html */,
+				0ED4870121C1712E003A8AB8 /* audit-feedback-followup-info.html */,
+				77CCFA621C19A17E0049062D /* audit-feedback-intro.html */,
+				77CCFA641C19A3260049062D /* audit-feedback-outro.html */,
+			);
+			path = HTML;
+			sourceTree = "<group>";
+		};
+		0ED70BB4215B8B1900A8A022 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0E54B3192162895F0082BD34 /* Protocols */,
+				0E61FF7C2228119F0000F3C8 /* CoreData Definitions */,
+				0E61FF75222811580000F3C8 /* CustomPlanTemplate.swift */,
+				0E7CB6CA2226EF5000AB8811 /* MyPlanRecord.swift */,
+				0E54B31C21628C850082BD34 /* GroupData.swift */,
+				0E54B3162162832E0082BD34 /* DemographicData.swift */,
+				0EDD3BD0215CE06C00464F00 /* AuditData.swift */,
+				0E7CE4D9222D469E00AEB65E /* SystemPlanTemplate.swift */,
+				0E771EB5223688CE00FEC5DF /* DrinkingCues.swift */,
+				0E214459234E015B00913820 /* DrinkStatistics.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0ED70BB7215BB4D900A8A022 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				0E9F9926216653490084BDED /* AuditHistoryOverviewVC.swift */,
+				0E12776F216F605E00373754 /* AuditHistoryViewAuditAnswersVC.swift */,
+				0E61FF6D2227FC330000F3C8 /* TabBarCalendarNavVC.swift */,
+				0E61FF6F222802710000F3C8 /* MakePlanVC.swift */,
+				0E649886223433EB009B733F /* YourDrinkingCuesIntroVC.swift */,
+				0E64988822343414009B733F /* YourDrinkingCuesEditVC.swift */,
+				0EE93E48234612C200975C87 /* InsightsVC.swift */,
+				0E21445B234E15A900913820 /* InsightsSectionVCBase.swift */,
+				0E214457234DF9EC00913820 /* InsightsLastWeekSectionVC.swift */,
+				0E7159A22367057A004A5C35 /* InsightsAverageWeekSectionVC.swift */,
+				0E6713EE23841BBF00DDE32C /* InsightsLifetimeSectionVC.swift */,
+				0E16D318239AA06A0051E2B6 /* WebVCBase.swift */,
+				0E16D31A239AADCA0051E2B6 /* MRTTermsVC.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		0EDB7C202368C60B007308BE /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				0EDB7C212368C650007308BE /* InsightsAverageWeekGraphView.h */,
+				0EDB7C222368C650007308BE /* InsightsAverageWeekGraphView.m */,
+			);
+			name = Insights;
+			sourceTree = "<group>";
+		};
+		0EF8648F233CF1100095EC57 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0EF86490233CF1220095EC57 /* Explainers.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		2A8209A819D5A2EA006F3C20 /* Mood Diary */ = {
 			isa = PBXGroup;
 			children = (
@@ -1137,6 +1436,7 @@
 				2AFCF01419D5CCE200439CCB /* PXLocalNotificationsManager.h */,
 				2AFCF01519D5CCE200439CCB /* PXLocalNotificationsManager.m */,
 				2AFCF01719D5CD9F00439CCB /* ReminderTypes.plist */,
+				0EA40B16215A9560002B64FA /* drinkless-Bridging-Header.h */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -1153,13 +1453,12 @@
 		373CF11419B0B68000825F60 = {
 			isa = PBXGroup;
 			children = (
+				0E895E1521A6A61D003F0794 /* README_dev.md */,
 				A6F054C72084AB7100C5D8A8 /* README.md */,
 				A6B33B571EA62922007B81BE /* drinkless.entitlements */,
 				37C8C8981C64C2420024652E /* yes.png */,
-				378FB9CD1B3D38F200C55DE8 /* GoogleService-Info.plist */,
 				37A14F5219B0B95900EA9F1E /* Frameworks */,
 				373CF11F19B0B68000825F60 /* Drink Less */,
-				373CF13919B0B68000825F60 /* Drink LessTests */,
 				373CF11E19B0B68000825F60 /* Products */,
 				7E7FC57EFE216BF306654168 /* Pods */,
 			);
@@ -1169,7 +1468,6 @@
 			isa = PBXGroup;
 			children = (
 				373CF11D19B0B68000825F60 /* drinkless.app */,
-				373CF13619B0B68000825F60 /* drinklessTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1177,15 +1475,19 @@
 		373CF11F19B0B68000825F60 /* Drink Less */ = {
 			isa = PBXGroup;
 			children = (
+				0EA40B1D215A95C8002B64FA /* Swift */,
+				0ED4870021C170E7003A8AB8 /* HTML */,
+				0E33367421C12D9B0071D35E /* PLIST */,
+				0E895E1B21A6B732003F0794 /* Obsolete */,
 				776B818E19C988180055481C /* Reusable */,
 				2AFCF01119D5CCC500439CCB /* Manager */,
 				83B48CF519BDF426003C1BAD /* Intro */,
 				83B48CF719BDF44B003C1BAD /* Main Tabbar */,
-				37CABEF71A80F6E7007DCE2A /* Follow Up Survey */,
 				83B48CD119BDBE58003C1BAD /* Debug */,
 				37A14F3F19B0B8F200EA9F1E /* Vendor */,
 				373CF12419B0B68000825F60 /* AppDelegate.h */,
 				373CF12519B0B68000825F60 /* AppDelegate.m */,
+				0EDB7C202368C60B007308BE /* Insights */,
 				A6691E6E1C6A097C0018020E /* PXDebug.h */,
 				373CF13019B0B68000825F60 /* Images.xcassets */,
 				3705999C1C6370D800B8F4A9 /* information80.png */,
@@ -1204,24 +1506,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		373CF13919B0B68000825F60 /* Drink LessTests */ = {
-			isa = PBXGroup;
-			children = (
-				373CF13C19B0B68000825F60 /* Drink_LessTests.m */,
-				373CF13A19B0B68000825F60 /* Supporting Files */,
-			);
-			path = "Drink LessTests";
-			sourceTree = "<group>";
-		};
-		373CF13A19B0B68000825F60 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				373CF13B19B0B68000825F60 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		37618CAA19BF02E500AB9CB7 /* Progress */ = {
+		37618CAA19BF02E500AB9CB7 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
 				770751EE1C11C29B005954B9 /* Menu */,
@@ -1232,15 +1517,14 @@
 				779227FC1A40693900326CA1 /* Action Plans */,
 				2A8209A819D5A2EA006F3C20 /* Mood Diary */,
 				774C8A621A824456003292DA /* Goal Reflections */,
-				37806BDB19C717E500D84E4B /* Progress.storyboard */,
+				37806BDB19C717E500D84E4B /* Activities.storyboard */,
 			);
-			name = Progress;
+			name = Activities;
 			sourceTree = "<group>";
 		};
 		3796C53B19B0DC020026D038 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
-				37ECEF3D19B47C63006046F3 /* AuditQuestions.plist */,
 				37A14F6119B0D5B500EA9F1E /* AuditQuestionsTableViewController.h */,
 				37A14F6219B0D5B500EA9F1E /* AuditQuestionsTableViewController.m */,
 			);
@@ -1355,8 +1639,8 @@
 				37A14F4219B0B91300EA9F1E /* CFNetwork.framework */,
 				37A14F4019B0B90D00EA9F1E /* AudioToolbox.framework */,
 				2ABF427919E5474E0062DCC8 /* NotificationCenter.framework */,
-				A8163E8B35768C1D700AC69D /* libPods-drinkless.a */,
 				DE7AE615483C9A10184E8D0F /* libPods-drinklessTests.a */,
+				7686ADD076DFD3FC627CEB91 /* Pods_drinkless.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1386,19 +1670,6 @@
 				3799247E1A39A0AB0031B09F /* PXTipsViewController.m */,
 			);
 			name = Help;
-			sourceTree = "<group>";
-		};
-		37CABEF71A80F6E7007DCE2A /* Follow Up Survey */ = {
-			isa = PBXGroup;
-			children = (
-				374D61DC1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist */,
-				37A77D081A8A425E00AA373D /* OneMonthFollowUpTableViewController.h */,
-				37A77D091A8A425E00AA373D /* OneMonthFollowUpTableViewController.m */,
-				37A761F61A96442C00099ECF /* PXSliderCell.h */,
-				37A761F71A96442C00099ECF /* PXSliderCell.m */,
-				37CABEF81A80F70A007DCE2A /* FollowUp.storyboard */,
-			);
-			name = "Follow Up Survey";
 			sourceTree = "<group>";
 		};
 		37D49B6F19D18651008A3E03 /* Games */ = {
@@ -1435,8 +1706,8 @@
 		37F397751A828DD600D9C91F /* Review Audit */ = {
 			isa = PBXGroup;
 			children = (
-				777F426E1AA499130060C04A /* PXReviewAuditViewController.h */,
-				777F426F1AA499130060C04A /* PXReviewAuditViewController.m */,
+				777F426E1AA499130060C04A /* PXAuditHistoryViewAuditVC.h */,
+				777F426F1AA499130060C04A /* PXAuditHistoryViewAuditVC.m */,
 				37F397761A828DFA00D9C91F /* ReviewAuditTableViewController.h */,
 				37F397771A828DFA00D9C91F /* ReviewAuditTableViewController.m */,
 			);
@@ -1450,18 +1721,6 @@
 				4F17CBE01CBFB4C70022C2D3 /* PXDeviceUID.m */,
 			);
 			name = DeviceUID;
-			sourceTree = "<group>";
-		};
-		4F2E14061CB7EBA800B8242A /* Follow up */ = {
-			isa = PBXGroup;
-			children = (
-				4F41C7081CBB8F0500BC27F8 /* FollowUpQuestions.plist */,
-				4F41C70A1CBB9EA100BC27F8 /* FollowUpTableViewController.h */,
-				4F41C70B1CBB9EA100BC27F8 /* FollowUpTableViewController.m */,
-				4F41C70D1CBBD04300BC27F8 /* PXFollowUpManager.h */,
-				4F41C70E1CBBD04300BC27F8 /* PXFollowUpManager.m */,
-			);
-			name = "Follow up";
 			sourceTree = "<group>";
 		};
 		7704E9E71A1130CD00052D89 /* Record */ = {
@@ -1483,11 +1742,11 @@
 		770751EE1C11C29B005954B9 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				770751EB1C11A8D3005954B9 /* PXProgressViewController.h */,
-				770751EC1C11A8D3005954B9 /* PXProgressViewController.m */,
-				770751EF1C11C2BD005954B9 /* PXProgressCell.h */,
-				770751F01C11C2BD005954B9 /* PXProgressCell.m */,
-				770751F21C11C457005954B9 /* ProgressMenu.plist */,
+				770751EB1C11A8D3005954B9 /* PXActivitiesViewController.h */,
+				770751EC1C11A8D3005954B9 /* PXActivitiesViewController.m */,
+				770751EF1C11C2BD005954B9 /* PXActivitiesCell.h */,
+				770751F01C11C2BD005954B9 /* PXActivitiesCell.m */,
+				770751F21C11C457005954B9 /* ActivitiesMenu.plist */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -1521,6 +1780,8 @@
 				7704EA161A1196CD00052D89 /* NSManagedObject+PXFindByID.m */,
 				77076ACE1A0A762A007F616F /* PXCoreDataManager.h */,
 				77076ACF1A0A762A007F616F /* PXCoreDataManager.m */,
+				0E19F3EB2158F05A00A5C3A6 /* PXCoreDataManager+Debug.h */,
+				0E19F3EC2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m */,
 				7704EA0C1A11944F00052D89 /* PXDrinkType.h */,
 				7704EA0D1A11944F00052D89 /* PXDrinkType.m */,
 				777D2C0E1A28888D0070E45D /* PXDrinkRecord+Extras.h */,
@@ -1613,14 +1874,11 @@
 		77230F3319DB7BCA003E4DFA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				77CCFA6A1C19E98F0049062D /* PXAuditCalculator.h */,
-				77CCFA6B1C19E98F0049062D /* PXAuditCalculator.m */,
+				77CCFA6A1C19E98F0049062D /* PXAuditFeedbackHelper.h */,
+				77CCFA6B1C19E98F0049062D /* PXAuditFeedbackHelper.m */,
 				77CCFA6D1C19EA850049062D /* PXAuditFeedback.h */,
 				77CCFA6E1C19EA850049062D /* PXAuditFeedback.m */,
-				77CCFA661C19D20B0049062D /* AuditGroupAll.plist */,
-				77CCFA671C19D20B0049062D /* AuditGroupDrinkers.plist */,
 				774F002D19D5816700CD13B6 /* AuditGroups.numbers */,
-				77230F3719DC0305003E4DFA /* LowAvFeedback.plist */,
 				77230F3519DC015F003E4DFA /* LowAvFeedback.numbers */,
 			);
 			name = Model;
@@ -1633,8 +1891,6 @@
 				77CF795519D0566900C7509B /* PXHighGroupAuditViewController.m */,
 				77CF796419D07ECB00C7509B /* PXInfographicViewController.h */,
 				77CF796519D07ECB00C7509B /* PXInfographicViewController.m */,
-				77CCFA621C19A17E0049062D /* audit-feedback-intro.html */,
-				77CCFA641C19A3260049062D /* audit-feedback-outro.html */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2216,8 +2472,6 @@
 			children = (
 				75AAAD52DCF13F61CABD7CF0 /* Pods-drinkless.debug.xcconfig */,
 				58182875D904D46DD23B5889 /* Pods-drinkless.release.xcconfig */,
-				C0CDB71130F78E7CF5EF9ABD /* Pods-drinklessTests.debug.xcconfig */,
-				397BF017A0D80D57EF934206 /* Pods-drinklessTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2307,8 +2561,8 @@
 				8320711C19D404AE00F5AD04 /* PXCalendarView.m */,
 				8320715E19D435AD00F5AD04 /* PXCalendarDateButton.h */,
 				8320715F19D435AD00F5AD04 /* PXCalendarDateButton.m */,
-				7704EA5A1A12551A00052D89 /* PXDrinkingDiaryViewController.h */,
-				7704EA5B1A12551A00052D89 /* PXDrinkingDiaryViewController.m */,
+				7704EA5A1A12551A00052D89 /* PXDrinkRecordListVC.h */,
+				7704EA5B1A12551A00052D89 /* PXDrinkRecordListVC.m */,
 				77AF88F51A16782900A4F8D3 /* PXDrinkLogCell.h */,
 				77AF88F61A16782900A4F8D3 /* PXDrinkLogCell.m */,
 			);
@@ -2359,6 +2613,7 @@
 			children = (
 				7714E0651A9896A400C66AE9 /* PXIntroManager.h */,
 				7714E0661A9896A400C66AE9 /* PXIntroManager.m */,
+				0EE1D4372174D8060021A952 /* PXIntroManager_Legacy.h */,
 				37A14F5919B0C64200EA9F1E /* Consent */,
 				3796C53B19B0DC020026D038 /* Questions */,
 				3796C53C19B0DC190026D038 /* Results */,
@@ -2367,7 +2622,6 @@
 				77CF795719D0567300C7509B /* Groups */,
 				8323405F19B88A0100304F6E /* Think */,
 				83B48CF619BDF432003C1BAD /* Progress Bar */,
-				4F2E14061CB7EBA800B8242A /* Follow up */,
 				373CF12D19B0B68000825F60 /* Main.storyboard */,
 				83B48CCE19BDB849003C1BAD /* PXIntroNavigationController.h */,
 				83B48CCF19BDB849003C1BAD /* PXIntroNavigationController.m */,
@@ -2401,7 +2655,7 @@
 				83B48CED19BDE5AB003C1BAD /* PXSectionNavTableVC.m */,
 				77076AB71A0A4314007F616F /* Drinks Tracker */,
 				837F488119CC43E000E25E8F /* Home */,
-				37618CAA19BF02E500AB9CB7 /* Progress */,
+				37618CAA19BF02E500AB9CB7 /* Activities */,
 				37D49B6F19D18651008A3E03 /* Games */,
 				37D49B7119D18672008A3E03 /* Identity */,
 				37AF8BD319E0A05A009D7230 /* Help */,
@@ -2502,9 +2756,7 @@
 				373CF11A19B0B68000825F60 /* Frameworks */,
 				373CF11B19B0B68000825F60 /* Resources */,
 				2ABF428B19E5474E0062DCC8 /* Embed App Extensions */,
-				CF08F1BC3ACF3DAADFAB3849 /* 📦 Copy Pods Resources */,
-				A61024531DD73400002E44D5 /* ShellScript */,
-				86B46726452D4E992B6B2826 /* [CP] Copy Pods Resources */,
+				FA0E3FA86508BE2F7DC56456 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2515,31 +2767,6 @@
 			productReference = 373CF11D19B0B68000825F60 /* drinkless.app */;
 			productType = "com.apple.product-type.application";
 		};
-		373CF13519B0B68000825F60 /* drinklessTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 373CF14319B0B68000825F60 /* Build configuration list for PBXNativeTarget "drinklessTests" */;
-			buildPhases = (
-				82343303334CC79CDE0FEDF1 /* [CP] Check Pods Manifest.lock */,
-				C635D111B786B1CB75622461 /* 📦 Check Pods Manifest.lock */,
-				E9F582E6593651FCCE2BC206 /* üì¶ Check Pods Manifest.lock */,
-				373CF13219B0B68000825F60 /* Sources */,
-				373CF13319B0B68000825F60 /* Frameworks */,
-				373CF13419B0B68000825F60 /* Resources */,
-				7FE9263E26798A0350514367 /* üì¶ Embed Pods Frameworks */,
-				F114920302C3A2E1BB847236 /* üì¶ Copy Pods Resources */,
-				6C65FB2E6203660845BF96D0 /* 📦 Embed Pods Frameworks */,
-				91E1F694B5B212CBA790B265 /* 📦 Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				373CF13819B0B68000825F60 /* PBXTargetDependency */,
-			);
-			name = drinklessTests;
-			productName = "Drink LessTests";
-			productReference = 373CF13619B0B68000825F60 /* drinklessTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2547,22 +2774,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = "Greg Plumbly";
+				ORGANIZATIONNAME = UCL;
 				TargetAttributes = {
 					373CF11C19B0B68000825F60 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = Y542T8R9RB;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
 							};
 						};
-					};
-					373CF13519B0B68000825F60 = {
-						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = VV4AP2D989;
-						TestTargetID = 373CF11C19B0B68000825F60;
 					};
 				};
 			};
@@ -2580,7 +2803,6 @@
 			projectRoot = "";
 			targets = (
 				373CF11C19B0B68000825F60 /* drinkless */,
-				373CF13519B0B68000825F60 /* drinklessTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2590,6 +2812,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E9A76A0231E7D33004D0585 /* ActivitiesMenu.plist in Resources */,
 				77F66B501A27387700053991 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				77EA757C1C2412C100C9187C /* alcoholic_00008.jpg in Resources */,
 				77F66B491A27387700053991 /* NotificationBackgroundError@2x.png in Resources */,
@@ -2604,6 +2827,7 @@
 				77EA75921C2412C100C9187C /* soft_00010.jpg in Resources */,
 				77EA757E1C2412C100C9187C /* alcoholic_00010.jpg in Resources */,
 				77F66B4C1A27387700053991 /* NotificationBackgroundMessage.png in Resources */,
+				0E61FF72222810750000F3C8 /* MakePlanData.plist in Resources */,
 				77EA758A1C2412C100C9187C /* soft_00002.jpg in Resources */,
 				83CBDEFF19D46A6F00A04A02 /* PXGames.storyboard in Resources */,
 				373CF12F19B0B68000825F60 /* Main.storyboard in Resources */,
@@ -2614,7 +2838,8 @@
 				77EA757A1C2412C100C9187C /* alcoholic_00006.jpg in Resources */,
 				77EA758D1C2412C100C9187C /* soft_00005.jpg in Resources */,
 				3705999B1C63665F00B8F4A9 /* drinking-guidelines.html in Resources */,
-				37806BDC19C717E500D84E4B /* Progress.storyboard in Resources */,
+				37806BDC19C717E500D84E4B /* Activities.storyboard in Resources */,
+				0ED4870221C1712E003A8AB8 /* audit-feedback-followup-info.html in Resources */,
 				774671F71B025F150085167F /* PXListView.xib in Resources */,
 				77EA75901C2412C100C9187C /* soft_00008.jpg in Resources */,
 				77EA75751C2412C100C9187C /* alcoholic_00001.jpg in Resources */,
@@ -2647,7 +2872,9 @@
 				77EA75951C2412C100C9187C /* soft_00013.jpg in Resources */,
 				777F426B1AA47B550060C04A /* PXContradictionCell.xib in Resources */,
 				7792280A1A4086D000326CA1 /* PXActionPlanView.xib in Resources */,
+				0E33367621C12DFB0071D35E /* AuditQuestionsFollowUp.plist in Resources */,
 				7705D3801AE9113A000A4366 /* action-plans-low.html in Resources */,
+				0E771EB4223685B900FEC5DF /* DrinkingCues.plist in Resources */,
 				771B36CB1AEE781200F3E7B3 /* QuickLinks.plist in Resources */,
 				A6DCD53A1DE2F80600E2004D /* terms-conditions.html in Resources */,
 				0998EDF720D3C16700A085F6 /* privacy-notice.html in Resources */,
@@ -2655,12 +2882,11 @@
 				77EA75741C2412C100C9187C /* alcoholic_00000.jpg in Resources */,
 				8243464319FE59E6001F95BB /* Sensation seeking.plist in Resources */,
 				77DFDC5619DEE2EE00DB2515 /* GameFail.wav in Resources */,
-				77CCFA681C19D20B0049062D /* AuditGroupAll.plist in Resources */,
-				77CCFA691C19D20B0049062D /* AuditGroupDrinkers.plist in Resources */,
 				A6F054C82084AB7100C5D8A8 /* README.md in Resources */,
 				774671EB1B012E8D0085167F /* style.css in Resources */,
 				77F66B581A27387700053991 /* TSMessagesDefaultDesign.json in Resources */,
 				77EEBD581A94938B00CB3115 /* PXGoalsHeader.xib in Resources */,
+				0E3D07182320096300F4A0D2 /* mrt-data.plist in Resources */,
 				77EA759F1C242B3B00C9187C /* Info in Resources */,
 				77F66B4A1A27387700053991 /* NotificationBackgroundErrorIcon.png in Resources */,
 				0963F53F20CEC8FB0058878D /* tos.html in Resources */,
@@ -2689,19 +2915,21 @@
 				77EA75971C2412C100C9187C /* soft_00015.jpg in Resources */,
 				77F66B4F1A27387700053991 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				77F66B551A27387700053991 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
+				0E895E1921A6B4FE003F0794 /* AuditGroupAll_sept18.plist in Resources */,
 				372EBF601A38D5F100810964 /* privacy-policy.html in Resources */,
 				77EA757D1C2412C100C9187C /* alcoholic_00009.jpg in Resources */,
 				77F66B561A27387700053991 /* NotificationButtonBackground.png in Resources */,
+				0E895E1621A6A61D003F0794 /* README_dev.md in Resources */,
 				372EBF661A38D64F00810964 /* good-goal-setting.html in Resources */,
 				8301295219B75EC00058AB0E /* Demographics.plist in Resources */,
 				77CCFA5E1C1891D10049062D /* retraining-mind.html in Resources */,
 				77F66B4E1A27387700053991 /* NotificationBackgroundSuccess.png in Resources */,
 				77EA75841C2412C100C9187C /* alcoholic_00016.jpg in Resources */,
+				0E895E1A21A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist in Resources */,
 				77EA759A1C2412C100C9187C /* soft_00018.jpg in Resources */,
 				77EA75831C2412C100C9187C /* alcoholic_00015.jpg in Resources */,
 				77EA75781C2412C100C9187C /* alcoholic_00004.jpg in Resources */,
 				4F8754F61CB29C0100FD37B3 /* PXTipView.xib in Resources */,
-				378FB9CE1B3D38F200C55DE8 /* GoogleService-Info.plist in Resources */,
 				77076B061A0D539C007F616F /* PXQuantityControl.xib in Resources */,
 				379924771A398F600031B09F /* action-plans-high.html in Resources */,
 				77EA757B1C2412C100C9187C /* alcoholic_00007.jpg in Resources */,
@@ -2710,12 +2938,11 @@
 				77683FFC1AE1077400556E34 /* AlcoholEffects.plist in Resources */,
 				77EA75981C2412C100C9187C /* soft_00016.jpg in Resources */,
 				2AC0C32F19E7F18200960F96 /* References.html in Resources */,
-				4F41C7091CBB8F0500BC27F8 /* FollowUpQuestions.plist in Resources */,
 				77EA75761C2412C100C9187C /* alcoholic_00002.jpg in Resources */,
 				77EA75911C2412C100C9187C /* soft_00009.jpg in Resources */,
-				37CABEF91A80F70A007DCE2A /* FollowUp.storyboard in Resources */,
 				77F66B571A27387700053991 /* NotificationButtonBackground@2x.png in Resources */,
 				777D2BFA1A273A910070E45D /* PXMessageDesign.json in Resources */,
+				0E16D31D239AB7570051E2B6 /* mrt-terms.html in Resources */,
 				77EA75861C2412C100C9187C /* alcoholic_00018.jpg in Resources */,
 				82F54F9419FE743500457AC5 /* PXPreSurveyView.xib in Resources */,
 				77230F3619DC015F003E4DFA /* LowAvFeedback.numbers in Resources */,
@@ -2731,43 +2958,19 @@
 				77979A291A38A956002BB77D /* PXRateView.xib in Resources */,
 				77D607941BEBDAC00094EFBF /* Help.storyboard in Resources */,
 				77979A4B1A3A1851002BB77D /* PXFlipView.xib in Resources */,
-				374D61DD1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist in Resources */,
 				37ECEF3E19B47C63006046F3 /* AuditQuestions.plist in Resources */,
+				0EF86491233CF1220095EC57 /* Explainers.storyboard in Resources */,
 				77979A3A1A39B453002BB77D /* Flipsides.plist in Resources */,
 				777D2BFC1A2744B20070E45D /* DrinkSuccess.wav in Resources */,
-				770751F31C11C457005954B9 /* ProgressMenu.plist in Resources */,
 				77CCFA631C19A17E0049062D /* audit-feedback-intro.html in Resources */,
 				77EA758E1C2412C100C9187C /* soft_00006.jpg in Resources */,
 				8323405319B8727800304F6E /* PXYearList.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		373CF13419B0B68000825F60 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				374D61DE1A8A4DF6000AA09F /* OneMonthFollowUpQuestions.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6C65FB2E6203660845BF96D0 /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinklessTests/Pods-drinklessTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7506131C80C605095E1D8E19 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2781,117 +2984,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7FE9263E26798A0350514367 /* üì¶ Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "üì¶ Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinklessTests/Pods-drinklessTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		82343303334CC79CDE0FEDF1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-drinklessTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		86B46726452D4E992B6B2826 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-drinkless/Pods-drinkless-resources.sh",
-				"${PODS_ROOT}/Parse/Parse/Resources/en.lproj",
-				"${PODS_ROOT}/iRate/iRate/iRate.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iRate.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinkless/Pods-drinkless-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		91E1F694B5B212CBA790B265 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinklessTests/Pods-drinklessTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A61024531DD73400002E44D5 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#PP\n\"${PODS_ROOT}/Fabric/run\" 86082ddbb826b1a6397cc5b98158e63801635f7b 15963c8d4feff2e679cd918fbdbc28032d640ccdac66fd9d95278c716511b2ce\n#AC\n#\"${PODS_ROOT}/Fabric/run\" 67d16c38fa6fe821fda3876f7bfc0b5ad7197bdb f1e74ee3d8549885f908e93302d8085766f7db373dd8bb9c613cb38e40b07de0";
-		};
-		C635D111B786B1CB75622461 /* 📦 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CF08F1BC3ACF3DAADFAB3849 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinkless/Pods-drinkless-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DDC815AED020E713EC3E3C9F /* [CP] Check Pods Manifest.lock */ = {
@@ -2912,34 +3004,30 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E9F582E6593651FCCE2BC206 /* üì¶ Check Pods Manifest.lock */ = {
+		FA0E3FA86508BE2F7DC56456 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-drinkless/Pods-drinkless-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AttributedTextView/AttributedTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CorePlot/CorePlot.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/iRate/iRate.framework",
 			);
-			name = "üì¶ Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AttributedTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CorePlot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iRate.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		F114920302C3A2E1BB847236 /* üì¶ Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "üì¶ Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinklessTests/Pods-drinklessTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinkless/Pods-drinkless-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2952,32 +3040,48 @@
 				771E95181C206CFC008CD125 /* PXHomeNavigationController.m in Sources */,
 				77D418D91A151B1000617EDB /* PXGroupedTableView.m in Sources */,
 				A650C5AB1F56B8540078C9E3 /* DLFloatingDebugVC.m in Sources */,
-				770751F11C11C2BD005954B9 /* PXProgressCell.m in Sources */,
+				770751F11C11C2BD005954B9 /* PXActivitiesCell.m in Sources */,
+				0E3C6F1D2228273000E88896 /* CoreDataExt.swift in Sources */,
 				771B36D31AEEA2D800F3E7B3 /* PXGoalReasonCell.m in Sources */,
+				0E54B31D21628C850082BD34 /* GroupData.swift in Sources */,
 				77C0823B1A8D2A86000B4B69 /* PXAlcoholFreeRecord+Extras.m in Sources */,
+				0E127770216F605E00373754 /* AuditHistoryViewAuditAnswersVC.swift in Sources */,
 				77D418CE1A14F3E300617EDB /* PXDateStepControl.m in Sources */,
 				7704EA1A1A119A3500052D89 /* PXDrinkType.m in Sources */,
-				37A761F81A96442C00099ECF /* PXSliderCell.m in Sources */,
 				77683FFA1AE02F5200556E34 /* UITextView+HTML.m in Sources */,
+				0E7CB6C92226EF4200AB8811 /* MyPlanRecord+CoreDataProperties.swift in Sources */,
 				822FBF581A09324B00FDE74C /* PXDailyTaskManager.m in Sources */,
+				0E7CE4DE222E850F00AEB65E /* PlanTemplate.swift in Sources */,
+				0E21445C234E15A900913820 /* InsightsSectionVCBase.swift in Sources */,
+				0E771EB6223688CE00FEC5DF /* DrinkingCues.swift in Sources */,
 				77979A241A389D3B002BB77D /* PXIntroHelpfulViewController.m in Sources */,
+				0EF585B42226A1E400C7426D /* TimeZonedModelAbstract.swift in Sources */,
 				77E3B7C319E284E9006FCC80 /* PXTutorialView.m in Sources */,
 				77EA75451C232BE800C9187C /* PXInfoViewController.m in Sources */,
+				0E64988922343414009B733F /* YourDrinkingCuesEditVC.swift in Sources */,
+				0E127771216F6AAF00373754 /* ReviewAuditTableViewController.m in Sources */,
 				3796C53F19B0DDCB0026D038 /* AuditResultsViewController.m in Sources */,
 				77F66AD41A269BB200053991 /* PXDashedBackgroundView.m in Sources */,
+				0E5D6C7C2174AEA70005E45B /* UIKitExt.swift in Sources */,
 				77DBE3811C1728EB00759FA1 /* PXTrackerCalendarViewController.m in Sources */,
-				7704EA5C1A12551A00052D89 /* PXDrinkingDiaryViewController.m in Sources */,
+				7704EA5C1A12551A00052D89 /* PXDrinkRecordListVC.m in Sources */,
+				0EDD3BD1215CE06C00464F00 /* AuditData.swift in Sources */,
+				0E849C6F216B8307009235D9 /* UsesTimeZonedDate.swift in Sources */,
 				77A233CF1A8CC437006F6190 /* PXCalendarViewController.m in Sources */,
 				77CCFA611C199C610049062D /* PXWebViewController.m in Sources */,
 				77AD64B71A837F91006D446B /* PXGoalReflections.m in Sources */,
 				77EA75B71C28477600C9187C /* PXWeekTitleView.m in Sources */,
+				0E9D8F0F2327AD720094BBC2 /* UserNotificationsExt.swift in Sources */,
+				0E6FFB23215D193F00A2B6A3 /* VCInjector.swift in Sources */,
 				77AD64B01A827BED006D446B /* PXGoal.m in Sources */,
 				8393202519D9627700F39FC6 /* PXIdentityMemoReminderVC.m in Sources */,
 				77DFDC5C19DEF6DA00DB2515 /* PXCardTutorialViewController.m in Sources */,
 				3737E0871A386EC4009A10C5 /* PXRiskTakingInstructionsVC.m in Sources */,
 				77CCFA6F1C19EA850049062D /* PXAuditFeedback.m in Sources */,
+				0E54B31B216289890082BD34 /* UsesGroupData.swift in Sources */,
 				77A2339D1A85233D006F6190 /* PXAllStatistics.m in Sources */,
 				4F17CBE11CBFB4C70022C2D3 /* PXDeviceUID.m in Sources */,
+				0E649887223433EB009B733F /* YourDrinkingCuesIntroVC.swift in Sources */,
 				774671F51B025EFE0085167F /* PXListView.m in Sources */,
 				779227FB1A40655C00326CA1 /* PXEditActionPlanViewController.m in Sources */,
 				77076AF61A0CE469007F616F /* PXRecordCell.m in Sources */,
@@ -2991,6 +3095,8 @@
 				77EEBD5C1A94D03200CB3115 /* PXGroupsManager.m in Sources */,
 				77CF795B19D056AF00C7509B /* PXLowGroupAuditViewController.m in Sources */,
 				772481FD1A7A8ACF008E513A /* PXFormatter.m in Sources */,
+				0EE93E4B234618C800975C87 /* InsightsSectionView.swift in Sources */,
+				0E849C6C216B60E6009235D9 /* AuditHistoryTableView.swift in Sources */,
 				373CF12619B0B68000825F60 /* AppDelegate.m in Sources */,
 				8243464119FE5949001F95BB /* PXSurveyTVC.m in Sources */,
 				77076AE01A0A8606007F616F /* PXDrinkOptionCell.m in Sources */,
@@ -2999,24 +3105,30 @@
 				776B819719C98D8F0055481C /* PXConsentViewController.m in Sources */,
 				772481DF1A77F74B008E513A /* PXEditGoalViewController.m in Sources */,
 				771E950B1C203765008CD125 /* PXTrackedViewController.m in Sources */,
-				4F41C70F1CBBD04300BC27F8 /* PXFollowUpManager.m in Sources */,
 				37DED4C21A7D3BDB006378E7 /* PXHowAlcoholEffectsViewController.m in Sources */,
+				0E6644C82226D75E00118283 /* CalendarDate.swift in Sources */,
 				774671E81B0113D80085167F /* PXHelpViewController.m in Sources */,
 				777F57351AFCDE9B003A7003 /* UIViewController+RecordMemo.m in Sources */,
 				A6A6C8742087B08F00A60AAE /* NSDateComponents+DrinkLess.m in Sources */,
 				77F66AC71A25FF8700053991 /* PXHorizontalPagingLayout.m in Sources */,
 				77CF795619D0566900C7509B /* PXHighGroupAuditViewController.m in Sources */,
 				774F003619D5A9F600CD13B6 /* PXEstimateViewController.m in Sources */,
+				0E16D319239AA06A0051E2B6 /* WebVCBase.swift in Sources */,
 				775CE8051C2B10C5002B59F5 /* PXStatisticsView.m in Sources */,
+				0E214458234DF9EC00913820 /* InsightsLastWeekSectionVC.swift in Sources */,
 				77A233BE1A8B8651006F6190 /* PXCardGameLog.m in Sources */,
+				0E3D071A23210AC600F4A0D2 /* MRTNotificationsManager.swift in Sources */,
 				4FCD696B1CB2BA68001E7390 /* PXCustomView.m in Sources */,
 				83B48CFF19BDFD94003C1BAD /* PXTabBarController.m in Sources */,
+				0E6BE5F5216E04C9006217E4 /* Log.swift in Sources */,
 				77CF796319D06FC600C7509B /* PXAuditFeedbackViewController.m in Sources */,
 				82F54F9719FE75FE00457AC5 /* PXPreSurveyView.m in Sources */,
 				771E951D1C2070D7008CD125 /* PXStepGuideCell.m in Sources */,
+				0E59D9E5233BBC6F001F4F01 /* DashboardExplainer.swift in Sources */,
 				37CABF081A810A83007DCE2A /* FXForms.m in Sources */,
 				7712CFF11A4ACD4700D6064C /* PXPiePlot.m in Sources */,
 				77CE66BD1A418CC300059ACC /* PXActionPlanCell.m in Sources */,
+				0E59D9E3233BBAA0001F4F01 /* ExplainerOverlayBase.swift in Sources */,
 				8320716019D435AD00F5AD04 /* PXCalendarDateButton.m in Sources */,
 				83B48CD019BDB849003C1BAD /* PXIntroNavigationController.m in Sources */,
 				77CE66C81A422B1300059ACC /* PXArrowView.m in Sources */,
@@ -3025,19 +3137,24 @@
 				373CF12319B0B68000825F60 /* main.m in Sources */,
 				77F66AC41A2551FE00053991 /* PXIntrinsicTextField.m in Sources */,
 				77CE673B1A44DE5B00059ACC /* PXRiskTakingViewController.m in Sources */,
+				0E54B3172162832E0082BD34 /* DemographicData.swift in Sources */,
 				77076AB41A0A430F007F616F /* PXTrackerPanelViewController.m in Sources */,
 				77F66B5B1A27387700053991 /* TSMessage.m in Sources */,
 				77979A351A39B267002BB77D /* PXFlipsidesIntroViewController.m in Sources */,
+				0E19F3ED2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m in Sources */,
 				8243464919FE5E77001F95BB /* PXSurveyTextField.m in Sources */,
 				77979A541A3B4FF1002BB77D /* PXConfigureFlipsidesViewController.m in Sources */,
-				770751ED1C11A8D3005954B9 /* PXProgressViewController.m in Sources */,
+				770751ED1C11A8D3005954B9 /* PXActivitiesViewController.m in Sources */,
 				772A7D8A19D4493C00670548 /* PXInfographicView.m in Sources */,
 				777D2BF61A2739810070E45D /* HexColor.m in Sources */,
+				0EC15C4E21A4406E00E0DB82 /* DataServer.swift in Sources */,
 				77AF88F71A16782900A4F8D3 /* PXDrinkLogCell.m in Sources */,
 				77AE53FE1AF3B64C0011D1CA /* PXPlot.m in Sources */,
 				77EA75BA1C286BF700C9187C /* PXWeekDrinkCell.m in Sources */,
 				8323405D19B8753300304F6E /* FPPopoverView.m in Sources */,
+				0E61FF79222811580000F3C8 /* CustomPlanTemplate.swift in Sources */,
 				8393202A19D96A8000F39FC6 /* PXMemoManager.m in Sources */,
+				0E7CE4DA222D469E00AEB65E /* SystemPlanTemplate.swift in Sources */,
 				77E1CEB919F4FA7C0057D54A /* PXProgressStepsView.m in Sources */,
 				77CE67231A44688800059ACC /* PXMoodDiary.m in Sources */,
 				77EEBD541A94935C00CB3115 /* PXGoalsHeader.m in Sources */,
@@ -3050,14 +3167,19 @@
 				779228051A406DD200326CA1 /* PXYourActionPlansViewController.m in Sources */,
 				774C8A5F1A8243C1003292DA /* PXGoalReflectionsViewController.m in Sources */,
 				778CA4261AA0D88C003A90B1 /* PXGamePreferences.m in Sources */,
+				0E3FA28A2259300400A9D291 /* DateTimeProviders.swift in Sources */,
 				7714E0671A9896A400C66AE9 /* PXIntroManager.m in Sources */,
 				77076AD01A0A762A007F616F /* PXCoreDataManager.m in Sources */,
+				0E71E90822282EE300D2D953 /* CustomPlanTemplate+CoreDataProperties.swift in Sources */,
+				0EB26F9722329C4A00BAD9AF /* NotificationsDelegate.swift in Sources */,
+				0EA40B20215A95C8002B64FA /* AlertManager.swift in Sources */,
 				7714E05B1A963BA400C66AE9 /* PXTaskCell.m in Sources */,
 				772FDBE21A3F125E009A1B69 /* PXPlaceholderTextViewRenamed.m in Sources */,
+				0E5D6C782174A6A10005E45B /* Migrations.swift in Sources */,
 				772481D51A77DD81008E513A /* PXYourGoalsViewController.m in Sources */,
 				77076B091A0D54DF007F616F /* PXQuantityControl.m in Sources */,
 				77EEBD171A92536900CB3115 /* PXUnitGuideCell.m in Sources */,
-				77CCFA6C1C19E98F0049062D /* PXAuditCalculator.m in Sources */,
+				77CCFA6C1C19E98F0049062D /* PXAuditFeedbackHelper.m in Sources */,
 				771E95261C209213008CD125 /* PXStepGuide.m in Sources */,
 				37A14F6319B0D5B500EA9F1E /* AuditQuestionsTableViewController.m in Sources */,
 				77D418DB1A151B1000617EDB /* PXBackgroundView.m in Sources */,
@@ -3065,9 +3187,9 @@
 				77E81CEF1A7F878C0031B15A /* PXBarPlot.m in Sources */,
 				7715CBB41A30AF1D00CCE570 /* PXUserIdentity.m in Sources */,
 				776B819119C9882D0055481C /* PXAppearance.m in Sources */,
-				7704E9EE1A1137C900052D89 /* DrinkLess.xcdatamodeld in Sources */,
 				77C5346A1B03B85E00CF7466 /* PXDiaryReminderViewController.m in Sources */,
 				779EE68B1AA5E8A600C31326 /* PXTimeCalculator.m in Sources */,
+				0E7159A32367057A004A5C35 /* InsightsAverageWeekSectionVC.swift in Sources */,
 				77BA1BC91AE54E0E00C820FD /* PXDrinkAddition.m in Sources */,
 				7712CFD91A49FDBB00D6064C /* PXGoalProgressViewController.m in Sources */,
 				83A0AEA819DAEA7E00DF6718 /* PXMemo.m in Sources */,
@@ -3089,7 +3211,9 @@
 				77AF88FE1A168A7D00A4F8D3 /* PXPlaceholderViewRenamed.m in Sources */,
 				77BA1BC61AE54E0E00C820FD /* PXDrinkRecord.m in Sources */,
 				7718AEC319DD7F4C00604EE9 /* PXDeskView.m in Sources */,
+				0E9F9927216653490084BDED /* AuditHistoryOverviewVC.swift in Sources */,
 				77F66B5C1A27387700053991 /* TSMessageView.m in Sources */,
+				0E16D31B239AADCA0051E2B6 /* MRTTermsVC.swift in Sources */,
 				77E1CEBE19F4FC2F0057D54A /* PXStepView.m in Sources */,
 				77A233991A851F69006F6190 /* PXAllStatisticsViewController.m in Sources */,
 				77979A491A3A10EA002BB77D /* PXFlipsideCell.m in Sources */,
@@ -3097,7 +3221,9 @@
 				77076AE61A0A9653007F616F /* PXTabButton.m in Sources */,
 				771514E719CC8C7500E353C8 /* AngleGradientLayer.m in Sources */,
 				7715CE881A35D59800CCE570 /* PXDashboardViewController.m in Sources */,
+				0E96FBD323A8E2D300A6294F /* InsightsGraphHostingView.swift in Sources */,
 				77DFDC6419DF092100DB2515 /* PXInstructionViewController.m in Sources */,
+				0E04CDB921665EC7006F15D6 /* Config.swift in Sources */,
 				77E81D3E1A80ED7E0031B15A /* PXAlcoholEffects.m in Sources */,
 				77C082351A8CFE67000B4B69 /* PXAlcoholFreeRecord.m in Sources */,
 				771E95081C1F5751008CD125 /* PXWeekSummary.m in Sources */,
@@ -3111,6 +3237,8 @@
 				772481F71A795581008E513A /* PXGoal+Extras.m in Sources */,
 				7712CFD31A49E09100D6064C /* PXGoalCalculator.m in Sources */,
 				8393202D19D96E0400F39FC6 /* PXMemoReminder.m in Sources */,
+				0E21445A234E015B00913820 /* DrinkStatistics.swift in Sources */,
+				0E61FF7E22281C1B0000F3C8 /* PlanCell.swift in Sources */,
 				8243464619FE5C17001F95BB /* PXSurveyQuestionCell.m in Sources */,
 				779228081A406EED00326CA1 /* PXActionPlanView.m in Sources */,
 				777F57391AFD0768003A7003 /* PXImageStore.m in Sources */,
@@ -3120,24 +3248,29 @@
 				77A233AC1A8B62A9006F6190 /* PXCardResultsViewController.m in Sources */,
 				772FDBE71A3F4657009A1B69 /* PXConfigureFlipsideCell.m in Sources */,
 				83B48CEF19BDE5AB003C1BAD /* PXSectionNavTableVC.m in Sources */,
+				0E6713EF23841BBF00DDE32C /* InsightsLifetimeSectionVC.swift in Sources */,
 				77E81D421A8101490031B15A /* PXAlcoholEffectViewController.m in Sources */,
+				0E7CB6CB2226EF5000AB8811 /* MyPlanRecord.swift in Sources */,
 				77CE672B1A4468AB00059ACC /* PXUserMoodDiaries.m in Sources */,
 				771E95291C209359008CD125 /* PXStep.m in Sources */,
 				83B48CCD19BDB03F003C1BAD /* PXProgressToolbar.m in Sources */,
+				0EE93E49234612C200975C87 /* InsightsVC.swift in Sources */,
 				77EA75B11C28470E00C9187C /* PXWeekFiguresView.m in Sources */,
 				77A233C11A8B920E006F6190 /* PXRiskGameLog.m in Sources */,
 				77CE673C1A44DE5B00059ACC /* PXBalloonView.m in Sources */,
-				777F42701AA499130060C04A /* PXReviewAuditViewController.m in Sources */,
+				0E6BE5F3216E00BF006217E4 /* Debug.swift in Sources */,
+				777F42701AA499130060C04A /* PXAuditHistoryViewAuditVC.m in Sources */,
 				A650C5AE1F56BC8F0078C9E3 /* DLDebugger.m in Sources */,
 				77EA75BD1C29707500C9187C /* PXLinkCell.m in Sources */,
 				77F8F5361A2DD6D200C3D737 /* PXIdentityIntroViewController.m in Sources */,
 				779227FF1A4069E200326CA1 /* PXActionPlansViewController.m in Sources */,
-				4F41C70C1CBB9EA100BC27F8 /* FollowUpTableViewController.m in Sources */,
 				77979A3D1A39B661002BB77D /* PXUserFlipsides.m in Sources */,
 				8320711D19D404AE00F5AD04 /* PXCalendarView.m in Sources */,
 				771B36D01AEE7C0100F3E7B3 /* PXQuickLinks.m in Sources */,
 				779EE6941AA622CD00C31326 /* PXRadialProgressLayer.m in Sources */,
+				0E61FF6E2227FC330000F3C8 /* TabBarCalendarNavVC.swift in Sources */,
 				77C369F519D2C10A00356CA6 /* PXPeopleView.m in Sources */,
+				0E2DD98D21625F1B00DDFA74 /* AuditDataMO.swift in Sources */,
 				773F3B971BEBC311002D66BB /* PXMoodDiaryHeader.m in Sources */,
 				77076AC41A0A543B007F616F /* PXSeparatorView.m in Sources */,
 				83F43FA819BF203A00853E50 /* PXItemListVC.m in Sources */,
@@ -3158,43 +3291,31 @@
 				77EA75AB1C28467400C9187C /* PXWeekAlcoholFreeView.m in Sources */,
 				7715CBD71A31FF5600CCE570 /* PXExampleCell.m in Sources */,
 				8323405E19B8753300304F6E /* FPTouchView.m in Sources */,
+				0E61FF70222802710000F3C8 /* MakePlanVC.swift in Sources */,
+				0EDB7C232368C650007308BE /* InsightsAverageWeekGraphView.m in Sources */,
 				3799247F1A39A0AB0031B09F /* PXTipsViewController.m in Sources */,
 				7712CFDE1A4A4DF600D6064C /* PXGoalAnalysisViewController.m in Sources */,
 				77AD64BC1A83DAD5006D446B /* PXMoodDiaryViewController.m in Sources */,
 				7715CBC41A3133F100CCE570 /* PXIdentityExampleViewController.m in Sources */,
 				7715CBD41A31D4D500CCE570 /* PXContradictionCell.m in Sources */,
-				37F397781A828DFA00D9C91F /* ReviewAuditTableViewController.m in Sources */,
 				772F496219D9633A004EA816 /* PXDividerView.m in Sources */,
 				4F17CBE41CBFE62B0022C2D3 /* UIViewController+PXHelpers.m in Sources */,
 				77CF796619D07ECB00C7509B /* PXInfographicViewController.m in Sources */,
+				0E058D2F2270ACB4000D03E3 /* Migration_9500.swift in Sources */,
 				8323405C19B8753300304F6E /* FPPopoverController.m in Sources */,
 				77979A4E1A3B4732002BB77D /* PXFlipside.m in Sources */,
 				77979A441A3A0C52002BB77D /* PXFlipView.m in Sources */,
+				0EF8CA552226EC2500687007 /* DrinkLess.xcdatamodeld in Sources */,
 				77979A2C1A38A9C4002BB77D /* PXRateView.m in Sources */,
-				37A77D0A1A8A425E00AA373D /* OneMonthFollowUpTableViewController.m in Sources */,
+				0E5D6C7A2174AE670005E45B /* FoundationExt.swift in Sources */,
 				8301295519B76E7D0058AB0E /* PXTextEntryCell.m in Sources */,
 				772F496719D9666E004EA816 /* PXEstimateCell.m in Sources */,
+				0E5D6C762174A5F40005E45B /* Migration_9400.swift in Sources */,
 				7715CBC11A31302000CCE570 /* PXIdentityContradictionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		373CF13219B0B68000825F60 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				373CF13D19B0B68000825F60 /* Drink_LessTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		373CF13819B0B68000825F60 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 373CF11C19B0B68000825F60 /* drinkless */;
-			targetProxy = 373CF13719B0B68000825F60 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		373CF12D19B0B68000825F60 /* Main.storyboard */ = {
@@ -3257,7 +3378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "e94583c2-1e91-4db8-9b9f-f80e90308d80";
@@ -3307,7 +3428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "fe287874-ac40-4ab6-a8a8-5dfe10530ecc";
 				SDKROOT = iphoneos;
@@ -3321,9 +3442,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y542T8R9RB;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Drink Less/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -3331,6 +3454,9 @@
 				PRODUCT_NAME = drinkless;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Drink Less/drinkless-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3341,9 +3467,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y542T8R9RB;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Drink Less/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -3351,51 +3479,9 @@
 				PRODUCT_NAME = drinkless;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Drink Less/drinkless-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		373CF14419B0B68000825F60 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C0CDB71130F78E7CF5EF9ABD /* Pods-drinklessTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Drink LessTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.portablepixels.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = drinklessTests;
-				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drinkless.app/drinkless";
-			};
-			name = Debug;
-		};
-		373CF14519B0B68000825F60 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 397BF017A0D80D57EF934206 /* Pods-drinklessTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Drink LessTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.portablepixels.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = drinklessTests;
-				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drinkless.app/drinkless";
 			};
 			name = Release;
 		};
@@ -3420,21 +3506,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		373CF14319B0B68000825F60 /* Build configuration list for PBXNativeTarget "drinklessTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				373CF14419B0B68000825F60 /* Debug */,
-				373CF14519B0B68000825F60 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
 		7704E9EC1A1137C900052D89 /* DrinkLess.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0EDEBC6B222599C50063CCB4 /* DrinkLess 16.xcdatamodel */,
+				0E33367321C1299F0071D35E /* DrinkLess 15.xcdatamodel */,
+				0E1F408721BFD37200358E2A /* DrinkLess 14.xcdatamodel */,
+				0EDD3BD2215CF91000464F00 /* DrinkLess 13.xcdatamodel */,
 				A62658EF208F6FC200424788 /* DrinkLess 12.xcdatamodel */,
 				771E95021C1ED884008CD125 /* DrinkLess 11.xcdatamodel */,
 				778F84401B00D2C800F3E8EB /* DrinkLess 10.xcdatamodel */,
@@ -3448,7 +3529,7 @@
 				77F66AB01A24D97600053991 /* DrinkLess 2.xcdatamodel */,
 				7704E9ED1A1137C900052D89 /* DrinkLess.xcdatamodel */,
 			);
-			currentVersion = A62658EF208F6FC200424788 /* DrinkLess 12.xcdatamodel */;
+			currentVersion = 0EDEBC6B222599C50063CCB4 /* DrinkLess 16.xcdatamodel */;
 			path = DrinkLess.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

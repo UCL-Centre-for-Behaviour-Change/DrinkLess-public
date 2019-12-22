@@ -9,7 +9,8 @@
 
 #import "PXAlcoholEffectViewController.h"
 #import "PXBarPlot.h"
-#import <CorePlot-CocoaTouch.h>
+#import "PXAllStatistics.h"
+#import "CorePlot-CocoaTouch.h"
 #import "UITextView+HTML.h"
 
 @interface PXAlcoholEffectViewController ()
@@ -26,7 +27,7 @@
 @implementation PXAlcoholEffectViewController
 
 - (instancetype)initWithEffectType:(PXAlcoholEffectType)effectType {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Progress" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"PXAlcoholEffectVC"];
     if (self) {
         _effectType = effectType;
@@ -57,7 +58,7 @@
     NSNumber *effectAfterNotDrinking = alcoholEffects.afterNotDrinking[@(self.effectType)];
     self.barPlot.plotData = @[@{@"x": @0,
                                 @"y": effectAfterNotDrinking,
-                                PXTitleKey: @"No/light drinking days",
+                                PXTitleKey: @"Light or no drinking days",
                                 PXPlotIdentifier:@(1)},
                               @{@"x": @1,
                                 @"y": effectAfterDrinking,
@@ -65,8 +66,8 @@
                                 PXPlotIdentifier:@(2)}
                               ];
     
-    [self.barPlot setXTitle:nil yTitle:@"Units" xKey:@"x" yKey:@"y" minYValue:0.0 maxYValue:10.0 goalValue:0.0 displayAsPercentage:NO axisTypeX:PXAxisTypeTitle showLegend:NO];
-    
+    [self.barPlot setXTitle:nil yTitle:@"Score" xKey:@"x" yKey:@"y" minYValue:0.0 maxYValue:10.0 goalValue:0.0 consumptionType:PXConsumptionTypeMoodScore showLegend:NO];
+
     self.barPlot.plots = @[@{PXPlotIdentifier:@(1), PXColorKey: [UIColor drinkLessGreenColor]}, @{PXPlotIdentifier:@(2), PXColorKey: [UIColor goalRedColor]}];
     
     NSDictionary *effects = alcoholEffects.information[self.effectType];

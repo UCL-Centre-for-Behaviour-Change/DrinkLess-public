@@ -3,13 +3,13 @@
 //  drinkless
 //
 //  Created by Hari Karam Singh on 30/08/2017.
-//  Copyright © 2017 Greg Plumbly. All rights reserved.
+//  Copyright © 2017 UCL. All rights reserved.
 //
 
 #import "DLDebugger.h"
 #import "PXDebug.h"
 
-#if ENABLE_TIME_DEBUG_PANEL
+//#if ENABLE_TIME_DEBUG_PANEL
 
 @implementation DLDebugger
 {
@@ -88,7 +88,6 @@
     // Set new time zone
     self.timeZoneName = tzs[idx];
     [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithName:tzs[idx]]];
-
 }
 
 //---------------------------------------------------------------------
@@ -99,4 +98,4 @@
 
 @end
 
-#endif 
+//#endif

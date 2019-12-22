@@ -12,6 +12,7 @@
 #import "PXFlipside.h"
 #import "PXEditFlipsideViewController.h"
 #import "PXConfigureFlipsideCell.h"
+#import "drinkless-Swift.h"
 
 @interface PXConfigureFlipsidesViewController () <PXEditFlipsideViewControllerDelegate>
 
@@ -28,7 +29,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"Configure flipsides"];
+    [DataServer.shared trackScreenView:@"Configure flipsides"];
 }
 
 #pragma mark - UITableViewDataSource

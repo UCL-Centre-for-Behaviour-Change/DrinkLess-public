@@ -12,6 +12,7 @@
 #import "PXPeopleView.h"
 #import "PXAuditFeedback.h"
 #import "PXIntroManager.h"
+#import "drinkless-Swift.h"
 
 static NSUInteger const PXNumberOfPeople = 20;
 
@@ -28,6 +29,10 @@ static NSUInteger const PXNumberOfPeople = 20;
 @property (strong, nonatomic) PXAuditFeedback *feedback;
 @property (nonatomic) CGFloat originalTitleBottom;
 
+@property (nonatomic) BOOL isOnboarding;
+@property (nonatomic, strong) AuditData *auditData;
+@property (nonatomic, strong) DemographicData *demographicData;
+
 @end
 
 @implementation PXInfographicViewController
@@ -36,6 +41,11 @@ static NSUInteger const PXNumberOfPeople = 20;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"infographicVC"];
     if (self) {
+        
+        self.isOnboarding = VCInjector.shared.isOnboarding;
+        self.auditData = VCInjector.shared.workingAuditData;
+        self.demographicData = VCInjector.shared.demographicData;
+        
         if (type == PXGraphicTypeGauge) {
             _gaugeView = [[PXGaugeView alloc] init];
         } else if (type == PXGraphicTypePeople) {
@@ -64,7 +74,7 @@ static NSUInteger const PXNumberOfPeople = 20;
     [self.headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[subview]|" options:0 metrics:nil views:views]];
     [self.headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[subview]|" options:0 metrics:nil views:views]];
     
-    self.groupSegmentedControl.selectedSegmentIndex = PXGroupTypeEveryone;
+    self.groupSegmentedControl.selectedSegmentIndex = GroupTypeEveryone;
     [self changedGroup:nil];
 }
 
@@ -97,29 +107,25 @@ static NSUInteger const PXNumberOfPeople = 20;
 #pragma mark - Actions
 
 - (IBAction)changedGroup:(id)sender {
-    PXGroupType groupType = self.groupSegmentedControl.selectedSegmentIndex;
+    GroupType groupType = self.groupSegmentedControl.selectedSegmentIndex;
     
-    BOOL isDrinkers = groupType == PXGroupTypeDrinkers;
+    BOOL isDrinkers = groupType == GroupTypeDrinkers;
     self.titleLabel.text = isDrinkers ? @"Drinkers includes anyone who has had a drink in the last year, even if that was just one!" : nil;
     self.titleBottomConstraint.constant = isDrinkers ? self.originalTitleBottom : 0.0;
     
-    self.feedback = [self.auditCalculator feedbackWithGroupType:groupType populationType:self.populationType graphicType:self.graphicType];
+    self.feedback = [self.helper feedbackWithAuditData:self.auditData groupType:groupType populationType:self.populationType graphicType:self.graphicType];
     
-    [self setActualAnswersGroupType:groupType populationType:self.populationType graphicType:self.graphicType];
-    
-    if ([PXIntroManager sharedManager].actualAnswers.allKeys.count == 0) {
-        NSLog(@"[PARSE] WARNING, empty actualAnswers");
-    }
+//    [self setActualAnswersGroupType:groupType populationType:self.populationType graphicType:self.graphicType];
     
     self.explanationLabel.text = self.feedback.text;
     
     if (self.graphicType == PXGraphicTypePeople) {
-        self.peopleView.genderType = (self.populationType == PXPopulationTypeCountry) ? PXGenderTypeNone : self.auditCalculator.genderType;
-        self.peopleView.percentileColors = self.auditCalculator.percentileColors;
+        self.peopleView.genderType = (self.populationType == PopulationTypeCountry) ? GenderTypeNone : self.demographicData.gender;
+        self.peopleView.percentileColors = self.helper.percentileColors;
     } else {
         self.gaugeView.estimate = self.feedback.estimate;
-        self.gaugeView.percentileColors = self.auditCalculator.percentileColors;
-        self.gaugeView.percentileZones = self.auditCalculator.percentileGaugeZones;
+        self.gaugeView.percentileColors = self.helper.percentileColors;
+        self.gaugeView.percentileZones = self.helper.percentileGaugeZones;
     }
     
     if (sender == self.groupSegmentedControl) {
@@ -131,25 +137,25 @@ static NSUInteger const PXNumberOfPeople = 20;
     }
 }
 
-- (void)setActualAnswersGroupType:(PXGroupType)groupType populationType:(PXPopulationType)populationType graphicType:(PXGraphicType)graphicType {
-    
-    PXIntroManager *introManager = [PXIntroManager sharedManager];
-
-    double everyOnepercentile = [self.auditCalculator percentileForScore:introManager.auditScore groupType:PXGroupTypeEveryone populationType:populationType cutOffBelowAverage:YES];
-    double drinkersPercentile = [self.auditCalculator percentileForScore:introManager.auditScore groupType:PXGroupTypeDrinkers populationType:populationType cutOffBelowAverage:YES];
-    
-    NSString *everyOneDemographicKey, *drinkersDemographicKey;
-    
-    if (populationType == PXPopulationTypeAgeGender) {
-        everyOneDemographicKey = [NSString stringWithFormat:@"%@:actual", self.auditCalculator.demographicKey];
-        drinkersDemographicKey = [NSString stringWithFormat:@"%@:actualDrinkersAnswer", self.auditCalculator.demographicKey];
-    } else {
-        everyOneDemographicKey = @"all-UK:actual";
-        drinkersDemographicKey = @"all-UK:actualDrinkersAnswer";
-    }
-    
-    [introManager.actualAnswers setObject:@(everyOnepercentile) forKey:everyOneDemographicKey];
-    [introManager.actualAnswers setObject:@(drinkersPercentile) forKey:drinkersDemographicKey];
-}
+//- (void)setActualAnswersGroupType:(GroupType)groupType populationType:(PopulationType)populationType graphicType:(PXGraphicType)graphicType {
+//
+//    PXIntroManager *introManager = [PXIntroManager sharedManager];
+//
+//    double everyOnepercentile = [self.helper percentileForScore:introManager.auditScore groupType:PXGroupTypeEveryone populationType:populationType cutOffBelowAverage:YES];
+//    double drinkersPercentile = [self.helper percentileForScore:introManager.auditScore groupType:PXGroupTypeDrinkers populationType:populationType cutOffBelowAverage:YES];
+//
+//    NSString *everyOneDemographicKey, *drinkersDemographicKey;
+//
+//    if (populationType == PXPopulationTypeAgeGender) {
+//        everyOneDemographicKey = [NSString stringWithFormat:@"%@:actual", self.helper.demographicKey];
+//        drinkersDemographicKey = [NSString stringWithFormat:@"%@:actualDrinkersAnswer", self.helper.demographicKey];
+//    } else {
+//        everyOneDemographicKey = @"all-UK:actual";
+//        drinkersDemographicKey = @"all-UK:actualDrinkersAnswer";
+//    }
+//
+//    [introManager.actualAnswers setObject:@(everyOnepercentile) forKey:everyOneDemographicKey];
+//    [introManager.actualAnswers setObject:@(drinkersPercentile) forKey:drinkersDemographicKey];
+//}
 
 @end

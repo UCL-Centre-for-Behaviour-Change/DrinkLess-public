@@ -8,7 +8,7 @@
 //
 
 #import "PXGamePreferences.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 
 static NSString *const PXThankNoThanksRulesKey = @"thankNoThanksRules";
 static NSString *const PXLandscape = @"landscape";
@@ -23,9 +23,8 @@ static NSString *const PXPortrait = @"portrait";
         [userDefaults setObject:@(pushTall) forKey:PXThankNoThanksRulesKey];
         [userDefaults synchronize];
         
-        PFUser *currentUser = [PFUser currentUser];
-        currentUser[PXThankNoThanksRulesKey] = pushTall ? @"pushTall-pullWide" : @"pushWide-pushTall";
-        [currentUser saveInBackground];
+        [DataServer.shared saveUserParameters:@{PXThankNoThanksRulesKey: pushTall ? @"pushTall-pullWide" : @"pushWide-pushTall"} callback:nil];
+        
         return pushTall;
     }
     return [[userDefaults objectForKey:PXThankNoThanksRulesKey] boolValue];
@@ -34,9 +33,16 @@ static NSString *const PXPortrait = @"portrait";
 + (NSString *)pushOrientation {
     return [self isPushTall] ? PXPortrait : PXLandscape;
 }
++ (NSString *)pushParenthetical {
+    return [self isPushTall] ? @"(long and thin)" : @"(short and wide)";
+}
 
 + (NSString *)pullOrientation {
     return [self isPushTall] ? PXLandscape : PXPortrait;
 }
++ (NSString *)pullParenthetical {
+    return ![self isPushTall] ? @"(long and thin)" : @"(short and wide)";
+}
+
 
 @end

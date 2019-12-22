@@ -3,7 +3,7 @@
 //  drinkless
 //
 //  Created by Hari Karam Singh on 18/04/2018.
-//  Copyright © 2018 Greg Plumbly. All rights reserved.
+//  Copyright © 2018 UCL. All rights reserved.
 //
 
 #import "NSDateComponents+DrinkLess.h"

@@ -13,6 +13,7 @@
 #import "PXStepGuide.h"
 #import "PXInfoViewController.h"
 #import "PXTipView.h"
+#import "drinkless-Swift.h"
 
 @interface PXCardMenuViewController ()
 
@@ -45,7 +46,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [PXTrackedViewController trackScreenName:@"Card menu"];
+    [DataServer.shared trackScreenView:@"Card menu"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

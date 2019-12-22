@@ -14,5 +14,6 @@
 + (BOOL)isPushTall;
 + (NSString *)pushOrientation;
 + (NSString *)pullOrientation;
-
++ (NSString *)pushParenthetical;
++ (NSString *)pullParenthetical;
 @end

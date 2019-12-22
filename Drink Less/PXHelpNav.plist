@@ -15,7 +15,7 @@
 			</dict>
 			<dict>
 				<key>title</key>
-				<string>Can’t stop drinking?</string>
+				<string>For more support...</string>
 				<key>resource</key>
 				<string>cant-stop-drinking</string>
 			</dict>
@@ -34,9 +34,15 @@
 			</dict>
 			<dict>
 				<key>title</key>
-				<string>Enable Sounds</string>
+				<string>Enable sounds</string>
 				<key>identifier</key>
 				<string>enable-sounds</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Enable textured colours</string>
+				<key>identifier</key>
+				<string>enable-textured-colours</string>
 			</dict>
 		</array>
 	</dict>

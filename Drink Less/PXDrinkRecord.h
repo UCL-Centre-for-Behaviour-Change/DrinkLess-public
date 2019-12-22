@@ -12,7 +12,7 @@
 
 @class PXDrink;
 
-@interface PXDrinkRecord : NSManagedObject
+@interface PXDrinkRecord : NSManagedObject 
 
 @property (nonatomic, retain) NSNumber * abv;
 @property (nonatomic, retain) NSDate * date;

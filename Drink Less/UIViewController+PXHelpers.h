@@ -12,5 +12,6 @@
 @interface UIViewController (PXHelpers)
 
 - (void)checkAndShowTipIfNeeded;
+- (void)checkAndShowPrivacyPolicyIfNeedsAcknowledgement;
 
 @end

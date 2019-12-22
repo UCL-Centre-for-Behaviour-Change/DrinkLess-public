@@ -13,6 +13,7 @@
 
 @interface PXEditGoalViewController : UITableViewController
 
-@property (strong, nonatomic) PXGoal *refenceGoal;
+@property (strong, nonatomic) PXGoal *referenceGoal;
+@property (nonatomic) BOOL isOnboarding;
 
 @end

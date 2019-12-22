@@ -4,21 +4,11 @@
 <array>
 	<dict>
 		<key>iconName</key>
-		<string>icon_menu_hangover</string>
+		<string>dashboard-help-icon</string>
 		<key>title</key>
-		<string>Your hangover and you</string>
+		<string>Help</string>
 		<key>identifier</key>
-		<string>alcohol-effects</string>
-		<key>group</key>
-		<string>highSM</string>
-	</dict>
-	<dict>
-		<key>iconName</key>
-		<string>icon_menu_calendar</string>
-		<key>title</key>
-		<string>Your drinking calendar</string>
-		<key>identifier</key>
-		<string>calendar</string>
+		<string>help</string>
 	</dict>
 	<dict>
 		<key>iconName</key>

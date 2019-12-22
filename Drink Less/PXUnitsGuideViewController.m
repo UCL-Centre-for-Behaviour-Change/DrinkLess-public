@@ -41,18 +41,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    // returns the same tracker you created in your app delegate
-    // defaultTracker originally declared in AppDelegate.m
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:@"Units guide"];
-    
-    // manual screen tracking
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 #pragma mark - Properties
@@ -90,6 +78,7 @@
     cell.imageView.image = [UIImage imageNamed:drinkRecord.iconName];
     cell.nameLabel.text = drinkRecord.drink.name;
     cell.sizeLabel.text = drinkRecord.serving.name;
+    cell.caloriesLabel.text = [NSString stringWithFormat:@"Calories %.0f", drinkRecord.totalCalories.floatValue];
     cell.abvLabel.text = [NSString stringWithFormat:@"ABV %.01f%%", drinkRecord.abv.floatValue];
     cell.unitsValueLabel.text = [self.numberFormatter stringFromNumber:drinkRecord.totalUnits];
     cell.unitsTitleLabel.text = (drinkRecord.totalUnits.floatValue == 1.0) ? @"unit" : @"units";

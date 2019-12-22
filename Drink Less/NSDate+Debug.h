@@ -3,7 +3,7 @@
 //  drinkless
 //
 //  Created by Hari Karam Singh on 30/08/2017.
-//  Copyright © 2017 Greg Plumbly. All rights reserved.
+//  Copyright © 2017 UCL. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

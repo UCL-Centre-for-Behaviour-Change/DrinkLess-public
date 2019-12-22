@@ -8,12 +8,12 @@
 //
 
 #import "PXCardGameLog.h"
-#import <Parse/Parse.h>
+#import "drinkless-Swift.h"
 
 static NSString *const PXDateKey = @"date";
 static NSString *const PXSuccessesKey = @"successes";
 static NSString *const PXErrorsKey = @"errors";
-static NSString *const PXScoreKey = @"score";
+static NSString *const PXGameScoreKey = @"score";
 
 static NSInteger const PXSuccessValue = 1;
 static NSInteger const PXErrorValue = -2;
@@ -45,14 +45,14 @@ static NSInteger const PXErrorValue = -2;
 
 #pragma mark - Parse
 
-- (void)saveToParse {
-    PFObject *object = [PFObject objectWithClassName:NSStringFromClass(self.class)];
-    object[@"user"] = [PFUser currentUser];
-    object[PXDateKey] = self.date;
-    object[PXSuccessesKey] = self.successes;
-    object[PXErrorsKey] = self.errors;
-    object[PXScoreKey] = self.score;
-    [object saveEventually];
+- (void)saveToServer {
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    params[PXDateKey] = self.date;
+    params[PXSuccessesKey] = self.successes;
+    params[PXErrorsKey] = self.errors;
+    params[PXGameScoreKey] = self.score;
+    
+    [DataServer.shared saveDataObjectWithClassName:NSStringFromClass(self.class) objectId:nil isUser:YES params:params ensureSave:YES callback:nil];
 }
 
 #pragma mark - NSCoding

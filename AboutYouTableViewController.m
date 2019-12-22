@@ -15,12 +15,9 @@
 #import "PXGroupsManager.h"
 #import "PXSolidButton.h"
 #import "PXDeviceUID.h"
-#import <Parse/Parse.h>
 #import <Apptimize/Apptimize.h>
-#import <Google/Analytics.h>
 #import "PXWebViewController.h"
-//#import "PXInfoViewController.h"
-
+#import "drinkless-Swift.h"
 
 static NSInteger const PXEmailAlert = 23;
 static NSInteger const PXGroupQueryErrorAlert = 24;
@@ -28,17 +25,22 @@ static NSInteger const PXEmailSuggestAlert = 25;
 
 @interface AboutYouTableViewController () <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 
+@property (nonatomic, strong) UINavigationController *navVC;
 @property (strong, nonatomic) NSMutableArray *questionsArray;
 @property (strong, nonatomic) FPPopoverController *yearPopover;
 @property (strong, nonatomic) PXIntroManager *introManager;
 @property (nonatomic, getter = shouldSendEmail) BOOL sendsEmail;
 @property (weak, nonatomic) IBOutlet PXSolidButton *continueButton;
 @property (nonatomic, assign) BOOL isEmailAlertShown;
+
+@property (nonatomic) BOOL isOnboarding;
+@property (nonatomic, strong) DemographicData *demographicData;
+@property (nonatomic, strong) AuditData *auditData;
+
 @end
 
 @implementation AboutYouTableViewController
 {
-    UINavigationController *_navVC;
 }
 
 - (void)viewDidLoad {
@@ -49,6 +51,13 @@ static NSInteger const PXEmailSuggestAlert = 25;
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"Demographics" ofType:@"plist"];
     self.questionsArray = [NSMutableArray arrayWithContentsOfFile:filepath];
     self.introManager = [PXIntroManager sharedManager];
+    self.demographicData = VCInjector.shared.demographicData;
+    self.auditData = VCInjector.shared.workingAuditData;
+    self.isOnboarding = VCInjector.shared.isOnboarding;
+
+    // Sanity check:
+    NSAssert(self.isOnboarding, @"This VC should only exist in an Onboarding context!");
+    
     
 //    NSString *optionalAnswerKey = @"email"; // Allows email to be optional
 //    if (!self.introManager.demographicsAnswers[optionalAnswerKey]) {
@@ -64,12 +73,23 @@ static NSInteger const PXEmailSuggestAlert = 25;
         // Variant "Alert and then send email"
         self.sendsEmail = YES;
     }}];
+    
+#if DEBUG
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_autoselect)];
+    gr.numberOfTapsRequired = 3;
+    [self.view addGestureRecognizer:gr];
+#endif
 }
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [PXTrackedViewController trackScreenName:@"About you questions"];
+    [DataServer.shared trackScreenView:@"About you questions"];
+    
+    if (Debug.ENABLED && Debug.ONBOARDING_STEP_THROUGH_TO != nil && ![Debug.ONBOARDING_STEP_THROUGH_TO isEqualToString:@"about-you"]) {
+        [self _autoselect];
+    }
 }
 
 - (void)showYearsListAtIndexPath:(NSIndexPath*)indexPath{
@@ -78,7 +98,7 @@ static NSInteger const PXEmailSuggestAlert = 25;
     PXYearList* yearListVC = [[PXYearList alloc] initWithNibName:@"PXYearList" bundle:nil];
     yearListVC.delegate = self;
     yearListVC.cellIndexPath = indexPath;
-    yearListVC.selectedYear = [self.introManager.demographicsAnswers[questionDict[@"questionID"]] integerValue];
+    yearListVC.selectedYear = [(NSNumber *)[self.demographicData answerWithQuestionId:questionDict[@"questionID"]] integerValue];
     
     self.yearPopover = [[FPPopoverController alloc] initWithViewController:yearListVC];
     self.yearPopover.border = NO;
@@ -93,7 +113,7 @@ static NSInteger const PXEmailSuggestAlert = 25;
 - (IBAction)pressedContinue:(id)sender {
     [self.view endEditing:YES];
     
-    if (self.introManager.demographicsAnswers.count < self.questionsArray.count) {
+    if (self.demographicData.answerCount < self.questionsArray.count) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Please answer all the questions" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
         return;
@@ -109,19 +129,18 @@ static NSInteger const PXEmailSuggestAlert = 25;
 //        self.isEmailAlertShown = YES;
 //        return;
 //    }
-    
+
+    // Note we've been forcing group0 for a while now
     // Check if they conform to the criteria for a group and query from Parse: https://github.com/PortablePixels/DrinkLess/issues/183
     // Some preliminary info needed for the checks
-    NSInteger auditScore = self.introManager.auditScore.integerValue;
-    NSDate *now = [NSDate date];
-    NSInteger currentYear = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:now];
-    NSInteger age = currentYear - [self.introManager.demographicsAnswers[@"question1"] integerValue];
-    BOOL isUK = [self.introManager.demographicsAnswers[@"question5"] isEqual:@0];
-    
-    BOOL isSerious = [self.introManager.demographicsAnswers[@"question9"] isEqual:@0];
-    
+//    NSInteger auditScore = self.auditData.auditScore;
+//    NSDate *now = [NSDate date];
+//    NSInteger currentYear = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:now];
+//    NSInteger age = currentYear - [self.demographicData answerWithQuestionId:@"question1"].integerValue;
+//    BOOL isUK = [[self.demographicData answerWithQuestionId:@"question5"] isEqual:@0];
+//    BOOL isSerious = [[self.demographicData answerWithQuestionId:@"question9"] isEqual:@0];
+//
     // Note: technically age is 18+ but we only have their year so it would include 17.x year olds too
-    
     /*if (auditScore >= 8 &&
         age >= 19// &&
         //isUK &&   // no longer asked
@@ -182,16 +201,13 @@ static NSInteger const PXEmailSuggestAlert = 25;
 
 - (void)acknowledgeStageCompletion {
     
+    // Save the demographic info if updated during the a follow up audit, but not the onboarding stage
+    NSAssert(self.isOnboarding, @"Should only be on AboutYouVC if onboarding");
     self.introManager.stage = PXIntroStageSlider;
-    [self.introManager save];
+    [self.introManager save];  // hks note: if we want to save the group id then
+    [self.demographicData saveWithLocalOnly:NO];
     
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"button_press"     // Event category (required)
-                                                          action:@"continue_and_confirm_on_about_you_questions"  // Event action (required)
-                                                           label:@"continue"          // Event label
-                                                           value:nil] build]];    // Event value
-    
+ 
     
     //UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PXIntroVC3"];
     //[self.navigationController pushViewController:vc animated:YES];
@@ -267,7 +283,8 @@ static NSInteger const PXEmailSuggestAlert = 25;
         NSArray* answers = questionDict[@"answers"];
         cell.textLabel.text = answers[indexPath.row];
         
-        NSNumber* selected = self.introManager.demographicsAnswers[questionDict[@"questionID"]];
+        NSNumber* selected = (NSNumber *)[self.demographicData answerWithQuestionId:questionDict[@"questionID"]];
+//        self.introManager.demographicsAnswers[questionDict[@"questionID"]];
         if (selected) {
             if (indexPath.row == selected.integerValue) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -278,7 +295,8 @@ static NSInteger const PXEmailSuggestAlert = 25;
         
     } else if ([questionType isEqualToString:@"yearEntry"]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YearCell" forIndexPath:indexPath];
-        NSInteger year = [self.introManager.demographicsAnswers[questionDict[@"questionID"]] integerValue];
+        NSInteger year = ((NSNumber *)[self.demographicData answerWithQuestionId:questionDict[@"questionID"]]).integerValue;
+        //[self.introManager.demographicsAnswers[questionDict[@"questionID"]] integerValue];
         if (year == 0 ) {
             cell.textLabel.text = @"Tap to select";
         } else {
@@ -288,7 +306,7 @@ static NSInteger const PXEmailSuggestAlert = 25;
         
     } else {
         NSString *cellIdentifier = nil;
-        BOOL emailEntry;
+        BOOL emailEntry = NO;
         
         if ([questionType isEqualToString:@"textEntry"]) {
             cellIdentifier = @"TextEntryCell";
@@ -302,7 +320,8 @@ static NSInteger const PXEmailSuggestAlert = 25;
         cell.textField.placeholder = questionDict[@"placeholder"];
         cell.textField.delegate = self;
         cell.textField.tag = indexPath.section;
-        cell.textField.text = self.introManager.demographicsAnswers[questionDict[@"questionID"]];
+        cell.textField.text = ((NSNumber *)[self.demographicData answerWithQuestionId:questionDict[@"questionID"]]).stringValue;
+//        self.introManager.demographicsAnswers[questionDict[@"questionID"]];
         
         cell.textField.userInteractionEnabled = !(emailEntry && self.shouldSendEmail);
         cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -338,7 +357,8 @@ static NSInteger const PXEmailSuggestAlert = 25;
     } else if ([questionType isEqualToString:@"option"]) {
         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [self.introManager.demographicsAnswers setObject:@(indexPath.row) forKey:questionDict[@"questionID"]];
+        [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:@(indexPath.row)];
+        //[self.introManager.demographicsAnswers setObject:@(indexPath.row) forKey:questionDict[@"questionID"]];
         [self.tableView reloadData];
     }
 }
@@ -370,7 +390,7 @@ static NSInteger const PXEmailSuggestAlert = 25;
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
         [mail setSubject:@"Drinkless Demographics"];
-        NSString *msgBody = [NSString stringWithFormat:@"It's really important for us to understand whether this app helps you to drink less. And because you might stop using the app, the best way for us to contact you is by email.\n\nIf you give us your email address we'll be in touch in a month with a few questions that should take about two minutes to complete and you’ll be entered into a draw to win a £500 voucher.\n\nWe will only email you about this study and will never give or sell your email address to anyone else.\n\nThank you for helping science.\n\nDavid Crane\nClaire Garnett\nSusan Michie (Principal Investigator)\n\nID:%@\niOS version:%@", [PFUser currentUser].objectId, [UIDevice currentDevice].systemVersion];
+        NSString *msgBody = [NSString stringWithFormat:@"It's really important for us to understand whether this app helps you to drink less. And because you might stop using the app, the best way for us to contact you is by email.\n\nIf you give us your email address we'll be in touch in a month with a few questions that should take about two minutes to complete and you’ll be entered into a draw to win a £500 voucher.\n\nWe will only email you about this study and will never give or sell your email address to anyone else.\n\nThank you for helping science.\n\nDavid Crane\nClaire Garnett\nSusan Michie (Principal Investigator)\n\nID:%@\niOS version:%@", [DataServer.shared userId], [UIDevice currentDevice].systemVersion];
         [mail setMessageBody:msgBody isHTML:NO];
         [mail setToRecipients:@[@"followup@drinklessalcohol.org"]];
         [self presentViewController:mail animated:YES completion:NULL];
@@ -409,15 +429,19 @@ static NSInteger const PXEmailSuggestAlert = 25;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+//    NSAssert(NO, @"Not obsolete after all...!);
+//    return;
     NSDictionary* questionDict = self.questionsArray[textField.tag];
-    [self.introManager.demographicsAnswers setObject:textField.text forKey:questionDict[@"questionID"]];
+    [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:textField.text];
+//    [self.introManager.demographicsAnswers setObject:textField.text forKey:questionDict[@"questionID"]];
 }
 
 #pragma mark PXYearListDelegate methods
 
 - (void)yearList:(PXYearList *)dateList chosenYear:(NSInteger)year {
     NSDictionary* questionDict = self.questionsArray[dateList.cellIndexPath.section];
-    [self.introManager.demographicsAnswers setObject:@(year) forKey:questionDict[@"questionID"]];
+    [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:@(year)];
+//    [self.introManager.demographicsAnswers setObject:@(year) forKey:questionDict[@"questionID"]];
     
     UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:dateList.cellIndexPath];
     cell.textLabel.text = [NSString stringWithFormat:@"%li", (long)year];
@@ -446,10 +470,55 @@ static NSInteger const PXEmailSuggestAlert = 25;
 }
 
 - (void)dismissTermsConditions {
-    [_navVC dismissViewControllerAnimated:YES completion:^{
-        _navVC = nil;
+    __weak AboutYouTableViewController *wself = self;
+    [self.navVC dismissViewControllerAnimated:YES completion:^{
+        wself.navVC = nil;
     }];
 }
 
+//---------------------------------------------------------------------
+
+// for quick debugging
+- (void)_autoselect
+{
+    NSDictionary *questionDict;
+    NSIndexPath *idxp;
+    
+    // Gender
+    questionDict = self.questionsArray[0];
+    [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:@(1)];
+    idxp = [NSIndexPath indexPathForItem:0 inSection:0];
+    [self tableView:self.tableView didSelectRowAtIndexPath:idxp];
+
+    
+    // b year
+    questionDict = self.questionsArray[1];
+    [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:@(1979)];
+    
+    // country
+    questionDict = self.questionsArray[2];
+    [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:@(0)];
+    idxp = [NSIndexPath indexPathForItem:0 inSection:2];
+    [self tableView:self.tableView didSelectRowAtIndexPath:idxp];
+
+    // job
+    questionDict = self.questionsArray[3];
+    [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:@(0)];
+    idxp = [NSIndexPath indexPathForItem:0 inSection:3];
+    [self tableView:self.tableView didSelectRowAtIndexPath:idxp];
+
+    
+    // why using app
+    questionDict = self.questionsArray[4];
+    [self.demographicData setAnswerWithQuestionId:questionDict[@"questionID"] answerValue:@(0)];
+    idxp = [NSIndexPath indexPathForItem:0 inSection:4];
+    [self tableView:self.tableView didSelectRowAtIndexPath:idxp];
+
+    [self.tableView scrollToRowAtIndexPath:idxp atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    if (Debug.ENABLED && Debug.ONBOARDING_STEP_THROUGH_TO != nil && ![Debug.ONBOARDING_STEP_THROUGH_TO isEqualToString:@"about-you"]) {
+        [self pressedContinue:nil];
+    }
+}
 
 @end

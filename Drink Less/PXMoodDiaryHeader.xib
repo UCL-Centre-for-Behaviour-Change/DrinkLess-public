@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PXMoodDiaryHeader">
@@ -19,14 +23,14 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="It looks like you've already completed your diary today" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efs-Q1-VUZ" customClass="PXIntrinsicLabel">
                     <rect key="frame" x="15" y="15" width="290" height="38.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" white="0.33000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.33000001311302185" green="0.33000001311302185" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="goal-hit" translatesAutoresizingMaskIntoConstraints="NO" id="ls6-3H-Rpy">
-                    <rect key="frame" x="0.0" y="68" width="320" height="124"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goal-hit" translatesAutoresizingMaskIntoConstraints="NO" id="ls6-3H-Rpy">
+                    <rect key="frame" x="0.0" y="68.5" width="320" height="124"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="efs-Q1-VUZ" firstAttribute="top" secondItem="FVG-U7-HPS" secondAttribute="top" constant="15" id="69K-Hf-gtx"/>
                 <constraint firstAttribute="trailing" secondItem="efs-Q1-VUZ" secondAttribute="trailing" constant="15" id="7n9-q2-4ch"/>
@@ -45,14 +49,14 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-c2-DNT" customClass="PXIntrinsicLabel">
-                    <rect key="frame" x="15" y="15" width="290" height="153"/>
-                    <string key="text">These questions may help you gain greater understanding of the effects of alcohol. Your scores on heavy drinking days are compared against light/no-drinking days and displayed on the “Your hangover and you” screen. Try to answer them at the same time each day.</string>
+                    <rect key="frame" x="15" y="15" width="290" height="115"/>
+                    <string key="text">These questions may help you gain greater understanding of the effects of alcohol. Your scores on heavy drinking days are compared against light/no-drinking days and displayed on the “Your hangover and you” screen.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" white="0.33000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.33000001311302185" green="0.33000001311302185" blue="0.33000001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qXZ-c2-DNT" secondAttribute="bottom" constant="15" id="8zf-sl-a0N"/>
                 <constraint firstItem="qXZ-c2-DNT" firstAttribute="top" secondItem="dR8-w4-HMQ" secondAttribute="top" constant="15" id="Df6-6l-Dgn"/>

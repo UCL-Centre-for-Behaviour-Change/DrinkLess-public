@@ -14,12 +14,13 @@
 #import "PXBarPlot.h"
 #import "PXPiePlot.h"
 #import "PXFormatter.h"
-#import <CorePlot-CocoaTouch.h>
+#import "CorePlot-CocoaTouch.h"
 #import "UITextView+HTML.h"
 #import "PXDashboardViewController.h"
 #import "PXYourGoalsViewController.h"
 #import "PXListView.h"
 #import "PXTabBarController.h"
+#import "PXAllStatistics.h"
 
 @interface PXGoalAnalysisViewController () <UITextViewDelegate>
 
@@ -125,7 +126,7 @@
         }
         NSDate *toDate = data[PXToDateKey];
         // go back one day as we want the top bounds to be inclusive
-        toDate = [toDate dateByAddingTimeInterval:-24*3600];
+        toDate = [NSDate previousDayFromDate:toDate];
         NSString *dateString = [self.dateFormatter stringFromDate:toDate];
         self.listView.titleLabel.text = [NSString stringWithFormat:@"Last ended:\n%@:", goal.goalTypeTitle];
         self.listView.textLabel.text = [NSString stringWithFormat:@"%@\n%@", dateString, consumption];
@@ -164,7 +165,8 @@
         CGFloat targetMax = goal.targetMax.floatValue;
         NSNumber *maxQuantity = [self.goalStatistics.allData valueForKeyPath:[NSString stringWithFormat:@"@max.%@", yKey]];
         CGFloat maxYValue = MAX(maxQuantity.floatValue, targetMax);
-        [self.barPlot setXTitle:@"Week" yTitle:goal.goalTypeTitle xKey:@"x" yKey:yKey minYValue:0.0 maxYValue:maxYValue goalValue:targetMax displayAsPercentage:NO axisTypeX:PXAxisTypeNumber showLegend:YES];
+//        [self.barPlot setXTitle:@"Week" yTitle:goal.goalTypeTitle xKey:@"x" yKey:yKey minYValue:0.0 maxYValue:maxYValue goalValue:targetMax displayAsPercentage:NO displayAsCurrency:NO axisTypeX:PXAxisTypeNumber showLegend:YES];
+        [self.barPlot setXTitle:@"Week" yTitle:goal.goalTypeTitle xKey:@"x" yKey:yKey minYValue:0.0 maxYValue:maxYValue goalValue:targetMax consumptionType:PXConsumptionTypeGoals showLegend:YES];
         
         BOOL isPlural = self.goalStatistics.allData.count != 1;
         self.explanationTextView.text = [NSString stringWithFormat:@"You’ve hit %.f%% of your goal%@ to %@.", self.goalStatistics.successPercentage, isPlural ? @"s" : @"", self.goalStatistics.goal.title.lowercaseString];
@@ -274,7 +276,7 @@
                 [self.navigationController popViewControllerAnimated:NO];
                 
                 PXTabBarController *tabBarController = (PXTabBarController *)previousViewController.tabBarController;
-                [tabBarController selectTabAtIndex:1 storyboardName:@"Progress" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
+                [tabBarController selectTabAtIndex:1 storyboardName:@"Activities" pushViewControllersWithIdentifiers:@[@"PXGoalsNavTVC", @"PXYourGoalsVC"]];
             }
             else if ([previousViewController isKindOfClass:[PXYourGoalsViewController class]]) {
                 [self.navigationController popViewControllerAnimated:YES];

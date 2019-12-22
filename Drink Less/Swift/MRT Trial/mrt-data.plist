@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Messages</key>
+	<array>
+		<dict>
+			<key>message</key>
+			<string>Tracking your drinks and days you don’t drink can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that tracking your drinks and days you don’t drink can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking your drinks and days you don’t drink can help you drink less. Take a moment to track your drinks or a drink-free day.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Setting a doable goal can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that setting a doable goal can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Setting a doable goal can help you drink less. Take a moment to set a doable goal.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking your mood after drinking and drink-free days can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that tracking your mood after drinking and drink-free days can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking your mood after drinking and drink-free days can help you drink less. Take a moment to track your mood.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking your productivity levels after drinking and drink-free days can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that tracking your productivity levels after drinking and drink-free days can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking your productivity levels after drinking and drink-free days can help you drink less. Take a moment to track your productivity levels.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking your sleep quality after drinking and drink-free days can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that tracking your sleep quality after drinking and drink-free days can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking your sleep quality after drinking and drink-free days can help you drink less. Take a moment to track your sleep quality.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking how clear headed you feel after drinking and drink-free days can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that tracking how clear headed you feel after drinking and drink-free days can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Tracking how clear headed you feel after drinking and drink-free days can help you drink less. Take a moment to track your clear headedness.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Keeping an eye on how your drinking compares with others can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that keeping an eye on how your drinking compares with others can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Keeping an eye on how your drinking compares with others can help you drink less. Take a moment to check how your drinking compares with others.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Recording if-then plans can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that recording if-then plans can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Recording if-then plans can help you drink less. Take a moment to record an if-then plan.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Keeping an eye on which if-then plan has and hasn’t worked can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that keeping an eye on which if-then plan has and hasn’t worked can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Keeping an eye on which if-then plan has and hasn’t worked can help you drink less. Take a moment to check your if-then plans.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Playing the “yes please, no thanks” game can help you drink less.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Did you know that playing the “yes please, no thanks” game can help you drink less?</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+		<dict>
+			<key>message</key>
+			<string>Playing the “yes please, no thanks” game can help you drink less. Take a moment to play the game.</string>
+			<key>actionId</key>
+			<string>add-todays-drinks</string>
+		</dict>
+	</array>
+</dict>
+</plist>

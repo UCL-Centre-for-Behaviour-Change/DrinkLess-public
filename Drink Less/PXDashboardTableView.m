@@ -8,7 +8,7 @@
 //
 
 #import "PXDashboardTableView.h"
-#import <CorePlot-CocoaTouch.h>
+#import "CorePlot-CocoaTouch.h"
 
 @implementation PXDashboardTableView
 
