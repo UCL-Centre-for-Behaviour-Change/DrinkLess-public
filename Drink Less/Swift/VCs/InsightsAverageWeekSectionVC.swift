@@ -73,7 +73,7 @@ class InsightsAverageWeekSectionVC: InsightsSectionVCBase, PXItemListVCDelegate 
     private var timeRangeEnums = [InsightsAverageWeekGraphRange1Month, InsightsAverageWeekGraphRange3Months, InsightsAverageWeekGraphRange6Months, InsightsAverageWeekGraphRange1Year, InsightsAverageWeekGraphRangeLifetime]
     private var timeRangeLabels = ["1 month", "3 months", "6 months", "1 year", "Lifetime"]
     
-    private var timeRangeSelectorPopoverVC:FPPopoverController?
+    private var timeRangeSelectorPopoverVC:PopoverVC?
     
     // Formatters
     private var basicNF = { () -> NumberFormatter in
@@ -112,7 +112,7 @@ class InsightsAverageWeekSectionVC: InsightsSectionVCBase, PXItemListVCDelegate 
         // TIME RANGE LABEL AND DESCR TEXT
         /////////////////////////////////////////
         
-        timeRangeLabel.text = timeRangeLabels[timeRangeEnums.index(of: currentTimeRange)!]
+        timeRangeLabel.text = timeRangeLabels[timeRangeEnums.firstIndex(of: currentTimeRange)!]
         
         // The descriptive text
         var timeText = ""
@@ -124,7 +124,7 @@ class InsightsAverageWeekSectionVC: InsightsSectionVCBase, PXItemListVCDelegate 
             if currentTimeRange == InsightsAverageWeekGraphRange1Year {
                 timeText = "year"  // a little nicer than "over the last 1 year"
             } else {
-                timeText = timeRangeLabels[timeRangeEnums.index(of:currentTimeRange)!]
+                timeText = timeRangeLabels[timeRangeEnums.firstIndex(of:currentTimeRange)!]
             }
             fullText = "In an average week over the last \(timeText) you've…"
         }
@@ -241,8 +241,8 @@ class InsightsAverageWeekSectionVC: InsightsSectionVCBase, PXItemListVCDelegate 
         
         // Get the right slice
         let weeksCnt = self.allStatistics!.weeklySummaries.count
-        let r0 = Int(weeksCnt) - Int(weeksBack)
-        let r1 = Int(weeksCnt) - 1
+        let r0 = Int(weeksCnt) - Int(weeksBack) - 1   // back one more for 0 indexing. remember 1st and last week summ are incomplete.
+        let r1 = Int(weeksCnt) - 1 - 1
         let weekSummsToAverage:Array<PXWeekSummary> = Array(allStatistics!.weeklySummaries[r0...r1]) as! Array<PXWeekSummary>
         // Sum then divide
         for weekSumm in weekSummsToAverage {
@@ -282,12 +282,12 @@ class InsightsAverageWeekSectionVC: InsightsSectionVCBase, PXItemListVCDelegate 
         itemListVC.delegate = self
         
         // Wrap and present it
-        timeRangeSelectorPopoverVC = FPPopoverController(viewController: itemListVC)
-        timeRangeSelectorPopoverVC?.border = false
-        timeRangeSelectorPopoverVC?.tint = FPPopoverPureWhiteTint
-        timeRangeSelectorPopoverVC?.contentSize = CGSize(width: 200, height: 55 * timeRangeLabels.count)
-        timeRangeSelectorPopoverVC?.setShadowsHidden(true)
-        timeRangeSelectorPopoverVC?.presentPopover(from: buttonView)
+        let size = CGSize(width: 200, height: 55 * (timeRangeLabels.count - 1))
+        let r = CGRect(x:0, y:buttonView.frame.origin.y, width:buttonView.frame.size.width, height:buttonView.frame.size.height);
+        
+        timeRangeSelectorPopoverVC = PopoverVC(contentVC: itemListVC, preferredSize: size, sourceView: buttonView, sourceRect: r)
+            
+        present(timeRangeSelectorPopoverVC!, animated: true, completion: nil)
     }
     
     //---------------------------------------------------------------------
@@ -296,6 +296,6 @@ class InsightsAverageWeekSectionVC: InsightsSectionVCBase, PXItemListVCDelegate 
         // Update everything
         currentTimeRange = timeRangeEnums[chosenIndex]
         refresh()
-        timeRangeSelectorPopoverVC?.dismissPopover(animated: true)
+        timeRangeSelectorPopoverVC?.dismiss(animated: true, completion: nil)
     }
 }

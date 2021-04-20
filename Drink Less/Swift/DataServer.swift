@@ -41,31 +41,35 @@ public class DataServer : NSObject {
         //NSLog(@"parse localdatastore enabled=%@", Parse.isLocalDatastoreEnabled?@"YES":@"NO");
         //    [Parse enableLocalDatastore];
         Parse.initialize(with: ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) in
-
-            if Debug.USE_OPENSOURCE_SERVER {
-                // OPEN SOURCE PARSE SERVER
-                configuration.applicationId = "6c2b7d8713595aa45e7f5b98251a6f4a"
-                configuration.server = "https://drinkless-opensource-1394.nodechef.com/parse"
-            } else {
-                // PRODUCTION PARSE SERVER
-                configuration.applicationId = "6c2b7d8713595aa45e7f5b98251a6f4a"
-                configuration.server = "https://drinkless-opensource-1394.nodechef.com/parse"
-            }
-           
+            configuration.applicationId = "[PARSE SERVER APP ID]"
+            configuration.server = "[PARSE SERVER URL]"
             Log.d("Connecting to Parse server \(configuration.server) with appId \(String(describing: configuration.applicationId))")
         }))
         PFUser.enableAutomaticUser()
         PFUser.enableRevocableSessionInBackground()
     }
     
+    
     //---------------------------------------------------------------------
-
+    
     @objc func logError(_ errorClass:String, msg:String, info:[String:Any]?) {
         guard self.isEnabled else { return }
-
+        
         let parseObj = PFObject.init(className: "ErrorLog")
         parseObj["Author"] = PFUser.current()
         parseObj["class"] = errorClass
+        parseObj["msg"] = msg
+        parseObj["info"] = (info != nil) ? String(describing: info) : ""
+        parseObj.saveEventually()
+    }
+    
+    //---------------------------------------------------------------------
+    
+    @objc func logDebug(_ msg:String, info:[String:Any]?) {
+        guard self.isEnabled else { return }
+        
+        let parseObj = PFObject.init(className: "DebugLog")
+        parseObj["Author"] = PFUser.current()
         parseObj["msg"] = msg
         parseObj["info"] = (info != nil) ? String(describing: info) : ""
         parseObj.saveEventually()

@@ -7,17 +7,18 @@
 //  @license See LICENSE.txt
 //
 
+@import StoreKit;
 #import "PXHelpViewController.h"
 #import "PXGroupsManager.h"
 #import "PXWebViewController.h"
-#import "iRate.h"
 #import "drinkless-Swift.h"
 #import "OneMonthFollowUpTableViewController.h"
+#import "drinkless-Swift.h"
 
 static NSInteger const PXOptOutTag = 100;
 static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
 
-@interface PXHelpViewController () <UIActionSheetDelegate>
+@interface PXHelpViewController ()
 
 @property (nonatomic, strong) NSMutableArray *navItemsArray;
 @property (nonatomic, readonly) BOOL isEligibleForSurvey;
@@ -35,17 +36,6 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
     
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"PXHelpNav" ofType:@"plist"];
     self.navItemsArray = [NSMutableArray arrayWithContentsOfFile:filepath];
-    
-    /////////////////////////////////////////
-    // MRT TRIAL
-    /////////////////////////////////////////
-    // For the duration of the trial remove the reminders section
-    if (MRTNotificationsManager.shared.trialIsActivelyRunning) {
-        NSLog(@"MRT -- Removing 'Reminders' section whilst trial is on");
-        NSMutableArray *entry = [(NSArray *)self.navItemsArray[1][@"rows"] mutableCopy];
-        [entry removeObjectAtIndex:0];
-        self.navItemsArray[1][@"rows"] = entry;
-    }
     
     [self removeSurveyIfNeeded];
     [self.tableView reloadData];
@@ -119,7 +109,7 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
     
     if (identifier.length > 0) {
         if ([identifier isEqualToString:@"rate"]) {
-            [[iRate sharedInstance] openRatingsPageInAppStore];
+            [AppRater.shared showRater];
         }
         else if ([identifier isEqualToString:@"questionnaire"]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FollowUp" bundle:nil];
@@ -127,22 +117,26 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
             [self.navigationController pushViewController:followUpVC animated:YES];
         }
         else if ([identifier isEqualToString:@"opt-out"]) {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Please confirm you wish to opt-out of the study"
-                                                                     delegate:self
-                                                            cancelButtonTitle:@"Cancel"
-                                                       destructiveButtonTitle:@"Opt-out"
-                                                            otherButtonTitles:nil, nil];
-            actionSheet.tag = PXOptOutTag;
-            [actionSheet showInView:tableView];
+//            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Please confirm you wish to opt-out of the study"
+//                                                                     delegate:self
+//                                                            cancelButtonTitle:@"Cancel"
+//                                                       destructiveButtonTitle:@"Opt-out"
+//                                                            otherButtonTitles:nil, nil];
+//            actionSheet.tag = PXOptOutTag;
+//            [actionSheet showInView:tableView];
+            
+            [[UIAlertController simpleActionSheetWithTitle:@"Please confirm you wish to opt-out of the study" msg:nil destructiveButtonTitle:@"Opt-out" cancelButtonTitle:@"Cancel" callback:^(BOOL userChoseDestructiveAction) {
+                if (userChoseDestructiveAction) {
+                    [self optOutUpdateParse];
+                }
+            }] showIn:self];
         }
         else if ([identifier isEqualToString:@"reset"]) {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Reset App?"
-                                                                     delegate:self
-                                                            cancelButtonTitle:@"No"
-                                                       destructiveButtonTitle:@"Yes"
-                                                            otherButtonTitles:nil];
-            actionSheet.tag = PXOptOutTag;
-            [actionSheet showInView:tableView];
+            [[UIAlertController simpleActionSheetWithTitle:@"Reset App?" msg:nil destructiveButtonTitle:@"Yes" cancelButtonTitle:@"No" callback:^(BOOL userChoseDestructiveAction) {
+                if (userChoseDestructiveAction) {
+                    [self optOutUpdateParse];
+                }
+            }] showIn:self];
         }
         else if ([identifier isEqualToString:@"enable-sounds"] ||
                  [identifier isEqualToString:@"enable-textured-colours"]) {
@@ -170,19 +164,6 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != actionSheet.cancelButtonIndex) {
-        switch (actionSheet.tag) {
-            case PXOptOutTag:
-                [self optOutUpdateParse];
-                break;
-            default:
-                break;
-        }
-    }
-}
 
 #pragma mark - Navigation
 
@@ -221,22 +202,20 @@ static NSTimeInterval const PXDayTimeInterval = 60 * 60 * 24;
     [DataServer.shared setUserOptOut:YES callback:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"user opted out");
-            [[[UIAlertView alloc] initWithTitle:@"Opt-out successful"
-                                        message:@"You have successfully opted out of the study"
-                                       delegate:nil
-                              cancelButtonTitle:@"Ok"
-                              otherButtonTitles:nil] show];
+            [[UIAlertController simpleAlertWithTitle:@"Opt-out successful"
+                                                msg:@"You have successfully opted out of the study"
+                                          buttonTxt:@"Ok"] showIn:self];
+            
         } else {
-            [[[UIAlertView alloc] initWithTitle:@"An error has occurred."
-                                        message:@"Could not contact the server but your preference has been saved on your device. Would you mind letting support know?"
-                                       delegate:nil
-                              cancelButtonTitle:@"Ok"
-                              otherButtonTitles:nil] show];
+            [[UIAlertController simpleAlertWithTitle:@"An error has occurred."
+                                                 msg:@"Could not contact the server but your preference has been saved on your device. Would you mind letting support know?"
+                                           buttonTxt:@"Ok"] showIn:self];
         }
     }];
     
     AppConfig.userHasOptedOut = YES;
     DataServer.shared.isEnabled = NO;
+    Analytics.shared.userOptedOut = YES;
 }
 
 @end

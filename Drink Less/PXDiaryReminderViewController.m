@@ -50,22 +50,18 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    if (MRTNotificationsManager.shared.trialIsActivelyRunning) {
-        self.toggleSwitch.enabled = NO;
-//        self.toggleSwitch.hidden = true;
-    } else {
-        self.toggleSwitch.enabled = YES;
-        BOOL isReminderOn = self.toggleSwitch.on;
-        NSDate *newReminderDate = self.datePicker.date;
-        BOOL hasChanged = isReminderOn != self.wasReminderOn || ![newReminderDate isEqualToDate:self.oldReminderDate];
-        
-        if (hasChanged) {
-            [self.userDefaults setValue:@(isReminderOn) forKey:PXConsumptionReminderType];
-            [self.userDefaults setValue:newReminderDate forKey:KEY_USERDEFAULTS_REMINDERS_CONSUMPTION_TIME];
-            [self.userDefaults synchronize];
-            [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
-        }
+    self.toggleSwitch.enabled = YES;
+    BOOL isReminderOn = self.toggleSwitch.on;
+    NSDate *newReminderDate = self.datePicker.date;
+    BOOL hasChanged = isReminderOn != self.wasReminderOn || ![newReminderDate isEqualToDate:self.oldReminderDate];
+    
+    if (hasChanged) {
+        [self.userDefaults setValue:@(isReminderOn) forKey:PXConsumptionReminderType];
+        [self.userDefaults setValue:newReminderDate forKey:KEY_USERDEFAULTS_REMINDERS_CONSUMPTION_TIME];
+        [self.userDefaults synchronize];
+        [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
     }
+    
 }
 
 #pragma mark - Action

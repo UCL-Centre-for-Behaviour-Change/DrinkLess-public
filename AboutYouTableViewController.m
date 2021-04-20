@@ -9,13 +9,12 @@
 
 #import "AboutYouTableViewController.h"
 #import "PXTextEntryCell.h"
-#import "FPPopoverController.h"
 #import <MessageUI/MessageUI.h>
 #import "PXIntroManager.h"
 #import "PXGroupsManager.h"
 #import "PXSolidButton.h"
 #import "PXDeviceUID.h"
-#import <Apptimize/Apptimize.h>
+//#import <Apptimize/Apptimize.h>
 #import "PXWebViewController.h"
 #import "drinkless-Swift.h"
 
@@ -23,11 +22,11 @@ static NSInteger const PXEmailAlert = 23;
 static NSInteger const PXGroupQueryErrorAlert = 24;
 static NSInteger const PXEmailSuggestAlert = 25;
 
-@interface AboutYouTableViewController () <UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+@interface AboutYouTableViewController () <MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UINavigationController *navVC;
 @property (strong, nonatomic) NSMutableArray *questionsArray;
-@property (strong, nonatomic) FPPopoverController *yearPopover;
+@property (strong, nonatomic) PopoverVC *yearPopover;
 @property (strong, nonatomic) PXIntroManager *introManager;
 @property (nonatomic, getter = shouldSendEmail) BOOL sendsEmail;
 @property (weak, nonatomic) IBOutlet PXSolidButton *continueButton;
@@ -66,13 +65,13 @@ static NSInteger const PXEmailSuggestAlert = 25;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PXShowProgressToolbar" object:nil userInfo:nil];
     
-    [Apptimize runTest:@"Email address manual entry vs send email" withBaseline:^{
-        // Baseline variant "original"
-        self.sendsEmail = NO;
-    } andVariations:@{@"variation1": ^{
-        // Variant "Alert and then send email"
-        self.sendsEmail = YES;
-    }}];
+//    [Apptimize runTest:@"Email address manual entry vs send email" withBaseline:^{
+//        // Baseline variant "original"
+//        self.sendsEmail = NO;
+//    } andVariations:@{@"variation1": ^{
+//        // Variant "Alert and then send email"
+//        self.sendsEmail = YES;
+//    }}];
     
 #if DEBUG
     UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_autoselect)];
@@ -100,11 +99,11 @@ static NSInteger const PXEmailSuggestAlert = 25;
     yearListVC.cellIndexPath = indexPath;
     yearListVC.selectedYear = [(NSNumber *)[self.demographicData answerWithQuestionId:questionDict[@"questionID"]] integerValue];
     
-    self.yearPopover = [[FPPopoverController alloc] initWithViewController:yearListVC];
-    self.yearPopover.border = NO;
-    self.yearPopover.tint = FPPopoverWhiteTint;
-    self.yearPopover.contentSize = CGSizeMake(120.0, 300.0);
-    [self.yearPopover presentPopoverFromView:cell];
+    self.yearPopover = [[PopoverVC alloc] initWithContentVC:yearListVC preferredSize:CGSizeMake(120, 300) sourceView:cell.contentView sourceRect:cell.contentView.frame];
+
+    [self presentViewController:self.yearPopover animated:YES completion:nil];
+    
+//    [self.yearPopover presentPopoverFromView:cell];
     
     [yearListVC highlightSelectedYear];
 }
@@ -114,8 +113,7 @@ static NSInteger const PXEmailSuggestAlert = 25;
     [self.view endEditing:YES];
     
     if (self.demographicData.answerCount < self.questionsArray.count) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Please answer all the questions" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+        [[UIAlertController simpleAlertWithTitle:nil msg:@"Please answer all the questions" buttonTxt:@"Ok"] showIn:self];
         return;
     }
     
@@ -363,27 +361,33 @@ static NSInteger const PXEmailSuggestAlert = 25;
     }
 }
 
+// Still used??
 - (void)showEmailAlert {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"No need to type your email address, just click Send on the next screen" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    alertView.tag = PXEmailAlert;
-    [alertView show];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"No need to type your email address, just click Send on the next screen" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//    alertView.tag = PXEmailAlert;
+//
+//    [alertView show];
+//
+    
+    [[UIAlertController simpleAlertWithTitle:nil msg:@"No need to type your email address, just click Send on the next screen" buttonTxt:@"Ok" callback:nil] showIn:self];
+    
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == PXEmailAlert) {
-        [self showComposeEmail];
-    } else if (alertView.tag == PXGroupQueryErrorAlert) {
-        [self queryAndSetGroupIDFromParse]; // i.e. retry...
-    }
-    else if (alertView.tag == PXEmailSuggestAlert) {
-        
-        if (buttonIndex == 1) {
-        
-            [self pressedContinue:nil];
-        }
-    }
-
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    if (alertView.tag == PXEmailAlert) {
+//        [self showComposeEmail];
+//    } else if (alertView.tag == PXGroupQueryErrorAlert) {
+//        [self queryAndSetGroupIDFromParse]; // i.e. retry...
+//    }
+//    else if (alertView.tag == PXEmailSuggestAlert) {
+//
+//        if (buttonIndex == 1) {
+//
+//            [self pressedContinue:nil];
+//        }
+//    }
+//
+//}
 
 -(void)showComposeEmail {
     if ([MFMailComposeViewController canSendMail]) {
@@ -446,7 +450,7 @@ static NSInteger const PXEmailSuggestAlert = 25;
     UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:dateList.cellIndexPath];
     cell.textLabel.text = [NSString stringWithFormat:@"%li", (long)year];
     
-    [self.yearPopover dismissPopoverAnimated:YES];
+    [self.yearPopover dismissViewControllerAnimated:YES completion:nil];
 }
 
 /////////////////////////////////////////////////////////////////////////

@@ -18,6 +18,7 @@
 #import "UIViewController+Swipe.h"
 #import "PXCalendarStatistics.h"
 #import "PXInfoViewController.h"
+#import "drinkless-Swift.h"
 
 @interface PXCalendarViewController () <PXCalendarViewDataSourceDelegate>
 
@@ -96,7 +97,15 @@
 
 - (UIColor *)calendarColorForDate:(NSDate *)date {
     PXDayStatus status = [self.calendarStatistics statusForDate:date];
-    if (status == PXDayStatusNoRecords) {
+    
+    // Look for a plan in future dates
+    if ([date timeIntervalSinceNow] >= 0.0) {
+        CalendarDate *cdate = [[CalendarDate alloc] initWithDate:date timeZone:NSCalendar.currentCalendar.timeZone];
+        MyPlanRecord *rec = [MyPlanRecord fetchRecordFor:cdate context:PXCoreDataManager.sharedManager.managedObjectContext];
+        if (rec) {
+            return [UIColor calendarHasPlanColor];
+        }
+    } else if (status == PXDayStatusNoRecords) {
         if (date.timeIntervalSinceNow <= 0.0) {
             return [UIColor colorWithWhite:0.9 alpha:1.0];
         }

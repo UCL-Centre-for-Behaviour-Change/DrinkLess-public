@@ -100,6 +100,9 @@ class InsightsVC: PXTrackedViewController {
         // Resize to the correct size
         updateSectionHeights()
         setNavCollapseIconTo(state: sectionState)
+        
+        PXDailyTaskManager.shared().completeTask(withID:"insights")
+        
     }
     
     //---------------------------------------------------------------------

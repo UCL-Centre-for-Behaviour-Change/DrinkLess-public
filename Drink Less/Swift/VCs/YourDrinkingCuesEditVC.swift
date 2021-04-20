@@ -76,7 +76,7 @@ class YourDrinkingCuesEditVC: PXTrackedViewController, UITableViewDelegate, UITa
     //////////////////////////////////////////////////////////
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return drinkingCues.count
+        return drinkingCues.count + 1  // for add your own
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

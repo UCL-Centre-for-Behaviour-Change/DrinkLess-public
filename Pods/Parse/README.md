@@ -1,63 +1,117 @@
-# Parse SDK for iOS/OS X/watchOS/tvOS
+<p align="center">
+    <img alt="Parse Platform" src="Assets/logo large.png" width="200">
+  </a>
+</p>
 
-![Platforms][platforms-svg]
-[![License][license-svg]][license-link]
+<h2 align="center">Parse SDK for iOS | macOS | watchOS | tvOS</h2>
 
-[![Podspec][podspec-svg]][podspec-link]
-[![Carthage compatible][carthage-svg]](carthage-link)
-[![Dependencies][dependencies-svg]][dependencies-link]
-[![References][references-svg]][references-link]
+<p align="center">
+    A library that gives you access to the powerful Parse Server backend from your iOS or macOS app.
+</p>
 
-[![Build Status][build-status-svg]][build-status-link]
-[![Coverage Status][coverage-status-svg]][coverage-status-link]
+<p align="center">
+    <a href="https://twitter.com/intent/follow?screen_name=parseplatform"><img alt="Follow on Twitter" src="https://img.shields.io/twitter/follow/parseplatform?style=social&label=Follow"></a>
+    <a href="https://github.com/parse-community/Parse-SDK-iOS-OSX/issues/1356"><img alt="Maintenance help wanted" src="https://img.shields.io/badge/maintenance-help%20wanted-red.svg"></a>
+    <img alt="Platforms" src="http://img.shields.io/cocoapods/p/Parse.svg?style=flat">
+    <a href=" https://github.com/parse-community/Parse-SDK-iOS-OSX/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-BSD-lightgrey.svg"></a>
+    <a href="https://cocoapods.org/pods/Parse"><img alt="Podspec" src="https://img.shields.io/cocoapods/v/Parse.svg"></a>
+    <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/parse-server/backers/badge.svg" /></a>
+    <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/parse-server/sponsors/badge.svg" /></a>
+</p>
 
-[![Join Chat][gitter-svg]][gitter-link]
+<p align="center">
+    <a href="https://github.com/carthage/carthage"><img alt="Carthage compatible" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
+    <a href="https://github.com/parse-community/Parse-SDK-iOS-OSX/blob/master/Vendor"><img alt="Dependencies" src="https://img.shields.io/badge/dependencies-2-yellowgreen.svg"></a>
+    <a href="https://github.com/parse-community/Parse-SDK-iOS-OSX/actions?query=workflow%3Aci+branch%3Amaster"><img alt="CI status" src="https://github.com/parse-community/Parse-SDK-iOS-OSX/workflows/ci/badge.svg?branch=master"></a>
+    <a href="https://github.com/parse-community/Parse-SDK-iOS-OSX/actions?query=workflow%3Arelease"><img alt="Release status" src="https://github.com/parse-community/Parse-SDK-iOS-OSX/workflows/release/badge.svg?branch=master"></a>
+    <a href="https://circleci.com/build-insights/gh/parse-community/Parse-SDK-iOS-OSX/master"><img alt="Build status" src="https://circleci.com/gh/parse-community/Parse-SDK-iOS-OSX.svg?style=shield"></a>
+    <a href="https://codecov.io/github/parse-community/Parse-SDK-iOS-OSX?branch=master"><img alt="Coverage status" src="https://img.shields.io/codecov/c/github/parse-community/Parse-SDK-iOS-OSX/master.svg"></a>
+    <a href="https://community.parseplatform.org/"><img alt="Join the conversation" src="https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg"></a>
+</p>
+<br>
 
-A library that gives you access to the powerful Parse cloud platform from your iOS or OS X app.
-For more information Parse and its features, see [the website][parse.com] and [getting started][docs].
+For more information about the Parse Platform and its features, see the public [documentation][docs].
+
+Check out some of the [apps using Parse](https://www.appsight.io/sdk/parse).
 
 ## Getting Started
 
 To use parse, head on over to the [releases][releases] page, and download the latest build.
-And you're off! Take a look at the public [documentation][docs] and start building.
+And you're off!. Take a look at the public [documentation][docs] & [API][api] and start building.
 
-**Other Installation Options**
+Notice the API docs aren't totally up to date when it comes to latest Swift signature of the methods and more importantly regarding [Push Notifications](http://blog.parse.com/learn/engineering/the-dangerous-world-of-client-push/) which are **no longer supported by Parse server**, keep an eye on [its repo](https://github.com/ParsePlatform/parse-server)
 
- - **[CocoaPods](https://cocoapods.org)**
- 
-   Add the following line to your Podfile:
-   ```ruby
-   pod 'Parse'
-   ```
-   Run `pod install`, and you should now have the latest parse release.
-    
-    
- - **[Carthage](https://github.com/carthage/carthage)**
- 
-   Add the following line to your Cartfile:
-   ```
-   github "ParsePlatform/Parse-SDK-iOS-OSX"
-   ```
-   Run `carthage update`, and you should now have the latest version of Parse SDK in your Carthage folder.
+### Other Installation Options
 
- - **Compiling for yourself**
+#### [CocoaPods](https://cocoapods.org)
 
-    If you want to manually compile the SDK, clone it locally, and run the following commands in the root directory of the repository:
+Add the following line to your Podfile:
+```ruby
+pod 'Parse'
+```
 
-        # To pull in extra dependencies (Bolts and OCMock)
-        git submodule update --init --recursive
+Run `pod install`, and you should now have the latest parse release.
 
-        # To install all the gems
-        bundle install
+If you wish to use the Facebook or Twitter utils or ParseUI,
+you can now leverage Cocoapods 'subspecs'
 
-        # Build & Package the Frameworks
-        rake package:frameworks
+```ruby
+pod 'Parse/FacebookUtils'
+pod 'Parse/TwitterUtils'
+pod 'Parse/UI'
+```
 
-    Compiled frameworks will be in 2 archives: `Parse-iOS.zip` and `Parse-OSX.zip` inside the `build/release` folder, and you can link them as you'd please.
+Note that in this case, the Parse framework will contain all headers and classes, so you just have to use:
 
- - **Using Parse as a sub-project**
+```swift
+import Parse
+```
 
-    You can also include parse as a subproject inside of your application if you'd prefer, although we do not recommend this, as it will increase your indexing time significantly. To do so, just drag and drop the Parse.xcodeproj file into your workspace. Note that unit tests will be unavailable if you use Parse like this, as OCMock will be unable to be found.
+```objc
+@import Parse;
+```
+
+#### [Carthage](https://github.com/carthage/carthage)
+
+Add the following line to your Cartfile:
+```
+github "parse-community/Parse-SDK-iOS-OSX"
+```
+Run `carthage update`, and you should now have the latest version of Parse SDK in your Carthage folder.
+
+This will also compile the ParseTwitterUtils, ParseFacebookUtilsV4 as well as ParseUI frameworks.
+
+#### Compiling for yourself
+
+If you want to manually compile the SDK, clone it locally, and run the following commands in the root directory of the repository:
+
+```
+# To pull in extra dependencies (Bolts and OCMock)
+git submodule update --init --recursive
+
+# To install bundler
+gem install bundler
+
+# To install all the gems via bundler
+bundle install
+
+# Build & Package the Frameworks
+bundle exec rake package:frameworks
+```
+
+Compiled frameworks will be in multiple archives inside the `build/release` folder: 
+- `Parse-iOS.zip`
+- `Parse-macOS.zip`
+- `Parse-tvOS.zip`
+- `Parse-watchOS.zip`
+- `ParseFacebookUtils-iOS.zip`
+- `ParseFacebookUtils-tvOS.zip`
+- `ParseTwitterUtils-iOS.zip`
+- `ParseUI.zip`
+
+#### Using Parse as a sub-project
+
+You can also include parse as a subproject inside of your application if you'd prefer, although we do not recommend this, as it will increase your indexing time significantly. To do so, just drag and drop the Parse.xcodeproj file into your workspace. Note that unit tests will be unavailable if you use Parse like this, as OCMock will be unable to be found.
 
 ## How Do I Contribute?
 
@@ -70,59 +124,16 @@ We use the following libraries as dependencies inside of Parse:
  - [Bolts][bolts-framework], for task management.
  - [OCMock][ocmock-framework], for unit testing.
 
-## Other Parse Projects
+ [docs]: http://docs.parseplatform.org/ios/guide/
+ [api]: http://parseplatform.org/Parse-SDK-iOS-OSX/api/
 
- - [ParseUI for iOS][parseui-link]
- - [ParseFacebookUtils for iOS][parsefacebookutils-link]
- - [ParseTwitterUtils for iOS][parsetwitterutils-link]
+ [parseui-link]: https://github.com/parse-community/ParseUI-iOS
 
-## License
-
-```
-Copyright (c) 2015-present, Parse, LLC.
-All rights reserved.
-
-This source code is licensed under the BSD-style license found in the
-LICENSE file in the root directory of this source tree. An additional grant
-of patent rights can be found in the PATENTS file in the same directory.
-```
-
- [parse.com]: https://www.parse.com/products/ios
- [docs]: https://www.parse.com/docs/ios/guide
- [blog]: https://blog.parse.com/
-
- [parseui-link]: https://github.com/ParsePlatform/ParseUI-iOS
- [parsefacebookutils-link]: https://github.com/ParsePlatform/ParseFacebookUtils-iOS
- [parsetwitterutils-link]: https://github.com/ParsePlatform/ParseTwitterUtils-iOS
-
- [releases]: https://github.com/ParsePlatform/Parse-SDK-iOS-OSX/releases
- [contributing]: https://github.com/ParsePlatform/Parse-SDK-iOS-OSX/blob/master/CONTRIBUTING.md
+ [releases]: https://github.com/parse-community/Parse-SDK-iOS-OSX/releases
+ [contributing]: https://github.com/parse-community/Parse-SDK-iOS-OSX/blob/master/CONTRIBUTING.md
 
  [bolts-framework]: https://github.com/BoltsFramework/Bolts-ObjC
  [ocmock-framework]: http://ocmock.org
-
- [build-status-svg]: https://img.shields.io/travis/ParsePlatform/Parse-SDK-iOS-OSX/master.svg
- [build-status-link]: https://travis-ci.org/ParsePlatform/Parse-SDK-iOS-OSX/branches
-
- [coverage-status-svg]: https://img.shields.io/codecov/c/github/ParsePlatform/Parse-SDK-iOS-OSX/master.svg
- [coverage-status-link]: https://codecov.io/github/ParsePlatform/Parse-SDK-iOS-OSX?branch=master
-
- [license-svg]: https://img.shields.io/badge/license-BSD-lightgrey.svg
- [license-link]: https://github.com/ParsePlatform/Parse-SDK-iOS-OSX/blob/master/LICENSE
-
- [podspec-svg]: https://img.shields.io/cocoapods/v/Parse.svg
- [podspec-link]: https://cocoapods.org/pods/Parse
  
- [carthage-svg]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
- [carthage-link]: https://github.com/carthage/carthage
-
- [platforms-svg]: http://img.shields.io/cocoapods/p/Parse.svg?style=flat
-
- [dependencies-svg]: https://img.shields.io/badge/dependencies-2-yellowgreen.svg
- [dependencies-link]: https://github.com/ParsePlatform/Parse-SDK-iOS-OSX/blob/master/Vendor
-
- [references-svg]: https://www.versioneye.com/objective-c/parse/reference_badge.svg
- [references-link]: https://www.versioneye.com/objective-c/parse/references
-
- [gitter-svg]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
- [gitter-link]: https://gitter.im/ParsePlatform/Chat
+ [open-collective-link]: https://opencollective.com/parse-server
+ 

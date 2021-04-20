@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,26 +13,26 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U2b-rN-dOG" id="o7I-2g-Sa5">
-                <rect key="frame" x="0.0" y="0.0" width="286" height="53.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="293" height="54"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cU8-eH-eMp">
-                        <rect key="frame" x="55" y="10" width="231" height="33"/>
+                        <rect key="frame" x="55" y="10" width="239" height="33"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wl-5F-IWw">
-                                <rect key="frame" x="0.0" y="18.5" width="231" height="14.5"/>
+                                <rect key="frame" x="0.0" y="18.5" width="239" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JcP-ng-gYR">
-                                <rect key="frame" x="0.0" y="0.0" width="231" height="17.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="239" height="17.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14.5"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5Wl-5F-IWw" firstAttribute="leading" secondItem="cU8-eH-eMp" secondAttribute="leading" id="9Kn-bP-iky"/>
                             <constraint firstAttribute="bottom" secondItem="5Wl-5F-IWw" secondAttribute="bottom" id="fmC-aR-JFU"/>
@@ -66,6 +64,7 @@
                 <outlet property="subtitleLabel" destination="5Wl-5F-IWw" id="UbE-l1-rWe"/>
                 <outlet property="titleLabel" destination="JcP-ng-gYR" id="fjc-Lk-WcN"/>
             </connections>
+            <point key="canvasLocation" x="139" y="155"/>
         </tableViewCell>
     </objects>
 </document>

@@ -9,7 +9,10 @@
 import UIKit
 import UserNotifications
 
-class MakePlanVC: PXTrackedViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate {
+/**
+ @TODO Move UNNotif stuff to a singleton manager (replacing PXLocalNotif...). See README_dev
+ */
+class MakePlanVC: PXTrackedViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     //////////////////////////////////////////////////////////
     // MARK: - Types & Consts
@@ -75,6 +78,10 @@ class MakePlanVC: PXTrackedViewController, UICollectionViewDelegate, UICollectio
         refreshDataAndView()
         
         screenName = "Make Plan" // for tracking
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {        PXDailyTaskManager.shared().completeTask(withID:"make-plan")
+
     }
     
     //---------------------------------------------------------------------
@@ -224,12 +231,12 @@ class MakePlanVC: PXTrackedViewController, UICollectionViewDelegate, UICollectio
         // VALIDATE
         if reminderSwitch.isOn &&
             reminderTimePicker.date.timeIntervalSinceNow < REMINDER_MINIMUM_FUTURE {
-            AlertManager.shared.showSimpleAlert(title: "Error", msg: "Please ensure the Reminder Time is later today.")
+            UIAlertController.simpleAlert(title: "Error", msg: "Please ensure the Reminder Time is later today.").show(in: self)
             return
         }
         
         guard let selectedIdxPaths = plansColView.indexPathsForSelectedItems, selectedIdxPaths.count > 0 else {
-            AlertManager.shared.showSimpleAlert(title: "Error", msg: "Please select an plan by tapping the icon")
+            UIAlertController.simpleAlert(title: "Error", msg: "Please select an plan by tapping the icon").show(in:self)
             return
         }
         
@@ -313,8 +320,7 @@ class MakePlanVC: PXTrackedViewController, UICollectionViewDelegate, UICollectio
             try! self.context.save()
             self.navigationController?.popViewController(animated: true)
         }
-        
-        self.present(alert, animated: true, completion: nil)
+        alert.show(in: self)
     }
     
     //////////////////////////////////////////////////////////
@@ -359,22 +365,16 @@ class MakePlanVC: PXTrackedViewController, UICollectionViewDelegate, UICollectio
     }
     
     private func promptForAndCreateCustomPlan() {
-        let alert = UIAlertView(title: nil, message: "Enter a short description for your plan (e.g. Go to the park)", delegate: self, cancelButtonTitle: "Cancel")
-        alert.addButton(withTitle: "Ok")
-        alert.alertViewStyle = .plainTextInput
-        alert.show()
-    }
-    
-    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        if buttonIndex == 0 {
-            return
+        let msg = "Enter a short description for your plan (e.g. Go to the park)"
+        let alert = UIAlertController.textPromptAlert(title: nil, message: msg) { (inputText:String?) in
+            if let labelTxt = inputText {
+                self.addCustomPlanTemplate(label: labelTxt)
+            } else {
+                self.promptForAndCreateCustomPlan()
+            }
         }
         
-        if let labelTxt:String = alertView.textField(at: 0)?.text, labelTxt.count > 0 {
-            addCustomPlanTemplate(label: labelTxt)
-        } else {
-            promptForAndCreateCustomPlan()
-        }
+        alert.show(in: self)
     }
     
     //////////////////////////////////////////////////////////

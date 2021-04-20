@@ -15,7 +15,7 @@
     self.textContainer.lineFragmentPadding = 0.0;
     self.textContainerInset = UIEdgeInsetsMake(1.0, 0.0, 1.0, 0.0);
     
-    NSString *style = [NSString stringWithFormat:@"<style>body{color: %@; text-align: %@; font-family: '%@'; font-size: %fpx;}</style>", [self rgbStringFromColor:self.textColor], [self cssTextAlignment], self.font.fontName, self.font.pointSize];
+    NSString *style = [NSString stringWithFormat:@"<style>body{color: %@; text-align: %@; font-family: '%@'; font-size: %fpx;}</style>", [self rgbStringFromColor:self.textColor], [self cssTextAlignment], @"HelveticaNeue" /* self.font.fontName */, self.font.pointSize];
     string = [string stringByAppendingString:style];
     
     self.attributedText = [[NSAttributedString alloc] initWithData:[string dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];

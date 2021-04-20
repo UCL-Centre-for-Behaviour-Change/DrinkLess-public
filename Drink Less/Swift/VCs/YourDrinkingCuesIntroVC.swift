@@ -30,6 +30,7 @@ class YourDrinkingCuesIntroVC: PXTrackedViewController {
         myCuesHeaderLbl.textColor = UIColor.drinkLessGreen()
     }
     
+    
     //---------------------------------------------------------------------
 
     /** Defaults to right side */
@@ -99,7 +100,8 @@ class YourDrinkingCuesIntroVC: PXTrackedViewController {
         } else {
             introText = NSMutableAttributedString(attributedString:(hasCuesIntro
                 .match("plan")
-                .font(UIFont.boldSystemFont(ofSize: fontSize))
+// ios13 bug?                .font(UIFont.systemFont(ofSize: fontSize))
+                .font(UIFont(name: "HelveticaNeue-Bold", size: fontSize)!)
                 .color(UIColor.drinkLessGreen())
                 .underline).attributedText)
             introTextLbl.attributedText = introText
@@ -109,7 +111,8 @@ class YourDrinkingCuesIntroVC: PXTrackedViewController {
             introTextLbl.addGestureRecognizer(gr)
             introTextLbl.isUserInteractionEnabled = true
         }
-
+        
+    PXDailyTaskManager.shared().completeTask(withID:"drinking-cues")
     }
     
     @objc private func handlePlanTapped() {

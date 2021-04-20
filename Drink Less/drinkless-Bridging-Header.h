@@ -14,6 +14,7 @@
 #import "PXTrackedViewController.h"
 #import "PXIntroManager.h"
 #import "PXIntroManager_Legacy.h"
+#import "PXDailyTaskManager.h"
 #import "PXWebViewController.h"
 #import "PXGoal.h"
 #import "PXGoal+Extras.h"
@@ -30,7 +31,6 @@
 #import "PXAlcoholFreeRecord+Extras.h"
 #import "PXItemListVC.h"
 #import "DLDebugger.h"
-#import "FPPopoverController.h"
 
 #import "UIColor+DrinkLess.h"
 #import "UIViewController+Swipe.h"

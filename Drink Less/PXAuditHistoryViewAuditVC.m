@@ -67,6 +67,10 @@ static NSString *const PXTitleKey = @"title";
     [[PXDailyTaskManager sharedManager] completeTaskWithID:@"normative-misperceptions"];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)showViewController:(UIViewController *)newViewController {
     UIViewController *oldViewController = self.childViewControllers.firstObject;
     if (oldViewController) {

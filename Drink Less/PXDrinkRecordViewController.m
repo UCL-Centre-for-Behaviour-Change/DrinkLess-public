@@ -14,7 +14,6 @@
 #import "PXDrinkType.h"
 #import "PXDrinkAddition.h"
 #import "PXRecordCell.h"
-#import "FPPopoverKeyboardResponsiveController.h"
 #import "PXItemListVC.h"
 #import "PXDateStepControl.h"
 #import "PXAlcoholFreeRecord+Extras.h"
@@ -27,7 +26,7 @@
 
 static CGFloat PXSpacingHeight = 12.0;
 
-@interface PXDrinkRecordViewController () <PXItemListVCDelegate, PXNumberFieldChangeDelegate, UIAlertViewDelegate>
+@interface PXDrinkRecordViewController () <PXItemListVCDelegate, PXNumberFieldChangeDelegate, UIPopoverPresentationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet PXDateStepControl *dateStepControl;
 @property (weak, nonatomic) IBOutlet PXRecordCell *typeCell;
@@ -38,7 +37,7 @@ static CGFloat PXSpacingHeight = 12.0;
 @property (weak, nonatomic) IBOutlet PXRecordCell *quantityCell;
 @property (weak, nonatomic) IBOutlet PXRecordCell *favouriteCell;
 @property (weak, nonatomic) IBOutlet PXSolidButton *deleteBtn;
-@property (strong, nonatomic) FPPopoverController *popoverVC;
+@property (strong, nonatomic) UIViewController *popoverVC;
 @property (strong, nonatomic) UITableViewHeaderFooterView *unitsFooterView;
 @property (strong, nonatomic) NSArray *servings;
 @property (strong, nonatomic) NSArray *types;
@@ -78,8 +77,6 @@ static CGFloat PXSpacingHeight = 12.0;
     // Save button uses default window tint. Also hide if this is not an edit
     self.deleteBtn.tintColor = [UIColor drinkLessRedColor];
     self.deleteBtn.hidden = self.drinkRecord.hasChanges;  // An edit shouldnt have changes yet
-    
-    
     
 //    self.servings = [self.drinkRecord.drink.servings sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"millilitres" ascending:YES]]];
 //
@@ -329,7 +326,7 @@ static CGFloat PXSpacingHeight = 12.0;
     itemListVC.delegate = self;
     
     CGFloat height = (list.count + 1) * self.tableView.rowHeight;
-    CGFloat maxHeight = self.tableView.rowHeight * 5;
+    CGFloat maxHeight = self.tableView.rowHeight * 6.5; // curoff halfway to signal to user that they can scroll
     if (height > maxHeight) {
         height = maxHeight;
     }
@@ -337,13 +334,23 @@ static CGFloat PXSpacingHeight = 12.0;
 }
 
 - (void)showPopoverWithViewController:(UIViewController *)viewController fromView:(UIView *)view size:(CGSize)size {
-    self.popoverVC = [[FPPopoverController alloc] initWithViewController:viewController];
-    self.popoverVC.border = NO;
-    self.popoverVC.tint = FPPopoverPureWhiteTint;
-    self.popoverVC.contentSize = size;
-    [self.popoverVC setShadowsHidden:YES];
-    [self.popoverVC presentPopoverFromView:view];
+    
+    PXRecordCell *recCell = (PXRecordCell *)view;
+    CGSize s = recCell.valueLabel.frame.size;
+    CGPoint pt = recCell.valueLabel.frame.origin;
+    pt.x = 0;
+    CGRect r = CGRectMake(pt.x, pt.y, s.width, s.height);
+    
+    self.popoverVC = [[PopoverVC alloc] initWithContentVC:viewController preferredSize:size sourceView:recCell.valueLabel sourceRect:r];
+    
+    [self presentViewController:self.popoverVC animated:YES completion:nil];
 }
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
 
 - (void)updateAlcoholUnits {
     static NSNumberFormatter *numberFormatter = nil;
@@ -380,6 +387,7 @@ static CGFloat PXSpacingHeight = 12.0;
     if ([identifier isEqualToString:@"save"] || [identifier isEqualToString:@"saveTopBar"]) {
         [self _doSave];
     }
+    [AppRater.shared showRaterIfReady];
     if (self.isEdit) {
         [self.navigationController popViewControllerAnimated:YES];
         return NO;
@@ -449,7 +457,7 @@ static CGFloat PXSpacingHeight = 12.0;
             [self.sizeCell.textField becomeFirstResponder];
         }
     }
-    [self.popoverVC dismissPopoverAnimated:YES];
+    [self.popoverVC dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - PXNumberFieldChangeDelegate
@@ -490,30 +498,28 @@ static CGFloat PXSpacingHeight = 12.0;
 //////////////////////////////////////////////////////////
 
 - (IBAction)deletePressed:(id)sender {
+    
     NSParameterAssert(self.isEdit);
     NSString *title = @"Delete this drink entry?";
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [alert show];
+    [[UIAlertController confirmationAlertWithTitle:title message:nil confirmButtonTitle:@"Yes" cancelButtonTitle:@"No" confirmedFunc:^{
+        
+        // Delete the drink record
+        logd(@"Deleting Drink Record...");
+        [self.context deleteObject:self.drinkRecord];
+        NSError *err;
+        [self.context save:&err];
+        if (err) {
+            [[UIAlertController errorAlert:err] showIn:self];
+            
+        }
+        
+        // Unwind the segue
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }] showIn:self];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex != 1) return;
-    
-    // Delete the drink record
-    logd(@"Deleting Drink Record...");
-    [self.context deleteObject:self.drinkRecord];
-    NSError *err;
-    [self.context save:&err];
-    if (err) {
-        [AlertManager.shared showErrorAlert:err];
-    }
-    
-    // Unwind the segue
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
+//---------------------------------------------------------------------
 
 - (void)_doSave {
     self.drinkRecord.price = [self.priceCell.numberFieldDelegate.numberFormatter numberFromString:self.priceCell.textField.text];
@@ -525,6 +531,9 @@ static CGFloat PXSpacingHeight = 12.0;
     [self.drinkRecord saveToServer];
     
     [PXAlcoholFreeRecord setFreeDay:NO date:self.drinkRecord.date context:self.context];
+    // @CRASH
+//    [Analytics.shared crashMe];
+
 }
 
 @end

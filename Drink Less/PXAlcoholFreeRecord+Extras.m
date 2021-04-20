@@ -28,6 +28,14 @@
     NSFetchRequest *fetchRequest = [self alcoholFreeRecordFetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"date >= %@ && date < %@", fromDate, toDate];
     fetchRequest.resultType = NSManagedObjectResultType;
+    [Analytics.shared logCrashMessage:@"_fetchFreeRecordsFromDate:toDate:context"];
+    [Analytics.shared logCrashInfo:@{
+        @"fromDate": fromDate,
+        @"toDate": toDate,
+        @"context": context.debugDescription,
+        @"predicate": fetchRequest.predicate.debugDescription,
+        @"fetchRequest": fetchRequest.debugDescription
+    }];
     return [context executeFetchRequest:fetchRequest error:nil];
 }
 

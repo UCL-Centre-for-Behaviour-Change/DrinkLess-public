@@ -84,17 +84,22 @@ class InsightsLastWeekSectionVC: InsightsSectionVCBase, UITableViewDelegate, UIT
         self.alcFreeDaysLbl.text = "0"
         self.spentLbl.text = currencyFormatter.string(from: 0)
         self.caloriesLbl.text = "0"
+        // Clear out debugging colors
+        self.drinkIconsFirstRowStackView.backgroundColor = .clear
+        self.drinkIconsSecondRowStackView.backgroundColor = .clear
     }
     
     //---------------------------------------------------------------------
 
     override func refresh() {
         goalSummaries.removeAll()
+        
         guard let lastWeekSummary = self.allStatistics!.lastWeekSummary else {
             Log.i("No last week summary yet...")
             endingDateLbl.text = "pending..."
             return
         }
+        self.lastWeekSummary = lastWeekSummary
         
         // Set date in the header
         endingDateLbl.text = "Ending "  + self.dateFormatter.string(from: lastWeekSummary.endDate! - 1.days)
@@ -134,7 +139,7 @@ class InsightsLastWeekSectionVC: InsightsSectionVCBase, UITableViewDelegate, UIT
         
         
         // Layout the scrollview.  Figure out how man per row
-        guard let stats = lastWeekSummary else {
+        guard let stats = self.lastWeekSummary else {
             return // not enough data
         }
 

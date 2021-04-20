@@ -175,6 +175,8 @@ static NSString *const PXGoalCellIdentifier = @"goalCell";
     PXGoalStatistics *goalStatistics = self.goalsStatistics[indexPath.row];
     PXGoalStatus status = [goalStatistics.data[PXStatusKey] integerValue];
     cell.iconImageView.image = [PXGoalCalculator imageForGoalStatus:status thumbnail:YES];
+    cell.contentView.opaque = NO;
+    cell.contentView.backgroundColor = UIColor.clearColor;
     return cell;
 }
 

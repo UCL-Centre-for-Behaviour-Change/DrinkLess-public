@@ -222,7 +222,7 @@ public class AuditData: GroupData {
     
     private func calculateActualPercentile(groupType: GroupType, populationType: PopulationType, cutOffBelowAverage: Bool) -> Float {
         let groupData = groupType == GroupData.GroupType.everyone ? self.groupDataAll : self.groupDataDrinkers
-        let key = self.demographicKey!
+        let key = populationType == PopulationType.country ? "all-UK" : self.demographicKey!
         let score = self.auditCScore
         
         // Exact match
@@ -395,6 +395,16 @@ public class AuditData: GroupData {
             self.auditScore = auditScore;
         }
         self.auditCScore = auditCScore;
+    }
+    
+    
+    /// For debug purposes
+    @objc public func delete() {
+        guard let context = PXCoreDataManager.shared()?.managedObjectContext else {
+            assert(false, "Need moContext first!")
+            return
+        }
+        context.delete(self.backingMO!)
     }
     
     

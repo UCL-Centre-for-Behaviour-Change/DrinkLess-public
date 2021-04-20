@@ -77,7 +77,7 @@ NSString *const PXShowDrinksPanelNotification = @"showDrinksPanelNotification";
     [super viewDidLayoutSubviews];
     
     self.button.center = CGPointMake(self.tabBar.bounds.size.width * 0.5,
-                                     self.tabBar.bounds.size.height * 0.5);
+                                     25);//self.tabBar.bounds.size.height * 0.5);
     [self.tabBar bringSubviewToFront:self.button];
 }
 

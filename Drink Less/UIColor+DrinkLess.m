@@ -71,6 +71,10 @@
     return [UIColor colorWithRed:158/255.0 green:54/255.0 blue:14/255.0 alpha:0.35];
 }
 
++ (UIColor *)calendarHasPlanColor {
+    return [UIColor colorWithRed:200/255.0 green:200/255.0 blue:255/255.0 alpha:0.35];
+}
+
 + (UIColor *)barOrange {
     return [UIColor colorWithRed:239/255.0 green:180/255.0 blue:39/255.0 alpha:1.0];
 }

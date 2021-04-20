@@ -17,7 +17,8 @@ static NSString *const PXZoneIndex = @"zoneIndex";
 
 @interface PXAuditFeedbackHelper ()
 
-@property (strong, nonatomic, readonly) NSArray *lowAvFeedback;
+@property (strong, nonatomic, readonly) NSArray *lowAvFeedbackAll;
+@property (strong, nonatomic, readonly) NSArray *lowAvFeedbackDrinkers;
 @property (nonatomic, strong) DemographicData *demographicData;
 @end
 
@@ -50,8 +51,10 @@ static NSString *const PXZoneIndex = @"zoneIndex";
                                   @{PXZoneIndex: @3, PXGaugePercentile: @90, PXGaugeTitle: @""},
                                   @{PXZoneIndex: @4, PXGaugePercentile: @100, PXGaugeTitle: @"top 10%"}];
         
-        NSString *lowAvFeedbackPath = [[NSBundle mainBundle] pathForResource:@"LowAvFeedback" ofType:@"plist"];
-        _lowAvFeedback = [NSArray arrayWithContentsOfFile:lowAvFeedbackPath];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"LowAvFeedbackAll_May20" ofType:@"plist"];
+        _lowAvFeedbackAll = [NSArray arrayWithContentsOfFile:path];
+        path = [[NSBundle mainBundle] pathForResource:@"LowAvFeedbackDrinkers_May20" ofType:@"plist"];
+        _lowAvFeedbackDrinkers = [NSArray arrayWithContentsOfFile:path];
         
     }
     return self;
@@ -114,11 +117,11 @@ static NSString *const PXZoneIndex = @"zoneIndex";
     NSInteger resultIndex = [resultZone[PXZoneIndex] integerValue];
     
     if (estimateIndex > resultIndex) {
-        return @"over";
+        return @"over-";
     } else if (estimateIndex < resultIndex) {
-        return @"under";
+        return @"under-";
     } else {
-        return @"correctly";
+        return @"correctly ";
     }
 }
 
@@ -130,9 +133,11 @@ static NSString *const PXZoneIndex = @"zoneIndex";
     }
 }
 
-- (CGFloat)lowAvFeedbackPercentileForPopulationType:(PopulationType)populationType {
+- (CGFloat)lowAvFeedbackPercentileForPopulationType:(PopulationType)populationType groupType:(GroupType)groupType {
     NSString *key = [self.demographicData keyFor:populationType]; 
-    NSNumber *percentile = self.lowAvFeedback.firstObject[key];
+    
+    NSArray *feedbackDataArr = groupType == GroupTypeDrinkers ? self.lowAvFeedbackDrinkers : self.lowAvFeedbackAll;
+    NSNumber *percentile = feedbackDataArr.firstObject[key];
     return percentile.floatValue;
 }
 
@@ -148,7 +153,7 @@ static NSString *const PXZoneIndex = @"zoneIndex";
                                              graphicType:graphicType];
 //        NSString *alcoholRelated = groupType == GroupTypeEveryone ? @"alcohol-related " : @"";
         if (percentile <= PXAveragePercentile) {
-            percentile = [self lowAvFeedbackPercentileForPopulationType:populationType];
+            percentile = [self lowAvFeedbackPercentileForPopulationType:populationType groupType:groupType];
             NSNumber *peopleCount = @(roundf(PXNumberOfPeople * (percentile / 100.0)));
             text = [NSString stringWithFormat:@"%@ out of %lu %@ drink alcohol once a week or less.", peopleCount.stringValue, (long unsigned)PXNumberOfPeople, people];
         } else {
@@ -163,12 +168,11 @@ static NSString *const PXZoneIndex = @"zoneIndex";
         NSString *people = [self peopleForPopulationType:populationType
                                                groupType:groupType
                                              graphicType:graphicType];
-//        NSString *drink = groupType == GroupTypeEveryone ? @"drink" : @"consume";
-//        if (percentile <= PXAveragePercentile) {
-            text = [NSString stringWithFormat:@"You %@-estimated how much you drink compared with other %@.", accuracy, people];
-//        } else {
-//            text = [NSString stringWithFormat:@"Your drinking is greater than %.f%% of other %@.\n\nYou %@-estimated how much other %@ %@.", percentile, people, accuracy, people, drink];
-//        }
+        if (percentile <= PXAveragePercentile) {
+            text = [NSString stringWithFormat:@"Your drinking is average or less than average compared with other %@.\n\nYou %@estimated how much you drink compared to other %@.", people, accuracy, people];
+        } else {
+            text = [NSString stringWithFormat:@"Your drinking is greater than %.f%% of other %@.\n\nYou %@estimated how much you drink compared with other %@.", percentile, people, accuracy, people];
+        }
     }
     PXAuditFeedback *feedback = [[PXAuditFeedback alloc] initWithEstimate:estimate percentile:percentile text:text];
     return feedback;

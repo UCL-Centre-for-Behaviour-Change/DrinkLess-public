@@ -35,7 +35,7 @@ class AuditDataMO: NSManagedObject, UsesTimeZonedDate {
     
     class func latest(in context:NSManagedObjectContext) -> AuditDataMO? {
         let req = NSFetchRequest<AuditDataMO>(entityName: "AuditDataMO")
-        req.fetchLimit = 5
+        req.fetchLimit = 1
         req.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         let obj = (try? context.fetch(req))?.first
         return obj
@@ -55,7 +55,7 @@ class AuditDataMO: NSManagedObject, UsesTimeZonedDate {
 
     class func all(in context:NSManagedObjectContext) -> [AuditDataMO]? {
         let req = NSFetchRequest<AuditDataMO>(entityName: "AuditDataMO")
-        
+        req.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         guard let records = try? context.fetch(req) else {
             return nil
         }

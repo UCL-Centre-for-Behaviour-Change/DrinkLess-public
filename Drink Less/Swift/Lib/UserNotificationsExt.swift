@@ -27,7 +27,8 @@ extension UNUserNotificationCenter {
             content.userInfo = uinf
         }
         content.sound = UNNotificationSound.default
-    
+        content.badge = 1
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComps, repeats: repeats)
         let notifReq = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(notifReq, withCompletionHandler: callback)

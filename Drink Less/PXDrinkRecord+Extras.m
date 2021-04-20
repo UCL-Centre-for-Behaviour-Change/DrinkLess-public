@@ -238,7 +238,16 @@
 
 - (void)saveToServer {
     self.parseUpdated = @NO;
-    [self.managedObjectContext save:nil];
+    NSError *error;
+    
+    // Grab a strong ref as it's deallocating sometimes (on ipod at least)
+    NSManagedObjectContext *context = self.managedObjectContext;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        logd("ERROR: %@", error);
+    }
+    
+    logd("before:: %@", self.managedObjectContext);
     
     NSMutableDictionary *params = NSMutableDictionary.dictionary;
     if (self.drink.name)    params[@"drink"]           = self.drink.name;
@@ -257,9 +266,15 @@
     [DataServer.shared saveDataObjectWithClassName:NSStringFromClass(self.class) objectId:self.parseObjectId isUser:YES params:params ensureSave:NO callback:^(BOOL succeeded, NSString *objectId, NSError *error) {
         
         if (succeeded) {
-            self.parseObjectId = objectId;
-            self.parseUpdated = @YES;
-            [self.managedObjectContext save:nil];
+            // Weird crash when it faults and MOC has been deallocated. Detect and save
+            PXDrinkRecord *this = self;
+            if (this.managedObjectContext == nil) {
+                this = [PXCoreDataManager.sharedManager.managedObjectContext objectWithID:self.objectID];
+                logd("WARN: Saving faulted MO with dealloced MOC (crash prevented)");
+            }
+            this.parseObjectId = objectId.copy;
+            this.parseUpdated = @YES;
+            [this.managedObjectContext save:nil];
         }
     }];
 }

@@ -15,17 +15,16 @@
 		0E127770216F605E00373754 /* AuditHistoryViewAuditAnswersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E12776F216F605E00373754 /* AuditHistoryViewAuditAnswersVC.swift */; };
 		0E127771216F6AAF00373754 /* ReviewAuditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F397771A828DFA00D9C91F /* ReviewAuditTableViewController.m */; };
 		0E16D319239AA06A0051E2B6 /* WebVCBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E16D318239AA06A0051E2B6 /* WebVCBase.swift */; };
-		0E16D31B239AADCA0051E2B6 /* MRTTermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E16D31A239AADCA0051E2B6 /* MRTTermsVC.swift */; };
 		0E16D31D239AB7570051E2B6 /* mrt-terms.html in Resources */ = {isa = PBXBuildFile; fileRef = 0E16D31C239AAED30051E2B6 /* mrt-terms.html */; };
+		0E190E53249799BA00BC4071 /* TrialParticipantRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E190E52249799BA00BC4071 /* TrialParticipantRegisterVC.swift */; };
 		0E19F3ED2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E19F3EC2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m */; };
 		0E214458234DF9EC00913820 /* InsightsLastWeekSectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E214457234DF9EC00913820 /* InsightsLastWeekSectionVC.swift */; };
 		0E21445A234E015B00913820 /* DrinkStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E214459234E015B00913820 /* DrinkStatistics.swift */; };
 		0E21445C234E15A900913820 /* InsightsSectionVCBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E21445B234E15A900913820 /* InsightsSectionVCBase.swift */; };
+		0E2900952434930D006D93BA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E2900942434930C006D93BA /* Launch Screen.storyboard */; };
 		0E2DD98D21625F1B00DDFA74 /* AuditDataMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DD98C21625F1B00DDFA74 /* AuditDataMO.swift */; };
 		0E33367621C12DFB0071D35E /* AuditQuestionsFollowUp.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E33367521C12DFB0071D35E /* AuditQuestionsFollowUp.plist */; };
 		0E3C6F1D2228273000E88896 /* CoreDataExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C6F1C2228273000E88896 /* CoreDataExt.swift */; };
-		0E3D07182320096300F4A0D2 /* mrt-data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E3D07172320096300F4A0D2 /* mrt-data.plist */; };
-		0E3D071A23210AC600F4A0D2 /* MRTNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D071923210AC600F4A0D2 /* MRTNotificationsManager.swift */; };
 		0E3FA28A2259300400A9D291 /* DateTimeProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3FA2892259300400A9D291 /* DateTimeProviders.swift */; };
 		0E54B3172162832E0082BD34 /* DemographicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E54B3162162832E0082BD34 /* DemographicData.swift */; };
 		0E54B31B216289890082BD34 /* UsesGroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E54B31A216289890082BD34 /* UsesGroupData.swift */; };
@@ -39,7 +38,6 @@
 		0E61FF6E2227FC330000F3C8 /* TabBarCalendarNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF6D2227FC330000F3C8 /* TabBarCalendarNavVC.swift */; };
 		0E61FF70222802710000F3C8 /* MakePlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF6F222802710000F3C8 /* MakePlanVC.swift */; };
 		0E61FF72222810750000F3C8 /* MakePlanData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E61FF71222810750000F3C8 /* MakePlanData.plist */; };
-		0E61FF79222811580000F3C8 /* CustomPlanTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF75222811580000F3C8 /* CustomPlanTemplate.swift */; };
 		0E61FF7E22281C1B0000F3C8 /* PlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61FF7D22281C1B0000F3C8 /* PlanCell.swift */; };
 		0E649887223433EB009B733F /* YourDrinkingCuesIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E649886223433EB009B733F /* YourDrinkingCuesIntroVC.swift */; };
 		0E64988922343414009B733F /* YourDrinkingCuesEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64988822343414009B733F /* YourDrinkingCuesEditVC.swift */; };
@@ -59,18 +57,22 @@
 		0E849C6C216B60E6009235D9 /* AuditHistoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E849C6B216B60E6009235D9 /* AuditHistoryTableView.swift */; };
 		0E849C6F216B8307009235D9 /* UsesTimeZonedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E849C6E216B8307009235D9 /* UsesTimeZonedDate.swift */; };
 		0E895E1621A6A61D003F0794 /* README_dev.md in Resources */ = {isa = PBXBuildFile; fileRef = 0E895E1521A6A61D003F0794 /* README_dev.md */; };
-		0E895E1921A6B4FE003F0794 /* AuditGroupAll_sept18.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E895E1721A6B4FE003F0794 /* AuditGroupAll_sept18.plist */; };
-		0E895E1A21A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E895E1821A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist */; };
+		0E8A856624A4B13F0087BCB3 /* LowAvFeedbackAll_May20.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8A856224A4B13F0087BCB3 /* LowAvFeedbackAll_May20.plist */; };
+		0E8A856724A4B13F0087BCB3 /* AuditGroupAll_May20.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8A856324A4B13F0087BCB3 /* AuditGroupAll_May20.plist */; };
+		0E8A856824A4B13F0087BCB3 /* AuditGroupDrinkers_May20.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8A856424A4B13F0087BCB3 /* AuditGroupDrinkers_May20.plist */; };
+		0E8A856924A4B13F0087BCB3 /* LowAvFeedbackDrinkers_May20.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8A856524A4B13F0087BCB3 /* LowAvFeedbackDrinkers_May20.plist */; };
 		0E96FBD323A8E2D300A6294F /* InsightsGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E96FBD223A8E2D300A6294F /* InsightsGraphHostingView.swift */; };
 		0E9A76A0231E7D33004D0585 /* ActivitiesMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 770751F21C11C457005954B9 /* ActivitiesMenu.plist */; };
 		0E9D8F0F2327AD720094BBC2 /* UserNotificationsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D8F0E2327AD720094BBC2 /* UserNotificationsExt.swift */; };
 		0E9F9927216653490084BDED /* AuditHistoryOverviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9F9926216653490084BDED /* AuditHistoryOverviewVC.swift */; };
-		0EA40B20215A95C8002B64FA /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA40B1F215A95C8002B64FA /* AlertManager.swift */; };
+		0EA9233324D973AE00FF2133 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0EA9233224D973AE00FF2133 /* GoogleService-Info.plist */; };
+		0EA9233524D9752800FF2133 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA9233424D9752800FF2133 /* Analytics.swift */; };
 		0EB26F9722329C4A00BAD9AF /* NotificationsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB26F9622329C4A00BAD9AF /* NotificationsDelegate.swift */; };
 		0EC15C4E21A4406E00E0DB82 /* DataServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC15C4D21A4406E00E0DB82 /* DataServer.swift */; };
 		0ED4870221C1712E003A8AB8 /* audit-feedback-followup-info.html in Resources */ = {isa = PBXBuildFile; fileRef = 0ED4870121C1712E003A8AB8 /* audit-feedback-followup-info.html */; };
 		0EDB7C232368C650007308BE /* InsightsAverageWeekGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB7C222368C650007308BE /* InsightsAverageWeekGraphView.m */; };
 		0EDD3BD1215CE06C00464F00 /* AuditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD3BD0215CE06C00464F00 /* AuditData.swift */; };
+		0EDF8FE42433AC8F0092B360 /* PopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDF8FE32433AC8F0092B360 /* PopoverVC.swift */; };
 		0EE93E49234612C200975C87 /* InsightsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE93E48234612C200975C87 /* InsightsVC.swift */; };
 		0EE93E4B234618C800975C87 /* InsightsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE93E4A234618C800975C87 /* InsightsSectionView.swift */; };
 		0EF585B42226A1E400C7426D /* TimeZonedModelAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF585B32226A1E400C7426D /* TimeZonedModelAbstract.swift */; };
@@ -153,10 +155,6 @@
 		7714E0671A9896A400C66AE9 /* PXIntroManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7714E0661A9896A400C66AE9 /* PXIntroManager.m */; };
 		771514E419CC8C0700E353C8 /* PXGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 771514E319CC8C0700E353C8 /* PXGaugeView.m */; };
 		771514E719CC8C7500E353C8 /* AngleGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 771514E619CC8C7500E353C8 /* AngleGradientLayer.m */; };
-		7715CBAF1A30ACA400CCE570 /* PXIdentityNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7715CBAE1A30ACA400CCE570 /* PXIdentityNavViewController.m */; };
-		7715CBB41A30AF1D00CCE570 /* PXUserIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7715CBB31A30AF1D00CCE570 /* PXUserIdentity.m */; };
-		7715CBC11A31302000CCE570 /* PXIdentityContradictionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7715CBC01A31302000CCE570 /* PXIdentityContradictionsViewController.m */; };
-		7715CBC41A3133F100CCE570 /* PXIdentityExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7715CBC31A3133F100CCE570 /* PXIdentityExampleViewController.m */; };
 		7715CBD41A31D4D500CCE570 /* PXContradictionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7715CBD31A31D4D500CCE570 /* PXContradictionCell.m */; };
 		7715CBD71A31FF5600CCE570 /* PXExampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7715CBD61A31FF5600CCE570 /* PXExampleCell.m */; };
 		7715CE881A35D59800CCE570 /* PXDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7715CE871A35D59800CCE570 /* PXDashboardViewController.m */; };
@@ -176,7 +174,6 @@
 		771E95261C209213008CD125 /* PXStepGuide.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E95251C209213008CD125 /* PXStepGuide.m */; };
 		771E95291C209359008CD125 /* PXStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E95281C209359008CD125 /* PXStep.m */; };
 		77230F3619DC015F003E4DFA /* LowAvFeedback.numbers in Resources */ = {isa = PBXBuildFile; fileRef = 77230F3519DC015F003E4DFA /* LowAvFeedback.numbers */; };
-		77230F3819DC0305003E4DFA /* LowAvFeedback.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77230F3719DC0305003E4DFA /* LowAvFeedback.plist */; };
 		772481D51A77DD81008E513A /* PXYourGoalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772481D41A77DD81008E513A /* PXYourGoalsViewController.m */; };
 		772481DF1A77F74B008E513A /* PXEditGoalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772481DE1A77F74B008E513A /* PXEditGoalViewController.m */; };
 		772481F71A795581008E513A /* PXGoal+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 772481F61A795581008E513A /* PXGoal+Extras.m */; };
@@ -186,7 +183,6 @@
 		772F496219D9633A004EA816 /* PXDividerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F496119D9633A004EA816 /* PXDividerView.m */; };
 		772F496719D9666E004EA816 /* PXEstimateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F496619D9666E004EA816 /* PXEstimateCell.m */; };
 		772FDBE21A3F125E009A1B69 /* PXPlaceholderTextViewRenamed.m in Sources */ = {isa = PBXBuildFile; fileRef = 772FDBE11A3F125E009A1B69 /* PXPlaceholderTextViewRenamed.m */; };
-		772FDBE71A3F4657009A1B69 /* PXConfigureFlipsideCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 772FDBE61A3F4657009A1B69 /* PXConfigureFlipsideCell.m */; };
 		773F3B941BEB9D0D002D66BB /* PXCalendarStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 773F3B931BEB9D0D002D66BB /* PXCalendarStatistics.m */; };
 		773F3B971BEBC311002D66BB /* PXMoodDiaryHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 773F3B961BEBC311002D66BB /* PXMoodDiaryHeader.m */; };
 		773F3B991BEBC321002D66BB /* PXMoodDiaryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773F3B981BEBC321002D66BB /* PXMoodDiaryHeader.xib */; };
@@ -214,12 +210,10 @@
 		777D2BF61A2739810070E45D /* HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 777D2BF51A2739810070E45D /* HexColor.m */; };
 		777D2BFA1A273A910070E45D /* PXMessageDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 777D2BF91A273A910070E45D /* PXMessageDesign.json */; };
 		777D2BFC1A2744B20070E45D /* DrinkSuccess.wav in Resources */ = {isa = PBXBuildFile; fileRef = 777D2BFB1A2744B20070E45D /* DrinkSuccess.wav */; };
-		777D2C031A275DB10070E45D /* FPPopoverKeyboardResponsiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777D2C021A275DB10070E45D /* FPPopoverKeyboardResponsiveController.m */; };
 		777D2C101A28888D0070E45D /* PXDrinkRecord+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 777D2C0F1A28888D0070E45D /* PXDrinkRecord+Extras.m */; };
 		777F426B1AA47B550060C04A /* PXContradictionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777F426A1AA47B550060C04A /* PXContradictionCell.xib */; };
 		777F42701AA499130060C04A /* PXAuditHistoryViewAuditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F426F1AA499130060C04A /* PXAuditHistoryViewAuditVC.m */; };
 		777F572F1AFB75B7003A7003 /* UINavigationController+Completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F572E1AFB75B7003A7003 /* UINavigationController+Completion.m */; };
-		777F57351AFCDE9B003A7003 /* UIViewController+RecordMemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F57341AFCDE9B003A7003 /* UIViewController+RecordMemo.m */; };
 		777F57391AFD0768003A7003 /* PXImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 777F57381AFD0768003A7003 /* PXImageStore.m */; };
 		778CA4261AA0D88C003A90B1 /* PXGamePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 778CA4251AA0D88C003A90B1 /* PXGamePreferences.m */; };
 		778F843E1B00B26000F3E8EB /* cant-stop-drinking.html in Resources */ = {isa = PBXBuildFile; fileRef = 778F843C1B00B26000F3E8EB /* cant-stop-drinking.html */; };
@@ -233,16 +227,6 @@
 		77979A241A389D3B002BB77D /* PXIntroHelpfulViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A231A389D3B002BB77D /* PXIntroHelpfulViewController.m */; };
 		77979A291A38A956002BB77D /* PXRateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77979A281A38A956002BB77D /* PXRateView.xib */; };
 		77979A2C1A38A9C4002BB77D /* PXRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A2B1A38A9C4002BB77D /* PXRateView.m */; };
-		77979A351A39B267002BB77D /* PXFlipsidesIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A341A39B267002BB77D /* PXFlipsidesIntroViewController.m */; };
-		77979A381A39B2C4002BB77D /* PXFlipsidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A371A39B2C4002BB77D /* PXFlipsidesViewController.m */; };
-		77979A3A1A39B453002BB77D /* Flipsides.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77979A391A39B453002BB77D /* Flipsides.plist */; };
-		77979A3D1A39B661002BB77D /* PXUserFlipsides.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A3C1A39B661002BB77D /* PXUserFlipsides.m */; };
-		77979A441A3A0C52002BB77D /* PXFlipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A431A3A0C52002BB77D /* PXFlipView.m */; };
-		77979A491A3A10EA002BB77D /* PXFlipsideCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A481A3A10EA002BB77D /* PXFlipsideCell.m */; };
-		77979A4B1A3A1851002BB77D /* PXFlipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77979A4A1A3A1851002BB77D /* PXFlipView.xib */; };
-		77979A4E1A3B4732002BB77D /* PXFlipside.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A4D1A3B4732002BB77D /* PXFlipside.m */; };
-		77979A511A3B4FDB002BB77D /* PXEditFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A501A3B4FDB002BB77D /* PXEditFlipsideViewController.m */; };
-		77979A541A3B4FF1002BB77D /* PXConfigureFlipsidesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77979A531A3B4FF1002BB77D /* PXConfigureFlipsidesViewController.m */; };
 		779EE67C1AA5C73100C31326 /* PXGoalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 779EE67B1AA5C73100C31326 /* PXGoalCell.xib */; };
 		779EE68B1AA5E8A600C31326 /* PXTimeCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 779EE68A1AA5E8A600C31326 /* PXTimeCalculator.m */; };
 		779EE6941AA622CD00C31326 /* PXRadialProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 779EE6931AA622CD00C31326 /* PXRadialProgressLayer.m */; };
@@ -393,9 +377,6 @@
 		77F66B5A1A27387700053991 /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F66B421A27387700053991 /* TSBlurView.m */; };
 		77F66B5B1A27387700053991 /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F66B441A27387700053991 /* TSMessage.m */; };
 		77F66B5C1A27387700053991 /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F66B461A27387700053991 /* TSMessageView.m */; };
-		77F8F5361A2DD6D200C3D737 /* PXIdentityIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8F5351A2DD6D200C3D737 /* PXIdentityIntroViewController.m */; };
-		77F8F5391A2DDAA500C3D737 /* PXIdentityPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8F5381A2DDAA500C3D737 /* PXIdentityPhotoViewController.m */; };
-		77F8F53C1A2DE04900C3D737 /* PXIdentityAspectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8F53B1A2DE04900C3D737 /* PXIdentityAspectsViewController.m */; };
 		77F8F53E1A2DE5BC00C3D737 /* Contradictions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77F8F53D1A2DE5BC00C3D737 /* Contradictions.plist */; };
 		822FBF581A09324B00FDE74C /* PXDailyTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 822FBF571A09324B00FDE74C /* PXDailyTaskManager.m */; };
 		8231A5E819FFBFE800A53BA6 /* BalloonInflate.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8231A5E619FFBFE800A53BA6 /* BalloonInflate.wav */; };
@@ -414,34 +395,23 @@
 		82F54F9719FE75FE00457AC5 /* PXPreSurveyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F54F9619FE75FE00457AC5 /* PXPreSurveyView.m */; };
 		8301295219B75EC00058AB0E /* Demographics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8301295119B75EC00058AB0E /* Demographics.plist */; };
 		8301295519B76E7D0058AB0E /* PXTextEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8301295419B76E7D0058AB0E /* PXTextEntryCell.m */; };
-		83091DEA19D5C9DC00D137FF /* PXIdentityMemosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 83091DE919D5C9DC00D137FF /* PXIdentityMemosVC.m */; };
 		8311838419DC007F002A0EA6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8311838319DC007F002A0EA6 /* MediaPlayer.framework */; };
 		8320711D19D404AE00F5AD04 /* PXCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320711C19D404AE00F5AD04 /* PXCalendarView.m */; };
 		8320716019D435AD00F5AD04 /* PXCalendarDateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8320715F19D435AD00F5AD04 /* PXCalendarDateButton.m */; };
 		8323405219B8727800304F6E /* PXYearList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8323405019B8727800304F6E /* PXYearList.m */; };
 		8323405319B8727800304F6E /* PXYearList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8323405119B8727800304F6E /* PXYearList.xib */; };
-		8323405C19B8753300304F6E /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8323405719B8753300304F6E /* FPPopoverController.m */; };
-		8323405D19B8753300304F6E /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8323405919B8753300304F6E /* FPPopoverView.m */; };
-		8323405E19B8753300304F6E /* FPTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8323405B19B8753300304F6E /* FPTouchView.m */; };
 		8341999A19D03192001CB5F1 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8341999919D03192001CB5F1 /* Accounts.framework */; };
 		8341999B19D031AD001CB5F1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8341999419D03138001CB5F1 /* Social.framework */; };
 		83455F9819C86D0400B6B862 /* PXItemListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83455F9719C86D0400B6B862 /* PXItemListVC.xib */; };
 		837F487A19CC436F00E25E8F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837F487919CC436F00E25E8F /* OpenGLES.framework */; };
 		837F487C19CC437D00E25E8F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837F487B19CC437D00E25E8F /* CoreText.framework */; };
 		837F487E19CC438900E25E8F /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 837F487D19CC438900E25E8F /* libc++.dylib */; };
-		8393202519D9627700F39FC6 /* PXIdentityMemoReminderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8393202419D9627700F39FC6 /* PXIdentityMemoReminderVC.m */; };
-		8393202A19D96A8000F39FC6 /* PXMemoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8393202919D96A8000F39FC6 /* PXMemoManager.m */; };
-		8393202D19D96E0400F39FC6 /* PXMemoReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8393202C19D96E0400F39FC6 /* PXMemoReminder.m */; };
-		83A0AEA819DAEA7E00DF6718 /* PXMemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0AEA719DAEA7E00DF6718 /* PXMemo.m */; };
 		83AC9D2D19D02F9D007002C3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AC9D2C19D02F9D007002C3 /* Accelerate.framework */; };
 		83B48CCD19BDB03F003C1BAD /* PXProgressToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B48CCC19BDB03F003C1BAD /* PXProgressToolbar.m */; };
 		83B48CD019BDB849003C1BAD /* PXIntroNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B48CCF19BDB849003C1BAD /* PXIntroNavigationController.m */; };
 		83B48CDF19BDE566003C1BAD /* PXGamesNav.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83B48CDC19BDE566003C1BAD /* PXGamesNav.plist */; };
-		83B48CE919BDE577003C1BAD /* PXIdentityNav.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83B48CE419BDE577003C1BAD /* PXIdentityNav.plist */; };
 		83B48CEF19BDE5AB003C1BAD /* PXSectionNavTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B48CED19BDE5AB003C1BAD /* PXSectionNavTableVC.m */; };
 		83B48CFF19BDFD94003C1BAD /* PXTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B48CFE19BDFD94003C1BAD /* PXTabBarController.m */; };
-		83CBDEF019D4635A00A04A02 /* PXIdentityMemoRemindersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CBDEEF19D4635A00A04A02 /* PXIdentityMemoRemindersVC.m */; };
-		83CBDEFD19D464EC00A04A02 /* PXIdentity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83CBDEFC19D464EC00A04A02 /* PXIdentity.storyboard */; };
 		83CBDEFF19D46A6F00A04A02 /* PXGames.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83CBDEFE19D46A6F00A04A02 /* PXGames.storyboard */; };
 		83D22E3819C1EFD2005682F2 /* Tabs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83D22E3719C1EFD2005682F2 /* Tabs.storyboard */; };
 		83F43FA819BF203A00853E50 /* PXItemListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F43FA619BF203A00853E50 /* PXItemListVC.m */; };
@@ -455,6 +425,8 @@
 		A6A6C8742087B08F00A60AAE /* NSDateComponents+DrinkLess.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A6C8732087B08F00A60AAE /* NSDateComponents+DrinkLess.m */; };
 		A6DCD53A1DE2F80600E2004D /* terms-conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = A6DCD5391DE2F80600E2004D /* terms-conditions.html */; };
 		A6F054C82084AB7100C5D8A8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A6F054C72084AB7100C5D8A8 /* README.md */; };
+		D3D8933C2628A21200A11EB2 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D8933B2628A21200A11EB2 /* AppRater.swift */; };
+		D3F15B662628687300DE1B3D /* CustomPlanTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F15B652628687300DE1B3D /* CustomPlanTemplate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -480,12 +452,14 @@
 		0E16D318239AA06A0051E2B6 /* WebVCBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVCBase.swift; sourceTree = "<group>"; };
 		0E16D31A239AADCA0051E2B6 /* MRTTermsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRTTermsVC.swift; sourceTree = "<group>"; };
 		0E16D31C239AAED30051E2B6 /* mrt-terms.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "mrt-terms.html"; sourceTree = "<group>"; };
+		0E190E52249799BA00BC4071 /* TrialParticipantRegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialParticipantRegisterVC.swift; sourceTree = "<group>"; };
 		0E19F3EB2158F05A00A5C3A6 /* PXCoreDataManager+Debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PXCoreDataManager+Debug.h"; sourceTree = "<group>"; };
 		0E19F3EC2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PXCoreDataManager+Debug.m"; sourceTree = "<group>"; };
 		0E1F408721BFD37200358E2A /* DrinkLess 14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 14.xcdatamodel"; sourceTree = "<group>"; };
 		0E214457234DF9EC00913820 /* InsightsLastWeekSectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsLastWeekSectionVC.swift; sourceTree = "<group>"; };
 		0E214459234E015B00913820 /* DrinkStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkStatistics.swift; sourceTree = "<group>"; };
 		0E21445B234E15A900913820 /* InsightsSectionVCBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSectionVCBase.swift; sourceTree = "<group>"; };
+		0E2900942434930C006D93BA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0E2DD98C21625F1B00DDFA74 /* AuditDataMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditDataMO.swift; sourceTree = "<group>"; };
 		0E33367321C1299F0071D35E /* DrinkLess 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 15.xcdatamodel"; sourceTree = "<group>"; };
 		0E33367521C12DFB0071D35E /* AuditQuestionsFollowUp.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditQuestionsFollowUp.plist; sourceTree = "<group>"; };
@@ -505,7 +479,6 @@
 		0E61FF6D2227FC330000F3C8 /* TabBarCalendarNavVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCalendarNavVC.swift; sourceTree = "<group>"; };
 		0E61FF6F222802710000F3C8 /* MakePlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePlanVC.swift; sourceTree = "<group>"; };
 		0E61FF71222810750000F3C8 /* MakePlanData.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MakePlanData.plist; sourceTree = "<group>"; };
-		0E61FF75222811580000F3C8 /* CustomPlanTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPlanTemplate.swift; path = "/Users/HKS/Code/Freelance/DrinkLess-iOS/Drink Less/Swift/Models/CustomPlanTemplate.swift"; sourceTree = "<absolute>"; };
 		0E61FF7D22281C1B0000F3C8 /* PlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCell.swift; sourceTree = "<group>"; };
 		0E649886223433EB009B733F /* YourDrinkingCuesIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourDrinkingCuesIntroVC.swift; sourceTree = "<group>"; };
 		0E64988822343414009B733F /* YourDrinkingCuesEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourDrinkingCuesEditVC.swift; sourceTree = "<group>"; };
@@ -525,8 +498,6 @@
 		0E849C6B216B60E6009235D9 /* AuditHistoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHistoryTableView.swift; sourceTree = "<group>"; };
 		0E849C6E216B8307009235D9 /* UsesTimeZonedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsesTimeZonedDate.swift; sourceTree = "<group>"; };
 		0E895E1521A6A61D003F0794 /* README_dev.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README_dev.md; sourceTree = "<group>"; };
-		0E895E1721A6B4FE003F0794 /* AuditGroupAll_sept18.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupAll_sept18.plist; sourceTree = "<group>"; };
-		0E895E1821A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupDrinkers_sept18.plist; sourceTree = "<group>"; };
 		0E895E1D21A6B732003F0794 /* OneMonthFollowUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneMonthFollowUpTableViewController.h; sourceTree = "<group>"; };
 		0E895E1E21A6B732003F0794 /* PXFollowUpSurveyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXFollowUpSurveyManager.m; sourceTree = "<group>"; };
 		0E895E1F21A6B732003F0794 /* FollowUpSurveyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowUpSurveyTableViewController.h; sourceTree = "<group>"; };
@@ -536,12 +507,22 @@
 		0E895E2321A6B732003F0794 /* FollowUpSurveyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowUpSurveyTableViewController.m; sourceTree = "<group>"; };
 		0E895E2421A6B732003F0794 /* PXFollowUpSurveyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXFollowUpSurveyManager.h; sourceTree = "<group>"; };
 		0E895E2521A6B732003F0794 /* FollowUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FollowUp.storyboard; sourceTree = "<group>"; };
+		0E8A855824A4B12B0087BCB3 /* _old.AuditGroupAll.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = _old.AuditGroupAll.plist; sourceTree = "<group>"; };
+		0E8A855924A4B12B0087BCB3 /* AuditGroupAll_sept18.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupAll_sept18.plist; sourceTree = "<group>"; };
+		0E8A855A24A4B12B0087BCB3 /* _old.AuditGroupDrinkers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = _old.AuditGroupDrinkers.plist; sourceTree = "<group>"; };
+		0E8A855B24A4B12B0087BCB3 /* LowAvFeedback.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LowAvFeedback.plist; sourceTree = "<group>"; };
+		0E8A855C24A4B12B0087BCB3 /* AuditGroupDrinkers_sept18.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupDrinkers_sept18.plist; sourceTree = "<group>"; };
+		0E8A856224A4B13F0087BCB3 /* LowAvFeedbackAll_May20.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LowAvFeedbackAll_May20.plist; sourceTree = "<group>"; };
+		0E8A856324A4B13F0087BCB3 /* AuditGroupAll_May20.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupAll_May20.plist; sourceTree = "<group>"; };
+		0E8A856424A4B13F0087BCB3 /* AuditGroupDrinkers_May20.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuditGroupDrinkers_May20.plist; sourceTree = "<group>"; };
+		0E8A856524A4B13F0087BCB3 /* LowAvFeedbackDrinkers_May20.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LowAvFeedbackDrinkers_May20.plist; sourceTree = "<group>"; };
 		0E96FBD223A8E2D300A6294F /* InsightsGraphHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsGraphHostingView.swift; sourceTree = "<group>"; };
+		0E995B852541A40300029BA3 /* DrinkLess 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 17.xcdatamodel"; sourceTree = "<group>"; };
 		0E9D8F0E2327AD720094BBC2 /* UserNotificationsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationsExt.swift; sourceTree = "<group>"; };
 		0E9F9926216653490084BDED /* AuditHistoryOverviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditHistoryOverviewVC.swift; sourceTree = "<group>"; };
 		0EA40B16215A9560002B64FA /* drinkless-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "drinkless-Bridging-Header.h"; sourceTree = "<group>"; };
-		0EA40B1F215A95C8002B64FA /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
-		0EA63B5D239EEE420065D733 /* MRTValidations.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MRTValidations.playground; sourceTree = "<group>"; };
+		0EA9233224D973AE00FF2133 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0EA9233424D9752800FF2133 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		0EB26F9622329C4A00BAD9AF /* NotificationsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsDelegate.swift; sourceTree = "<group>"; };
 		0EC15C4D21A4406E00E0DB82 /* DataServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServer.swift; sourceTree = "<group>"; };
 		0ED4870121C1712E003A8AB8 /* audit-feedback-followup-info.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "audit-feedback-followup-info.html"; sourceTree = "<group>"; };
@@ -550,6 +531,7 @@
 		0EDD3BD0215CE06C00464F00 /* AuditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditData.swift; sourceTree = "<group>"; };
 		0EDD3BD2215CF91000464F00 /* DrinkLess 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 13.xcdatamodel"; sourceTree = "<group>"; };
 		0EDEBC6B222599C50063CCB4 /* DrinkLess 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 16.xcdatamodel"; sourceTree = "<group>"; };
+		0EDF8FE32433AC8F0092B360 /* PopoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverVC.swift; sourceTree = "<group>"; };
 		0EE1D4372174D8060021A952 /* PXIntroManager_Legacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXIntroManager_Legacy.h; sourceTree = "<group>"; };
 		0EE93E48234612C200975C87 /* InsightsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsVC.swift; sourceTree = "<group>"; };
 		0EE93E4A234618C800975C87 /* InsightsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSectionView.swift; sourceTree = "<group>"; };
@@ -726,7 +708,6 @@
 		771E95271C209359008CD125 /* PXStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStep.h; sourceTree = "<group>"; };
 		771E95281C209359008CD125 /* PXStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStep.m; sourceTree = "<group>"; };
 		77230F3519DC015F003E4DFA /* LowAvFeedback.numbers */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LowAvFeedback.numbers; sourceTree = "<group>"; };
-		77230F3719DC0305003E4DFA /* LowAvFeedback.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LowAvFeedback.plist; sourceTree = "<group>"; };
 		772481D31A77DD81008E513A /* PXYourGoalsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXYourGoalsViewController.h; sourceTree = "<group>"; };
 		772481D41A77DD81008E513A /* PXYourGoalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXYourGoalsViewController.m; sourceTree = "<group>"; };
 		772481DD1A77F74B008E513A /* PXEditGoalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEditGoalViewController.h; sourceTree = "<group>"; };
@@ -793,8 +774,6 @@
 		777D2BF51A2739810070E45D /* HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColor.m; sourceTree = "<group>"; };
 		777D2BF91A273A910070E45D /* PXMessageDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PXMessageDesign.json; sourceTree = "<group>"; };
 		777D2BFB1A2744B20070E45D /* DrinkSuccess.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = DrinkSuccess.wav; sourceTree = "<group>"; };
-		777D2C011A275DB10070E45D /* FPPopoverKeyboardResponsiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverKeyboardResponsiveController.h; sourceTree = "<group>"; };
-		777D2C021A275DB10070E45D /* FPPopoverKeyboardResponsiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverKeyboardResponsiveController.m; sourceTree = "<group>"; };
 		777D2C0D1A28820F0070E45D /* DrinkLess 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DrinkLess 3.xcdatamodel"; sourceTree = "<group>"; };
 		777D2C0E1A28888D0070E45D /* PXDrinkRecord+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXDrinkRecord+Extras.h"; sourceTree = "<group>"; };
 		777D2C0F1A28888D0070E45D /* PXDrinkRecord+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXDrinkRecord+Extras.m"; sourceTree = "<group>"; };
@@ -908,8 +887,6 @@
 		77CCFA601C199C610049062D /* PXWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXWebViewController.m; sourceTree = "<group>"; };
 		77CCFA621C19A17E0049062D /* audit-feedback-intro.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "audit-feedback-intro.html"; sourceTree = "<group>"; };
 		77CCFA641C19A3260049062D /* audit-feedback-outro.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "audit-feedback-outro.html"; sourceTree = "<group>"; };
-		77CCFA661C19D20B0049062D /* _old.AuditGroupAll.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = _old.AuditGroupAll.plist; sourceTree = "<group>"; };
-		77CCFA671C19D20B0049062D /* _old.AuditGroupDrinkers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = _old.AuditGroupDrinkers.plist; sourceTree = "<group>"; };
 		77CCFA6A1C19E98F0049062D /* PXAuditFeedbackHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAuditFeedbackHelper.h; sourceTree = "<group>"; };
 		77CCFA6B1C19E98F0049062D /* PXAuditFeedbackHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAuditFeedbackHelper.m; sourceTree = "<group>"; };
 		77CCFA6D1C19EA850049062D /* PXAuditFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAuditFeedback.h; sourceTree = "<group>"; };
@@ -1124,13 +1101,6 @@
 		8323404F19B8727800304F6E /* PXYearList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXYearList.h; sourceTree = "<group>"; };
 		8323405019B8727800304F6E /* PXYearList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXYearList.m; sourceTree = "<group>"; };
 		8323405119B8727800304F6E /* PXYearList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PXYearList.xib; sourceTree = "<group>"; };
-		8323405519B8753300304F6E /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
-		8323405619B8753300304F6E /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
-		8323405719B8753300304F6E /* FPPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverController.m; sourceTree = "<group>"; };
-		8323405819B8753300304F6E /* FPPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverView.h; sourceTree = "<group>"; };
-		8323405919B8753300304F6E /* FPPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverView.m; sourceTree = "<group>"; };
-		8323405A19B8753300304F6E /* FPTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTouchView.h; sourceTree = "<group>"; };
-		8323405B19B8753300304F6E /* FPTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTouchView.m; sourceTree = "<group>"; };
 		8341999419D03138001CB5F1 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		8341999619D03150001CB5F1 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		8341999919D03192001CB5F1 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -1185,6 +1155,8 @@
 		A6B33B571EA62922007B81BE /* drinkless.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = drinkless.entitlements; sourceTree = "<group>"; };
 		A6DCD5391DE2F80600E2004D /* terms-conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "terms-conditions.html"; sourceTree = "<group>"; };
 		A6F054C72084AB7100C5D8A8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D3D8933B2628A21200A11EB2 /* AppRater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
+		D3F15B652628687300DE1B3D /* CustomPlanTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPlanTemplate.swift; sourceTree = "<group>"; };
 		DE7AE615483C9A10184E8D0F /* libPods-drinklessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-drinklessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1222,13 +1194,13 @@
 		0E33367421C12D9B0071D35E /* PLIST */ = {
 			isa = PBXGroup;
 			children = (
+				0E8A855724A4B12B0087BCB3 /* old */,
+				0E8A856324A4B13F0087BCB3 /* AuditGroupAll_May20.plist */,
+				0E8A856424A4B13F0087BCB3 /* AuditGroupDrinkers_May20.plist */,
+				0E8A856224A4B13F0087BCB3 /* LowAvFeedbackAll_May20.plist */,
+				0E8A856524A4B13F0087BCB3 /* LowAvFeedbackDrinkers_May20.plist */,
 				37ECEF3D19B47C63006046F3 /* AuditQuestions.plist */,
 				0E33367521C12DFB0071D35E /* AuditQuestionsFollowUp.plist */,
-				77CCFA661C19D20B0049062D /* _old.AuditGroupAll.plist */,
-				77CCFA671C19D20B0049062D /* _old.AuditGroupDrinkers.plist */,
-				0E895E1721A6B4FE003F0794 /* AuditGroupAll_sept18.plist */,
-				0E895E1821A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist */,
-				77230F3719DC0305003E4DFA /* LowAvFeedback.plist */,
 				0E61FF71222810750000F3C8 /* MakePlanData.plist */,
 				0E771EB3223685B900FEC5DF /* DrinkingCues.plist */,
 			);
@@ -1238,8 +1210,8 @@
 		0E3D07162320093600F4A0D2 /* MRT Trial */ = {
 			isa = PBXGroup;
 			children = (
-				0EA63B5D239EEE420065D733 /* MRTValidations.playground */,
 				0E3D07172320096300F4A0D2 /* mrt-data.plist */,
+				0E16D31A239AADCA0051E2B6 /* MRTTermsVC.swift */,
 				0E3D071923210AC600F4A0D2 /* MRTNotificationsManager.swift */,
 			);
 			path = "MRT Trial";
@@ -1289,6 +1261,8 @@
 		0E895E1B21A6B732003F0794 /* Obsolete */ = {
 			isa = PBXGroup;
 			children = (
+				0E3D07162320093600F4A0D2 /* MRT Trial */,
+				37D49B7119D18672008A3E03 /* Identity */,
 				0E895E1C21A6B732003F0794 /* FollowUp */,
 			);
 			path = Obsolete;
@@ -1310,18 +1284,29 @@
 			path = FollowUp;
 			sourceTree = "<group>";
 		};
+		0E8A855724A4B12B0087BCB3 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				0E8A855824A4B12B0087BCB3 /* _old.AuditGroupAll.plist */,
+				0E8A855924A4B12B0087BCB3 /* AuditGroupAll_sept18.plist */,
+				0E8A855A24A4B12B0087BCB3 /* _old.AuditGroupDrinkers.plist */,
+				0E8A855B24A4B12B0087BCB3 /* LowAvFeedback.plist */,
+				0E8A855C24A4B12B0087BCB3 /* AuditGroupDrinkers_sept18.plist */,
+			);
+			path = old;
+			sourceTree = "<group>";
+		};
 		0EA40B1D215A95C8002B64FA /* Swift */ = {
 			isa = PBXGroup;
 			children = (
 				0EF8648F233CF1100095EC57 /* Assets */,
-				0E3D07162320093600F4A0D2 /* MRT Trial */,
 				0E6BE5F6216E0623006217E4 /* Swift.playground */,
 				0E04CDB821665EC7006F15D6 /* Config.swift */,
 				0E6BE5F2216E00BF006217E4 /* Debug.swift */,
 				0E6BE5F4216E04C9006217E4 /* Log.swift */,
 				0E6FFB22215D193F00A2B6A3 /* VCInjector.swift */,
-				0EA40B1F215A95C8002B64FA /* AlertManager.swift */,
 				0EC15C4D21A4406E00E0DB82 /* DataServer.swift */,
+				0EA9233424D9752800FF2133 /* Analytics.swift */,
 				0EB26F9622329C4A00BAD9AF /* NotificationsDelegate.swift */,
 				0E5D6C742174A2030005E45B /* Migrations */,
 				0ED70BB7215BB4D900A8A022 /* VCs */,
@@ -1338,6 +1323,7 @@
 		0EA40B1E215A95C8002B64FA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				D3D8933B2628A21200A11EB2 /* AppRater.swift */,
 				0E3FA2892259300400A9D291 /* DateTimeProviders.swift */,
 				0EF585BD2226B29500C7426D /* CalendarDate.swift */,
 				0E849C6E216B8307009235D9 /* UsesTimeZonedDate.swift */,
@@ -1345,6 +1331,7 @@
 				0E3C6F1C2228273000E88896 /* CoreDataExt.swift */,
 				0E5D6C7B2174AEA70005E45B /* UIKitExt.swift */,
 				0E9D8F0E2327AD720094BBC2 /* UserNotificationsExt.swift */,
+				0EDF8FE32433AC8F0092B360 /* PopoverVC.swift */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1370,9 +1357,9 @@
 		0ED70BB4215B8B1900A8A022 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D3F15B652628687300DE1B3D /* CustomPlanTemplate.swift */,
 				0E54B3192162895F0082BD34 /* Protocols */,
 				0E61FF7C2228119F0000F3C8 /* CoreData Definitions */,
-				0E61FF75222811580000F3C8 /* CustomPlanTemplate.swift */,
 				0E7CB6CA2226EF5000AB8811 /* MyPlanRecord.swift */,
 				0E54B31C21628C850082BD34 /* GroupData.swift */,
 				0E54B3162162832E0082BD34 /* DemographicData.swift */,
@@ -1399,7 +1386,7 @@
 				0E7159A22367057A004A5C35 /* InsightsAverageWeekSectionVC.swift */,
 				0E6713EE23841BBF00DDE32C /* InsightsLifetimeSectionVC.swift */,
 				0E16D318239AA06A0051E2B6 /* WebVCBase.swift */,
-				0E16D31A239AADCA0051E2B6 /* MRTTermsVC.swift */,
+				0E190E52249799BA00BC4071 /* TrialParticipantRegisterVC.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -1492,6 +1479,7 @@
 				373CF13019B0B68000825F60 /* Images.xcassets */,
 				3705999C1C6370D800B8F4A9 /* information80.png */,
 				373CF12019B0B68000825F60 /* Supporting Files */,
+				0E2900942434930C006D93BA /* Launch Screen.storyboard */,
 			);
 			path = "Drink Less";
 			sourceTree = "<group>";
@@ -1501,6 +1489,7 @@
 			children = (
 				83D55C1D19BF0406009322DE /* PrefixHeader.pch */,
 				373CF12119B0B68000825F60 /* Info.plist */,
+				0EA9233224D973AE00FF2133 /* GoogleService-Info.plist */,
 				373CF12219B0B68000825F60 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -1603,7 +1592,6 @@
 		37A14F3F19B0B8F200EA9F1E /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				8323405419B8752900304F6E /* FPPopover */,
 				37CABF061A810A83007DCE2A /* FXForms.h */,
 				37CABF071A810A83007DCE2A /* FXForms.m */,
 				77F66B2B1A27387700053991 /* TSMessages */,
@@ -1701,6 +1689,7 @@
 				83B48CE419BDE577003C1BAD /* PXIdentityNav.plist */,
 			);
 			name = Identity;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		37F397751A828DD600D9C91F /* Review Audit */ = {
@@ -2521,23 +2510,6 @@
 			name = "Risk Taking";
 			sourceTree = "<group>";
 		};
-		8323405419B8752900304F6E /* FPPopover */ = {
-			isa = PBXGroup;
-			children = (
-				777D2C011A275DB10070E45D /* FPPopoverKeyboardResponsiveController.h */,
-				777D2C021A275DB10070E45D /* FPPopoverKeyboardResponsiveController.m */,
-				8323405519B8753300304F6E /* ARCMacros.h */,
-				8323405619B8753300304F6E /* FPPopoverController.h */,
-				8323405719B8753300304F6E /* FPPopoverController.m */,
-				8323405819B8753300304F6E /* FPPopoverView.h */,
-				8323405919B8753300304F6E /* FPPopoverView.m */,
-				8323405A19B8753300304F6E /* FPTouchView.h */,
-				8323405B19B8753300304F6E /* FPTouchView.m */,
-			);
-			name = FPPopover;
-			path = "Drink Less";
-			sourceTree = "<group>";
-		};
 		8323405F19B88A0100304F6E /* Think */ = {
 			isa = PBXGroup;
 			children = (
@@ -2657,7 +2629,6 @@
 				837F488119CC43E000E25E8F /* Home */,
 				37618CAA19BF02E500AB9CB7 /* Activities */,
 				37D49B6F19D18651008A3E03 /* Games */,
-				37D49B7119D18672008A3E03 /* Identity */,
 				37AF8BD319E0A05A009D7230 /* Help */,
 			);
 			name = "Main Tabbar";
@@ -2757,6 +2728,7 @@
 				373CF11B19B0B68000825F60 /* Resources */,
 				2ABF428B19E5474E0062DCC8 /* Embed App Extensions */,
 				FA0E3FA86508BE2F7DC56456 /* [CP] Embed Pods Frameworks */,
+				0EA9233624D97DDF00FF2133 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2773,13 +2745,13 @@
 		373CF11519B0B68000825F60 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = UCL;
 				TargetAttributes = {
 					373CF11C19B0B68000825F60 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = Y542T8R9RB;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -2791,7 +2763,7 @@
 			};
 			buildConfigurationList = 373CF11819B0B68000825F60 /* Build configuration list for PBXProject "drinkless" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -2830,6 +2802,7 @@
 				0E61FF72222810750000F3C8 /* MakePlanData.plist in Resources */,
 				77EA758A1C2412C100C9187C /* soft_00002.jpg in Resources */,
 				83CBDEFF19D46A6F00A04A02 /* PXGames.storyboard in Resources */,
+				0E8A856824A4B13F0087BCB3 /* AuditGroupDrinkers_May20.plist in Resources */,
 				373CF12F19B0B68000825F60 /* Main.storyboard in Resources */,
 				77F66B4D1A27387700053991 /* NotificationBackgroundMessage@2x.png in Resources */,
 				77F66B511A27387700053991 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
@@ -2838,6 +2811,7 @@
 				77EA757A1C2412C100C9187C /* alcoholic_00006.jpg in Resources */,
 				77EA758D1C2412C100C9187C /* soft_00005.jpg in Resources */,
 				3705999B1C63665F00B8F4A9 /* drinking-guidelines.html in Resources */,
+				0EA9233324D973AE00FF2133 /* GoogleService-Info.plist in Resources */,
 				37806BDC19C717E500D84E4B /* Activities.storyboard in Resources */,
 				0ED4870221C1712E003A8AB8 /* audit-feedback-followup-info.html in Resources */,
 				774671F71B025F150085167F /* PXListView.xib in Resources */,
@@ -2884,9 +2858,10 @@
 				77DFDC5619DEE2EE00DB2515 /* GameFail.wav in Resources */,
 				A6F054C82084AB7100C5D8A8 /* README.md in Resources */,
 				774671EB1B012E8D0085167F /* style.css in Resources */,
+				0E8A856924A4B13F0087BCB3 /* LowAvFeedbackDrinkers_May20.plist in Resources */,
 				77F66B581A27387700053991 /* TSMessagesDefaultDesign.json in Resources */,
+				0E8A856724A4B13F0087BCB3 /* AuditGroupAll_May20.plist in Resources */,
 				77EEBD581A94938B00CB3115 /* PXGoalsHeader.xib in Resources */,
-				0E3D07182320096300F4A0D2 /* mrt-data.plist in Resources */,
 				77EA759F1C242B3B00C9187C /* Info in Resources */,
 				77F66B4A1A27387700053991 /* NotificationBackgroundErrorIcon.png in Resources */,
 				0963F53F20CEC8FB0058878D /* tos.html in Resources */,
@@ -2898,6 +2873,7 @@
 				77076AD31A0A799D007F616F /* StandardDrinks.plist in Resources */,
 				773F3B991BEBC321002D66BB /* PXMoodDiaryHeader.xib in Resources */,
 				372EBF5E1A38D5D200810964 /* about-us.html in Resources */,
+				0E8A856624A4B13F0087BCB3 /* LowAvFeedbackAll_May20.plist in Resources */,
 				77EA758C1C2412C100C9187C /* soft_00004.jpg in Resources */,
 				77EEBD111A9239FB00CB3115 /* UnitsGuide.storyboard in Resources */,
 				77EA75991C2412C100C9187C /* soft_00017.jpg in Resources */,
@@ -2908,14 +2884,12 @@
 				373CF13119B0B68000825F60 /* Images.xcassets in Resources */,
 				77EA75811C2412C100C9187C /* alcoholic_00013.jpg in Resources */,
 				82F54F8F19FE66A100457AC5 /* Impulsiveness.plist in Resources */,
-				83CBDEFD19D464EC00A04A02 /* PXIdentity.storyboard in Resources */,
 				77EA75821C2412C100C9187C /* alcoholic_00014.jpg in Resources */,
 				77EA75A71C2807C900C9187C /* Home.storyboard in Resources */,
 				7712CFDB1A4A44A000D6064C /* PXGoalProgress.storyboard in Resources */,
 				77EA75971C2412C100C9187C /* soft_00015.jpg in Resources */,
 				77F66B4F1A27387700053991 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				77F66B551A27387700053991 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
-				0E895E1921A6B4FE003F0794 /* AuditGroupAll_sept18.plist in Resources */,
 				372EBF601A38D5F100810964 /* privacy-policy.html in Resources */,
 				77EA757D1C2412C100C9187C /* alcoholic_00009.jpg in Resources */,
 				77F66B561A27387700053991 /* NotificationButtonBackground.png in Resources */,
@@ -2925,7 +2899,6 @@
 				77CCFA5E1C1891D10049062D /* retraining-mind.html in Resources */,
 				77F66B4E1A27387700053991 /* NotificationBackgroundSuccess.png in Resources */,
 				77EA75841C2412C100C9187C /* alcoholic_00016.jpg in Resources */,
-				0E895E1A21A6B4FE003F0794 /* AuditGroupDrinkers_sept18.plist in Resources */,
 				77EA759A1C2412C100C9187C /* soft_00018.jpg in Resources */,
 				77EA75831C2412C100C9187C /* alcoholic_00015.jpg in Resources */,
 				77EA75781C2412C100C9187C /* alcoholic_00004.jpg in Resources */,
@@ -2947,20 +2920,17 @@
 				82F54F9419FE743500457AC5 /* PXPreSurveyView.xib in Resources */,
 				77230F3619DC015F003E4DFA /* LowAvFeedback.numbers in Resources */,
 				A650C5B31F56D37C0078C9E3 /* DLFloatingDebugView.xib in Resources */,
-				77230F3819DC0305003E4DFA /* LowAvFeedback.plist in Resources */,
 				83455F9819C86D0400B6B862 /* PXItemListVC.xib in Resources */,
 				77AF88FB1A168A6E00A4F8D3 /* PXPlaceholderViewRenamed.xib in Resources */,
-				83B48CE919BDE577003C1BAD /* PXIdentityNav.plist in Resources */,
 				77EA758F1C2412C100C9187C /* soft_00007.jpg in Resources */,
+				0E2900952434930D006D93BA /* Launch Screen.storyboard in Resources */,
 				2AFCF01819D5CD9F00439CCB /* ReminderTypes.plist in Resources */,
 				37AF8BD719E0A074009D7230 /* PXHelpNav.plist in Resources */,
 				779EE67C1AA5C73100C31326 /* PXGoalCell.xib in Resources */,
 				77979A291A38A956002BB77D /* PXRateView.xib in Resources */,
 				77D607941BEBDAC00094EFBF /* Help.storyboard in Resources */,
-				77979A4B1A3A1851002BB77D /* PXFlipView.xib in Resources */,
 				37ECEF3E19B47C63006046F3 /* AuditQuestions.plist in Resources */,
 				0EF86491233CF1220095EC57 /* Explainers.storyboard in Resources */,
-				77979A3A1A39B453002BB77D /* Flipsides.plist in Resources */,
 				777D2BFC1A2744B20070E45D /* DrinkSuccess.wav in Resources */,
 				77CCFA631C19A17E0049062D /* audit-feedback-intro.html in Resources */,
 				77EA758E1C2412C100C9187C /* soft_00006.jpg in Resources */,
@@ -2971,6 +2941,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0EA9233624D97DDF00FF2133 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		7506131C80C605095E1D8E19 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3010,24 +2995,46 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-drinkless/Pods-drinkless-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-drinkless/Pods-drinkless-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AttributedTextView/AttributedTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CorePlot/CorePlot.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebasePerformance/FirebasePerformance.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseRemoteConfig/FirebaseRemoteConfig.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
-				"${BUILT_PRODUCTS_DIR}/iRate/iRate.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AttributedTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CorePlot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseABTesting.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebasePerformance.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseRemoteConfig.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iRate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-drinkless/Pods-drinkless-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-drinkless/Pods-drinkless-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3074,7 +3081,6 @@
 				0E9D8F0F2327AD720094BBC2 /* UserNotificationsExt.swift in Sources */,
 				0E6FFB23215D193F00A2B6A3 /* VCInjector.swift in Sources */,
 				77AD64B01A827BED006D446B /* PXGoal.m in Sources */,
-				8393202519D9627700F39FC6 /* PXIdentityMemoReminderVC.m in Sources */,
 				77DFDC5C19DEF6DA00DB2515 /* PXCardTutorialViewController.m in Sources */,
 				3737E0871A386EC4009A10C5 /* PXRiskTakingInstructionsVC.m in Sources */,
 				77CCFA6F1C19EA850049062D /* PXAuditFeedback.m in Sources */,
@@ -3086,10 +3092,9 @@
 				779227FB1A40655C00326CA1 /* PXEditActionPlanViewController.m in Sources */,
 				77076AF61A0CE469007F616F /* PXRecordCell.m in Sources */,
 				7714E04F1A951CFD00C66AE9 /* PXIntrinsicLabel.m in Sources */,
-				83CBDEF019D4635A00A04A02 /* PXIdentityMemoRemindersVC.m in Sources */,
 				77E58FBB19F0054A0075FDAE /* PXCardView.m in Sources */,
 				771514E419CC8C0700E353C8 /* PXGaugeView.m in Sources */,
-				83091DEA19D5C9DC00D137FF /* PXIdentityMemosVC.m in Sources */,
+				0EA9233524D9752800FF2133 /* Analytics.swift in Sources */,
 				77D607901BEBD1A00094EFBF /* PXGamesViewController.m in Sources */,
 				773F3B941BEB9D0D002D66BB /* PXCalendarStatistics.m in Sources */,
 				77EEBD5C1A94D03200CB3115 /* PXGroupsManager.m in Sources */,
@@ -3108,7 +3113,6 @@
 				37DED4C21A7D3BDB006378E7 /* PXHowAlcoholEffectsViewController.m in Sources */,
 				0E6644C82226D75E00118283 /* CalendarDate.swift in Sources */,
 				774671E81B0113D80085167F /* PXHelpViewController.m in Sources */,
-				777F57351AFCDE9B003A7003 /* UIViewController+RecordMemo.m in Sources */,
 				A6A6C8742087B08F00A60AAE /* NSDateComponents+DrinkLess.m in Sources */,
 				77F66AC71A25FF8700053991 /* PXHorizontalPagingLayout.m in Sources */,
 				77CF795619D0566900C7509B /* PXHighGroupAuditViewController.m in Sources */,
@@ -3117,7 +3121,6 @@
 				775CE8051C2B10C5002B59F5 /* PXStatisticsView.m in Sources */,
 				0E214458234DF9EC00913820 /* InsightsLastWeekSectionVC.swift in Sources */,
 				77A233BE1A8B8651006F6190 /* PXCardGameLog.m in Sources */,
-				0E3D071A23210AC600F4A0D2 /* MRTNotificationsManager.swift in Sources */,
 				4FCD696B1CB2BA68001E7390 /* PXCustomView.m in Sources */,
 				83B48CFF19BDFD94003C1BAD /* PXTabBarController.m in Sources */,
 				0E6BE5F5216E04C9006217E4 /* Log.swift in Sources */,
@@ -3140,10 +3143,8 @@
 				0E54B3172162832E0082BD34 /* DemographicData.swift in Sources */,
 				77076AB41A0A430F007F616F /* PXTrackerPanelViewController.m in Sources */,
 				77F66B5B1A27387700053991 /* TSMessage.m in Sources */,
-				77979A351A39B267002BB77D /* PXFlipsidesIntroViewController.m in Sources */,
 				0E19F3ED2158F05A00A5C3A6 /* PXCoreDataManager+Debug.m in Sources */,
 				8243464919FE5E77001F95BB /* PXSurveyTextField.m in Sources */,
-				77979A541A3B4FF1002BB77D /* PXConfigureFlipsidesViewController.m in Sources */,
 				770751ED1C11A8D3005954B9 /* PXActivitiesViewController.m in Sources */,
 				772A7D8A19D4493C00670548 /* PXInfographicView.m in Sources */,
 				777D2BF61A2739810070E45D /* HexColor.m in Sources */,
@@ -3151,9 +3152,6 @@
 				77AF88F71A16782900A4F8D3 /* PXDrinkLogCell.m in Sources */,
 				77AE53FE1AF3B64C0011D1CA /* PXPlot.m in Sources */,
 				77EA75BA1C286BF700C9187C /* PXWeekDrinkCell.m in Sources */,
-				8323405D19B8753300304F6E /* FPPopoverView.m in Sources */,
-				0E61FF79222811580000F3C8 /* CustomPlanTemplate.swift in Sources */,
-				8393202A19D96A8000F39FC6 /* PXMemoManager.m in Sources */,
 				0E7CE4DA222D469E00AEB65E /* SystemPlanTemplate.swift in Sources */,
 				77E1CEB919F4FA7C0057D54A /* PXProgressStepsView.m in Sources */,
 				77CE67231A44688800059ACC /* PXMoodDiary.m in Sources */,
@@ -3172,7 +3170,6 @@
 				77076AD01A0A762A007F616F /* PXCoreDataManager.m in Sources */,
 				0E71E90822282EE300D2D953 /* CustomPlanTemplate+CoreDataProperties.swift in Sources */,
 				0EB26F9722329C4A00BAD9AF /* NotificationsDelegate.swift in Sources */,
-				0EA40B20215A95C8002B64FA /* AlertManager.swift in Sources */,
 				7714E05B1A963BA400C66AE9 /* PXTaskCell.m in Sources */,
 				772FDBE21A3F125E009A1B69 /* PXPlaceholderTextViewRenamed.m in Sources */,
 				0E5D6C782174A6A10005E45B /* Migrations.swift in Sources */,
@@ -3185,14 +3182,12 @@
 				77D418DB1A151B1000617EDB /* PXBackgroundView.m in Sources */,
 				3796C54319B0E3170026D038 /* AboutYouTableViewController.m in Sources */,
 				77E81CEF1A7F878C0031B15A /* PXBarPlot.m in Sources */,
-				7715CBB41A30AF1D00CCE570 /* PXUserIdentity.m in Sources */,
 				776B819119C9882D0055481C /* PXAppearance.m in Sources */,
 				77C5346A1B03B85E00CF7466 /* PXDiaryReminderViewController.m in Sources */,
 				779EE68B1AA5E8A600C31326 /* PXTimeCalculator.m in Sources */,
 				0E7159A32367057A004A5C35 /* InsightsAverageWeekSectionVC.swift in Sources */,
 				77BA1BC91AE54E0E00C820FD /* PXDrinkAddition.m in Sources */,
 				7712CFD91A49FDBB00D6064C /* PXGoalProgressViewController.m in Sources */,
-				83A0AEA819DAEA7E00DF6718 /* PXMemo.m in Sources */,
 				379E922F1A405071006CCC05 /* PXAwesomeFloatingGroupDebug.m in Sources */,
 				77EA75A51C28071800C9187C /* PXWeekSummaryViewController.m in Sources */,
 				7718AEC219DD7F4C00604EE9 /* PXCardViewController.m in Sources */,
@@ -3202,7 +3197,6 @@
 				A69EB09E1CBFDCB40088973E /* PXCPTBarPlot.m in Sources */,
 				2AFCF01619D5CCE200439CCB /* PXLocalNotificationsManager.m in Sources */,
 				774C8A651A82468D003292DA /* PXBulletCell.m in Sources */,
-				77F8F53C1A2DE04900C3D737 /* PXIdentityAspectsViewController.m in Sources */,
 				776B819A19C98F1D0055481C /* PXSolidButton.m in Sources */,
 				7704EA171A1196CD00052D89 /* NSManagedObject+PXFindByID.m in Sources */,
 				777D2C101A28888D0070E45D /* PXDrinkRecord+Extras.m in Sources */,
@@ -3213,10 +3207,8 @@
 				7718AEC319DD7F4C00604EE9 /* PXDeskView.m in Sources */,
 				0E9F9927216653490084BDED /* AuditHistoryOverviewVC.swift in Sources */,
 				77F66B5C1A27387700053991 /* TSMessageView.m in Sources */,
-				0E16D31B239AADCA0051E2B6 /* MRTTermsVC.swift in Sources */,
 				77E1CEBE19F4FC2F0057D54A /* PXStepView.m in Sources */,
 				77A233991A851F69006F6190 /* PXAllStatisticsViewController.m in Sources */,
-				77979A491A3A10EA002BB77D /* PXFlipsideCell.m in Sources */,
 				77DFDC5F19DEF81F00DB2515 /* PXCardMenuViewController.m in Sources */,
 				77076AE61A0A9653007F616F /* PXTabButton.m in Sources */,
 				771514E719CC8C7500E353C8 /* AngleGradientLayer.m in Sources */,
@@ -3231,12 +3223,9 @@
 				7792280E1A40971D00326CA1 /* PXActionPlan.m in Sources */,
 				77253BB01C2B23620027D8C3 /* PXWeekSummaryFormatter.m in Sources */,
 				7704E9E41A111C5E00052D89 /* PXOutlineButton.m in Sources */,
-				777D2C031A275DB10070E45D /* FPPopoverKeyboardResponsiveController.m in Sources */,
 				77CE673D1A44DE5B00059ACC /* PXExplosionLayer.m in Sources */,
-				77979A381A39B2C4002BB77D /* PXFlipsidesViewController.m in Sources */,
 				772481F71A795581008E513A /* PXGoal+Extras.m in Sources */,
 				7712CFD31A49E09100D6064C /* PXGoalCalculator.m in Sources */,
-				8393202D19D96E0400F39FC6 /* PXMemoReminder.m in Sources */,
 				0E21445A234E015B00913820 /* DrinkStatistics.swift in Sources */,
 				0E61FF7E22281C1B0000F3C8 /* PlanCell.swift in Sources */,
 				8243464619FE5C17001F95BB /* PXSurveyQuestionCell.m in Sources */,
@@ -3244,13 +3233,12 @@
 				777F57391AFD0768003A7003 /* PXImageStore.m in Sources */,
 				77979A171A375E01002BB77D /* PXGoalCell.m in Sources */,
 				77F66ACF1A26134100053991 /* PXTrackerDrinksViewController.m in Sources */,
-				77979A511A3B4FDB002BB77D /* PXEditFlipsideViewController.m in Sources */,
 				77A233AC1A8B62A9006F6190 /* PXCardResultsViewController.m in Sources */,
-				772FDBE71A3F4657009A1B69 /* PXConfigureFlipsideCell.m in Sources */,
 				83B48CEF19BDE5AB003C1BAD /* PXSectionNavTableVC.m in Sources */,
 				0E6713EF23841BBF00DDE32C /* InsightsLifetimeSectionVC.swift in Sources */,
 				77E81D421A8101490031B15A /* PXAlcoholEffectViewController.m in Sources */,
 				0E7CB6CB2226EF5000AB8811 /* MyPlanRecord.swift in Sources */,
+				0E190E53249799BA00BC4071 /* TrialParticipantRegisterVC.swift in Sources */,
 				77CE672B1A4468AB00059ACC /* PXUserMoodDiaries.m in Sources */,
 				771E95291C209359008CD125 /* PXStep.m in Sources */,
 				83B48CCD19BDB03F003C1BAD /* PXProgressToolbar.m in Sources */,
@@ -3262,9 +3250,8 @@
 				777F42701AA499130060C04A /* PXAuditHistoryViewAuditVC.m in Sources */,
 				A650C5AE1F56BC8F0078C9E3 /* DLDebugger.m in Sources */,
 				77EA75BD1C29707500C9187C /* PXLinkCell.m in Sources */,
-				77F8F5361A2DD6D200C3D737 /* PXIdentityIntroViewController.m in Sources */,
+				D3F15B662628687300DE1B3D /* CustomPlanTemplate.swift in Sources */,
 				779227FF1A4069E200326CA1 /* PXActionPlansViewController.m in Sources */,
-				77979A3D1A39B661002BB77D /* PXUserFlipsides.m in Sources */,
 				8320711D19D404AE00F5AD04 /* PXCalendarView.m in Sources */,
 				771B36D01AEE7C0100F3E7B3 /* PXQuickLinks.m in Sources */,
 				779EE6941AA622CD00C31326 /* PXRadialProgressLayer.m in Sources */,
@@ -3277,41 +3264,35 @@
 				82F54F9219FE6BB400457AC5 /* PXPreSurveyVC.m in Sources */,
 				77076ACD1A0A5EB7007F616F /* UIImageEffects.m in Sources */,
 				774B837A1B4437AE0097AAFD /* PXDashboardTableView.m in Sources */,
-				7715CBAF1A30ACA400CCE570 /* PXIdentityNavViewController.m in Sources */,
 				776B819D19C9A2390055481C /* PXButtonIntrinsicInsets.m in Sources */,
 				77EA75A21C245E4500C9187C /* PXBlurAnimationController.m in Sources */,
 				77F66AC11A25371100053991 /* PXNumberFieldDelegate.m in Sources */,
 				77A9EA681A40CCF60098AF5F /* PXUserActionPlans.m in Sources */,
+				0EDF8FE42433AC8F0092B360 /* PopoverVC.swift in Sources */,
 				77B0703B1C2202E800128010 /* PXDiaryStreakCell.m in Sources */,
 				77BA1BCC1AE54E0E00C820FD /* PXDrink.m in Sources */,
-				77F8F5391A2DDAA500C3D737 /* PXIdentityPhotoViewController.m in Sources */,
 				776B819419C988EC0055481C /* UIColor+DrinkLess.m in Sources */,
 				83FB100419C71DA900C42085 /* NSDate+DrinkLess.m in Sources */,
 				77C3B2EA1A7BE9390067D232 /* PXTabView.m in Sources */,
 				77EA75AB1C28467400C9187C /* PXWeekAlcoholFreeView.m in Sources */,
 				7715CBD71A31FF5600CCE570 /* PXExampleCell.m in Sources */,
-				8323405E19B8753300304F6E /* FPTouchView.m in Sources */,
 				0E61FF70222802710000F3C8 /* MakePlanVC.swift in Sources */,
 				0EDB7C232368C650007308BE /* InsightsAverageWeekGraphView.m in Sources */,
 				3799247F1A39A0AB0031B09F /* PXTipsViewController.m in Sources */,
 				7712CFDE1A4A4DF600D6064C /* PXGoalAnalysisViewController.m in Sources */,
 				77AD64BC1A83DAD5006D446B /* PXMoodDiaryViewController.m in Sources */,
-				7715CBC41A3133F100CCE570 /* PXIdentityExampleViewController.m in Sources */,
+				D3D8933C2628A21200A11EB2 /* AppRater.swift in Sources */,
 				7715CBD41A31D4D500CCE570 /* PXContradictionCell.m in Sources */,
 				772F496219D9633A004EA816 /* PXDividerView.m in Sources */,
 				4F17CBE41CBFE62B0022C2D3 /* UIViewController+PXHelpers.m in Sources */,
 				77CF796619D07ECB00C7509B /* PXInfographicViewController.m in Sources */,
 				0E058D2F2270ACB4000D03E3 /* Migration_9500.swift in Sources */,
-				8323405C19B8753300304F6E /* FPPopoverController.m in Sources */,
-				77979A4E1A3B4732002BB77D /* PXFlipside.m in Sources */,
-				77979A441A3A0C52002BB77D /* PXFlipView.m in Sources */,
 				0EF8CA552226EC2500687007 /* DrinkLess.xcdatamodeld in Sources */,
 				77979A2C1A38A9C4002BB77D /* PXRateView.m in Sources */,
 				0E5D6C7A2174AE670005E45B /* FoundationExt.swift in Sources */,
 				8301295519B76E7D0058AB0E /* PXTextEntryCell.m in Sources */,
 				772F496719D9666E004EA816 /* PXEstimateCell.m in Sources */,
 				0E5D6C762174A5F40005E45B /* Migration_9400.swift in Sources */,
-				7715CBC11A31302000CCE570 /* PXIdentityContradictionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3378,7 +3359,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "e94583c2-1e91-4db8-9b9f-f80e90308d80";
@@ -3428,10 +3409,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "fe287874-ac40-4ab6-a8a8-5dfe10530ecc";
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -3441,14 +3423,16 @@
 			baseConfigurationReference = 75AAAD52DCF13F61CABD7CF0 /* Pods-drinkless.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9541;
 				DEVELOPMENT_TEAM = Y542T8R9RB;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Drink Less/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.11;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.portablepixels.drinkless;
 				PRODUCT_NAME = drinkless;
@@ -3456,7 +3440,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Drink Less/drinkless-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3466,21 +3450,23 @@
 			baseConfigurationReference = 58182875D904D46DD23B5889 /* Pods-drinkless.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9541;
 				DEVELOPMENT_TEAM = Y542T8R9RB;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = "Drink Less/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.11;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.portablepixels.drinkless;
 				PRODUCT_NAME = drinkless;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Drink Less/drinkless-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -3512,6 +3498,7 @@
 		7704E9EC1A1137C900052D89 /* DrinkLess.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0E995B852541A40300029BA3 /* DrinkLess 17.xcdatamodel */,
 				0EDEBC6B222599C50063CCB4 /* DrinkLess 16.xcdatamodel */,
 				0E33367321C1299F0071D35E /* DrinkLess 15.xcdatamodel */,
 				0E1F408721BFD37200358E2A /* DrinkLess 14.xcdatamodel */,
@@ -3529,7 +3516,7 @@
 				77F66AB01A24D97600053991 /* DrinkLess 2.xcdatamodel */,
 				7704E9ED1A1137C900052D89 /* DrinkLess.xcdatamodel */,
 			);
-			currentVersion = 0EDEBC6B222599C50063CCB4 /* DrinkLess 16.xcdatamodel */;
+			currentVersion = 0E995B852541A40300029BA3 /* DrinkLess 17.xcdatamodel */;
 			path = DrinkLess.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

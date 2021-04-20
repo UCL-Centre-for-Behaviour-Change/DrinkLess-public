@@ -64,6 +64,7 @@ static NSUInteger const PXNumberOfPeople = 20;
     [super viewDidLoad];
     
     self.screenName = @"Infographic";
+    self.navigationItem.title = @"How do your compare?";
     
     self.originalTitleBottom = self.titleBottomConstraint.constant;
     

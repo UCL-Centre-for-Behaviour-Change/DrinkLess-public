@@ -161,28 +161,28 @@ static NSString *const PXNoteKey = @"note";
     _allInformation = @[@{PXAuditScoreKey: @0,
                           PXBoundaryKey: @"0-7",
                           PXColorKey: [UIColor gaugeGreenColor],
-                          PXIndicationKey: @"Your results indicate you’re at low risk of alcohol-related harm provided you’re also drinking 14 units or less a week.",
+                          PXIndicationKey: @"you’re at low risk of alcohol-related harm provided you’re also drinking 14 units or less a week.",
                           PXNoteKey: @"You are in the lowest of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."
                           },
                         
                         @{PXAuditScoreKey: @8,
                           PXBoundaryKey: @"8-15",
                           PXColorKey: [UIColor gaugeDarkYellowColor],
-                          PXIndicationKey: @"Your results indicate you’re at increasing risk of alcohol-related harm.",
+                          PXIndicationKey: @"you’re at increasing risk of alcohol-related harm.",
                           PXNoteKey: @"You are in the second of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."
                           },
                         
                         @{PXAuditScoreKey: @16,
                           PXBoundaryKey: @"16-19",
                           PXColorKey: [UIColor gaugeOrangeColor],
-                          PXIndicationKey: @"Your results indicate you’re at higher risk of alcohol-related harm.",
+                          PXIndicationKey: @"you’re at higher risk of alcohol-related harm.",
                           PXNoteKey: @"You are in the second highest of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."
                           },
                         
                         @{PXAuditScoreKey: @20,
                           PXBoundaryKey: @"20-40",
                           PXColorKey: [UIColor gaugeRedColor],
-                          PXIndicationKey: @"Your results indicate the possibility of alcohol dependence. You are welcome to continue to use this app though we strongly advise you to contact your GP for further support.",
+                          PXIndicationKey: @"the possibility of alcohol dependence. You are welcome to continue to use this app though we strongly advise you to contact your GP for further support.",
                           PXNoteKey: @" You are in the highest of the four risk zones (low risk; increasing risk; higher risk; and at risk of alcohol dependence)."}];
 }
 

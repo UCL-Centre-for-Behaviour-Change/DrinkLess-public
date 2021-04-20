@@ -45,12 +45,21 @@
     [self.navigationController setViewControllers:@[self] animated:NO];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (Debug.ENABLED && Debug.ONBOARDING_STEP_THROUGH_TO != nil && ![Debug.ONBOARDING_STEP_THROUGH_TO isEqualToString:@"helpful"]) {
+        //[self pressedContinue:nil];
+        [self selectedRateView:self.yesRateView];
+        [self pressedFinish:nil];
+    }
+}
+
 #pragma mark - Actions
 
 - (IBAction)pressedFinish:(id)sender {
     if (!self.introManager.wasHelpful) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Please select an answer" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+        [[UIAlertController simpleAlertWithTitle:nil msg:@"Please select an answer" buttonTxt:@"Ok"] showIn:self];
         return;
     }
     self.introManager.stage = PXIntroStageCreateGoal;

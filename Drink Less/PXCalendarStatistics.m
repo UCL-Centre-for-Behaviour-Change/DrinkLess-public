@@ -16,6 +16,7 @@
 #import "NSTimeZone+DrinkLess.h"
 #import "PXDebug.h"
 #import "PXDrink.h"
+#import "drinkless-Swift.h"
 
 @interface PXCalendarStatistics ()
 
@@ -53,6 +54,7 @@
         }
         totalUnits += drinkRecord.totalUnits.floatValue;
         // Don't record if zero, as later code will get confused
+        // This is such crap code in this section!
         if (totalUnits > 0) {
             datesTally[dateInCurrentCalendar] = @(totalUnits);
         }

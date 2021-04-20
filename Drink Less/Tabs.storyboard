@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,7 +36,7 @@
                 <navigationController id="CZs-dR-XGb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" enabled="NO" title="" id="bVJ-r5-50S"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ztd-pv-rjE">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                 </navigationController>
@@ -52,7 +50,7 @@
                 <navigationController id="AO4-wV-tVd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Insights" image="tabbar-insights" id="41t-GU-Jta"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="vhe-fo-c3v">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -68,10 +66,10 @@
             <objects>
                 <tableViewController id="a8Z-Ca-hec" customClass="PXIdentityNavViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Biy-P8-iOV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93999999761581421" green="0.93999999761581421" blue="0.93999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" opaque="NO" contentMode="scaleToFill" misplaced="YES" id="Cjn-Wu-thw">
+                        <view key="tableHeaderView" opaque="NO" contentMode="scaleToFill" id="Cjn-Wu-thw">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="152"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -108,11 +106,11 @@ This section will help you do that.</string>
                                 <rect key="frame" x="0.0" y="207.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="e4k-Gq-HLf" id="Kxy-oP-NxT">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gHN-td-MKE">
-                                            <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="324" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -147,7 +145,7 @@ This section will help you do that.</string>
                 <navigationController id="I22-b5-xuK" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Drink + Me" image="Identity" id="URe-Cc-iwB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="jie-ak-A9j">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -164,7 +162,7 @@ This section will help you do that.</string>
                 <navigationController id="Mh7-qo-ouc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Activities" image="Goals" id="KF6-Uh-89c" userLabel="Activities"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="zq3-6H-Wub">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -181,7 +179,7 @@ This section will help you do that.</string>
                 <navigationController id="BUV-qV-8jv" customClass="PXHomeNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Dashboard" image="934-measuring-cup" id="wmb-Nq-Seb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="0hd-Sb-sH8">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                 </navigationController>
@@ -194,7 +192,7 @@ This section will help you do that.</string>
             <objects>
                 <collectionViewController id="mrO-UO-edd" customClass="PXActivitiesViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="N8G-ib-ZHF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93999999761581421" green="0.93999999761581421" blue="0.93999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewLayout key="collectionViewLayout" id="Shv-vi-hu9" customClass="PXHorizontalPagingLayout">
@@ -207,8 +205,8 @@ This section will help you do that.</string>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </collectionViewLayout>
-                        <view key="backgroundView" contentMode="scaleToFill" id="ETc-m4-HGd">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <view key="backgroundView" contentMode="scaleToFill" ambiguous="YES" id="ETc-m4-HGd">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -216,20 +214,20 @@ This section will help you do that.</string>
                             </constraints>
                         </view>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="activitiesCell" id="6jT-Q0-IrL" customClass="PXActivitiesCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activitiesCell" id="6jT-Q0-IrL" customClass="PXActivitiesCell">
                                 <rect key="frame" x="0.0" y="0.0" width="140" height="134"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="140" height="134"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mcp-OD-ff7">
-                                            <rect key="frame" x="10" y="13" width="120" height="109"/>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mcp-OD-ff7">
+                                            <rect key="frame" x="10" y="12.5" width="120" height="109"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="60" placeholderIntrinsicHeight="60" translatesAutoresizingMaskIntoConstraints="NO" id="s4a-gm-g5X">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="60" placeholderIntrinsicHeight="60" translatesAutoresizingMaskIntoConstraints="NO" id="s4a-gm-g5X">
                                                     <rect key="frame" x="0.0" y="0.0" width="120" height="67"/>
                                                 </imageView>
-                                                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9nV-ng-pKa">
+                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9nV-ng-pKa">
                                                     <rect key="frame" x="0.0" y="77" width="120" height="32"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwX-oQ-exU">
@@ -299,7 +297,7 @@ This section will help you do that.</string>
                 <navigationController id="03H-Hl-kLn" customClass="TabBarCalendarNavVC" customModule="drinkless" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Calendar" image="tabbar-calendar" id="yYG-xr-hPX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lIz-m3-tVK">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -319,7 +317,7 @@ This section will help you do that.</string>
                         <viewControllerLayoutGuide type="bottom" id="Qhp-4N-wkq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Jw0-fa-JmC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Will replace with Calednar from Progress.sb" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34V-ln-rgZ">
@@ -347,11 +345,11 @@ This section will help you do that.</string>
                         <viewControllerLayoutGuide type="bottom" id="c1J-lG-rqq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xoK-Cy-j91">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="887"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="863"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePY-kq-O3G">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="843"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="814"/>
                                 <subviews>
                                     <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="Pkm-3m-qax">
                                         <rect key="frame" x="0.0" y="15" width="375" height="300"/>
@@ -602,21 +600,21 @@ free days</string>
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GoalSummaryCell" id="p78-BL-7Uu">
-                                                <rect key="frame" x="0.0" y="1" width="190" height="27"/>
+                                                <rect key="frame" x="0.0" y="28" width="190" height="27"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p78-BL-7Uu" id="gvY-tX-4Mq">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p78-BL-7Uu" id="gvY-tX-4Mq">
                                                     <rect key="frame" x="0.0" y="0.0" width="190" height="27"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goal-hit" translatesAutoresizingMaskIntoConstraints="NO" id="fxB-LL-Ceg">
-                                                            <rect key="frame" x="0.0" y="2" width="20" height="20"/>
+                                                            <rect key="frame" x="0.0" y="2" width="20" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="HPR-bD-iF6"/>
                                                                 <constraint firstAttribute="height" constant="20" id="TmS-fH-vhE"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 or more alcohol free days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCZ-qB-NDl">
-                                                            <rect key="frame" x="28" y="3" width="152.5" height="16"/>
+                                                            <rect key="frame" x="28" y="3.5" width="152.5" height="16"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                                             <color key="textColor" red="0.52000000000000002" green="0.52000000000000002" blue="0.52000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -990,10 +988,10 @@ week over the last </string>
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LlT-bI-YdD">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="138"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, there isn’t yet enough data for this time range." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVe-Dw-w6t">
-                                                <rect key="frame" x="62.5" y="34.5" width="250" height="65"/>
+                                                <rect key="frame" x="62.5" y="36.5" width="250" height="65"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="250" id="3Wv-zT-EFr"/>
                                                     <constraint firstAttribute="height" constant="65" id="q1q-tS-ztG"/>
@@ -1018,7 +1016,7 @@ week over the last </string>
                                     <constraint firstItem="LlT-bI-YdD" firstAttribute="leading" secondItem="whJ-nr-wdL" secondAttribute="leading" id="JQZ-UC-OgC"/>
                                     <constraint firstAttribute="trailing" secondItem="LlT-bI-YdD" secondAttribute="trailing" id="NNh-GO-dTB"/>
                                     <constraint firstAttribute="bottom" secondItem="wLz-aC-VJQ" secondAttribute="bottom" id="Wba-vg-WBJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="LlT-bI-YdD" secondAttribute="bottom" constant="130" id="kjE-44-wRu"/>
+                                    <constraint firstAttribute="bottom" secondItem="LlT-bI-YdD" secondAttribute="bottom" constant="126" id="kjE-44-wRu"/>
                                     <constraint firstItem="wLz-aC-VJQ" firstAttribute="leading" secondItem="whJ-nr-wdL" secondAttribute="leading" id="oBk-0g-Rff"/>
                                 </constraints>
                             </view>
@@ -1030,7 +1028,7 @@ week over the last </string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 months" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upw-uM-u1X">
-                                <rect key="frame" x="276.5" y="10.5" width="64.5" height="18"/>
+                                <rect key="frame" x="278" y="10.5" width="63" height="18"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                 <color key="textColor" red="0.52000000000000002" green="0.52000000000000002" blue="0.52000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1332,7 +1330,7 @@ free days</string>
         <image name="goal-near" width="124" height="124"/>
         <image name="icon-dropdown-grey2" width="20" height="10"/>
         <image name="insights-collapse-icon" width="33" height="27.5"/>
-        <image name="tabbar-calendar" width="1.3999999761581421" height="1.3999999761581421"/>
-        <image name="tabbar-insights" width="42" height="42"/>
+        <image name="tabbar-calendar" width="28" height="28"/>
+        <image name="tabbar-insights" width="28" height="28"/>
     </resources>
 </document>

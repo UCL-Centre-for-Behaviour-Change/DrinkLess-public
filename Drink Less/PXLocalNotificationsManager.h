@@ -21,6 +21,9 @@ extern NSString* const PXMemoWatchReminderType;
 extern NSString* const PXMemoRecordReminderType;
 //extern NSString* const PXSurveyReminderType;
 
+/**
+ * @TODO Convert to swift. Re-write for current (reduced) functionality (See readme_dev)
+ */
 @interface PXLocalNotificationsManager : NSObject
 
 @property (nonatomic) BOOL consumptionReminderShowing;
@@ -29,12 +32,13 @@ extern NSString* const PXMemoRecordReminderType;
 
 - (void)updateConsumptionReminder;
 
--(void)showNotification:(UILocalNotification *)notification;
+-(void)showNotification:(UNNotification *)notification;
 
 - (void)presentMoodDiaryAfterDrinksTrackerIfNeeded;
 - (void)presentMoodDiaryIfNotCurrentlyShowing;
 
 /**
+@deprecated
  * schedules a local notification
  * @param date (first) firedate of the notification
  * @param message message to be displayed in notification center
@@ -45,24 +49,21 @@ extern NSString* const PXMemoRecordReminderType;
 - (void)addLocalNotificationForDate:(NSDate*)date message:(NSString*)message type:(NSString*)type ID:(NSString*)ID repeat:(NSCalendarUnit)repeatInterval;
 
 /**
+@deprecated
  * convenience method with no repeats
  */
-- (void)addLocalNotificationForDate:(NSDate*)date message:(NSString*)message type:(NSString*)type ID:(NSString*)ID;
+//- (void)addLocalNotificationForDate:(NSDate*)date message:(NSString*)message type:(NSString*)type ID:(NSString*)ID;
 
-/** removes a local notification if the following parameters match:
+/**
+@deprecated removes a local notification if the following parameters match:
  * @param type type must match the type stored in userinfo
  * @param ID ID must match the ID stored in userinfo
  */
-- (void)removeLocalNotificationWithType:(NSString*)type ID:(NSString*)ID;
+//- (void)removeLocalNotificationWithType:(NSString*)type ID:(NSString*)ID;
 
-/** all scheduled local notifications for a given type
- * @param type type stored in the userinfo that needs to match
- * @return array of matching local notifications
- */
-- (NSArray*)allLocalNotificationsWithType:(NSString*)type;
-
-
-/** Does not include the newly added Survey notification which needs to be enabled manually */
+/**
+ @deprecated
+ Does not include the newly added Survey notification which needs to be enabled manually */
 - (void)enableAllNotificationsIfFirstRun;
 
 ///** Schedules a one off. To be used on suspend... */

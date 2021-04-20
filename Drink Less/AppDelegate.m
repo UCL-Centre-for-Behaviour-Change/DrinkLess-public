@@ -11,7 +11,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "PXAppearance.h"
 #import "PXIntroNavigationController.h"
-#import "iRate.h"
 #import "PXLocalNotificationsManager.h"
 #import "TSMessage.h"
 #import "PXAwesomeFloatingGroupDebug.h"
@@ -51,13 +50,14 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 /////////////////////////////////////////////////////////////////////////
 
 
-@interface AppDelegate () <PXAwesomeFloatingGroupDebugDelegate>
+@interface AppDelegate () <PXAwesomeFloatingGroupDebugDelegate, UNUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) PXAwesomeFloatingGroupDebug *awesomeGroupDebugView;
 @property (strong, nonatomic) DLFloatingDebugVC *floatingDebugVC;
 @property (strong, nonatomic) PXIntroManager *introManager;
 @property (nonatomic) BOOL didLaunchViaNotification;
 @property (nonatomic) BOOL isLaunching;  // disentangle fresh run from resume
+
 @end
 
 @implementation AppDelegate {
@@ -66,14 +66,10 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 //    BOOL _scheduleQuestionnaireAlertOnSuspend;
 }
 
-+ (void)initialize {
-    [iRate sharedInstance].daysUntilPrompt = 7;
-    [iRate sharedInstance].usesUntilPrompt = 11;
-}
-
 //---------------------------------------------------------------------
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
     NSLog(@"******* APPLICATION: DidFinishLaunchingWithOptions *******");
     /////////////////////////////////////////
     // VERISON INFO
@@ -102,6 +98,11 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     [[PXCoreDataManager sharedManager] loadDatabase];
     
     
+    
+    // ANALYTICS
+    [Analytics.shared setup];
+    
+    
     /////////////////////////////////////////
     // MIGRATION
     // !! Be sure to run before firstRun flag is set in userdefs or else fresh installs will try to migrate
@@ -112,21 +113,24 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     BOOL isFirstError = YES;
     for (MigrationError *e in errors) {
         if (isFirstError) {
-            [AlertManager.shared showErrorAlert:e.toNSError callback:^(NSInteger idx) {
+            [[UIAlertController errorAlert:e.toNSError callback:^() {
                 for (MigrationError *e2 in errors) {
                     if (e2.isFatal) {
                         [NSException raise:NSGenericException format:@"Fatal migration error. %@", e2.toNSError];
                         return;
                     }
                 }
-            }];
+            }] show];
             isFirstError = NO;
         } else {
-            [AlertManager.shared showErrorAlert:e.toNSError];
+            [[UIAlertController errorAlert:e.toNSError] show];
         }
     }
     
-    
+    ///
+    /// Rater
+    ///
+    [AppRater.shared markRun];
     
     /////////////////////////////////////////
     // AUDIO
@@ -192,12 +196,26 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     /////////////////////////////////////////
     // NOTIFICATIONS
     /////////////////////////////////////////
-    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
-    } else {
-        [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
-    }
-    
+    NSLog(@"[APPD] Checking Notif auth ");
+    UNAuthorizationOptions options = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound;
+    UNUserNotificationCenter *notifCenter = [UNUserNotificationCenter currentNotificationCenter];
+    [notifCenter requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        NSLog(@"[APPD] Notif auth retuned options: %lu", options);
+        
+        if (error) {
+            NSLog(@"[APPD] Error registering for auth: %@", error);
+            [DataServer.shared logError:@"UN registerAuth error" msg:error.localizedDescription info:nil];
+            return;
+        }
+        
+        if (options != UNAuthorizationOptionNone) {
+            NSLog(@"[APPD] Updating consumption reminders");
+            [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
+        } else {
+            NSLog(@"[APPD] Notif auth denied");
+        }
+    }];
+    notifCenter.delegate = self;
     
     
     /////////////////////////////////////////
@@ -217,19 +235,6 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedIntro) name:@"PXFinishIntro" object:nil];
 
-    /////////////////////////////////////////
-    // MRT TRIAL
-    /////////////////////////////////////////
-    
-    // Initialise it if this is a first run
-    MRTNotificationsManager *mrtMan = MRTNotificationsManager.shared;
-    [mrtMan launchWithIsFirstRun:isFirstRun];
-    UILocalNotification *launchNotif = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-    if (launchNotif) {
-        if (![mrtMan handleMRTNotificationWithNotification:launchNotif]) {
-            [[PXLocalNotificationsManager sharedInstance] showNotification:launchNotif]; // this was entirely missing before, meaning the alert would only be shown when the app was suspended in the bg, not killed altogether
-        }
-    }
     
     /////////////////////////////////////////
     // DEBUGGING
@@ -272,13 +277,16 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 
 
     ////////////////////////////////////////
-    // MARK: TEMP STARTUP
+    // MARK: DEBUG STARTUP STUFF
     ////////////////////////////////////////
+    
     //[PXCoreDataManager.sharedManager dbg_deleteCustomDrinkServings];
 
     if (Debug.ENABLED) {
         [self _popuplateWithData];
+    
     }
+    
     //[self _cleanupDuplicateAlcoholFreeDays];
 
 // New Swift port
@@ -287,9 +295,24 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     
 #endif //DEBUG
     
-    
     return YES;
 }
+
+// Handles notifs while app is open
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    
+    [[PXLocalNotificationsManager sharedInstance] showNotification:notification];
+    completionHandler(UNNotificationPresentationOptionSound);
+    
+}
+
+// Handles notif while app suspended or killed
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(nonnull UNNotificationResponse *)response withCompletionHandler:(nonnull void (^)(void))completionHandler {
+    
+    [[PXLocalNotificationsManager sharedInstance] showNotification:response.notification];
+    completionHandler();
+}
+
 
 /**  HKS NOTE! We only call this with 0 now. Onboarding is no longer pick up where you left off. It would need some rethinking if we reimplement this as we have more screens now and have abandoned the VC id naming scheme used below */
 - (void)showIntroductionFromStage:(PXIntroStage)introStage {
@@ -301,6 +324,7 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PXIntroNavigationController* introNav = (PXIntroNavigationController*)[storyboard instantiateInitialViewController];
+    introNav.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.window.rootViewController presentViewController:introNav animated:NO completion:^{
     }];
 
@@ -376,31 +400,6 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     [[PFInstallation currentInstallation] saveInBackground];
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-    NSLog(@"ERROR didFailtToRegister: %@", error);
-}
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    if (notificationSettings.types != UIUserNotificationTypeNone) {
-        [[PXLocalNotificationsManager sharedInstance] updateConsumptionReminder];
-    }
-}
-
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"******* APPLICATION: didReceiveLocalNotification  *******");
-
-//    if ([notification.userInfo[KEY_LOCALNOTIFICATION_TYPE] isEqualToString:PXSurveyReminderType]) {
-//        _didResumeFromQuestionnaireNotification = YES;
-//    } else {
-    
-    
-    if ([MRTNotificationsManager.shared handleMRTNotificationWithNotification:notification]) {
-        return;
-    }
-    [[PXLocalNotificationsManager sharedInstance] showNotification:notification];
-//    }
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     NSLog(@"******* APPLICATION: WillResignActive  *******");
@@ -410,7 +409,6 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     NSLog(@"******* APPLICATION: DidEnterBackground  *******");
-    MRTNotificationsManager.shared.appIsInForeground = NO;
 
 //    if (_scheduleQuestionnaireAlertOnSuspend) {
 //        NSLog(@"******* SURVEY: Scheduling survey notification *******");
@@ -440,31 +438,7 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     NSLog(@"******* APPLICATION: DidBecomeActive  *******");
 
     application.applicationIconBadgeNumber = 0;
-
-    // ideally this would be in didEnterForegroud but such method existeth not!. Active/inactive is triggered by message centre overlay too so we wont user the *Inactive hooks to set it to NO
-    MRTNotificationsManager.shared.appIsInForeground = YES;
     
-    if (!self.isLaunching) {
-    // Update the schedule. If they are an active DL user the app may never be killed and restarted for the AppDidFinishLAunching hook to run
-        [MRTNotificationsManager.shared launchWithIsFirstRun:NO];
-    }
-    // Careful here as this is triggered after a uialertview closes
-//    if (_didResumeFromQuestionnaireNotification) {
-//        NSLog(@"******* SURVEY: Opening survey URL *******");
-//        [self _openSurveyURL];
-//        _scheduleQuestionnaireAlertOnSuspend = NO;
-//        _didResumeHavingQuestionnaireElgibility = NO;
-//        _didResumeFromQuestionnaireNotification = NO;
-//    } else if (_didResumeHavingQuestionnaireElgibility) {
-////        NSLog(@"******* SURVEY: Showing survey alert prompt *******");
-////        // Show in-app alert as they've ignored the localnotif
-////        [PXLocalNotificationsManager.sharedInstance showSurveyPromptAlertViewWithCallback:^{
-////            [self _openSurveyURL];
-////        }];
-////        _scheduleQuestionnaireAlertOnSuspend = NO;
-////        _didResumeHavingQuestionnaireElgibility = NO;
-////        _didResumeFromQuestionnaireNotification = NO;
-//    }
     self.isLaunching = NO;  // clear flag for disentangling fresh run / resume
 }
 
@@ -524,7 +498,8 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
 - (void)_openSurveyURL
 {
     NSString *urlStr = [NSString stringWithFormat:@"https://uclpsych.eu.qualtrics.com/jfe/form/SV_4PzFlmlT8ViAbgp?devid=%@", [PXDeviceUID uid]];
-    [UIApplication.sharedApplication openURL:[NSURL URLWithString:urlStr]];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    [[UIApplication sharedApplication] openURL:url options:@{UIApplicationOpenURLOptionUniversalLinksOnly: @NO} completionHandler:nil];
 }
 
 //---------------------------------------------------------------------
@@ -549,7 +524,7 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
     NSError *error;
     NSArray <PXAlcoholFreeRecord *> *records = [context executeFetchRequest:req error:&error];
     if (error) {
-        [[[UIAlertView alloc] initWithTitle:@"Error. Please contact support." message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        [[UIAlertController errorAlert:error] show];
         return;
     }
     
@@ -599,20 +574,13 @@ static NSString * const PXUserEligibleForQuestionnaireKey = @"eligible-for-surve
         }
     }
         
-    // temp
-//    NSMutableString *msg = @"Duplicates:".mutableCopy;
-//    [datesDupsCount enumerateKeysAndObjectsUsingBlock:^(NSDate * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
-//        [msg appendFormat:@"\n%@: %i", [NSDateFormatter localizedStringFromDate:key dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle], obj.intValue];
-//    }];
-//    [[[UIAlertView alloc] initWithTitle:@"" message:msg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
-    
     // Now do the deletions
     for (PXAlcoholFreeRecord *rec in recsToDelete) {
         [context deleteObject:rec];
     }
     [context save:&error];
     if (error) {
-        [[[UIAlertView alloc] initWithTitle:@"Error. Please contact support." message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        [[UIAlertController errorAlert:error] show];
         return;
     } else {
         logd(@"Deleted %li Alcohol Free Records", recsToDelete.count);

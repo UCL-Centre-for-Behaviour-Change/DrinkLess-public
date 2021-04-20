@@ -21,7 +21,7 @@ static NSString *const PXTitleKey = @"questiontitle";
  @TODO: questionsDict should be modelled properly
  @TODO: calcScore should then be moved into AuditCalculator
  */
-@interface AuditQuestionsTableViewController () <UIAlertViewDelegate>
+@interface AuditQuestionsTableViewController ()
 
 @property (strong, nonatomic) NSDictionary *plist;
 @property (strong, nonatomic) NSMutableArray *questions;
@@ -136,14 +136,15 @@ static NSString *const PXTitleKey = @"questiontitle";
 
 - (IBAction)pressedContinue:(id)sender {
     if ([self.auditData answerCount] < self.questions.count) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Please answer all the questions" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+        [[UIAlertController simpleAlertWithTitle:nil msg:@"Please answer all the questions" buttonTxt:@"Ok" callback:nil] showIn:self];
         return;
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to submit your answers?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-        alert.delegate = self;
-        [alert show];
+        [[UIAlertController confirmationAlertWithTitle:nil message:@"Are you sure you want to submit your answers?" confirmButtonTitle:@"Yes" cancelButtonTitle:@"No" confirmedFunc:^{
+            
+            [self _submitConfirmed];
+            
+        }] showIn:self];
         return;
     }
 }
@@ -262,29 +263,30 @@ static NSString *const PXTitleKey = @"questiontitle";
     [self reloadTableViewAnimated];
 }
 
-#pragma mark - UIAlertViewDelegate
+//////////////////////////////////////////////////////////
+// MARK: - Additional Privates
+//////////////////////////////////////////////////////////
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        [self assignAuditScores:self.auditData];
-        
-        if (self.isOnboarding) {
-            self.introManager.stage = PXIntroStageAuditResults;
-            [self.introManager save];
-        } else {
-            // This will need to be done after the demographic data in the onboarding
-            // @TODO DRY this up and get it into some sort of delegate or higher level VC - all this data related stuff actually. It's too important and specific to be buried like this
-            self.auditData.demographicKey = self.demographicData.demographicKey;
-            [self.auditData calculateActualPercentiles];
-            [self.auditData saveWithLocalOnly:NO];
-        }
-        
-        if (self.isOnboarding) {
-            [self performSegueWithIdentifier:@"PXShowAuditResults" sender:nil];
-        } else {
-            // For re-audits skip to the feedback infographics
-            [self performSegueWithIdentifier:@"AuditSkipToFeedbackSegue" sender:nil];
-        }
+
+- (void)_submitConfirmed {
+    [self assignAuditScores:self.auditData];
+    
+    if (self.isOnboarding) {
+        self.introManager.stage = PXIntroStageAuditResults;
+        [self.introManager save];
+    } else {
+        // This will need to be done after the demographic data in the onboarding
+        // @TODO DRY this up and get it into some sort of delegate or higher level VC - all this data related stuff actually. It's too important and specific to be buried like this
+        self.auditData.demographicKey = self.demographicData.demographicKey;
+        [self.auditData calculateActualPercentiles];
+        [self.auditData saveWithLocalOnly:NO];
+    }
+    
+    if (self.isOnboarding) {
+        [self performSegueWithIdentifier:@"PXShowAuditResults" sender:nil];
+    } else {
+        // For re-audits skip to the feedback infographics
+        [self performSegueWithIdentifier:@"AuditSkipToFeedbackSegue" sender:nil];
     }
 }
 
@@ -303,7 +305,7 @@ static NSString *const PXTitleKey = @"questiontitle";
     
     if (Debug.ENABLED && Debug.ONBOARDING_STEP_THROUGH_TO != nil) {
         //[self pressedContinue:nil];
-        [self alertView:nil clickedButtonAtIndex:999];
+        [self _submitConfirmed];
     }
 }
 

@@ -74,6 +74,8 @@ NSString *const PXToDateKey = @"toDate";
             elapsedDays = totalDays;
         }
         quantity = (float)elapsedDays - (float)daysDrinking;
+        if (quantity < 0) { quantity = 0; } // E.g. If they've drank M and it's M, then days elapsed is 0 and daysDrinking = 1
+        
         logd(@"GOAL(0): date: %@ - %@ (elapsed=%li) max=%li drank=%li score=%.2f quantity=%.2f", fromDate, toDate, elapsedDays, maxAlcoholDays, daysDrinking, score, quantity);
         
     }

@@ -13,10 +13,10 @@ class Debug : NSObject {
     // Doesnt depend on the ENABLED FLAG! (some of the others might now either!)
     
     @objc static let ENABLED = false
-    @objc static let USE_OPENSOURCE_SERVER = false // Independent of ENABLED
+    @objc static let USE_OPENSOURCE_SERVER = false // Requires Debug @TODO There is not longer a debug/opensource db!
     @objc static let LOG_VERBOSE = false
     
-    @objc static var SHOW_VC_ON_LAUNCH:[String:String]? = nil //["sb": "Main", "id":""]
+    @objc static var SHOW_VC_ON_LAUNCH:[String:String]? = nil //["sb":"Activities", "id": "PXMoodDiaryVC"] //nil //["sb": "Main", "id":""]
     @objc static let FORCE_MIGRATION_VERSION_RANGE:[Int]? = nil //[9500, 9500]
     @objc static let ENABLE_TIME_PANEL = false
     
@@ -28,7 +28,7 @@ class Debug : NSObject {
         @objc public var DO_DRINKS_SPECIFIC = false
         @objc public var DO_AUDIT_HISTORY = false
         @objc public var DO_GOALS = false
-        @objc public var DAYS_BACK = 400
+        @objc public var DAYS_BACK = 200
         @objc public var MAX_DRINK_QUANTITY = 3
     }
     @objc static let DATA_POPULATION = DataPopulationParams()
@@ -41,10 +41,16 @@ class Debug : NSObject {
 //
 //        ]
     
-    @objc static let ONBOARDING_STEP_THROUGH_TO:String? = nil//"goal" // nil = audit q's, "audit-results", "about-you", "estimate", "feedback", "goal"
+    @objc static var ONBOARDING_STEP_THROUGH_TO:String? = "helpful" //helpful" //"goal" // nil = audit q's, "audit-results", "about-you", "estimate", "feedback", "helpful"
     
     /** Force one-off events with given ids to retrigger @see AppConfig */
     @objc static let FORCE_ONEOFF_EVENTS = [String]()
+    
+    
+    /** Force these tasks to be added to the Daily Tasks list (See DailyTasks.plist) */
+    @objc static let SHOW_DAILY_TASK_IDS = [String]() //["audit-follow-up"] //["approach-avoidance"]
+    
+    
 //    @objc static let FORCE_ONEOFF_EVENTS = ["DashboardExplainer"]
     
     /**
@@ -62,12 +68,22 @@ class Debug : NSObject {
             case "AppLaunch" :
                 Log.d("Debug ENABLED")
                 
+//                let ad = AuditData()
+//                ad.auditCScore = 8
+//                ad.demographicKey = "45-54:female"
+//                ad.countryEstimate = 30.0
+//                ad.demographicEstimate = 20.0
+//                ad.calculateActualPercentiles()
+//                Log.i("")
+                
+                
 //                // Show goals
 //                let parentVC = UIApplication.shared.keyWindow!.rootViewController?.childViewControllers.last
 //                let goalVC = UIStoryboard(name: "Activities", bundle: nil).instantiateViewController(withIdentifier:"PXEditGoalVC") as! PXEditGoalViewController
 //                goalVC.isOnboarding = true
 //                parentVC?.present(goalVC, animated: true)
 //                
+                            
                 
                 if Debug.DATA_POPULATION.DO_AUDIT_HISTORY {
                     Data.populateAuditHistory()
@@ -131,6 +147,7 @@ class Debug : NSObject {
     class func doHook(_ hook:String, arg1: NSObject, arg2:NSObject) {
         doHook(hook, args: arg1, arg2)
     }
+    
 }
 
 
@@ -142,7 +159,7 @@ extension Debug {
                 let context = PXCoreDataManager.shared()!.managedObjectContext!
                 let all = AuditDataMO.all(in: context)!
                 // Delete all except the onboarding
-                for e in all {
+                for e in all[1..<all.count] {
                     context.delete(e)
                 }
                 do {
@@ -152,6 +169,11 @@ extension Debug {
                     Log.e("FAILED to erase auditData records")
                 }
             }
+            
+            // Move onboarding entry to 12 months ago
+            let firstAudit = AuditData.first()!
+            firstAudit.date = Date(timeIntervalSinceNow: -3600*24*30*12) as NSDate
+            firstAudit.save(localOnly: true)
             
             // Fake entry on various dates
             let MONTHS_BACK = 5 // number in addition to the most recent to go back
@@ -165,9 +187,9 @@ extension Debug {
                 o.auditCScore = Int.random(in:0...20)
                 o.date = date
                 o.timezone = TimeZoneProvider.current
-                o.demographicKey = "35-44:male"
-                o.countryEstimate = 30.0
-                o.demographicEstimate = 20.0
+                o.demographicKey = firstAudit.demographicKey //"35-44:male"
+                o.countryEstimate = firstAudit.countryEstimate  // 30
+                o.demographicEstimate = firstAudit.demographicEstimate //20
                 o.calculateActualPercentiles()
                 o.setAnswer(questionId: "question9", answerValue:1)
                 o.setAnswer(questionId: "question2", answerValue:2)
@@ -183,3 +205,4 @@ extension Debug {
         }
     }
 }
+

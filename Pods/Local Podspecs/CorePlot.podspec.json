@@ -1,6 +1,6 @@
 {
   "name": "CorePlot",
-  "version": "2.1",
+  "version": "2.2",
   "license": "BSD",
   "summary": "Cocoa plotting framework for Mac OS X, iOS, and tvOS.",
   "homepage": "https://github.com/core-plot",
@@ -18,7 +18,7 @@
   },
   "description": "Core Plot is a plotting framework for OS X, iOS, and tvOS. It provides 2D visualization of data, and is tightly integrated with Apple technologies like Core Animation, Core Data, and Cocoa Bindings.",
   "platforms": {
-    "ios": "6.0",
+    "ios": "8.0",
     "osx": "10.8",
     "tvos": "9.0"
   },

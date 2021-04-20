@@ -65,6 +65,7 @@
     }
 }
 
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,6 +84,7 @@
     if ([segue.destinationViewController respondsToSelector:@selector(userGameHistory)]) {
         [segue.destinationViewController setUserGameHistory:self.userGameHistory];
     }
+    [self _deselectAll];
     [PXStepGuide completeStepWithID:@"explore"];
 }
 
@@ -98,6 +100,16 @@
     NSString *resource = self.isHigh ? @"game-high" : @"game-low";
     [PXInfoViewController showResource:resource fromViewController:self];
 }
+
+
+- (void)_deselectAll
+{
+    // Ensure all are deselected (iOS14 issue with modal)
+    for (int i=0; i<[self.tableView numberOfRowsInSection:0]; i++) {
+        [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] animated:YES];
+    }
+}
+
 
 
 @end

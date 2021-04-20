@@ -13,7 +13,8 @@ typedef NS_ENUM(NSInteger, PXDayStatus) {
     PXDayStatusNoRecords,
     PXDayStatusAlcoholFree,
     PXDayStatusDrank,
-    PXDayStatusHeavyDrinking
+    PXDayStatusHeavyDrinking,
+    PXDayStatusHasUpcomingPlans   // for dates in the future only
 };
 
 @interface PXCalendarStatistics : NSObject

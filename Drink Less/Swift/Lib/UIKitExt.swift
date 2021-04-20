@@ -51,22 +51,24 @@ extension UIViewController {
 
 extension UIAlertController {
     
-    class func confirmationAlert(title:String?, message:String?, confirmButtonTitle:String="Yes", cancelButtonTitle:String="Cancel", confirmedFunc:@escaping ()->Void) -> UIAlertController {
+    @objc class func confirmationAlert(title:String?, message:String?, confirmButtonTitle:String="Yes", cancelButtonTitle:String="Cancel", confirmedFunc:@escaping ()->Void) -> UIAlertController {
+        
+        // Style's are set to have "Ye" as green and No as red. A bit hackish but for consistency with the old system that's what we have. Really you should have separate confirms for when there is a destructive affirmative and you shouldnt say "Yes" rather "Delete".
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let confirmAx = UIAlertAction(title: confirmButtonTitle, style: .destructive) { (_) in
+        let confirmAx = UIAlertAction(title: confirmButtonTitle, style: .cancel) { (_) in
             confirmedFunc()
         }
-        let cancelAx = UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: nil)
-        alert.addAction(confirmAx)
+        let cancelAx = UIAlertAction(title: cancelButtonTitle, style: .destructive, handler: nil)
         alert.addAction(cancelAx)
+        alert.addAction(confirmAx)
         
         return alert
     }
     
     //---------------------------------------------------------------------
 
-    class func textPromptAlert(title:String?, message:String?, confirmButtonTitle:String="Ok", cancelButtonTitle:String="Cancel", completion:@escaping (String?)->Void) -> UIAlertController {
+    @objc class func textPromptAlert(title:String?, message:String?, confirmButtonTitle:String="Ok", cancelButtonTitle:String="Cancel", completion:@escaping (String?)->Void) -> UIAlertController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addTextField()
@@ -85,9 +87,56 @@ extension UIAlertController {
     
     //---------------------------------------------------------------------
 
-//    public func present(in vc:UIViewController) {
-//        vc.present(vc, animated: true, completion: nil)
-//    }
+    @objc class func simpleAlert(title:String?, msg:String?, buttonTxt:String="Ok", callback:(()->Void)?) -> UIAlertController {
+        let alertCon = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        alertCon.addAction(UIAlertAction(title: buttonTxt, style: .default, handler: { (action:UIAlertAction) in
+            callback?()
+        }))
+        return alertCon
+    }
+    
+    // for objc only really. Otherwise we'd assign a default of nil to the callback
+    @objc class func simpleAlert(title:String?, msg:String?, buttonTxt:String="Ok") -> UIAlertController {
+        return simpleAlert(title: title, msg: msg, callback: nil)
+    }
+    
+    //---------------------------------------------------------------------
+
+    @objc class func errorAlert(_ error:NSError, callback:(()->Void)? = nil) -> UIAlertController {
+        return simpleAlert(title: "An error has occured. Please contact support.", msg: error.localizedDescription, buttonTxt: "Ok") {
+            callback?()
+        }
+    }
+    
+    @objc class func errorAlert(_ error:NSError) -> UIAlertController {
+        return errorAlert(error, callback: nil)
+    }
+    
+    //---------------------------------------------------------------------
+
+    @objc class func simpleActionSheet(title:String?, msg:String?, destructiveButtonTitle:String, cancelButtonTitle:String="Cancel", callback:((_ userChoseDestructiveAction:Bool)->Void)? = nil) -> UIAlertController {
+        
+        let alertCon = UIAlertController(title: title, message: msg, preferredStyle: .actionSheet)
+        alertCon.addAction(UIAlertAction(title: destructiveButtonTitle, style: .destructive, handler: { (action:UIAlertAction) in
+            callback?(true)
+        }))
+        alertCon.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { (action:UIAlertAction) in
+            callback?(false)
+        }))
+        
+        return alertCon
+    }
+    
+    //---------------------------------------------------------------------
+
+    @objc public func show(in vc:UIViewController) {
+        vc.present(self, animated: true, completion: nil)
+    }
+    
+    @objc public func show() {
+        let vc = UIApplication.shared.windows.first(where: {$0.isKeyWindow})!.rootViewController!
+        show(in: vc)
+    }
     
 }
 

@@ -39,6 +39,7 @@
         [vc setOpenedOutsideOnboarding:YES];
         [vc.view setBackgroundColor:[UIColor whiteColor]];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        nav.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:nav animated:YES completion:nil];
     }
 }

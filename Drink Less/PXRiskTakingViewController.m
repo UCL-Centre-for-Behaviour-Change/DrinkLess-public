@@ -12,12 +12,14 @@
 #import "PXSolidButton.h"
 #import <AVFoundation/AVFoundation.h>
 #import "PXDailyTaskManager.h"
+#import "drinkless-Swift.h"
 
 static NSInteger const PXMaximumRoundsCount = 10;
 static NSInteger const PXMaximumInflationCount = 30;
 static CGFloat const PXPoundsPerInflation = 0.5;
 
-@interface PXRiskTakingViewController () <UIAlertViewDelegate>
+/** Still used?? */
+@interface PXRiskTakingViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *totalEarnedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastBalloonLabel;
@@ -191,24 +193,18 @@ static CGFloat const PXPoundsPerInflation = 0.5;
 - (void)gameOver {
     NSString *totalEarnedString = [self.currencyFormatter stringFromNumber:@(self.totalEarned)];
     NSString *message = [NSString stringWithFormat:@"You managed to earn %@ in %li rounds", totalEarnedString, (long)self.roundIndex];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Game Over"
-                                                        message:message
-                                                       delegate:self
-                                              cancelButtonTitle:@"Exit"
-                                              otherButtonTitles:@"Play again", nil];
-    [alertView show];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Over" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction: [UIAlertAction actionWithTitle:@"Play again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self startGame];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Exit" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self pressedExit:nil];
+    }]];
+    [alert showIn:self];
     
     [[PXDailyTaskManager sharedManager] completeTaskWithID:@"risk-taking"];
 }
 
-#pragma mark - UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == alertView.cancelButtonIndex) {
-        [self pressedExit:nil];
-    } else {
-        [self startGame];
-    }
-}
 
 @end

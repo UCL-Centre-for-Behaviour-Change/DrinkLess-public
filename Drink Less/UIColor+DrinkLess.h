@@ -30,6 +30,8 @@
 + (UIColor *)overlayGreen;
 + (UIColor *)overlayRed;
 
++ (UIColor *)calendarHasPlanColor;
+
 + (UIColor *)barOrange;
 + (UIColor *)barLightGreen;
 

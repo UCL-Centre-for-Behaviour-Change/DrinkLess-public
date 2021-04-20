@@ -10,6 +10,7 @@
 #import "PXGaugeView.h"
 #import "AngleGradientLayer.h"
 #import "PXAuditFeedbackHelper.h"
+#import "drinkless-Swift.h"
 
 static CGFloat const PXHeight = 210.0;
 static CGFloat const PXRadius = PXWidth * 0.5;
@@ -263,7 +264,7 @@ static CGFloat const PXFullRotationDuration = 2.5;
     
     CGFloat radius = PXRadius - (PXTitleWidth * 0.5);
     
-    __block CGFloat previousPercentile;
+    __block CGFloat previousPercentile = 0.0f;
     [titles enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
         
         CGFloat percentile = [dictionary[PXGaugePercentile] floatValue];
@@ -296,9 +297,27 @@ static CGFloat const PXFullRotationDuration = 2.5;
             CGFloat x = radius * cosf(angle);
             CGFloat y = radius * sinf(angle);
             CGPoint position = CGPointMake(PXDialOrigin.x + x, PXDialOrigin.y + y);
-            label.center = position;
-            label.layer.transform = CATransform3DMakeRotation(angle + (M_PI * 0.5), 0.0, 0.0, 1.0);
             
+            // @CRASH
+            [Analytics.shared logCrashMessage:@"PXGaugeView::plotTitle: crash on `label.center=position`"];
+            [Analytics.shared logCrashInfo:@{
+                @"titles": titles,
+                @"title": title,
+                @"decimal": @(decimal),
+                @"angle": @(angle),
+                @"circumference": @(circumference),
+                @"arcLength": @(arcLength),
+                @"label.text": label.text,
+                @"x": @(x),
+                @"y": @(y),
+                @"halfLabelWidth": @(halfLabelWidth),
+                @"position.x": @(position.x),
+                @"position.y": @(position.y)
+            }];
+            
+            label.center = position;
+//            [Analytics.shared crashMe];
+            label.layer.transform = CATransform3DMakeRotation(angle + (M_PI * 0.5), 0.0, 0.0, 1.0);
             angle += (halfLabelWidth / arcLength) * PXRadians;
         }
     }];

@@ -16,7 +16,7 @@ class AuditHistoryOverviewVC: PXTrackedViewController, AuditHistoryTableViewDele
     //////////////////////////////////////////////////////////
     
     // To use in the main gauge
-    private let POPULATION_TYPE = GroupData.PopulationType.demographic
+    private let POPULATION_TYPE = GroupData.PopulationType.country
     private let GROUP_TYPE = GroupData.GroupType.everyone
     
     
@@ -82,7 +82,7 @@ class AuditHistoryOverviewVC: PXTrackedViewController, AuditHistoryTableViewDele
         gaugeView.isEditing = false
         gaugeView.percentileColors = self.helper.percentileColors;
         gaugeView.percentileZones = self.helper.percentileGaugeZones;
-        gaugeView.estimate = CGFloat(lastestAuditData.demographicEstimate)
+        gaugeView.estimate = CGFloat(lastestAuditData.countryEstimate)
         gaugeView.percentile = CGFloat(lastestAuditData.actualPercentile(groupType: GROUP_TYPE, populationType: POPULATION_TYPE))
        
         // Previous score
@@ -100,6 +100,10 @@ class AuditHistoryOverviewVC: PXTrackedViewController, AuditHistoryTableViewDele
         
         auditHistoryTable.auditHistoryDelegate = self
         auditHistoryTable.auditDataList = allAuditData
+        
+    
+        // Complete the DailyTask
+        PXDailyTaskManager.shared()?.completeTask(withID: "normative-misperceptions")
     }
     
     //---------------------------------------------------------------------

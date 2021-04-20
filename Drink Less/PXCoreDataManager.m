@@ -37,7 +37,7 @@
 }
 
 + (NSManagedObjectContext *)temporaryContext {
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     context.persistentStoreCoordinator = [PXCoreDataManager sharedManager].persistentStoreCoordinator;
     return context;
 }

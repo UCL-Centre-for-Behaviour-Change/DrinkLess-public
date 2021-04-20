@@ -115,6 +115,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshDataAndViewsAnimated:NO];
+    
+    // A little hack to make the title viewable in full again 
+    CGRect frame = self.navigationItem.rightBarButtonItems[1].customView.frame;
+    frame.size.width = 60;
+    self.navigationItem.rightBarButtonItems[1].customView.frame = frame;
+    
+    
 }
 
 
@@ -149,7 +156,7 @@
     f.size.height = 10000; // make sure its enough to show them all
     self.tableView.frame = f;
     [self.tableView reloadData];
-    
+
     UITableViewHeaderFooterView *sectionHeaderView = [self.tableView headerViewForSection:0];
     sectionHeaderView.textLabel.text = [self totalUnitsForDayText];
     
@@ -236,13 +243,17 @@
         CGFloat newH = 0;
         if (!self.tableView.hidden) {
             newH = self.tableView.contentSize.height;
+            if (self.hasDiaryComment) {
+//                newH += [self.tableView footerViewForSection:0].frame.size.height;
+                newH += [self tableView:self.tableView viewForFooterInSection:0].frame.size.height;
+            }
             self.drinksTableHConstr.constant = newH;
         } else if (!self.alcoholFreePlaceholderView.hidden) {
             newH = self.alcoholFreePlaceholderView.frame.size.height;
         } else {
-            newH = 0;
         }
         self.drinkingSectionHConstr.constant = newH;
+        newH = 0;
         
         // Plan section
         newH = 0;
@@ -306,12 +317,34 @@
     return [self totalUnitsForDayText];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (self.hasDiaryComment) {
-        return [@"\nCOMMENTS\n" stringByAppendingString:self.diaryComment];
-    }
-    return nil;
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (!self.hasDiaryComment) return nil;
+    
+    UILabel *commentLbl = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, tableView.frame.size.width-12, 0)];
+    commentLbl.text = [@"\nCOMMENTS\n" stringByAppendingString:self.diaryComment];
+    commentLbl.numberOfLines = 0; // multiline
+    commentLbl.font = [UIFont systemFontOfSize:12.0];
+    commentLbl.textColor = [UIColor darkGrayColor];
+    [commentLbl sizeToFit];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, commentLbl.frame.size.height)];
+    [footer addSubview:commentLbl];
+//    [footer addConstraints:@[
+//        [NSLayoutConstraint constraintWithItem:commentLbl attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:footer attribute:NSLayoutAttributeLeading multiplier:1 constant:12],
+//        [NSLayoutConstraint constraintWithItem:footer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:commentLbl attribute:NSLayoutAttributeTrailing multiplier:1 constant:12],
+//        [NSLayoutConstraint constraintWithItem:footer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:commentLbl attribute:NSLayoutAttributeTop multiplier:1 constant:0],
+//        [NSLayoutConstraint constraintWithItem:footer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:commentLbl attribute:NSLayoutAttributeBottom multiplier:1 constant:0]
+//    ]];
+    
+    return footer;
 }
+
+//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+//    if (self.hasDiaryComment) {
+//        return [@"\nCOMMENTS\n" stringByAppendingString:self.diaryComment];
+//    }
+//    return nil;
+//}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

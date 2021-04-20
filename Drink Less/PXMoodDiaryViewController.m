@@ -55,6 +55,12 @@ static NSUInteger const PXReasonSection = 4;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Weird glitch since iOS14, SB values not set
+    self.happySlider.value = 5;
+    self.sleepSlider.value = 5;
+    self.clearHeadedSlider.value = 5;
+    self.productiveSlider.value = 5;
+    
     self.high = [PXGroupsManager sharedManager].highSM.boolValue;
     self.userMoodDiaries = [PXUserMoodDiaries loadMoodDiaries];
     self.completed = [self.userMoodDiaries fetchTodaysMoodDiary] != nil;
@@ -255,8 +261,7 @@ static NSUInteger const PXReasonSection = 4;
 
 - (IBAction)pressedSave:(id)sender {
     if (self.drankYesterday == nil) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Please answer whether there are any more drinks to record" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
+        [[UIAlertController simpleAlertWithTitle:nil msg:@"Please answer whether there are any more drinks to record" buttonTxt:@"Ok"] showIn:self];
         return;
     }
     

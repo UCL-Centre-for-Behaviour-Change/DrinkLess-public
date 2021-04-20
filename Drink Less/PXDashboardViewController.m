@@ -104,6 +104,14 @@ typedef NS_ENUM(NSInteger, PXSection) {
 
     [self.quickLinks reload];
     [self.dailyTaskManager checkForNewTasks];
+    
+    if (Debug.ENABLED) {
+        for (NSString *taskId in Debug.SHOW_DAILY_TASK_IDS) {
+            [self.dailyTaskManager.availableTaskIDs addObject:taskId];
+        }
+    }
+    
+    
     [self calculateGoalStatistics];
 
     [self.tableView reloadData];
@@ -526,8 +534,16 @@ typedef NS_ENUM(NSInteger, PXSection) {
         case PXSectionTask:
             if (self.hasAvailableTasks) {
                 NSString *identifier = self.dailyTaskManager.availableTaskIDs[indexPath.row];
+//                identifier = @"insights";
                 if ([identifier isEqualToString:@"approach-avoidance"]) {
-                    tabBarController.selectedIndex = 3;
+                    // Let's just push it onto Dashboard. Better than a no-animation option with the tab
+                    
+                    UIStoryboard *gameSB = [UIStoryboard storyboardWithName:@"PXGames" bundle:nil];
+                    UIViewController *gameVC = [gameSB instantiateViewControllerWithIdentifier:@"PXCardMenuViewController"];
+                    [self.navigationController pushViewController:gameVC animated:YES];
+                    
+//                    [tabBarController selectTabAtIndex:1 storyboardName:@"PXGames" pushViewControllersWithIdentifiers:@[@"PXCardMenuViewController"]];
+//
                 }
                 else if ([identifier isEqualToString:@"identity"]) {
                     tabBarController.selectedIndex = 4;
@@ -568,9 +584,7 @@ typedef NS_ENUM(NSInteger, PXSection) {
                     [self.navigationController pushViewController:viewController animated:YES];
                 }
                 else if ([identifier isEqualToString:@"insights"]) {
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Activities" bundle:nil];
-                    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"InsightsVC"];
-                    [self.navigationController pushViewController:viewController animated:YES];
+                    tabBarController.selectedIndex = 3;
                 }
                 else if ([identifier isEqualToString:@"audit-follow-up"]) {
                     // Initialise new Audit data

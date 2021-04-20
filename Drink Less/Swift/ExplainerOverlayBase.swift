@@ -3,7 +3,7 @@
 //  drinkless
 //
 //  Created by Hari Karam Singh on 25/09/2019.
-//  Copyright © 2019 Greg Plumbly. All rights reserved.
+//  Copyright © 2019 UCL. All rights reserved.
 //
 
 import UIKit
@@ -170,7 +170,10 @@ class ExplainerOverlayBase: NSObject {
 
     public func frameForView(_ view:UIView) -> CGRect {
 //        return window!.convert(view.frame, from: view.window)
-        return rootVC!.view.convert(view.frame, from: view.superview!)
+
+//        return rootVC!.view.convert(view.frame, from: view.superview!)
+        // Bug in iOS13 means above doesnt work
+        return view.superview!.convert(view.frame, to:rootVC!.view)
     }
     
     public func anchor(_ view:UIView, to item:UIView) {

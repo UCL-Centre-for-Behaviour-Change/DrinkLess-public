@@ -32,10 +32,10 @@ public class GroupData: NSObject {
     //---------------------------------------------------------------------
 
     required public override init() {
-        let path = Bundle.main.path(forResource: "AuditGroupAll_sept18", ofType: "plist")!
+        let path = Bundle.main.path(forResource: "AuditGroupAll_May20", ofType: "plist")!
         groupDataAll = NSArray(contentsOfFile: path) as! Array<Dictionary<String, NSNumber>>
         
-        let path2 = Bundle.main.path(forResource: "AuditGroupDrinkers_sept18", ofType: "plist")!
+        let path2 = Bundle.main.path(forResource: "AuditGroupDrinkers_May20", ofType: "plist")!
         groupDataDrinkers = NSArray(contentsOfFile: path2) as! Array<Dictionary<String, NSNumber>>
     }
     

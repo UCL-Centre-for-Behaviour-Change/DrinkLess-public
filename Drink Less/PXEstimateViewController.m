@@ -74,17 +74,22 @@ static CGFloat const PXGaugeMargin = 30.0;
     
     [DataServer.shared trackScreenView:@"How do you think you compare dial questions"];
     
-    if (Debug.ENABLED && Debug.ONBOARDING_STEP_THROUGH_TO != nil && ![Debug.ONBOARDING_STEP_THROUGH_TO isEqualToString:@"estimate"]) {
-        
-        float r1 = arc4random_uniform(90) + 10;
-        self.countryCell.gaugeView.estimate = r1;
-        [self updatedGaugeForEstimateCell:self.countryCell];
-        
-        float r2 = arc4random_uniform(90) + 10;
-        self.ageGenderCell.gaugeView.estimate = r2;
-        [self updatedGaugeForEstimateCell:self.ageGenderCell];
-        
-        [self performSegueWithIdentifier:@"PXShowSlidersResults" sender:self];
+    if (Debug.ENABLED) {
+        if ([Debug.ONBOARDING_STEP_THROUGH_TO isEqualToString:@"estimate"]) {
+            // stop the auto progress
+            Debug.ONBOARDING_STEP_THROUGH_TO = nil;
+        } else if (Debug.ONBOARDING_STEP_THROUGH_TO != nil) {
+            // If its a later screen then auto do this one
+            float r1 = arc4random_uniform(90) + 10;
+            self.countryCell.gaugeView.estimate = r1;
+            [self updatedGaugeForEstimateCell:self.countryCell];
+            
+            float r2 = arc4random_uniform(90) + 10;
+            self.ageGenderCell.gaugeView.estimate = r2;
+            [self updatedGaugeForEstimateCell:self.ageGenderCell];
+            
+            [self performSegueWithIdentifier:@"PXShowSlidersResults" sender:self];
+        }
     }
 }
 
@@ -129,8 +134,9 @@ static CGFloat const PXGaugeMargin = 30.0;
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if (self.auditData.countryEstimate < 0 ||
         self.auditData.demographicEstimate < 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Please answer all the questions" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
+        
+        [[UIAlertController simpleAlertWithTitle:nil msg:@"Please answer all the questions" buttonTxt:@"Ok"] showIn:self];
+        
         return NO;
     }
     return YES;

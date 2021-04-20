@@ -87,7 +87,13 @@
             NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0];
             [containerView addConstraint:constraint];
             [self.heightConstraints addObject:constraint];
-        }
+        }/* else {
+            [containerView sizeToFit];
+            CGFloat h = containerView.frame.size.height;
+            NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:h];
+            [containerView addConstraint:constraint];
+            [self.heightConstraints addObject:constraint];
+        }*/
     }
     [self setNeedsLayout];
     [self layoutIfNeeded];

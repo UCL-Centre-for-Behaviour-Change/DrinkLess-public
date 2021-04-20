@@ -11,7 +11,6 @@
 #import "PXRecordCell.h"
 #import "PXGoal+Extras.h"
 #import "PXItemListVC.h"
-#import "FPPopoverController.h"
 #import "PXCoreDataManager.h"
 #import "NSManagedObject+PXFindByID.h"
 #import "PXGoalCalculator.h"
@@ -30,7 +29,7 @@ static NSInteger const PXToggleSection = 1;
 @property (weak, nonatomic) IBOutlet PXRecordCell *targetMaxCell;
 @property (weak, nonatomic) IBOutlet PXRecordCell *toggleCell;
 @property (weak, nonatomic) IBOutlet UILabel *guideLabl;
-@property (strong, nonatomic) FPPopoverController *popoverVC;
+@property (strong, nonatomic) PopoverVC *popoverVC;
 @property (nonatomic, getter = isNewGoal) BOOL newGoal;
 @property (nonatomic, getter = shouldStartAsNewGoal) BOOL startAsNewGoal;
 @property (strong, nonatomic) NSManagedObjectContext *context;
@@ -372,7 +371,7 @@ static NSInteger const PXToggleSection = 1;
     itemListVC.delegate = self;
     
     CGFloat height = (list.count + 1) * self.tableView.rowHeight;
-    CGFloat maxHeight = self.tableView.rowHeight * 5;
+    CGFloat maxHeight = self.tableView.rowHeight * 4;
     if (height > maxHeight) {
         height = maxHeight;
     }
@@ -380,12 +379,16 @@ static NSInteger const PXToggleSection = 1;
 }
 
 - (void)showPopoverWithViewController:(UIViewController *)viewController fromView:(UIView *)view size:(CGSize)size {
-    self.popoverVC = [[FPPopoverController alloc] initWithViewController:viewController];
-    self.popoverVC.border = NO;
-    self.popoverVC.tint = FPPopoverPureWhiteTint;
-    self.popoverVC.contentSize = size;
-    [self.popoverVC setShadowsHidden:YES];
-    [self.popoverVC presentPopoverFromView:view];
+    
+    PXRecordCell *recCell = (PXRecordCell *)view;
+    CGSize s = recCell.valueLabel.frame.size;
+    CGPoint pt = recCell.valueLabel.frame.origin;
+    pt.x = 0;
+    CGRect r = CGRectMake(pt.x, pt.y, s.width, s.height);
+    
+    self.popoverVC = [[PopoverVC alloc] initWithContentVC:viewController preferredSize:size sourceView:recCell.valueLabel sourceRect:r];
+    
+    [self presentViewController:self.popoverVC animated:YES completion:nil];
 }
 
 - (void)showUnitGiude {
@@ -425,7 +428,7 @@ static NSInteger const PXToggleSection = 1;
         [self updateDefaults];
         [self.tableView reloadData];
     }
-    [self.popoverVC dismissPopoverAnimated:YES];
+    [self.popoverVC dismissViewControllerAnimated:YES completion:nil];
     
     [self showUnitGiude];
 }

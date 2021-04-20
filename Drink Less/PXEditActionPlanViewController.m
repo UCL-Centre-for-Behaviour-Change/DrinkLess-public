@@ -121,8 +121,7 @@
     self.actionPlan.thenText = self.thenTextView.text;
     NSString *errorMessage = self.actionPlan.errorMessage;
     if (errorMessage) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
+        [[UIAlertController simpleAlertWithTitle:nil msg:errorMessage buttonTxt:@"Ok"] showIn:self];
         return;
     }
     [self.delegate didFinishEditing:self];

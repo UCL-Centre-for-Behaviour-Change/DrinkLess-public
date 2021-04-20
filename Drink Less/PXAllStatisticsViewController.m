@@ -148,18 +148,22 @@ static NSString *const PXDataTypeKey = @"dataType";
         const CGFloat GOAL_PAD = 5;
         CGFloat maxYValue = [self.allStatistics.maxValues[yKey] floatValue];
         
-        if (maxYValue < (goal + GOAL_PAD)) {
-            maxYValue = goal + GOAL_PAD;
-        }
-        if (maxYValue < 16) {
-            maxYValue = 16;
-            // has 8 divisions
+        if (consumptionType == PXConsumptionTypeAlcoholFreeDays) {
+            maxYValue = 7;
         } else {
-            const int DIVISIONS = 9;
-            maxYValue = ceil(maxYValue);
-            maxYValue += DIVISIONS - (float)((int)maxYValue % DIVISIONS);
-        }
         
+            if (maxYValue < (goal + GOAL_PAD)) {
+                maxYValue = goal + GOAL_PAD;
+            }
+            if (maxYValue < 16) {
+                maxYValue = 16;
+                // has 8 divisions
+            } else {
+                const int DIVISIONS = 9;
+                maxYValue = ceil(maxYValue);
+                maxYValue += DIVISIONS - (float)((int)maxYValue % DIVISIONS);
+            }
+        }
         
         [self.barPlot setXTitle:@"Week ending"
                          yTitle:unitsLabel

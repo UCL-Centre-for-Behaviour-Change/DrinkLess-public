@@ -103,7 +103,7 @@
 //            [self.navigationController pushViewController:vc animated:YES];
 //            return NO;
         } else {
-            [[UIApplication sharedApplication] openURL:url];
+            [[UIApplication sharedApplication] openURL:url options:@{UIApplicationOpenURLOptionUniversalLinksOnly: @NO} completionHandler:nil];
             return NO;
         }
 
@@ -117,14 +117,13 @@
     } else if (self.openedOutsideOnboarding) {
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        PXIntroManager *introManager = [PXIntroManager sharedManager];
-        introManager.stage = PXIntroStageAuditQuestions;
-        [introManager save];
-        if (MRTNotificationsManager.shared.isWithinTrialRegistrationDates && !AppConfig.userHasOptedOut) {
-            [self performSegueWithIdentifier:@"PrivacyPolicyAcknowledgedSegueMRTVersion" sender:self];
-        } else {
-            [self performSegueWithIdentifier:@"PrivacyPolicyAcknowledgedSegue" sender:self];
-        }
+        // Swap when the trial is done
+
+//        PXIntroManager *introManager = [PXIntroManager sharedManager];
+//        introManager.stage = PXIntroStageAuditQuestions;
+//        [introManager save];
+//        [self performSegueWithIdentifier:@"PrivacyPolicyAcknowledgedSegue" sender:self];
+        [self performSegueWithIdentifier:@"TrialParticipantRegisterSegue" sender:self];
     }
 }
 
@@ -139,6 +138,7 @@
     }
     AppConfig.userHasOptedOut = YES;
     DataServer.shared.isEnabled = NO;
+    Analytics.shared.userOptedOut = YES;
     
     [self closeVC];
 }
@@ -151,6 +151,7 @@
     [DataServer.shared setUserOptOut:NO callback:nil];
     AppConfig.userHasOptedOut = NO;
     DataServer.shared.isEnabled = YES;
+    Analytics.shared.userOptedOut = NO;
     
     [self closeVC];
 }
