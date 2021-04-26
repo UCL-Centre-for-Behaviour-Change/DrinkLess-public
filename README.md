@@ -1,8 +1,10 @@
-Drink Less app – public release (v1.0)
+Drink Less app – public release
 ======================================
 
 Drink Less is a smartphone application to help its users reduce their alcohol 
-consumption. The content of the app is described in full here: 
+consumption. 
+The content of v2.0 of tha app is described in full here: https://osf.io/akqy9/
+The content of v1.0 of the app is described in full here: 
 https://academic.oup.com/tbm/advance-article/doi/10.1093/tbm/iby043/4992624
 
 License:
